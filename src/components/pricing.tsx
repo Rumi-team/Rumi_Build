@@ -1,5 +1,5 @@
-const CALENDLY_URL = "https://calendly.com/ali-rumi/discovery";
-const STRIPE_URL = "https://buy.stripe.com/rumi-sprint";
+const CALENDLY_URL = "https://cal.com/rumi.team/30min";
+const STRIPE_URL = "https://buy.stripe.com/REPLACE_ME";
 
 export function Pricing() {
   return (

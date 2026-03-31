@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "precheck": "! grep -rn 'calendly.com/ali-rumi\\|buy.stripe.com/rumi' src/ || (echo 'ERROR: Replace placeholder URLs before deploy' && exit 1)",
+    "precheck": "! grep -rn 'REPLACE_ME' src/ || (echo 'ERROR: Replace placeholder Stripe URL before deploy' && exit 1)",
     "build": "pnpm precheck && next build",
     "start": "next start",
     "lint": "next lint"

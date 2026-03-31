@@ -1,4 +1,4 @@
-const CALENDLY_URL = "https://calendly.com/ali-rumi/discovery";
+const CALENDLY_URL = "https://cal.com/rumi.team/30min";
 
 const BEFORE = [
   "Outdated design from 2018",
