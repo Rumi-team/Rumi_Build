@@ -1,5 +1,5 @@
 const CALENDLY_URL = "https://cal.com/rumi.team/30min";
-const STRIPE_URL = "https://buy.stripe.com/REPLACE_ME";
+const STRIPE_URL = "#"; // TODO: Replace with real Stripe payment link
 
 export function Pricing() {
   return (
