@@ -14,6 +14,27 @@ const AFTER = [
   "Online engagement integrated",
 ];
 
+const PORTFOLIO = [
+  {
+    label: "iOS / Web App Development",
+    title: "Rumi — AI Coaching Platform",
+    description:
+      "Full-stack AI coaching app with voice agent, real-time sessions, and personalized progress tracking. Built with Next.js, SwiftUI, and LiveKit.",
+    url: "https://www.rumi.team",
+    stat: "iOS + Web",
+    statLabel: "platforms shipped",
+  },
+  {
+    label: "B2B Dashboard Development",
+    title: "Rumi Agent — Retention Analytics",
+    description:
+      "Data-driven retention dashboard with AI-powered decision engine, cohort analysis, and automated outreach optimization.",
+    url: "https://www.rumiagent.com",
+    stat: "12 pages",
+    statLabel: "analytics dashboard",
+  },
+];
+
 export function CaseStudy() {
   return (
     <section
@@ -23,7 +44,7 @@ export function CaseStudy() {
     >
       <div className="mx-auto max-w-4xl">
         <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-          Case Study
+          Our Work
         </p>
         <h2
           id="case-study-heading"
@@ -32,9 +53,10 @@ export function CaseStudy() {
           Real results, not slide decks
         </h2>
 
-        <div className="rounded-2xl border border-zinc-700 bg-zinc-800/50 p-6 md:p-10">
+        {/* Website redesign case study */}
+        <div className="rounded-2xl border border-zinc-700 bg-zinc-800/50 p-6 md:p-10 mb-6">
           <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-2">
-            Community Organization
+            Website Redesign
           </p>
           <h3 className="text-xl md:text-2xl font-bold mb-6">
             Complete website redesign with AI-powered content
@@ -76,7 +98,7 @@ export function CaseStudy() {
             </div>
           </div>
 
-          <div className="flex gap-10 border-t border-zinc-700 pt-6 mb-8">
+          <div className="flex gap-10 border-t border-zinc-700 pt-6">
             <div>
               <p className="font-mono text-3xl font-bold text-amber-400">
                 3 days
@@ -90,16 +112,45 @@ export function CaseStudy() {
               <p className="text-sm text-zinc-400">saved on manual updates</p>
             </div>
           </div>
-
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block rounded-lg bg-amber-400 px-7 py-3.5 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
-          >
-            Book Free Call
-          </a>
         </div>
+
+        {/* Portfolio cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {PORTFOLIO.map((project) => (
+            <a
+              key={project.url}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-xl border border-zinc-700 bg-zinc-800/30 p-6 transition hover:border-amber-400/50 hover:bg-zinc-800/50 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+            >
+              <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-2">
+                {project.label}
+              </p>
+              <h3 className="text-lg font-semibold mb-2 group-hover:text-amber-400 transition">
+                {project.title}
+              </h3>
+              <p className="text-sm text-zinc-400 mb-4">{project.description}</p>
+              <div className="flex items-baseline gap-2 border-t border-zinc-700 pt-4">
+                <span className="font-mono text-xl font-bold text-amber-400">
+                  {project.stat}
+                </span>
+                <span className="text-sm text-zinc-400">
+                  {project.statLabel}
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block rounded-lg bg-amber-400 px-7 py-3.5 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+        >
+          Book Free Call
+        </a>
       </div>
     </section>
   );
