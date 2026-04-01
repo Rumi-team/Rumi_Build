@@ -6,10 +6,11 @@ export function Nav() {
       aria-label="Main"
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 border-b border-zinc-800 bg-zinc-900/95 backdrop-blur"
     >
-      <span className="text-xl font-bold tracking-tight">
-        <span className="text-amber-400">rumi</span>
-        <span className="text-zinc-400">.build</span>
-      </span>
+      <img
+        src="/rumi-logo.png"
+        alt="Rumi"
+        className="h-8"
+      />
       <a
         href={CALENDLY_URL}
         target="_blank"
