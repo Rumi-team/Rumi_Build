@@ -7,10 +7,10 @@ export function Footer() {
       <p className="text-sm text-zinc-500 mt-2">
         Questions?{" "}
         <a
-          href="mailto:ali@rumi.team"
+          href="mailto:support@rumi.team"
           className="text-zinc-400 underline underline-offset-2 hover:text-zinc-200 transition focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
         >
-          ali@rumi.team
+          support@rumi.team
         </a>
       </p>
     </footer>

@@ -7,7 +7,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Rumi Build — AI Automation in Days, Not Months",
   description:
-    "We build working AI automations for your business in 5 days. Free 15-minute discovery call, then a focused sprint to ship your first AI workflow.",
+    "We build working AI automations for your business in 5 days. Free 30-minute discovery call, then a focused sprint to ship your first AI workflow.",
   openGraph: {
     title: "Rumi Build — AI Automation in Days, Not Months",
     description: "Working AI automations for your business. Free discovery call.",

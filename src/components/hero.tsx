@@ -18,7 +18,7 @@ export function Hero() {
 
         <p className="mx-auto max-w-xl text-lg text-zinc-400 mb-8">
           Most consultants give you a roadmap. We give you working software.
-          Free 15-minute discovery call, then a 5-day sprint to build your first
+          Free 30-minute discovery call, then a 5-day sprint to build your first
           AI workflow.
         </p>
 

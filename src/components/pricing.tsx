@@ -66,7 +66,7 @@ export function Pricing() {
             rel="noopener noreferrer"
             className="text-amber-400 underline underline-offset-2 hover:text-amber-300"
           >
-            free 15-minute discovery call
+            free 30-minute discovery call
           </a>{" "}
           to make sure we&apos;re the right fit.
         </p>

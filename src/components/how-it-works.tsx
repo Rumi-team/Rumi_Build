@@ -2,7 +2,7 @@ const STEPS = [
   {
     num: 1,
     title: "Discovery Call",
-    desc: "Free 15-minute video call. We learn your business, identify the manual process costing you the most time.",
+    desc: "Free 30-minute video call. We learn your business, identify the manual process costing you the most time.",
   },
   {
     num: 2,
