@@ -3,18 +3,17 @@ const TEAM = [
     name: "Ali Naeini, Ph.D",
     role: "CEO",
     photo: "/team-ali.jpeg",
-    school: "Cal",
+    school: "UC Berkeley",
     experience: [
       "AI leader at Business Insider & Spotter ($1B+ each)",
       "Products used by millions, $100M+ revenue impact",
-      "Multiple Landmark graduate, firsthand insight into post-seminar decay",
     ],
   },
   {
     name: "Saba Fazel",
     role: "CPO",
     photo: null,
-    school: "UCLA",
+    school: "University of California, Los Angeles",
     experience: [
       "Built participatory systems at UN with direct feedback loops",
       "Converts qualitative user insight into product direction",
@@ -25,7 +24,7 @@ const TEAM = [
     name: "Parnian Fazel",
     role: "CTO",
     photo: null,
-    school: "Imperial",
+    school: "Imperial College London",
     experience: [
       "Applied ML for agentic AI assistants",
       "Built personalization systems processing millions of daily predictions",
