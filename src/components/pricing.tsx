@@ -4,7 +4,7 @@ const TIERS = [
   {
     name: "AI Workflow Sprint",
     price: "$500",
-    stripe: "https://buy.stripe.com/aFa5kwgeR8ae5AL7KA0RG00",
+    stripe: "/sprint",
     description: "5-day focused build sprint. One AI automation workflow delivered as working software.",
     features: [
       "1 AI workflow delivered",
@@ -14,12 +14,12 @@ const TIERS = [
     ],
     cta: "Start Sprint",
     featured: false,
-    internal: false,
+    internal: true,
   },
   {
     name: "AI Automation Package",
     price: "$1,500",
-    stripe: "https://buy.stripe.com/14AaEQ6EhgGK6EP0i80RG01",
+    stripe: "/automation",
     description: "Multi-workflow automation build. Up to 3 connected AI workflows in 2 weeks.",
     features: [
       "Up to 3 connected workflows",
@@ -29,7 +29,7 @@ const TIERS = [
     ],
     cta: "Get Started",
     featured: true,
-    internal: false,
+    internal: true,
   },
   {
     name: "Full AI Integration",
