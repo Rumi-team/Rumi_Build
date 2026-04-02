@@ -14,6 +14,7 @@ const TIERS = [
     ],
     cta: "Start Sprint",
     featured: false,
+    internal: false,
   },
   {
     name: "AI Automation Package",
@@ -28,11 +29,12 @@ const TIERS = [
     ],
     cta: "Get Started",
     featured: true,
+    internal: false,
   },
   {
     name: "Full AI Integration",
     price: "From $5,000",
-    stripe: "https://buy.stripe.com/cNi6oAe6J8ae4wHaWM0RG02",
+    stripe: "/deposit",
     description: "End-to-end AI automation for your business. Custom-scoped, delivered in 4 weeks.",
     features: [
       "Custom-scoped project",
@@ -42,6 +44,7 @@ const TIERS = [
     ],
     cta: "Deposit",
     featured: false,
+    internal: true,
   },
 ];
 
@@ -111,8 +114,7 @@ export function Pricing() {
               </ul>
               <a
                 href={tier.stripe}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...(!tier.internal && { target: "_blank", rel: "noopener noreferrer" })}
                 className={`block w-full rounded-lg py-3.5 text-center text-base font-semibold transition focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 ${
                   tier.featured
                     ? "bg-amber-400 text-zinc-900 hover:bg-amber-300"
