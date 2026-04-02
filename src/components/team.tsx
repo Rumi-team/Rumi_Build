@@ -13,9 +13,8 @@ const TEAM = [
     name: "Saba Fazel",
     role: "CPO",
     photo: "/team-saba.jpeg",
-    school: "University of California, Los Angeles",
+    school: "UCLA",
     experience: [
-      "Built participatory systems at UN with direct feedback loops",
       "Converts qualitative user insight into product direction",
       "Data Science @ UCLA",
     ],
@@ -97,7 +96,7 @@ export function Team() {
                 {member.experience.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-2 text-sm text-zinc-400"
+                    className="flex items-start gap-2 text-base md:text-lg text-zinc-400"
                   >
                     <span className="text-amber-400 mt-0.5">&#8226;</span>
                     {item}
