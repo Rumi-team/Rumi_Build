@@ -70,10 +70,13 @@ export function Team() {
         </p>
         <h2
           id="team-heading"
-          className="text-3xl font-bold tracking-tight mb-10"
+          className="text-3xl font-bold tracking-tight mb-3"
         >
           Built by people who&apos;ve done it at scale
         </h2>
+        <p className="text-zinc-400 mb-10">
+          Management team — backed by a dedicated engineering and design team.
+        </p>
 
         <div className="space-y-6">
           {TEAM.map((member) => (
