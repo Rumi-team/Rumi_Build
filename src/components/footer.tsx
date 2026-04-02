@@ -18,17 +18,6 @@ export function Footer() {
           >
             &hearts; Contact Support
           </a>
-          <p className="text-xs text-zinc-500 mt-2">
-            For developers &amp; enterprise &rarr;{" "}
-            <a
-              href="https://www.rumiagent.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition"
-            >
-              rumiagent.com
-            </a>
-          </p>
         </div>
       </div>
     </footer>

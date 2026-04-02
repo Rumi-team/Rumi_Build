@@ -31,7 +31,7 @@ const TIERS = [
   },
   {
     name: "Full AI Integration",
-    price: "$5,000",
+    price: "From $5,000",
     stripe: "https://buy.stripe.com/cNi6oAe6J8ae4wHaWM0RG02",
     description: "End-to-end AI automation for your business. Custom-scoped, delivered in 4 weeks.",
     features: [
@@ -40,7 +40,7 @@ const TIERS = [
       "Dedicated Slack channel",
       "90 days support + docs + training",
     ],
-    cta: "Contact Us",
+    cta: "Deposit",
     featured: false,
   },
 ];
