@@ -12,7 +12,7 @@ const TEAM = [
   {
     name: "Saba Fazel",
     role: "CPO",
-    photo: null,
+    photo: "/team-saba.jpeg",
     school: "University of California, Los Angeles",
     experience: [
       "Built participatory systems at UN with direct feedback loops",
@@ -23,10 +23,9 @@ const TEAM = [
   {
     name: "Parnian Fazel",
     role: "CTO",
-    photo: null,
+    photo: "/team-parnian.jpeg",
     school: "Imperial College London",
     experience: [
-      "Applied ML for agentic AI assistants",
       "Built personalization systems processing millions of daily predictions",
       "MSc Machine Learning @ Imperial College London",
     ],

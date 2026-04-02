@@ -9,7 +9,7 @@ export function Nav() {
       <img
         src="/rumi-logo.png"
         alt="Rumi"
-        className="h-8"
+        className="h-10"
       />
       <a
         href={CALENDLY_URL}
