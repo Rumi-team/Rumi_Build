@@ -47,7 +47,7 @@ export function MobileMenu() {
       </button>
 
       {open && (
-        <div className="absolute top-16 left-0 right-0 border-b border-zinc-800 bg-zinc-900/98 backdrop-blur-xl px-6 pb-6 pt-2 z-40">
+        <div className="absolute top-16 left-0 right-0 border-b border-zinc-800 bg-zinc-900 px-6 pb-6 pt-2 z-40">
           <div className="flex flex-col gap-1">
             {LINKS.map((link) => (
               <a
