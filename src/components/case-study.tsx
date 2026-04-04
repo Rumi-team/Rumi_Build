@@ -1,4 +1,4 @@
-const CALENDLY_URL = "https://cal.com/rumi.team/30min";
+import { PORTFOLIO } from "@/lib/data";
 
 const BEFORE = [
   "Outdated design from 2018",
@@ -12,27 +12,6 @@ const AFTER = [
   "AI-generated content from existing materials",
   "Automated event calendar",
   "Online engagement integrated",
-];
-
-const PORTFOLIO = [
-  {
-    label: "iOS / Web App Development",
-    title: "Rumi — AI Coaching Platform",
-    description:
-      "Full-stack AI coaching app with voice agent, real-time sessions, and personalized progress tracking. Built with Next.js, SwiftUI, and LiveKit.",
-    url: "https://www.rumi.team",
-    stat: "iOS + Web",
-    statLabel: "platforms shipped",
-  },
-  {
-    label: "B2B Dashboard Development",
-    title: "Rumi Agent — Retention Analytics",
-    description:
-      "Data-driven retention dashboard with AI-powered decision engine, cohort analysis, and automated outreach optimization.",
-    url: "https://www.rumiagent.com",
-    stat: "12 pages",
-    statLabel: "analytics dashboard",
-  },
 ];
 
 export function CaseStudy() {
@@ -130,7 +109,9 @@ export function CaseStudy() {
               <h3 className="text-lg font-semibold mb-2 group-hover:text-amber-400 transition">
                 {project.title}
               </h3>
-              <p className="text-sm text-zinc-400 mb-4">{project.description}</p>
+              <p className="text-sm text-zinc-400 mb-4">
+                {project.description}
+              </p>
               <div className="flex items-baseline gap-2 border-t border-zinc-700 pt-4">
                 <span className="font-mono text-xl font-bold text-amber-400">
                   {project.stat}
@@ -142,7 +123,6 @@ export function CaseStudy() {
             </a>
           ))}
         </div>
-
       </div>
     </section>
   );
