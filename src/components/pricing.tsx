@@ -2,7 +2,7 @@ import { CALENDLY_URL, TIERS } from "@/lib/data";
 
 export function Pricing() {
   return (
-    <section aria-labelledby="pricing-heading" className="py-20 px-6">
+    <section aria-labelledby="pricing-heading" className="py-20 px-6 section-alt section-divider">
       <div className="mx-auto max-w-5xl">
         <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
           Pricing
@@ -32,8 +32,8 @@ export function Pricing() {
               key={tier.name}
               className={`rounded-xl p-8 relative flex flex-col ${
                 tier.featured
-                  ? "border border-amber-400 bg-zinc-800/50"
-                  : "border border-zinc-700 bg-zinc-800/30"
+                  ? "card-glass card-featured"
+                  : "card-glass"
               }`}
             >
               {tier.featured && (
@@ -45,7 +45,7 @@ export function Pricing() {
               <p className="text-sm text-zinc-400 mb-4">{tier.description}</p>
               <p
                 className={`font-mono text-4xl font-bold mb-2 ${
-                  tier.featured ? "text-amber-400" : "text-zinc-200"
+                  tier.featured ? "price-highlight" : "text-zinc-200"
                 }`}
               >
                 {tier.price}
@@ -57,8 +57,8 @@ export function Pricing() {
                     key={item}
                     className={`text-sm border-b pb-3 ${
                       tier.featured
-                        ? "text-zinc-300 border-zinc-700"
-                        : "text-zinc-400 border-zinc-800"
+                        ? "text-zinc-300 border-zinc-700/50"
+                        : "text-zinc-400 border-zinc-800/50"
                     }`}
                   >
                     {item}
@@ -69,8 +69,8 @@ export function Pricing() {
                 href={tier.href}
                 className={`block w-full rounded-lg py-3.5 text-center text-base font-semibold transition focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 ${
                   tier.featured
-                    ? "bg-amber-400 text-zinc-900 hover:bg-amber-300"
-                    : "border border-zinc-700 text-zinc-300 hover:border-zinc-500"
+                    ? "bg-amber-400 text-zinc-900 hover:bg-amber-300 hover:shadow-[0_0_24px_rgba(251,191,36,0.25)]"
+                    : "border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:bg-zinc-800/50"
                 }`}
               >
                 {tier.cta}

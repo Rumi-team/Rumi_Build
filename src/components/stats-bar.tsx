@@ -2,7 +2,8 @@ import { STATS } from "@/lib/data";
 
 export function StatsBar() {
   return (
-    <section className="border-y border-zinc-800 bg-zinc-800/40 py-12 px-6">
+    <section className="relative py-12 px-6">
+      <div className="stats-accent absolute top-0 left-0 right-0" />
       <div className="mx-auto max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         {STATS.map((stat) => (
           <div key={stat.label}>
@@ -13,6 +14,7 @@ export function StatsBar() {
           </div>
         ))}
       </div>
+      <div className="stats-accent absolute bottom-0 left-0 right-0" />
     </section>
   );
 }

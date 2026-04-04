@@ -22,8 +22,7 @@ export function ServiceCard({
     </>
   );
 
-  const className =
-    "flex flex-col rounded-xl border border-zinc-700 bg-zinc-800/30 p-6 transition hover:border-zinc-600";
+  const className = "flex flex-col rounded-xl p-6 card-glass";
 
   if (linked) {
     return (

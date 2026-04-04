@@ -6,7 +6,6 @@ import { CaseStudy } from "@/components/case-study";
 import { IndustriesPreview } from "@/components/industries-preview";
 import { HowItWorks } from "@/components/how-it-works";
 import { Pricing } from "@/components/pricing";
-import { TeamTeaser } from "@/components/team-teaser";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
         <IndustriesPreview />
         <HowItWorks />
         <Pricing />
-        <TeamTeaser />
       </main>
       <Footer />
     </>

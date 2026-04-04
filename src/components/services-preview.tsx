@@ -1,12 +1,11 @@
 import { SERVICES } from "@/lib/data";
 import { ServiceCard } from "./service-card";
 
-// Top 3 highest-margin services for homepage preview
 const TOP_SERVICES = SERVICES.slice(0, 3);
 
 export function ServicesPreview() {
   return (
-    <section className="py-20 px-6">
+    <section className="py-20 px-6 section-alt section-divider">
       <div className="mx-auto max-w-5xl">
         <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
           Services
