@@ -21,35 +21,35 @@ export interface TeamMember {
 export const TEAM: TeamMember[] = [
   {
     name: "Ali Naeini, Ph.D",
-    role: "CEO",
+    role: "Chief Executive Officer",
     photo: "/team-ali.jpeg",
-    school: "UC Berkeley",
+    school: "",
     experience: [
-      "AI leader at Business Insider & Spotter ($1B+ each)",
-      "Products used by millions, $100M+ revenue impact",
-      "PhD in AI/ML from UC Berkeley",
+      "Led AI at Business Insider & Spotter ($1B+ startups)",
+      "Shipped products to millions of users, $100M+ revenue impact",
+      "PhD @ UC Berkeley & Merced",
     ],
   },
   {
     name: "Saba Fazel",
-    role: "CPO",
+    role: "Chief Product Officer",
     photo: "/team-saba.jpeg",
-    school: "UCLA",
+    school: "",
     experience: [
-      "Converts qualitative user insight into product direction",
+      "Turns complex business problems into clear product roadmaps",
+      "Bridges the gap between what AI can do and what your team needs",
       "Data Science @ UCLA",
-      "Product strategy for AI-native applications",
     ],
   },
   {
     name: "Parnian Fazel",
-    role: "CTO",
+    role: "Chief Technology Officer",
     photo: "/team-parnian.jpeg",
-    school: "Imperial College London",
+    school: "",
     experience: [
       "Built personalization systems processing millions of daily predictions",
+      "Ships end-to-end: architecture, backend, infrastructure, deployment",
       "MSc Machine Learning @ Imperial College London",
-      "Full-stack AI: backend, infrastructure, deployment",
     ],
   },
 ];

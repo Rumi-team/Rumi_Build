@@ -54,7 +54,6 @@ export default function TeamPage() {
                   <p className="text-base font-semibold mt-1.5">
                     {member.name}
                   </p>
-                  <p className="text-xs text-zinc-500">{member.school}</p>
                 </div>
                 <ul className="space-y-2 mt-auto">
                   {member.experience.map((item) => (
