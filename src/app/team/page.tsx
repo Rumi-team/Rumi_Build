@@ -89,39 +89,92 @@ export default function TeamPage() {
               ourselves.
             </p>
 
-            <div className="rounded-xl border border-zinc-700 bg-zinc-800/30 p-8 flex flex-col sm:flex-row gap-6 items-start">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-amber-400/10 text-2xl">
-                &#x1F30A;
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Rumi AI Coaching
-                </h3>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-                  A voice AI coaching app that listens, surfaces behavioral
-                  patterns, and follows up until change sticks. Real-time voice
-                  processing, reinforcement learning, 20-step transformation
-                  program. Built on LiveKit, deployed on GCP and Vercel. iOS +
-                  Web.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Voice AI",
-                    "LiveKit",
-                    "Reinforcement Learning",
-                    "Mobile + Web",
-                    "GCP Cloud Run",
-                    "Vercel",
-                  ].map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-xs text-zinc-500 bg-zinc-800 border border-zinc-700 rounded px-2 py-0.5"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+            <div className="space-y-5">
+              <a
+                href="https://www.rumi.team"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block rounded-xl border border-zinc-700 bg-zinc-800/30 p-8 transition hover:border-amber-400/40"
+              >
+                <div className="flex flex-col sm:flex-row gap-6 items-start">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-amber-400/10 text-2xl">
+                    &#x1F399;&#xFE0F;
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2 group-hover:text-amber-400 transition">
+                      AI Coaching App
+                    </h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                      Built a full voice AI product from zero to production.
+                      Real-time speech processing, personalized coaching engine
+                      with reinforcement learning, and a 20-step behavior change
+                      program. Shipped on iOS and web, handling live voice
+                      sessions at scale. The same AI, voice, and real-time
+                      infrastructure we deploy for our clients.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        "Voice AI",
+                        "Real-time Processing",
+                        "Reinforcement Learning",
+                        "iOS + Web",
+                        "GCP Cloud Run",
+                        "Vercel",
+                      ].map((tag) => (
+                        <span
+                          key={tag}
+                          className="font-mono text-xs text-zinc-500 bg-zinc-800 border border-zinc-700 rounded px-2 py-0.5"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </a>
+
+              <a
+                href="https://www.rumiagent.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block rounded-xl border border-zinc-700 bg-zinc-800/30 p-8 transition hover:border-amber-400/40"
+              >
+                <div className="flex flex-col sm:flex-row gap-6 items-start">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-amber-400/10 text-2xl">
+                    &#x1F916;
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2 group-hover:text-amber-400 transition">
+                      Agentic AI Platform
+                    </h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                      Built an autonomous AI decision engine that optimizes user
+                      retention across channels. Thompson Sampling, multi-armed
+                      bandits, and LLM-powered message personalization. 12-page
+                      analytics dashboard with cohort analysis, A/B testing, and
+                      real-time decision monitoring. The same data-driven
+                      automation stack we bring to client projects.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        "Agentic AI",
+                        "Thompson Sampling",
+                        "LLM Pipeline",
+                        "Analytics Dashboard",
+                        "FastAPI",
+                        "Supabase",
+                      ].map((tag) => (
+                        <span
+                          key={tag}
+                          className="font-mono text-xs text-zinc-500 bg-zinc-800 border border-zinc-700 rounded px-2 py-0.5"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </section>
