@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
+import { CALENDLY_URL, STRIPE_URLS } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "AI Automation Package — $1,500 | Rumi Build",
@@ -6,19 +9,12 @@ export const metadata: Metadata = {
     "Multi-workflow automation build. Up to 3 connected AI workflows delivered in 2 weeks.",
 };
 
-const STRIPE_URL = "https://buy.stripe.com/14AaEQ6EhgGK6EP0i80RG01";
-const CALENDLY_URL = "https://cal.com/rumi.team/30min";
-
 export default function AutomationPage() {
   return (
-    <div className="min-h-screen bg-zinc-900 text-zinc-200">
+    <>
+      <Nav />
+      <div className="min-h-screen bg-zinc-900 text-zinc-200 pt-16">
       <div className="mx-auto max-w-2xl px-6 py-20">
-        <a
-          href="/"
-          className="text-sm text-zinc-500 hover:text-zinc-300 transition mb-8 inline-block"
-        >
-          &larr; Back to rumi.build
-        </a>
 
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
           AI Automation Package
@@ -100,7 +96,7 @@ export default function AutomationPage() {
 
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <a
-            href={STRIPE_URL}
+            href={STRIPE_URLS.automation}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg bg-amber-400 px-8 py-4 text-center text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
@@ -124,5 +120,7 @@ export default function AutomationPage() {
         </p>
       </div>
     </div>
+      <Footer />
+    </>
   );
 }

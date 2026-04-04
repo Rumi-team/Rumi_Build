@@ -1,52 +1,4 @@
-const CALENDLY_URL = "https://cal.com/rumi.team/30min";
-
-const TIERS = [
-  {
-    name: "AI Workflow Sprint",
-    price: "$500",
-    stripe: "/sprint",
-    description: "5-day focused build sprint. One AI automation workflow delivered as working software.",
-    features: [
-      "1 AI workflow delivered",
-      "5-day build sprint",
-      "Daily progress updates",
-      "30 days post-launch support",
-    ],
-    cta: "Start Sprint",
-    featured: false,
-    internal: true,
-  },
-  {
-    name: "AI Automation Package",
-    price: "$1,500",
-    stripe: "/automation",
-    description: "Multi-workflow automation build. Up to 3 connected AI workflows in 2 weeks.",
-    features: [
-      "Up to 3 connected workflows",
-      "2-week build timeline",
-      "Daily progress updates",
-      "60 days support + team training",
-    ],
-    cta: "Get Started",
-    featured: true,
-    internal: true,
-  },
-  {
-    name: "Full AI Integration",
-    price: "From $5,000",
-    stripe: "/deposit",
-    description: "End-to-end AI automation for your business. Custom-scoped, delivered in 4 weeks.",
-    features: [
-      "Custom-scoped project",
-      "4-week build timeline",
-      "Dedicated Slack channel",
-      "90 days support + docs + training",
-    ],
-    cta: "Deposit",
-    featured: false,
-    internal: true,
-  },
-];
+import { CALENDLY_URL, TIERS } from "@/lib/data";
 
 export function Pricing() {
   return (
@@ -92,12 +44,13 @@ export function Pricing() {
               <h3 className="text-xl font-semibold mb-1">{tier.name}</h3>
               <p className="text-sm text-zinc-400 mb-4">{tier.description}</p>
               <p
-                className={`font-mono text-4xl font-bold mb-6 ${
+                className={`font-mono text-4xl font-bold mb-2 ${
                   tier.featured ? "text-amber-400" : "text-zinc-200"
                 }`}
               >
                 {tier.price}
               </p>
+              <p className="text-xs text-zinc-500 mb-6">{tier.roi}</p>
               <ul className="space-y-3 mb-8 flex-1">
                 {tier.features.map((item) => (
                   <li
@@ -113,8 +66,7 @@ export function Pricing() {
                 ))}
               </ul>
               <a
-                href={tier.stripe}
-                {...(!tier.internal && { target: "_blank", rel: "noopener noreferrer" })}
+                href={tier.href}
                 className={`block w-full rounded-lg py-3.5 text-center text-base font-semibold transition focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 ${
                   tier.featured
                     ? "bg-amber-400 text-zinc-900 hover:bg-amber-300"
