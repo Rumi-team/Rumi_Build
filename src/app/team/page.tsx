@@ -31,9 +31,9 @@ export default function TeamPage() {
         <section className="py-20 px-6">
           <div className="mx-auto max-w-4xl">
             <PageHeader
-              overline="Team"
+              overline="Management Team"
               title="Built by people who&apos;ve done it at scale"
-              description="We're a team of AI engineers and product builders who've shipped systems processing millions of daily predictions at companies worth billions. Now we build AI for growing businesses."
+              description="Our management team has shipped AI systems at companies worth billions. Backed by 10+ engineers and designers, we build AI that works for growing businesses."
             />
           </div>
         </section>
