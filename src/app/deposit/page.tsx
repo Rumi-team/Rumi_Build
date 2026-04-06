@@ -4,9 +4,9 @@ import { Footer } from "@/components/footer";
 import { CALENDLY_URL, STRIPE_URLS } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Full AI Integration — Deposit | Rumi Build",
+  title: "Full Integration — Deposit | Rumi Build",
   description:
-    "End-to-end AI automation for your business. Custom-scoped, delivered in 4 weeks.",
+    "Voice AI + Website + Workflow Automation. Custom-scoped, delivered in 4 weeks.",
 };
 
 export default function DepositPage() {
@@ -17,11 +17,12 @@ export default function DepositPage() {
       <div className="mx-auto max-w-2xl px-6 py-20">
 
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-          Full AI Integration
+          Full Integration
         </h1>
         <p className="text-lg text-zinc-400 mb-10">
-          End-to-end AI automation for your business. A dedicated team builds,
-          deploys, and supports a custom solution tailored to your operations.
+          Voice AI + Website + Workflow Automation working together. A dedicated
+          team builds, deploys, and supports a custom solution tailored to your
+          operations.
         </p>
 
         <div className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-8 mb-8">
@@ -30,12 +31,12 @@ export default function DepositPage() {
           </h2>
           <ul className="space-y-4">
             {[
-              "Custom-scoped project designed around your specific workflows and pain points",
+              "Voice AI agent answering calls 24/7 in 30+ languages",
+              "Custom website or web app with your design system",
+              "Workflow automation connecting voice, web, and your existing tools",
               "4-week build timeline with dedicated engineering resources",
-              "Dedicated Slack channel for real-time communication throughout the project",
-              "Full deployment to your infrastructure or ours",
-              "Team training session so your staff can use and manage the system independently",
-              "Comprehensive documentation covering architecture, usage, and maintenance",
+              "Dedicated Slack channel for real-time communication",
+              "Team training so your staff can manage everything independently",
               "90 days of post-launch support including bug fixes and adjustments",
             ].map((item) => (
               <li
