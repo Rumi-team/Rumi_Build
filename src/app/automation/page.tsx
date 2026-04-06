@@ -4,9 +4,9 @@ import { Footer } from "@/components/footer";
 import { CALENDLY_URL, STRIPE_URLS } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "AI Automation Package — $1,500 | Rumi Build",
+  title: "Website Sprint — $1,500 | Rumi Build",
   description:
-    "Multi-workflow automation build. Up to 3 connected AI workflows delivered in 2 weeks.",
+    "Full website delivered in 5 days. Modern design, mobile-first, CMS-ready.",
 };
 
 export default function AutomationPage() {
@@ -17,24 +17,24 @@ export default function AutomationPage() {
       <div className="mx-auto max-w-2xl px-6 py-20">
 
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-          AI Automation Package
+          Website Sprint
         </h1>
         <p className="text-lg text-zinc-400 mb-10">
-          Up to 3 connected AI workflows built and deployed in 2 weeks. For
-          businesses that need multiple processes automated and working together.
+          Full website delivered in 5 days. Custom design system, mobile-first,
+          with CMS or admin panel. From first call to live site in under a week.
         </p>
 
         <div className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-8 mb-8">
           <h2 className="text-xl font-semibold mb-6">What&apos;s included</h2>
           <ul className="space-y-4">
             {[
-              "Up to 3 connected AI workflows that work together as a system",
-              "2-week build timeline with daily progress updates",
-              "All workflows deployed and accessible via live URLs",
-              "Loom walkthroughs for each workflow showing how everything connects",
-              "Team training session so your staff can use the system independently",
+              "Custom design system tailored to your brand identity",
+              "Mobile-first responsive website built with Next.js",
+              "CMS or admin panel for easy content management",
+              "SEO optimization and structured data markup",
+              "Loom walkthrough showing how to manage your site",
               "Source code delivered in a GitHub repository",
-              "60 days of post-launch support including bug fixes and adjustments",
+              "60 days of post-launch support including updates and adjustments",
             ].map((item) => (
               <li
                 key={item}
@@ -56,8 +56,7 @@ export default function AutomationPage() {
               </span>
               <span>
                 <strong className="text-zinc-200">Discovery call</strong> — Free
-                30-minute call to map out your workflows and identify which 2-3
-                processes to automate.
+                30-minute call to understand your brand, content, and goals.
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -65,9 +64,8 @@ export default function AutomationPage() {
                 2
               </span>
               <span>
-                <strong className="text-zinc-200">Scope agreement</strong> — We
-                define the exact workflows, how they connect, and what success
-                looks like.
+                <strong className="text-zinc-200">Payment</strong> — $1,500
+                one-time payment starts the 5-day sprint.
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -75,8 +73,8 @@ export default function AutomationPage() {
                 3
               </span>
               <span>
-                <strong className="text-zinc-200">Payment</strong> — $1,500
-                one-time payment starts the 2-week build.
+                <strong className="text-zinc-200">Build</strong> — We design and
+                build your website over 5 business days with daily previews.
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -84,11 +82,9 @@ export default function AutomationPage() {
                 4
               </span>
               <span>
-                <strong className="text-zinc-200">
-                  Build, train &amp; deliver
-                </strong>{" "}
-                — We build all workflows, train your team, and provide 60 days
-                of support.
+                <strong className="text-zinc-200">Launch</strong> — Your site
+                goes live. We train you on the CMS and provide 60 days of
+                support.
               </span>
             </li>
           </ol>
@@ -101,7 +97,7 @@ export default function AutomationPage() {
             rel="noopener noreferrer"
             className="rounded-lg bg-amber-400 px-8 py-4 text-center text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
           >
-            Pay $1,500 — Get Started
+            Pay $1,500 — Start Sprint
           </a>
           <a
             href={CALENDLY_URL}
@@ -114,9 +110,9 @@ export default function AutomationPage() {
         </div>
 
         <p className="text-xs text-zinc-500">
-          The specific workflows and how they connect are determined during the
-          discovery call and scope agreement. Payment starts the 2-week build.
-          Up to 3 connected workflows per package.
+          Website scope and content are determined during the discovery call.
+          Payment starts the 5-day build sprint. Includes hosting setup on
+          Vercel.
         </p>
       </div>
     </div>

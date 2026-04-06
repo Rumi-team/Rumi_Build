@@ -1,17 +1,17 @@
 import { PORTFOLIO } from "@/lib/data";
 
 const BEFORE = [
-  "Outdated design from 2018",
+  "WordPress site from 2018",
   "No mobile responsiveness",
   "Manual event updates",
-  "No online engagement tools",
+  "No bilingual support",
 ];
 
 const AFTER = [
-  "Modern, mobile-first design",
-  "AI-generated content from existing materials",
-  "Automated event calendar",
-  "Online engagement integrated",
+  "Modern bilingual design system",
+  "Prayer times API integration",
+  "Admin CMS for content management",
+  "Mobile-first responsive design",
 ];
 
 export function CaseStudy() {
@@ -32,13 +32,13 @@ export function CaseStudy() {
           Real results, not slide decks
         </h2>
 
-        {/* Website redesign case study */}
+        {/* IMAN website case study */}
         <div className="rounded-2xl border border-zinc-700 bg-zinc-800/50 p-6 md:p-10 mb-6">
           <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-2">
-            Website Redesign
+            IMAN.org — Website Redesign
           </p>
           <h3 className="text-xl md:text-2xl font-bold mb-6">
-            Complete website redesign with AI-powered content
+            Bilingual community website with custom design system
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">

@@ -8,21 +8,23 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-3xl text-center">
         <span className="inline-block rounded-full border border-zinc-700 bg-zinc-800/80 px-4 py-1.5 text-sm text-zinc-400 mb-6 backdrop-blur-sm">
-          Working AI in 5 Days
+          Voice AI &middot; Web Dev &middot; Automation
         </span>
 
         <h1
           id="hero-heading"
           className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-5"
         >
-          Your Team Saves 10+ Hours a Week.{" "}
-          <span className="text-amber-400">We Build the AI That Does It.</span>
+          AI That Pays for Itself.{" "}
+          <span className="text-amber-400">
+            From <span className="font-mono">$250</span>/mo.
+          </span>
         </h1>
 
         <p className="mx-auto max-w-xl text-lg text-zinc-400 mb-8 leading-relaxed">
-          Most consultants give you a roadmap. We give you working software.
-          Free 30-minute discovery call, then a 5-day sprint to your first AI
-          workflow.
+          Voice agents that replace your receptionist. Websites delivered in
+          days. Workflow automation that saves 10+ hours a week. For LA
+          businesses.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">

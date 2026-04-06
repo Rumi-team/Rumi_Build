@@ -9,7 +9,7 @@ import { SERVICES } from "@/lib/data";
 export const metadata: Metadata = {
   title: "AI Services — Rumi Build",
   description:
-    "Workflow automation, RAG knowledge systems, voice AI agents, document processing, and more. AI services with measurable ROI for small and medium businesses.",
+    "Voice AI agents, web and mobile apps, and workflow automation. Focused AI services with measurable cost savings for LA businesses.",
 };
 
 export default function ServicesPage() {
@@ -21,8 +21,8 @@ export default function ServicesPage() {
           <div className="mx-auto max-w-5xl">
             <PageHeader
               overline="Services"
-              title="AI services that pay for themselves"
-              description="We implement AI systems with measurable ROI. Most clients see payback within 4 months."
+              title="What We Build"
+              description="Three focused services for LA businesses. Each one pays for itself."
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {SERVICES.map((service) => (
