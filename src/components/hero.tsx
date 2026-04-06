@@ -23,8 +23,7 @@ export function Hero() {
 
         <p className="mx-auto max-w-xl text-lg text-zinc-400 mb-8 leading-relaxed">
           Voice agents that replace your receptionist. Websites delivered in
-          days. Workflow automation that saves 10+ hours a week. For LA
-          businesses.
+          days. Workflow automation that saves 10+ hours a week.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
