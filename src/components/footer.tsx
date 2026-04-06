@@ -25,18 +25,26 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="/services/workflow-automation"
-                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
-                >
-                  Workflow Automation
-                </a>
-              </li>
-              <li>
-                <a
                   href="/services/voice-ai"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
                   Voice AI Agents
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/web-mobile-apps"
+                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
+                >
+                  Web &amp; Mobile Apps
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/workflow-automation"
+                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
+                >
+                  Workflow Automation
                 </a>
               </li>
             </ul>

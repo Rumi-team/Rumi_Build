@@ -2,17 +2,17 @@ const STEPS = [
   {
     num: 1,
     title: "Discovery Call",
-    desc: "Free 30-minute video call. We learn your business, identify the manual process costing you the most time.",
+    desc: "Free 30-minute video call. We learn your business and identify where voice AI, a new website, or workflow automation will save you the most.",
   },
   {
     num: 2,
-    title: "AI Sprint",
-    desc: "5-day focused build. We create a working AI automation for your specific workflow. You see progress daily.",
+    title: "Build Sprint",
+    desc: "We build your solution in days, not months. Voice agents deploy in 1 week, websites in 5 days. You see progress daily.",
   },
   {
     num: 3,
     title: "Deploy & Support",
-    desc: "Your automation goes live. We train your team and provide 30 days of bug-fix support.",
+    desc: "Your solution goes live. We train your team and provide 30-90 days of post-launch support depending on scope.",
   },
 ];
 
