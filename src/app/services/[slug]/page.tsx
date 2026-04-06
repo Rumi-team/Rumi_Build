@@ -4,7 +4,13 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { PageHeader } from "@/components/page-header";
 import { SectionCTA } from "@/components/section-cta";
-import { SERVICES, VERTICALS, getServiceBySlug } from "@/lib/data";
+import {
+  SERVICES,
+  VERTICALS,
+  getServiceBySlug,
+  VOICE_AI_LANGUAGES,
+  VOICE_AI_MULTILINGUAL,
+} from "@/lib/data";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
@@ -85,6 +91,47 @@ export default async function ServiceDetailPage({
                 </div>
               ))}
             </div>
+
+            {/* Multilingual section (Voice AI only) */}
+            {slug === "voice-ai" && (
+              <div className="border-t border-zinc-700 pt-8 mt-8 mb-10">
+                <h2 className="text-xl font-semibold mb-4">
+                  {VOICE_AI_MULTILINGUAL.heading}
+                </h2>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+                  {VOICE_AI_MULTILINGUAL.autoDetect}
+                </p>
+
+                {/* Stat callout */}
+                <div className="rounded-lg border border-zinc-700 bg-zinc-800/30 p-6 mb-6">
+                  <p className="font-mono text-3xl font-bold text-amber-400">
+                    {VOICE_AI_MULTILINGUAL.stat}
+                  </p>
+                  <p className="text-sm text-zinc-400">
+                    {VOICE_AI_MULTILINGUAL.statLabel}
+                  </p>
+                  <p className="text-xs text-zinc-500 mt-1">
+                    Source: {VOICE_AI_MULTILINGUAL.source}
+                  </p>
+                </div>
+
+                <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+                  {VOICE_AI_MULTILINGUAL.supporting}
+                </p>
+
+                {/* Language grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                  {VOICE_AI_LANGUAGES.map((lang) => (
+                    <span
+                      key={lang}
+                      className="rounded-lg border border-zinc-700 bg-zinc-800/30 px-3 py-1.5 text-sm text-zinc-300 text-center"
+                    >
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Related industries */}
             {related.length > 0 && (
