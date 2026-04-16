@@ -62,10 +62,10 @@ export interface Stat {
 }
 
 export const STATS: Stat[] = [
-  { value: "$250/mo", label: "vs $3\u20134K/mo for a receptionist" },
-  { value: "3 days", label: "From first call to live website" },
-  { value: "10+ hrs/wk", label: "Saved with workflow automation" },
-  { value: "$100M+", label: "Revenue impact delivered" },
+  { value: "10+ hrs/wk", label: "Freed from repetitive tasks" },
+  { value: "3 weeks", label: "From audit to first results" },
+  { value: "30+", label: "Languages supported by voice AI" },
+  { value: "24/7", label: "Your AI never calls in sick" },
 ];
 
 // ── Services ──
@@ -85,12 +85,12 @@ export interface Service {
 export const SERVICES: Service[] = [
   {
     slug: "voice-ai",
-    name: "Voice AI Agents",
+    name: "AI That Answers Your Phones",
     icon: "\uD83C\uDF99\uFE0F",
-    tagline: "Replace your $3\u20134K/month receptionist for $250\u2013$2K/month",
+    tagline: "Never miss a call, never miss a lead. 24/7 in 30+ languages.",
     description:
-      "AI phone systems that answer calls 24/7, book appointments, handle triage, and follow up. Deployed in 1\u20133 weeks. Every business that receives phone calls is a prospect.",
-    priceRange: "$250\u2013$2K/mo recurring",
+      "AI phone systems that answer calls 24/7, book appointments, handle triage, and follow up. Deployed in 1\u20133 weeks. Your customers hear a real conversation, not a phone tree.",
+    priceRange: "Included in Launch or Managed plans",
     features: [
       "24/7 phone answering with natural conversation",
       "Appointment booking integrated with your calendar",
@@ -107,12 +107,12 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "web-mobile-apps",
-    name: "Web & Mobile Apps",
+    name: "Digital Presence That Converts",
     icon: "\uD83D\uDCF1",
-    tagline: "Modern websites and apps delivered in days, not months",
+    tagline: "Modern sites and apps that turn visitors into customers.",
     description:
-      "Full-stack web and mobile development with modern design systems, bilingual support, and AI features built in. Next.js, React Native, SwiftUI, and Python.",
-    priceRange: "$1,500\u2013$15K",
+      "Full-stack web and mobile development with modern design systems, bilingual support, and AI features built in. Delivered in days, not months.",
+    priceRange: "Included in Launch or Managed plans",
     features: [
       "Custom design system tailored to your brand",
       "Mobile-first responsive websites",
@@ -129,12 +129,12 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "workflow-automation",
-    name: "Workflow Automation",
+    name: "Operations That Run Themselves",
     icon: "\u26A1",
-    tagline: "Eliminate 10\u201320 hours/week of repetitive tasks",
+    tagline: "From intake to invoicing, we automate the repetitive work.",
     description:
       "AI-enhanced automation that makes intelligent decisions. Not just rule-based triggers, but systems that reason about your data. Customer service, invoicing, reporting, onboarding.",
-    priceRange: "$2.5K\u2013$15K setup + retainer",
+    priceRange: "Included in Launch or Managed plans",
     features: [
       "AI decision-making on your existing workflows",
       "Integration with your CRM, ERP, and support tools",
@@ -223,24 +223,24 @@ export const VERTICALS: Vertical[] = [
   {
     slug: "home-services",
     name: "Home Services",
-    stat: "500K+ businesses \u00B7 78% hire first responder",
-    tagline: "Never miss a call again",
+    stat: "The average contractor misses 40% of incoming calls",
+    tagline: "Every missed call is $200-$500 walking to your competitor",
     description:
-      "78% of homeowners hire the first company that picks up the phone. AI phone answering means you never miss that call. 24/7 emergency triage, smart dispatching, automated follow-up.",
+      "78% of homeowners hire the first company that picks up. If your phone rings while your team is on a job, that customer calls the next name on the list. We deploy AI that answers every call, books the job, and follows up, so you stop bleeding revenue.",
     painPoints: [
-      "Missed calls during jobs mean lost customers",
-      "After-hours emergencies go to voicemail",
-      "Manual dispatching wastes technician time",
-      "No follow-up system for repeat business",
+      "Missed calls during jobs = $200-$500 lost per call",
+      "After-hours emergencies go to voicemail (and your competitor)",
+      "Hours spent on dispatching instead of billable work",
+      "No system to turn one-time jobs into repeat customers",
     ],
     solutions: [
-      "24/7 AI phone answering with emergency triage",
-      "Automated dispatching and job assignment",
-      "Follow-up calls and review requests after every job",
-      "Appointment booking and confirmation in 30+ languages",
+      "AI answers every call, 24/7, in your customer's language",
+      "Automated dispatching gets the right tech to the right job",
+      "Post-job follow-up calls drive reviews and repeat bookings",
+      "Monthly reports show exactly how many leads you captured",
     ],
     roiData:
-      "My Plumber Plus saw 13% revenue growth from AI voice agents. Pricing: $200\u2013$800/month.",
+      "Start with a $250 AI Opportunity Audit to see exactly where your business is leaking revenue.",
     relatedServices: ["voice-ai", "workflow-automation"],
   },
   {
@@ -374,51 +374,51 @@ export interface Tier {
 
 export const TIERS: Tier[] = [
   {
-    name: "Voice AI Agent",
-    price: "$500",
-    href: "/sprint",
+    name: "Discover",
+    price: "$250",
+    href: "/audit",
     description:
-      "AI phone agent deployed in 1 week. Answers calls 24/7, books appointments, handles triage.",
-    roi: "$250/mo vs $3\u20134K/mo receptionist",
+      "AI Opportunity Audit. We analyze your business and show you exactly where you're losing time and money.",
+    roi: "Credited toward your first project",
     features: [
-      "24/7 AI phone answering",
-      "Appointment booking + calendar sync",
-      "30+ languages, auto-detected",
-      "30 days post-launch support",
+      "30-minute deep-dive into your workflows",
+      "3 specific opportunities identified",
+      "Dollar value estimated for each",
+      "Actionable report delivered in 48 hours",
     ],
-    cta: "Get Started",
+    cta: "Get Your AI Audit",
     featured: false,
   },
   {
-    name: "Website Sprint",
-    price: "$1,500",
-    href: "/automation",
+    name: "Launch",
+    price: "From $2,500",
+    href: CALENDLY_URL,
     description:
-      "Full website delivered in 5 days. Modern design, mobile-first, CMS-ready.",
-    roi: "Live site in days, not months",
+      "Your first AI deployment. Voice agent, website, or workflow automation, live in 1\u20133 weeks.",
+    roi: "Your first AI agent, working for you",
     features: [
-      "Custom design system",
-      "Mobile-first responsive",
-      "CMS or admin panel",
-      "60 days support",
+      "One high-impact deployment",
+      "Voice AI, web, or automation",
+      "Daily progress updates",
+      "60 days post-launch support",
     ],
-    cta: "Start Sprint",
+    cta: "Book a Call",
     featured: true,
   },
   {
-    name: "Full Integration",
-    price: "From $5,000",
-    href: "/deposit",
+    name: "Managed",
+    price: "From $2,000/mo",
+    href: CALENDLY_URL,
     description:
-      "Voice AI + Website + Workflow Automation. Custom-scoped, delivered in 4 weeks.",
-    roi: "Everything working together",
+      "Ongoing AI operations. We manage, optimize, and expand your AI across the business.",
+    roi: "We manage your AI. You manage your business.",
     features: [
-      "Voice AI + Web + Automation bundle",
-      "Custom-scoped project",
+      "Ongoing monitoring + optimization",
+      "KPI tracking and monthly reports",
+      "Additional agent deployments",
       "Dedicated Slack channel",
-      "90 days support + training",
     ],
-    cta: "Book Discovery Call",
+    cta: "Book a Call",
     featured: false,
   },
 ];
@@ -436,22 +436,22 @@ export interface PortfolioItem {
 
 export const PORTFOLIO: PortfolioItem[] = [
   {
-    label: "Web Development",
+    label: "Web Deployment",
     title: "IMAN \u2014 Community Website",
     description:
-      "Bilingual Persian/English website with custom design system, prayer times API, and admin CMS. Delivered in 3 days.",
+      "Bilingual Persian/English website with custom design system, prayer times API, and admin CMS. From first call to live site in 3 days.",
     url: "https://iman-website-seven.vercel.app/",
     stat: "3 days",
     statLabel: "from call to live",
   },
   {
-    label: "Voice AI + Web App",
+    label: "Voice AI + Web + iOS",
     title: "Rumi \u2014 AI Coaching Platform",
     description:
-      "Full-stack AI coaching app with voice agent, real-time sessions, and personalized progress tracking. Built with Next.js, SwiftUI, and LiveKit.",
+      "Full-stack AI coaching platform with voice agent, real-time sessions, and personalized progress tracking. Deployed across web and iOS.",
     url: "https://www.rumi.team",
     stat: "iOS + Web",
-    statLabel: "platforms shipped",
+    statLabel: "platforms deployed",
   },
 ];
 

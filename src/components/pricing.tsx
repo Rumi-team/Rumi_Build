@@ -14,16 +14,8 @@ export function Pricing() {
           Simple, transparent pricing
         </h2>
         <p className="text-zinc-400 mb-10 max-w-2xl">
-          Every engagement starts with a{" "}
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-amber-400 underline underline-offset-2 hover:text-amber-300"
-          >
-            free 30-minute discovery call
-          </a>{" "}
-          to make sure we&apos;re the right fit.
+          Start with an audit. We show you where you&apos;re losing money. Then
+          we fix it.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
