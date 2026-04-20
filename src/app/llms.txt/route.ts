@@ -1,23 +1,20 @@
-import { NextRequest } from "next/server";
-import { track } from "@vercel/analytics/server";
 import { LLMS_TXT } from "@/lib/llms-content";
-import { detectAgent } from "@/lib/agent-detect";
 
+// rumi.build ships as a fully static HTML export (next.config.ts:
+// `output: "export"`). There is no server runtime, so this route
+// handler runs ONCE at build time and its output is baked into a
+// static file that Vercel's CDN serves directly.
+//
+// That means:
+//  - We cannot read request headers (no request).
+//  - We cannot fire server-side analytics per hit.
+//  - Cache lifetime is controlled at the CDN edge, not by `revalidate`.
+//
+// Per-hit agent detection lives in the rumi.team and rumiagent.com
+// variants where we do have a runtime.
 export const dynamic = "force-static";
-export const revalidate = 3600;
 
-export async function GET(request: NextRequest) {
-  const agent = detectAgent(request.headers.get("user-agent"));
-
-  track("llms_txt_fetched", {
-    site: "rumi.build",
-    variant: "txt",
-    agent_id: agent.agentId,
-    agent_source: agent.source,
-    is_agent: agent.isAgent,
-    user_agent: agent.userAgentRaw.slice(0, 500),
-  }).catch(() => {});
-
+export async function GET() {
   return new Response(LLMS_TXT, {
     status: 200,
     headers: {
