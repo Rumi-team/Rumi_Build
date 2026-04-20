@@ -1,18 +1,23 @@
 const STEPS = [
   {
     num: 1,
-    title: "Discovery Call",
-    desc: "Free 30-minute video call. We learn your business and identify where voice AI, a new website, or workflow automation will save you the most.",
+    title: "Audit",
+    desc: "We analyze your workflows and show you exactly where your business is losing time and money. You get a report with 3 specific opportunities and their dollar value.",
   },
   {
     num: 2,
-    title: "Build Sprint",
-    desc: "We build your solution in days, not months. Voice agents deploy in 1 week, websites in 5 days. You see progress daily.",
+    title: "Deploy",
+    desc: "We build and launch the fix for your highest-impact problem first. Voice AI, automation, or web presence, live in 1-3 weeks. You see progress daily.",
   },
   {
     num: 3,
-    title: "Deploy & Support",
-    desc: "Your solution goes live. We train your team and provide 30-90 days of post-launch support depending on scope.",
+    title: "Manage",
+    desc: "We monitor, optimize, and handle the day-to-day so you don't have to. Monthly reports show exactly what your AI is doing for your business.",
+  },
+  {
+    num: 4,
+    title: "Scale",
+    desc: "As results compound, we deploy AI across more of your operations. Each new deployment builds on what's already working.",
   },
 ];
 
@@ -27,10 +32,10 @@ export function HowItWorks() {
           id="how-heading"
           className="text-3xl font-bold tracking-tight mb-10"
         >
-          From conversation to working software
+          From audit to results
         </h2>
 
-        <ol className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {STEPS.map((step) => (
             <li
               key={step.num}
