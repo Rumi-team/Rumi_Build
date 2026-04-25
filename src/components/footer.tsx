@@ -33,6 +33,14 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href="/services/chief-of-operations"
+                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
+                >
+                  Chief of Operations
+                </a>
+              </li>
+              <li>
+                <a
                   href="/services/chief-of-marketing"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >

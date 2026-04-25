@@ -116,6 +116,31 @@ export const SERVICES: Service[] = [
     href: "/chief-of-staff",
   },
   {
+    slug: "chief-of-operations",
+    name: "Chief of Operations",
+    icon: "⚙️",
+    tagline:
+      "Your back office, automated. The repetitive work, gone.",
+    description:
+      "AI-driven workflow automation that learns your business. Handles bookkeeping, invoicing, intake forms, scheduling, project portals, and the dozens of small workflows that quietly eat your team's day. Connects to your existing tools, runs in the background, escalates only when judgment is needed.",
+    priceRange: "Included in Launch or Managed plans",
+    features: [
+      "Bookkeeping and transaction categorization",
+      "Invoice processing from inbox to accounting system",
+      "Client and project portals with real-time updates",
+      "Intake forms, scheduling, and follow-up automation",
+      "Estimating, change-order tracking, and bid management",
+      "Connects to QuickBooks, Notion, Slack, your CRM",
+    ],
+    useCases: [
+      "Accounting firm: automate bookkeeping and client communication, focus on advisory",
+      "Construction: estimating, change orders, and a project portal clients actually use",
+      "Restaurant: inventory alerts, scheduling, and order-confirmation automation",
+      "Law firm: intake forms, client portals, and matter management",
+    ],
+    relatedVerticals: ["accounting", "construction", "restaurants", "legal"],
+  },
+  {
     slug: "chief-of-marketing",
     name: "Chief of Marketing",
     icon: "📈",
@@ -240,14 +265,14 @@ export const VERTICALS: Vertical[] = [
       "No system to turn one-time jobs into repeat customers",
     ],
     solutions: [
-      "AI answers every call, 24/7, in your customer's language",
-      "Automated dispatching gets the right tech to the right job",
-      "Post-job follow-up calls drive reviews and repeat bookings",
-      "Monthly reports show exactly how many leads you captured",
+      "AI answers every call, 24/7, in your customer's language (Chief of Customer Service)",
+      "Automated dispatching gets the right tech to the right job (Chief of Operations)",
+      "Post-job follow-up calls drive reviews and repeat bookings (Chief of Customer Service)",
+      "Monthly reports show exactly how many leads you captured (Chief of Operations)",
     ],
     roiData:
       "Start with a $250 AI Opportunity Audit to see exactly where your business is leaking revenue.",
-    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
+    relatedServices: ["chief-of-customer-service", "chief-of-operations"],
   },
   {
     slug: "healthcare",
@@ -263,14 +288,14 @@ export const VERTICALS: Vertical[] = [
       "Staff spend hours on scheduling instead of patient care",
     ],
     solutions: [
-      "AI phone answering and scheduling in 30+ languages",
-      "Automated appointment reminders via call, text, and email",
-      "No-show reduction up to 90% with smart follow-up",
-      "Workflow automation for intake forms and referrals",
+      "AI phone answering and scheduling in 30+ languages (Chief of Customer Service)",
+      "Automated appointment reminders via call, text, and email (Chief of Operations)",
+      "No-show reduction up to 90% with smart follow-up (Chief of Customer Service)",
+      "Intake forms, referrals, and chart prep automated end-to-end (Chief of Operations)",
     ],
     roiData:
       "Pricing: $200–$3,000/month per practice depending on suite breadth.",
-    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
+    relatedServices: ["chief-of-customer-service", "chief-of-operations"],
   },
   {
     slug: "restaurants",
@@ -286,14 +311,14 @@ export const VERTICALS: Vertical[] = [
       "No follow-up system for repeat customers",
     ],
     solutions: [
-      "24/7 AI phone answering for reservations and orders",
-      "Multilingual support for diverse customer base",
-      "Automated order confirmation and follow-up",
-      "Workflow automation for scheduling and inventory alerts",
+      "24/7 AI phone answering for reservations and orders (Chief of Customer Service)",
+      "Multilingual support for a diverse customer base (Chief of Customer Service)",
+      "Order confirmation, scheduling, and inventory alerts on autopilot (Chief of Operations)",
+      "Menu and listings audited against the top restaurants in your area (Chief of Marketing)",
     ],
     roiData:
       "Average $14,700/year savings for a 50-seat restaurant. Pricing: $150–$1,500/month per location.",
-    relatedServices: ["chief-of-customer-service", "chief-of-marketing"],
+    relatedServices: ["chief-of-customer-service", "chief-of-operations", "chief-of-marketing"],
   },
   {
     slug: "legal",
@@ -305,18 +330,18 @@ export const VERTICALS: Vertical[] = [
     painPoints: [
       "Missed client calls go straight to your competitor",
       "Client intake is manual and slow",
-      "Firm website is outdated and doesn’t convert",
+      "Matter status updates are still phone tag and email threads",
       "After-hours inquiries get no response until morning",
     ],
     solutions: [
-      "24/7 AI phone answering with client intake screening",
-      "Automated appointment scheduling and confirmation",
-      "Modern firm website that converts visitors to consultations",
-      "Multilingual support for diverse client base",
+      "24/7 AI phone answering with client intake screening (Chief of Customer Service)",
+      "Automated appointment scheduling and confirmation (Chief of Customer Service)",
+      "Client intake forms, document collection, and matter portal (Chief of Operations)",
+      "Multilingual support for a diverse client base (Chief of Customer Service)",
     ],
     roiData:
       "First-response advantage: firms that answer within 5 minutes are 10x more likely to win the client. Pricing: $200–$1,500/month.",
-    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
+    relatedServices: ["chief-of-customer-service", "chief-of-operations", "chief-of-staff"],
   },
   {
     slug: "accounting",
@@ -332,14 +357,14 @@ export const VERTICALS: Vertical[] = [
       "Phone calls interrupt deep work throughout the day",
     ],
     solutions: [
-      "Automated bookkeeping and transaction categorization",
-      "AI phone answering for client calls and scheduling",
-      "Proactive client communication workflows",
-      "Automated reporting and deadline management",
+      "Automated bookkeeping and transaction categorization (Chief of Operations)",
+      "AI phone answering for client calls and scheduling (Chief of Customer Service)",
+      "Proactive client communication and approvals on your phone (Chief of Staff)",
+      "Automated reporting and deadline management (Chief of Operations)",
     ],
     roiData:
       "A Coral Springs firm saw cost-per-lead drop 38% and client acquisition rise 67%. Pricing: $200–$5,000/month.",
-    relatedServices: ["chief-of-staff", "chief-of-customer-service"],
+    relatedServices: ["chief-of-operations", "chief-of-staff", "chief-of-customer-service"],
   },
   {
     slug: "construction",
@@ -355,13 +380,13 @@ export const VERTICALS: Vertical[] = [
       "No centralized project portal for stakeholders",
     ],
     solutions: [
-      "Workflow automation for estimating and bid management",
-      "Automated change order tracking and notifications",
-      "Client-facing project portal with real-time updates",
-      "Centralized communication hub for all stakeholders",
+      "Workflow automation for estimating and bid management (Chief of Operations)",
+      "Automated change-order tracking and notifications (Chief of Operations)",
+      "Client-facing project portal with real-time updates (Chief of Operations)",
+      "Centralized communication hub and approvals on your phone (Chief of Staff)",
     ],
     roiData: "Pricing: $200–$2,000/month.",
-    relatedServices: ["chief-of-staff", "chief-of-marketing"],
+    relatedServices: ["chief-of-operations", "chief-of-staff", "chief-of-marketing"],
   },
 ];
 
@@ -400,11 +425,11 @@ export const TIERS: Tier[] = [
     price: "From $2,500",
     href: CALENDLY_URL,
     description:
-      "Your first AI employee. Chief of Staff, Marketing, or Customer Service — live in 1–3 weeks.",
+      "Your first AI employee. Chief of Staff, Operations, Marketing, or Customer Service — live in 1–3 weeks.",
     roi: "Your first AI employee, working for you",
     features: [
       "One high-impact deployment",
-      "Chief of Staff, Marketing, or Customer Service",
+      "Chief of Staff, Operations, Marketing, or Customer Service",
       "Daily progress updates",
       "60 days post-launch support",
     ],

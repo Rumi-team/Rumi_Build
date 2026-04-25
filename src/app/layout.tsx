@@ -7,11 +7,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Rumi Build — Hire Your Next AI Employee",
   description:
-    "Chief of Staff, Chief of Marketing, Chief of Customer Service. Three AI specialists. Fraction of the cost. 24/7 availability. Deployed in days. Free discovery call.",
+    "Chief of Staff, Chief of Operations, Chief of Marketing, Chief of Customer Service. Four AI specialists. Fraction of the cost. 24/7 availability. Deployed in days. Free discovery call.",
   openGraph: {
     title: "Rumi Build — Hire Your Next AI Employee",
     description:
-      "Three AI specialists. Fraction of the cost. 24/7. Deployed in days.",
+      "Four AI specialists. Fraction of the cost. 24/7. Deployed in days.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rumi Build — Hire Your Next AI Employee",
     description:
-      "Three AI specialists. Fraction of the cost. 24/7. Deployed in days.",
+      "Four AI specialists. Fraction of the cost. 24/7. Deployed in days.",
     images: ["/og-image.png"],
   },
 };

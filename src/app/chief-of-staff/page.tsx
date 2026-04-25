@@ -7,12 +7,24 @@ export const metadata: Metadata = {
   title: "Chief of Staff — AI Manager on Your Phone by Rumi",
   description:
     "An AI Chief of Staff that reads your inbox, answers your phone, runs your calendar, and organizes your documents. Reports through Telegram, WhatsApp, or iMessage. Approves before sending.",
+  // Next.js metadata REPLACES, not merges, openGraph and twitter when set on a
+  // page. Restate images/type/siteName so /chief-of-staff link unfurls don't
+  // lose the social preview image inherited from layout.tsx.
   openGraph: {
     title: "Chief of Staff — AI Manager on Your Phone by Rumi",
     description:
       "Your AI manager. On your phone. Approvals via Telegram, WhatsApp, or iMessage.",
     url: "https://rumi.build/chief-of-staff",
-    siteName: "Rumi",
+    siteName: "Rumi Build",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chief of Staff — AI Manager on Your Phone by Rumi",
+    description:
+      "Your AI manager. On your phone. Approvals via Telegram, WhatsApp, or iMessage.",
+    images: ["/og-image.png"],
   },
 };
 

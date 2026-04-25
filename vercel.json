@@ -8,8 +8,8 @@
     { "source": "/services/ai-strategy", "destination": "/services", "permanent": false },
     { "source": "/services/ai-marketing", "destination": "/services", "permanent": false },
     { "source": "/services/voice-ai", "destination": "/services/chief-of-customer-service", "permanent": false },
-    { "source": "/services/web-mobile-apps", "destination": "/services", "permanent": false },
-    { "source": "/services/workflow-automation", "destination": "/chief-of-staff", "permanent": false },
+    { "source": "/services/web-mobile-apps", "destination": "/services/chief-of-operations", "permanent": false },
+    { "source": "/services/workflow-automation", "destination": "/services/chief-of-operations", "permanent": false },
     { "source": "/services/chief-of-staff", "destination": "/chief-of-staff", "permanent": false }
   ]
 }

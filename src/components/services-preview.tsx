@@ -13,9 +13,9 @@ export function ServicesPreview() {
         </h2>
         <p className="text-zinc-400 mb-10 max-w-xl">
           Pick one of ours. Fraction of the cost, 24/7 availability, ready in
-          days. Three AI specialists trained on your context.
+          days. Four AI specialists trained on your context.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5">
           {SERVICES.map((service) => (
             <ServiceCard key={service.slug} service={service} />
           ))}
