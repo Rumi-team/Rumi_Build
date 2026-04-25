@@ -1,0 +1,15 @@
+# Test files
+__tests__/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Dev-only config
+.vscode/
+.env*.local
+.github/
+
+# Docs (not needed at runtime)
+*.md
+!README.md

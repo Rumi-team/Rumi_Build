@@ -92,8 +92,8 @@ export default async function ServiceDetailPage({
               ))}
             </div>
 
-            {/* Multilingual section (Voice AI only) */}
-            {slug === "voice-ai" && (
+            {/* Multilingual section (Chief of Customer Service only) */}
+            {slug === "chief-of-customer-service" && (
               <div className="border-t border-zinc-700 pt-8 mt-8 mb-10">
                 <h2 className="text-xl font-semibold mb-4">
                   {VOICE_AI_MULTILINGUAL.heading}

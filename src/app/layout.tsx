@@ -5,12 +5,13 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rumi Build — Voice AI, Web Dev & Automation",
+  title: "Rumi Build — Hire Your Next AI Employee",
   description:
-    "Voice AI agents from $250/mo, websites in days, workflow automation that saves 10+ hrs/week. Free 30-minute discovery call.",
+    "Chief of Staff, Chief of Marketing, Chief of Customer Service. Three AI specialists. Fraction of the cost. 24/7 availability. Deployed in days. Free discovery call.",
   openGraph: {
-    title: "Rumi Build — Voice AI, Web Dev & Automation",
-    description: "Voice AI from $250/mo. Websites in days. Automation that saves 10+ hrs/week.",
+    title: "Rumi Build — Hire Your Next AI Employee",
+    description:
+      "Three AI specialists. Fraction of the cost. 24/7. Deployed in days.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -18,8 +19,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Voice AI, Web Dev & Automation",
-    description: "Voice AI from $250/mo. Websites in days. Automation that saves 10+ hrs/week.",
+    title: "Rumi Build — Hire Your Next AI Employee",
+    description:
+      "Three AI specialists. Fraction of the cost. 24/7. Deployed in days.",
     images: ["/og-image.png"],
   },
 };

@@ -1,4 +1,5 @@
 {
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':!**/*.md' ':!__tests__/**' ':!**/*.test.ts' ':!**/*.test.tsx' ':!.github/**'",
   "framework": "nextjs",
   "redirects": [
     { "source": "/services/rag-knowledge-systems", "destination": "/services", "permanent": false },
@@ -6,6 +7,10 @@
     { "source": "/services/document-processing", "destination": "/services", "permanent": false },
     { "source": "/services/ai-analytics", "destination": "/services", "permanent": false },
     { "source": "/services/ai-strategy", "destination": "/services", "permanent": false },
-    { "source": "/services/ai-marketing", "destination": "/services", "permanent": false }
+    { "source": "/services/ai-marketing", "destination": "/services", "permanent": false },
+    { "source": "/services/voice-ai", "destination": "/services/chief-of-customer-service", "permanent": false },
+    { "source": "/services/web-mobile-apps", "destination": "/services", "permanent": false },
+    { "source": "/services/workflow-automation", "destination": "/chief-of-staff", "permanent": false },
+    { "source": "/services/chief-of-staff", "destination": "/chief-of-staff", "permanent": false }
   ]
 }

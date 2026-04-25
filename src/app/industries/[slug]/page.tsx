@@ -107,7 +107,7 @@ export default async function IndustryDetailPage({
                       s && (
                         <a
                           key={s.slug}
-                          href={`/services/${s.slug}`}
+                          href={s.href ?? `/services/${s.slug}`}
                           className="rounded-lg border border-zinc-700 bg-zinc-800/30 p-4 transition hover:border-zinc-600"
                         >
                           <div className="flex items-center gap-3 mb-2">

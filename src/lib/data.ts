@@ -80,22 +80,78 @@ export interface Service {
   features: string[];
   useCases: string[];
   relatedVerticals: string[];
+  /**
+   * Optional override for the card link. Defaults to `/services/{slug}`.
+   * Use this when a service has a dedicated landing page outside the
+   * dynamic /services/[slug] route (e.g. /chief-of-staff).
+   */
+  href?: string;
 }
 
 export const SERVICES: Service[] = [
   {
-    slug: "voice-ai",
-    name: "AI That Answers Your Phones",
-    icon: "\uD83C\uDF99\uFE0F",
-    tagline: "Never miss a call, never miss a lead. 24/7 in 30+ languages.",
+    slug: "chief-of-staff",
+    name: "Chief of Staff",
+    icon: "✍️",
+    tagline:
+      "Your AI manager. On your phone. Approvals via Telegram, WhatsApp, or iMessage.",
     description:
-      "AI phone systems that answer calls 24/7, book appointments, handle triage, and follow up. Deployed in 1\u20133 weeks. Your customers hear a real conversation, not a phone tree.",
+      "Reads your inbox, answers your phone, runs your calendar, organizes your documents — all from your phone. Reports through your preferred channel: Telegram, WhatsApp, or iMessage. Asks for approval before anything important goes out, then handles the rest on its own.",
+    priceRange: "Included in Launch or Managed plans",
+    features: [
+      "Email triage and reply drafting in your voice",
+      "Phone answering with smart escalation when it matters",
+      "Calendar booking, conflict resolution, focus-time defense",
+      "Document organization and quick retrieval on the go",
+      "Reports through Telegram, WhatsApp, or iMessage",
+      "One-tap approval before anything goes out",
+    ],
+    useCases: [
+      "Founder: 121 inbound emails a day handled, the 5% that matter surface to you",
+      "Executive: every call answered, meetings booked, focus time defended",
+      "Operator: documents and contracts organized, retrievable from your phone",
+      "Sales lead: approve outbound replies via WhatsApp before they send",
+    ],
+    relatedVerticals: ["legal", "accounting", "healthcare"],
+    href: "/chief-of-staff",
+  },
+  {
+    slug: "chief-of-marketing",
+    name: "Chief of Marketing",
+    icon: "📈",
+    tagline:
+      "Your competitors are eating your search traffic. Take it back.",
+    description:
+      "AI marketing analyst that reads your product pages, audits your landing copy, compares it side-by-side against competitors, and ranks rewrites by impact. Daily search opportunities surfaced before your competitors find them.",
+    priceRange: "Included in Launch or Managed plans",
+    features: [
+      "Side-by-side competitor analysis on the pages that matter",
+      "Keyword and search-intent gaps your team is missing",
+      "Rewrite suggestions ranked by traffic and conversion impact",
+      "Weekly content audit reports delivered to your inbox",
+    ],
+    useCases: [
+      "Ecommerce: PDP rewrites that close the gap with category leaders",
+      "B2B SaaS: landing-page copy audits against the top three competitors",
+      "Agency: scale content quality reviews across 100+ pages a week",
+      "DTC brand: catch new competitor positioning the day it ships",
+    ],
+    relatedVerticals: ["restaurants", "healthcare", "legal", "home-services"],
+  },
+  {
+    slug: "chief-of-customer-service",
+    name: "Chief of Customer Service",
+    icon: "🎙️",
+    tagline: "Never miss a call. Never miss a lead. 24/7 in 30+ languages.",
+    description:
+      "AI phone agent that answers every call, books appointments, handles triage, and follows up — in 30+ languages, around the clock. Customers hear a real conversation, not a phone tree. Deployed in 1–3 weeks.",
     priceRange: "Included in Launch or Managed plans",
     features: [
       "24/7 phone answering with natural conversation",
       "Appointment booking integrated with your calendar",
       "Emergency triage and smart call routing",
       "Automated follow-up calls and reminders",
+      "30+ languages, auto-detected on the first sentence",
     ],
     useCases: [
       "Medical office: scheduling, reminders, no-show reduction",
@@ -104,56 +160,6 @@ export const SERVICES: Service[] = [
       "Restaurant: reservation management and order inquiries",
     ],
     relatedVerticals: ["home-services", "healthcare", "legal", "restaurants"],
-  },
-  {
-    slug: "web-mobile-apps",
-    name: "Digital Presence That Converts",
-    icon: "\uD83D\uDCF1",
-    tagline: "Modern sites and apps that turn visitors into customers.",
-    description:
-      "Full-stack web and mobile development with modern design systems, bilingual support, and AI features built in. Delivered in days, not months.",
-    priceRange: "Included in Launch or Managed plans",
-    features: [
-      "Custom design system tailored to your brand",
-      "Mobile-first responsive websites",
-      "Native iOS + responsive web apps",
-      "CMS, admin panels, and API integrations",
-    ],
-    useCases: [
-      "Community website with bilingual design and CMS",
-      "AI coaching platform with voice and text sessions",
-      "Customer-facing app with real-time features",
-      "Internal tool with admin dashboard and analytics",
-    ],
-    relatedVerticals: ["healthcare", "legal", "home-services", "construction"],
-  },
-  {
-    slug: "workflow-automation",
-    name: "Operations That Run Themselves",
-    icon: "\u26A1",
-    tagline: "From intake to invoicing, we automate the repetitive work.",
-    description:
-      "AI-enhanced automation that makes intelligent decisions. Not just rule-based triggers, but systems that reason about your data. Customer service, invoicing, reporting, onboarding.",
-    priceRange: "Included in Launch or Managed plans",
-    features: [
-      "AI decision-making on your existing workflows",
-      "Integration with your CRM, ERP, and support tools",
-      "Daily progress updates during build sprint",
-      "30\u201360 days post-launch support",
-    ],
-    useCases: [
-      "Auto-triage customer support tickets by urgency and topic",
-      "Invoice processing from inbox to accounting system",
-      "Employee onboarding document generation and routing",
-      "Sales lead scoring and automated follow-up sequences",
-    ],
-    relatedVerticals: [
-      "home-services",
-      "healthcare",
-      "accounting",
-      "restaurants",
-      "construction",
-    ],
   },
 ];
 
@@ -195,9 +201,9 @@ export const VOICE_AI_LANGUAGES = [
 ];
 
 export const VOICE_AI_MULTILINGUAL = {
-  heading: "Speak Your Customer\u2019s Language",
+  heading: "Speak Your Customer’s Language",
   autoDetect:
-    "Our AI detects the caller\u2019s language within the first 2\u20133 seconds and switches seamlessly. No menu prompts, no \u2018press 2 for Spanish.\u2019 The caller hears their language from the first word.",
+    "Our AI detects the caller’s language within the first 2–3 seconds and switches seamlessly. No menu prompts, no ‘press 2 for Spanish.’ The caller hears their language from the first word.",
   stat: "55%+",
   statLabel: "of LA County residents speak a non-English language at home",
   source: "U.S. Census Bureau, QuickFacts",
@@ -241,12 +247,12 @@ export const VERTICALS: Vertical[] = [
     ],
     roiData:
       "Start with a $250 AI Opportunity Audit to see exactly where your business is leaking revenue.",
-    relatedServices: ["voice-ai", "workflow-automation"],
+    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
   },
   {
     slug: "healthcare",
     name: "Healthcare Clinics",
-    stat: "250K+ practices \u00B7 $150B lost to no-shows",
+    stat: "250K+ practices · $150B lost to no-shows",
     tagline: "Reduce no-shows up to 90%",
     description:
       "No-shows cost US healthcare $150+ billion annually. Phone hold times drive patients to competitors. AI phone answering and automated reminders solve both.",
@@ -263,13 +269,13 @@ export const VERTICALS: Vertical[] = [
       "Workflow automation for intake forms and referrals",
     ],
     roiData:
-      "Pricing: $200\u2013$3,000/month per practice depending on suite breadth.",
-    relatedServices: ["voice-ai", "workflow-automation"],
+      "Pricing: $200–$3,000/month per practice depending on suite breadth.",
+    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
   },
   {
     slug: "restaurants",
     name: "Restaurants",
-    stat: "660K+ businesses \u00B7 86% AI-comfortable",
+    stat: "660K+ businesses · 86% AI-comfortable",
     tagline: "Never miss a reservation call again",
     description:
       "AI phone answering handles reservations, takeout orders, and inquiries 24/7. Workflow automation streamlines ordering, scheduling, and follow-up.",
@@ -286,20 +292,20 @@ export const VERTICALS: Vertical[] = [
       "Workflow automation for scheduling and inventory alerts",
     ],
     roiData:
-      "Average $14,700/year savings for a 50-seat restaurant. Pricing: $150\u2013$1,500/month per location.",
-    relatedServices: ["voice-ai", "workflow-automation"],
+      "Average $14,700/year savings for a 50-seat restaurant. Pricing: $150–$1,500/month per location.",
+    relatedServices: ["chief-of-customer-service", "chief-of-marketing"],
   },
   {
     slug: "legal",
     name: "Legal",
-    stat: "450K firms \u00B7 First response wins the client",
+    stat: "450K firms · First response wins the client",
     tagline: "AI that answers client calls before your competitors do",
     description:
       "The first firm to respond wins the client. AI phone answering handles intake screening and appointment scheduling 24/7 while your firm website converts visitors into consultations.",
     painPoints: [
       "Missed client calls go straight to your competitor",
       "Client intake is manual and slow",
-      "Firm website is outdated and doesn\u2019t convert",
+      "Firm website is outdated and doesn’t convert",
       "After-hours inquiries get no response until morning",
     ],
     solutions: [
@@ -309,13 +315,13 @@ export const VERTICALS: Vertical[] = [
       "Multilingual support for diverse client base",
     ],
     roiData:
-      "First-response advantage: firms that answer within 5 minutes are 10x more likely to win the client. Pricing: $200\u2013$1,500/month.",
-    relatedServices: ["voice-ai", "web-mobile-apps"],
+      "First-response advantage: firms that answer within 5 minutes are 10x more likely to win the client. Pricing: $200–$1,500/month.",
+    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
   },
   {
     slug: "accounting",
     name: "Accounting",
-    stat: "AI adoption 9% \u2192 41% in one year",
+    stat: "AI adoption 9% → 41% in one year",
     tagline: "Automate the manual work, focus on advisory",
     description:
       "AI adoption in accounting jumped from 9% to 41% in one year. Workflow automation handles bookkeeping, categorization, and client communication so your team focuses on advisory.",
@@ -332,13 +338,13 @@ export const VERTICALS: Vertical[] = [
       "Automated reporting and deadline management",
     ],
     roiData:
-      "A Coral Springs firm saw cost-per-lead drop 38% and client acquisition rise 67%. Pricing: $200\u2013$5,000/month.",
-    relatedServices: ["workflow-automation", "voice-ai"],
+      "A Coral Springs firm saw cost-per-lead drop 38% and client acquisition rise 67%. Pricing: $200–$5,000/month.",
+    relatedServices: ["chief-of-staff", "chief-of-customer-service"],
   },
   {
     slug: "construction",
     name: "Construction",
-    stat: "750K firms \u00B7 First to bid wins",
+    stat: "750K firms · First to bid wins",
     tagline: "Streamline bids and keep projects on track",
     description:
       "Workflow automation streamlines estimating, change orders, and project communication. A modern project portal keeps clients informed and your team organized.",
@@ -354,8 +360,8 @@ export const VERTICALS: Vertical[] = [
       "Client-facing project portal with real-time updates",
       "Centralized communication hub for all stakeholders",
     ],
-    roiData: "Pricing: $200\u2013$2,000/month.",
-    relatedServices: ["workflow-automation", "web-mobile-apps"],
+    roiData: "Pricing: $200–$2,000/month.",
+    relatedServices: ["chief-of-staff", "chief-of-marketing"],
   },
 ];
 
@@ -394,11 +400,11 @@ export const TIERS: Tier[] = [
     price: "From $2,500",
     href: CALENDLY_URL,
     description:
-      "Your first AI deployment. Voice agent, website, or workflow automation, live in 1\u20133 weeks.",
-    roi: "Your first AI agent, working for you",
+      "Your first AI employee. Chief of Staff, Marketing, or Customer Service — live in 1–3 weeks.",
+    roi: "Your first AI employee, working for you",
     features: [
       "One high-impact deployment",
-      "Voice AI, web, or automation",
+      "Chief of Staff, Marketing, or Customer Service",
       "Daily progress updates",
       "60 days post-launch support",
     ],
@@ -437,7 +443,7 @@ export interface PortfolioItem {
 export const PORTFOLIO: PortfolioItem[] = [
   {
     label: "Web Deployment",
-    title: "IMAN \u2014 Community Website",
+    title: "IMAN — Community Website",
     description:
       "Bilingual Persian/English website with custom design system, prayer times API, and admin CMS. From first call to live site in 3 days.",
     url: "https://iman-website-seven.vercel.app/",
@@ -446,7 +452,7 @@ export const PORTFOLIO: PortfolioItem[] = [
   },
   {
     label: "Voice AI + Web + iOS",
-    title: "Rumi \u2014 AI Coaching Platform",
+    title: "Rumi — AI Coaching Platform",
     description:
       "Full-stack AI coaching platform with voice agent, real-time sessions, and personalized progress tracking. Deployed across web and iOS.",
     url: "https://www.rumi.team",

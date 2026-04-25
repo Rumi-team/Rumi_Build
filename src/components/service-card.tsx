@@ -25,8 +25,9 @@ export function ServiceCard({
   const className = "flex flex-col rounded-xl p-6 card-glass";
 
   if (linked) {
+    const href = service.href ?? `/services/${service.slug}`;
     return (
-      <a href={`/services/${service.slug}`} className={className}>
+      <a href={href} className={className}>
         {inner}
       </a>
     );

@@ -25,26 +25,26 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="/services/voice-ai"
+                  href="/chief-of-staff"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Voice AI Agents
+                  Chief of Staff
                 </a>
               </li>
               <li>
                 <a
-                  href="/services/web-mobile-apps"
+                  href="/services/chief-of-marketing"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Web &amp; Mobile Apps
+                  Chief of Marketing
                 </a>
               </li>
               <li>
                 <a
-                  href="/services/workflow-automation"
+                  href="/services/chief-of-customer-service"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Workflow Automation
+                  Chief of Customer Service
                 </a>
               </li>
             </ul>
