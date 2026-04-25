@@ -9,7 +9,12 @@ export function ServiceCard({
 }) {
   const inner = (
     <>
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-400/10 text-lg mb-4">
+      {/* Decorative icon — hidden from assistive tech, the heading
+          carries the actual service name. */}
+      <div
+        className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-400/10 text-lg mb-4"
+        aria-hidden="true"
+      >
         {service.icon}
       </div>
       <h3 className="text-base font-semibold mb-1">{service.name}</h3>
@@ -22,16 +27,24 @@ export function ServiceCard({
     </>
   );
 
-  const className = "flex flex-col rounded-xl p-6 card-glass";
+  // Linked variant gets an explicit focus-visible ring so keyboard users see
+  // a clear focus indicator on the full-card link, plus a subtle hover lift.
+  const linkedClassName =
+    "flex flex-col rounded-xl p-6 card-glass transition hover:border-zinc-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900";
+  const staticClassName = "flex flex-col rounded-xl p-6 card-glass";
 
   if (linked) {
     const href = service.href ?? `/services/${service.slug}`;
     return (
-      <a href={href} className={className}>
+      <a
+        href={href}
+        className={linkedClassName}
+        aria-label={`${service.name}: ${service.tagline}`}
+      >
         {inner}
       </a>
     );
   }
 
-  return <div className={className}>{inner}</div>;
+  return <div className={staticClassName}>{inner}</div>;
 }

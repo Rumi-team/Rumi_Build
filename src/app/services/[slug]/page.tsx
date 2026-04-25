@@ -24,9 +24,28 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = getServiceBySlug(slug);
   if (!service) return {};
+  const title = `${service.name} — Rumi Build`;
+  const description = service.tagline + " " + service.description;
+  const url = `https://rumi.build/services/${service.slug}`;
+  // Restate openGraph + twitter — Next.js metadata REPLACES (not merges) these
+  // when set on a page, so we'd lose the layout's images/type otherwise.
   return {
-    title: `${service.name} — Rumi Build`,
-    description: service.tagline + ". " + service.description,
+    title,
+    description,
+    openGraph: {
+      title,
+      description: service.tagline,
+      url,
+      siteName: "Rumi Build",
+      type: "website",
+      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: service.tagline,
+      images: ["/og-image.png"],
+    },
   };
 }
 
