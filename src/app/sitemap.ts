@@ -16,12 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
     { path: "/services", priority: 0.9, changeFrequency: "weekly" as const },
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/pricing", priority: 0.8, changeFrequency: "monthly" as const },
+    { path: "/pricing", priority: 0.7, changeFrequency: "monthly" as const },
     { path: "/team", priority: 0.5, changeFrequency: "monthly" as const },
     { path: "/audit", priority: 0.6, changeFrequency: "monthly" as const },
-    { path: "/sprint", priority: 0.5, changeFrequency: "monthly" as const },
-    { path: "/automation", priority: 0.5, changeFrequency: "monthly" as const },
-    { path: "/deposit", priority: 0.4, changeFrequency: "monthly" as const },
     // Featured: Chief of Staff has its own rich landing page.
     { path: "/chief-of-staff", priority: 0.95, changeFrequency: "weekly" as const },
   ];

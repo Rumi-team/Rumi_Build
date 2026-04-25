@@ -4,16 +4,16 @@ import { Footer } from "@/components/footer";
 import { CALENDLY_URL } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Chief of Staff — AI Manager on Your Phone by Rumi",
+  title: "Chief of Staff — AI Manager + Back Office by Rumi",
   description:
-    "An AI Chief of Staff that reads your inbox, answers your phone, runs your calendar, and organizes your documents. Reports through Telegram, WhatsApp, or iMessage. Approves before sending.",
+    "An AI Chief of Staff that runs your inbox, phone, calendar, and back office — bookkeeping, invoicing, intake forms, project portals. Reports through Telegram, WhatsApp, or iMessage. Approves before sending.",
   // Next.js metadata REPLACES, not merges, openGraph and twitter when set on a
   // page. Restate images/type/siteName so /chief-of-staff link unfurls don't
   // lose the social preview image inherited from layout.tsx.
   openGraph: {
-    title: "Chief of Staff — AI Manager on Your Phone by Rumi",
+    title: "Chief of Staff — AI Manager + Back Office by Rumi",
     description:
-      "Your AI manager. On your phone. Approvals via Telegram, WhatsApp, or iMessage.",
+      "Your AI manager and back office, on your phone. Approvals via Telegram, WhatsApp, or iMessage.",
     url: "https://rumi.build/chief-of-staff",
     siteName: "Rumi Build",
     type: "website",
@@ -21,20 +21,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chief of Staff — AI Manager on Your Phone by Rumi",
+    title: "Chief of Staff — AI Manager + Back Office by Rumi",
     description:
-      "Your AI manager. On your phone. Approvals via Telegram, WhatsApp, or iMessage.",
+      "Your AI manager and back office, on your phone. Approvals via Telegram, WhatsApp, or iMessage.",
     images: ["/og-image.png"],
   },
 };
 
-// Numbers below are placeholders. Swap with real data when proof points exist.
-// Round numbers feel made up. 121, 87, 4.2 read as observed, not invented.
 const PAIN_POINTS = [
   "121 emails per day. 28% need a real reply. The rest eats your focus.",
   "6 calls a day you didn't want. 4 could've been handled in 60 seconds.",
+  "Bookkeeping, invoices, and intake forms still done manually by someone you pay $80K+.",
   "Every \"quick scheduling thing\" costs 12 minutes of context switch.",
-  "You answer the same kind of email at 7am, 11pm, and again on the weekend.",
 ];
 
 const CAPABILITIES = [
@@ -57,21 +55,22 @@ const CAPABILITIES = [
       "Books, reschedules, blocks focus time, defends your mornings.",
   },
   {
-    title: "Document hub",
+    title: "Bookkeeping & invoicing",
+    icon: "₿",
+    body:
+      "Categorizes transactions, processes invoices from inbox to accounting system, flags anomalies. Connects to QuickBooks.",
+  },
+  {
+    title: "Intake & portals",
     icon: "▤",
     body:
-      "Organizes contracts, decks, and notes. Pulls the right doc to your phone in two taps.",
+      "Client intake forms, document collection, project portals with real-time updates. Less phone tag, more shipped work.",
   },
   {
     title: "CRM sync",
     icon: "◈",
     body:
       "Pulls context from HubSpot, Salesforce, Pipedrive, Notion. Replies are warm, specific, on-brand.",
-  },
-  {
-    title: "Always on",
-    icon: "◐",
-    body: "24/7. While you sleep, your inbox gets quieter.",
   },
 ];
 
@@ -90,11 +89,13 @@ const CHANNELS = [
   },
 ];
 
-const PROOF = [
-  { value: "87%", label: "of emails handled without your input" },
+// Target benchmarks — what we're aiming for in the first 30 days. Real
+// pilot numbers replace these once they exist.
+const TARGETS = [
+  { value: "~85%", label: "of emails handled without your input" },
   { value: "<4s", label: "average answer time on calls" },
-  { value: "14 hrs", label: "reclaimed per executive, per week" },
-  { value: "7 days", label: "from kickoff to live deployment" },
+  { value: "10–14 hrs", label: "reclaimed per executive, per week" },
+  { value: "1–3 wks", label: "from kickoff to live deployment" },
 ];
 
 const STEPS = [
@@ -102,13 +103,13 @@ const STEPS = [
     num: 1,
     title: "Connect",
     desc:
-      "Plug in your inbox, phone, and calendar. 15 minutes. Read-only at first — we don't touch anything until you approve.",
+      "Plug in your inbox, phone, calendar, and accounting system. 15 minutes. Read-only at first — we don't touch anything until you approve.",
   },
   {
     num: 2,
     title: "Train",
     desc:
-      "We train Rumi on your last 1,000 emails and your tone. 5 days. You see drafts before any of them go out.",
+      "We train Rumi on your last 1,000 emails, your tone, and the workflows your team runs. You see drafts before any of them go out.",
   },
   {
     num: 3,
@@ -132,7 +133,7 @@ export default function ChiefOfStaffPage() {
             </span>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-              Your AI manager.
+              Your AI manager and back office.
               <br />
               On your phone.
               <br />
@@ -142,9 +143,9 @@ export default function ChiefOfStaffPage() {
             </h1>
 
             <p className="mx-auto max-w-2xl text-lg md:text-xl text-zinc-400 leading-relaxed mb-10">
-              Reads your inbox, answers your phone, runs your calendar, organizes
-              your documents — all from your phone. Reports through your
-              preferred channel.{" "}
+              Reads your inbox, answers your phone, runs your calendar,
+              automates the back office — bookkeeping, invoicing, intake forms,
+              project portals.{" "}
               <span className="text-zinc-200 font-medium">
                 Asks before anything important goes out.
               </span>
@@ -156,10 +157,10 @@ export default function ChiefOfStaffPage() {
               rel="noopener noreferrer"
               className="inline-block rounded-lg bg-amber-400 px-8 py-3.5 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
             >
-              See Rumi handle a week of your inbox →
+              Book a hiring call →
             </a>
             <p className="mt-4 text-sm text-zinc-500">
-              Free pilot. 20-minute demo. No credit card.
+              30 minutes. We size the role together. No commitment.
             </p>
           </div>
         </section>
@@ -171,9 +172,9 @@ export default function ChiefOfStaffPage() {
               The problem
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-10">
-              Most execs don&rsquo;t have a time problem.
+              You don&rsquo;t have a time problem.
               <br />
-              They have an inbox problem.
+              You have a payroll problem.
             </h2>
 
             <ul className="space-y-5">
@@ -211,7 +212,10 @@ export default function ChiefOfStaffPage() {
                   key={cap.title}
                   className="rounded-2xl border border-zinc-700 bg-zinc-800/40 p-6"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-400/10 text-2xl text-amber-400 mb-5">
+                  <div
+                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-400/10 text-2xl text-amber-400 mb-5"
+                    aria-hidden
+                  >
                     {cap.icon}
                   </div>
                   <h3 className="text-lg font-semibold mb-3">{cap.title}</h3>
@@ -257,18 +261,18 @@ export default function ChiefOfStaffPage() {
           </div>
         </section>
 
-        {/* ── Proof ── */}
+        {/* ── Targets (clearly labeled as targets, not pilot results) ── */}
         <section className="px-6 py-20 border-t border-zinc-800">
           <div className="mx-auto max-w-6xl">
             <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-              What changes
+              What we&rsquo;re aiming for
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
-              Numbers from the first 30 days.
+              Target benchmarks for the first 30 days.
             </h2>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {PROOF.map((stat) => (
+              {TARGETS.map((stat) => (
                 <div
                   key={stat.label}
                   className="rounded-xl border border-zinc-700 bg-zinc-800/30 p-6"
@@ -284,9 +288,10 @@ export default function ChiefOfStaffPage() {
             </div>
 
             <p className="mt-6 text-xs text-zinc-600 italic max-w-2xl">
-              Numbers above are based on initial pilot deployments. Your mileage
-              depends on volume, tone consistency, and how aggressive you let
-              Rumi be on auto-replies.
+              These are the targets we set with new clients on day one. Real
+              numbers depend on volume, tone consistency, and how aggressive
+              you let Rumi be on auto-replies. We share actual pilot results in
+              the hiring call.
             </p>
           </div>
         </section>
@@ -298,7 +303,7 @@ export default function ChiefOfStaffPage() {
               How it works
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
-              Three steps. Seven days. White-glove the whole way.
+              Three steps. One to three weeks. White-glove the whole way.
             </h2>
 
             <ol className="space-y-6">
@@ -331,16 +336,16 @@ export default function ChiefOfStaffPage() {
         <section className="px-6 py-24 border-t border-zinc-800">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6">
-              Your time is worth more than your inbox.
+              Your team is worth more than this work.
               <br />
               <span className="text-amber-400">
-                Rumi makes that math real.
+                Hire one of ours instead.
               </span>
             </h2>
 
             <p className="text-lg text-zinc-400 leading-relaxed mb-8 max-w-xl mx-auto">
-              See exactly what a week of your inbox looks like with Rumi
-              running it. Free pilot, 20 minutes to set up.
+              30-minute hiring call. We size the role, you decide the timeline.
+              No commitment.
             </p>
 
             <a
@@ -349,7 +354,7 @@ export default function ChiefOfStaffPage() {
               rel="noopener noreferrer"
               className="inline-block rounded-lg bg-amber-400 px-8 py-3.5 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
             >
-              Book a 20-minute demo →
+              Book a hiring call →
             </a>
           </div>
         </section>

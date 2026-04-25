@@ -12,7 +12,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-xs font-medium uppercase tracking-widest text-zinc-500 mb-3">
-              Services
+              Open Roles
             </h3>
             <ul className="space-y-2">
               <li>
@@ -20,7 +20,7 @@ export function Footer() {
                   href="/services"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  All Services
+                  All Roles
                 </a>
               </li>
               <li>
@@ -29,14 +29,6 @@ export function Footer() {
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
                   Chief of Staff
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/services/chief-of-operations"
-                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
-                >
-                  Chief of Operations
                 </a>
               </li>
               <li>
@@ -108,7 +100,7 @@ export function Footer() {
                   href="/pricing"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Pricing
+                  How hiring works
                 </a>
               </li>
               <li>
@@ -118,15 +110,15 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Book a Call
+                  Book a hiring call
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:support@rumi.team"
+                  href="mailto:support@rumi.build"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Contact Support
+                  support@rumi.build
                 </a>
               </li>
             </ul>

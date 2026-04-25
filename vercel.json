@@ -3,13 +3,17 @@
   "redirects": [
     { "source": "/services/rag-knowledge-systems", "destination": "/services", "permanent": true },
     { "source": "/services/agentic-ai", "destination": "/services", "permanent": true },
-    { "source": "/services/document-processing", "destination": "/services/chief-of-operations", "permanent": true },
+    { "source": "/services/document-processing", "destination": "/chief-of-staff", "permanent": true },
     { "source": "/services/ai-analytics", "destination": "/services", "permanent": true },
     { "source": "/services/ai-strategy", "destination": "/services", "permanent": true },
     { "source": "/services/ai-marketing", "destination": "/services/chief-of-marketing", "permanent": true },
     { "source": "/services/voice-ai", "destination": "/services/chief-of-customer-service", "permanent": true },
     { "source": "/services/web-mobile-apps", "destination": "/services", "permanent": true },
-    { "source": "/services/workflow-automation", "destination": "/services/chief-of-operations", "permanent": true },
-    { "source": "/services/chief-of-staff", "destination": "/chief-of-staff", "permanent": true }
+    { "source": "/services/workflow-automation", "destination": "/chief-of-staff", "permanent": true },
+    { "source": "/services/chief-of-operations", "destination": "/chief-of-staff", "permanent": true },
+    { "source": "/services/chief-of-staff", "destination": "/chief-of-staff", "permanent": true },
+    { "source": "/sprint", "destination": "/services/chief-of-customer-service", "permanent": true },
+    { "source": "/deposit", "destination": "/services", "permanent": true },
+    { "source": "/automation", "destination": "/chief-of-staff", "permanent": true }
   ]
 }

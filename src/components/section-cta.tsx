@@ -1,10 +1,10 @@
 import { CALENDLY_URL } from "@/lib/data";
 
 export function SectionCTA({
-  title = "Let\u2019s talk about your business",
-  description = "Free 30-minute call. We\u2019ll show you which AI employee saves you the most \u2014 and how fast you can have them.",
-  cta = "Book a Call",
-  sub = "No commitment. Plans start at $250/mo.",
+  title = "Ready to interview your first AI hire?",
+  description = "Free 30-minute call. We\u2019ll show you which AI employee saves you the most \u2014 and how fast you can have them on the job.",
+  cta = "Book a hiring call",
+  sub = "No commitment. We size the role and the cost together.",
 }: {
   title?: string;
   description?: string;

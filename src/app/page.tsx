@@ -5,7 +5,7 @@ import { ServicesPreview } from "@/components/services-preview";
 import { CaseStudy } from "@/components/case-study";
 import { IndustriesPreview } from "@/components/industries-preview";
 import { HowItWorks } from "@/components/how-it-works";
-import { Pricing } from "@/components/pricing";
+import { SectionCTA } from "@/components/section-cta";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
         <CaseStudy />
         <IndustriesPreview />
         <HowItWorks />
-        <Pricing />
+        <SectionCTA />
       </main>
       <Footer />
     </>

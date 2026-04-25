@@ -2,11 +2,7 @@
 
 export const CALENDLY_URL = "https://cal.com/rumi.team/30min";
 
-export const STRIPE_URLS = {
-  sprint: "https://buy.stripe.com/aFa5kwgeR8ae5AL7KA0RG00",
-  automation: "https://buy.stripe.com/14AaEQ6EhgGK6EP0i80RG01",
-  deposit: "https://buy.stripe.com/cNi6oAe6J8ae4wHaWM0RG02",
-} as const;
+export const SUPPORT_EMAIL = "support@rumi.build";
 
 // ── Team ──
 
@@ -68,7 +64,7 @@ export const STATS: Stat[] = [
   { value: "24/7", label: "Your AI never calls in sick" },
 ];
 
-// ── Services ──
+// ── Services (the three Chiefs) ──
 
 export interface Service {
   slug: string;
@@ -76,7 +72,6 @@ export interface Service {
   icon: string;
   tagline: string;
   description: string;
-  priceRange: string;
   features: string[];
   useCases: string[];
   relatedVerticals: string[];
@@ -94,51 +89,28 @@ export const SERVICES: Service[] = [
     name: "Chief of Staff",
     icon: "✍️",
     tagline:
-      "Your AI manager. On your phone. Approvals via Telegram, WhatsApp, or iMessage.",
+      "Your AI manager + back office. Approvals on Telegram, WhatsApp, or iMessage.",
     description:
-      "Reads your inbox, answers your phone, runs your calendar, organizes your documents — all from your phone. Reports through your preferred channel: Telegram, WhatsApp, or iMessage. Asks for approval before anything important goes out, then handles the rest on its own.",
-    priceRange: "Included in Launch or Managed plans",
+      "Reads your inbox, answers your phone, runs your calendar, organizes your documents, AND automates the back office: bookkeeping, invoicing, intake forms, project portals, scheduling. One AI employee covering both executive admin and operations. Reports through your preferred channel (Telegram, WhatsApp, iMessage) and asks for approval before anything important goes out.",
     features: [
       "Email triage and reply drafting in your voice",
       "Phone answering with smart escalation when it matters",
       "Calendar booking, conflict resolution, focus-time defense",
-      "Document organization and quick retrieval on the go",
-      "Reports through Telegram, WhatsApp, or iMessage",
-      "One-tap approval before anything goes out",
+      "Bookkeeping, invoicing, and back-office workflow automation",
+      "Client and project portals with real-time updates",
+      "Intake forms, scheduling, and follow-up automation",
+      "Connects to QuickBooks, Notion, Slack, your CRM",
+      "Reports and one-tap approval via Telegram, WhatsApp, or iMessage",
     ],
     useCases: [
       "Founder: 121 inbound emails a day handled, the 5% that matter surface to you",
       "Executive: every call answered, meetings booked, focus time defended",
-      "Operator: documents and contracts organized, retrievable from your phone",
-      "Sales lead: approve outbound replies via WhatsApp before they send",
+      "Accounting firm: bookkeeping and client communication automated, focus on advisory",
+      "Construction: estimating, change orders, and a client-facing project portal",
+      "Law firm: intake forms, client portals, matter management on your phone",
     ],
-    relatedVerticals: ["legal", "accounting", "healthcare"],
+    relatedVerticals: ["accounting", "construction", "legal", "healthcare"],
     href: "/chief-of-staff",
-  },
-  {
-    slug: "chief-of-operations",
-    name: "Chief of Operations",
-    icon: "⚙️",
-    tagline:
-      "Your back office, automated. The repetitive work, gone.",
-    description:
-      "AI-driven workflow automation that learns your business. Handles bookkeeping, invoicing, intake forms, scheduling, project portals, and the dozens of small workflows that quietly eat your team's day. Connects to your existing tools, runs in the background, escalates only when judgment is needed.",
-    priceRange: "Included in Launch or Managed plans",
-    features: [
-      "Bookkeeping and transaction categorization",
-      "Invoice processing from inbox to accounting system",
-      "Client and project portals with real-time updates",
-      "Intake forms, scheduling, and follow-up automation",
-      "Estimating, change-order tracking, and bid management",
-      "Connects to QuickBooks, Notion, Slack, your CRM",
-    ],
-    useCases: [
-      "Accounting firm: automate bookkeeping and client communication, focus on advisory",
-      "Construction: estimating, change orders, and a project portal clients actually use",
-      "Restaurant: inventory alerts, scheduling, and order-confirmation automation",
-      "Law firm: intake forms, client portals, and matter management",
-    ],
-    relatedVerticals: ["accounting", "construction", "restaurants", "legal"],
   },
   {
     slug: "chief-of-marketing",
@@ -148,7 +120,6 @@ export const SERVICES: Service[] = [
       "Your competitors are eating your search traffic. Take it back.",
     description:
       "AI marketing analyst that reads your product pages, audits your landing copy, compares it side-by-side against competitors, and ranks rewrites by impact. Daily search opportunities surfaced before your competitors find them.",
-    priceRange: "Included in Launch or Managed plans",
     features: [
       "Side-by-side competitor analysis on the pages that matter",
       "Keyword and search-intent gaps your team is missing",
@@ -170,7 +141,6 @@ export const SERVICES: Service[] = [
     tagline: "Never miss a call. Never miss a lead. 24/7 in 30+ languages.",
     description:
       "AI phone agent that answers every call, books appointments, handles triage, and follows up — in 30+ languages, around the clock. Customers hear a real conversation, not a phone tree. Deployed in 1–3 weeks.",
-    priceRange: "Included in Launch or Managed plans",
     features: [
       "24/7 phone answering with natural conversation",
       "Appointment booking integrated with your calendar",
@@ -266,13 +236,13 @@ export const VERTICALS: Vertical[] = [
     ],
     solutions: [
       "AI answers every call, 24/7, in your customer's language (Chief of Customer Service)",
-      "Automated dispatching gets the right tech to the right job (Chief of Operations)",
+      "Automated dispatching gets the right tech to the right job (Chief of Staff)",
       "Post-job follow-up calls drive reviews and repeat bookings (Chief of Customer Service)",
-      "Monthly reports show exactly how many leads you captured (Chief of Operations)",
+      "Monthly reports show exactly how many leads you captured (Chief of Staff)",
     ],
     roiData:
-      "Start with a $250 AI Opportunity Audit to see exactly where your business is leaking revenue.",
-    relatedServices: ["chief-of-customer-service", "chief-of-operations"],
+      "Book a free 30-minute discovery call to see exactly where your business is leaking revenue.",
+    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
   },
   {
     slug: "healthcare",
@@ -289,13 +259,13 @@ export const VERTICALS: Vertical[] = [
     ],
     solutions: [
       "AI phone answering and scheduling in 30+ languages (Chief of Customer Service)",
-      "Automated appointment reminders via call, text, and email (Chief of Operations)",
+      "Automated appointment reminders via call, text, and email (Chief of Staff)",
       "No-show reduction up to 90% with smart follow-up (Chief of Customer Service)",
-      "Intake forms, referrals, and chart prep automated end-to-end (Chief of Operations)",
+      "Intake forms, referrals, and chart prep automated end-to-end (Chief of Staff)",
     ],
     roiData:
-      "Pricing: $200–$3,000/month per practice depending on suite breadth.",
-    relatedServices: ["chief-of-customer-service", "chief-of-operations"],
+      "Book a free 30-minute call to see how much we can reduce your no-show rate.",
+    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
   },
   {
     slug: "restaurants",
@@ -313,12 +283,12 @@ export const VERTICALS: Vertical[] = [
     solutions: [
       "24/7 AI phone answering for reservations and orders (Chief of Customer Service)",
       "Multilingual support for a diverse customer base (Chief of Customer Service)",
-      "Order confirmation, scheduling, and inventory alerts on autopilot (Chief of Operations)",
+      "Order confirmation, scheduling, and inventory alerts on autopilot (Chief of Staff)",
       "Menu and listings audited against the top restaurants in your area (Chief of Marketing)",
     ],
     roiData:
-      "Average $14,700/year savings for a 50-seat restaurant. Pricing: $150–$1,500/month per location.",
-    relatedServices: ["chief-of-customer-service", "chief-of-operations", "chief-of-marketing"],
+      "Book a free 30-minute discovery call to map your busiest hours and missed-call cost.",
+    relatedServices: ["chief-of-customer-service", "chief-of-staff", "chief-of-marketing"],
   },
   {
     slug: "legal",
@@ -326,7 +296,7 @@ export const VERTICALS: Vertical[] = [
     stat: "450K firms · First response wins the client",
     tagline: "AI that answers client calls before your competitors do",
     description:
-      "The first firm to respond wins the client. AI phone answering handles intake screening and appointment scheduling 24/7 while your firm website converts visitors into consultations.",
+      "The first firm to respond wins the client. AI phone answering handles intake screening and appointment scheduling 24/7 while back-office automation runs the matter portal and intake forms.",
     painPoints: [
       "Missed client calls go straight to your competitor",
       "Client intake is manual and slow",
@@ -336,12 +306,12 @@ export const VERTICALS: Vertical[] = [
     solutions: [
       "24/7 AI phone answering with client intake screening (Chief of Customer Service)",
       "Automated appointment scheduling and confirmation (Chief of Customer Service)",
-      "Client intake forms, document collection, and matter portal (Chief of Operations)",
+      "Client intake forms, document collection, and matter portal (Chief of Staff)",
       "Multilingual support for a diverse client base (Chief of Customer Service)",
     ],
     roiData:
-      "First-response advantage: firms that answer within 5 minutes are 10x more likely to win the client. Pricing: $200–$1,500/month.",
-    relatedServices: ["chief-of-customer-service", "chief-of-operations", "chief-of-staff"],
+      "First-response advantage: firms that answer within 5 minutes are 10x more likely to win the client. Book a free discovery call to see your conversion gap.",
+    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
   },
   {
     slug: "accounting",
@@ -357,14 +327,14 @@ export const VERTICALS: Vertical[] = [
       "Phone calls interrupt deep work throughout the day",
     ],
     solutions: [
-      "Automated bookkeeping and transaction categorization (Chief of Operations)",
+      "Automated bookkeeping and transaction categorization (Chief of Staff)",
       "AI phone answering for client calls and scheduling (Chief of Customer Service)",
       "Proactive client communication and approvals on your phone (Chief of Staff)",
-      "Automated reporting and deadline management (Chief of Operations)",
+      "Automated reporting and deadline management (Chief of Staff)",
     ],
     roiData:
-      "A Coral Springs firm saw cost-per-lead drop 38% and client acquisition rise 67%. Pricing: $200–$5,000/month.",
-    relatedServices: ["chief-of-operations", "chief-of-staff", "chief-of-customer-service"],
+      "A Coral Springs firm saw cost-per-lead drop 38% and client acquisition rise 67%. Book a free discovery call.",
+    relatedServices: ["chief-of-staff", "chief-of-customer-service"],
   },
   {
     slug: "construction",
@@ -372,7 +342,7 @@ export const VERTICALS: Vertical[] = [
     stat: "750K firms · First to bid wins",
     tagline: "Streamline bids and keep projects on track",
     description:
-      "Workflow automation streamlines estimating, change orders, and project communication. A modern project portal keeps clients informed and your team organized.",
+      "Workflow automation streamlines estimating, change orders, and project communication. A modern project portal keeps clients informed and your team organized — all from your phone.",
     painPoints: [
       "Estimating takes days of manual work per bid",
       "Change order tracking is chaotic",
@@ -380,77 +350,13 @@ export const VERTICALS: Vertical[] = [
       "No centralized project portal for stakeholders",
     ],
     solutions: [
-      "Workflow automation for estimating and bid management (Chief of Operations)",
-      "Automated change-order tracking and notifications (Chief of Operations)",
-      "Client-facing project portal with real-time updates (Chief of Operations)",
+      "Workflow automation for estimating and bid management (Chief of Staff)",
+      "Automated change-order tracking and notifications (Chief of Staff)",
+      "Client-facing project portal with real-time updates (Chief of Staff)",
       "Centralized communication hub and approvals on your phone (Chief of Staff)",
     ],
-    roiData: "Pricing: $200–$2,000/month.",
-    relatedServices: ["chief-of-operations", "chief-of-staff", "chief-of-marketing"],
-  },
-];
-
-// ── Pricing Tiers ──
-
-export interface Tier {
-  name: string;
-  price: string;
-  href: string;
-  description: string;
-  roi: string;
-  features: string[];
-  cta: string;
-  featured: boolean;
-}
-
-export const TIERS: Tier[] = [
-  {
-    name: "Discover",
-    price: "$250",
-    href: "/audit",
-    description:
-      "AI Opportunity Audit. We analyze your business and show you exactly where you're losing time and money.",
-    roi: "Credited toward your first project",
-    features: [
-      "30-minute deep-dive into your workflows",
-      "3 specific opportunities identified",
-      "Dollar value estimated for each",
-      "Actionable report delivered in 48 hours",
-    ],
-    cta: "Get Your AI Audit",
-    featured: false,
-  },
-  {
-    name: "Launch",
-    price: "From $2,500",
-    href: CALENDLY_URL,
-    description:
-      "Your first AI employee. Chief of Staff, Operations, Marketing, or Customer Service — live in 1–3 weeks.",
-    roi: "Your first AI employee, working for you",
-    features: [
-      "One high-impact deployment",
-      "Chief of Staff, Operations, Marketing, or Customer Service",
-      "Daily progress updates",
-      "60 days post-launch support",
-    ],
-    cta: "Book a Call",
-    featured: true,
-  },
-  {
-    name: "Managed",
-    price: "From $2,000/mo",
-    href: CALENDLY_URL,
-    description:
-      "Ongoing AI operations. We manage, optimize, and expand your AI across the business.",
-    roi: "We manage your AI. You manage your business.",
-    features: [
-      "Ongoing monitoring + optimization",
-      "KPI tracking and monthly reports",
-      "Additional agent deployments",
-      "Dedicated Slack channel",
-    ],
-    cta: "Book a Call",
-    featured: false,
+    roiData: "Book a free discovery call to see how much faster your bids could ship.",
+    relatedServices: ["chief-of-staff", "chief-of-marketing"],
   },
 ];
 

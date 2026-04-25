@@ -2,9 +2,9 @@ import { CALENDLY_URL } from "@/lib/data";
 import { MobileMenu } from "./mobile-menu";
 
 const LINKS = [
-  { label: "Services", href: "/services" },
+  { label: "Open Roles", href: "/services" },
   { label: "Industries", href: "/industries" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Hiring", href: "/pricing" },
   { label: "Team", href: "/team" },
 ];
 

@@ -5,13 +5,13 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rumi Build — Hire Your Next AI Employee",
+  title: "Rumi Build — Head of HR for AI Employees",
   description:
-    "Chief of Staff, Chief of Operations, Chief of Marketing, Chief of Customer Service. Four AI specialists. Fraction of the cost. 24/7 availability. Deployed in days. Free discovery call.",
+    "Cut your payroll. Hire AI employees that work 24/7. Rumi is your Head of HR — we recruit, deploy, and manage three AI specialists trained on your context: Chief of Staff, Chief of Marketing, Chief of Customer Service.",
   openGraph: {
-    title: "Rumi Build — Hire Your Next AI Employee",
+    title: "Rumi Build — Head of HR for AI Employees",
     description:
-      "Four AI specialists. Fraction of the cost. 24/7. Deployed in days.",
+      "Cut your payroll. Hire AI employees that work 24/7. Three specialists, deployed in days.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Hire Your Next AI Employee",
+    title: "Rumi Build — Head of HR for AI Employees",
     description:
-      "Four AI specialists. Fraction of the cost. 24/7. Deployed in days.",
+      "Cut your payroll. Hire AI employees that work 24/7. Three specialists, deployed in days.",
     images: ["/og-image.png"],
   },
 };

@@ -22,7 +22,7 @@ export function ServiceCard({
         {service.tagline}
       </p>
       <p className="font-mono text-xs text-amber-400/70 mt-auto">
-        {service.priceRange}
+        Talk to us about hiring →
       </p>
     </>
   );

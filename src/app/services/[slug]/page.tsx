@@ -69,12 +69,15 @@ export default async function ServiceDetailPage({
         <section className="py-20 px-6">
           <div className="mx-auto max-w-3xl">
             <PageHeader
-              overline={service.priceRange}
+              overline="Open role"
               title={service.name}
               description={service.tagline}
             />
 
-            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-amber-400/10 text-2xl mb-8">
+            <div
+              className="flex h-14 w-14 items-center justify-center rounded-xl bg-amber-400/10 text-2xl mb-8"
+              aria-hidden="true"
+            >
               {service.icon}
             </div>
 

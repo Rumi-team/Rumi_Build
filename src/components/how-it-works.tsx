@@ -1,23 +1,23 @@
 const STEPS = [
   {
     num: 1,
-    title: "Audit",
-    desc: "We analyze your workflows and show you exactly where your business is losing time and money. You get a report with 3 specific opportunities and their dollar value.",
+    title: "Assess",
+    desc: "30-minute hiring call. We map the work your team does today and tell you which AI employee would have the biggest payroll impact, and how fast we can have them on the job.",
   },
   {
     num: 2,
-    title: "Deploy",
-    desc: "We build and launch the fix for your highest-impact problem first. Voice AI, automation, or web presence, live in 1-3 weeks. You see progress daily.",
+    title: "Hire",
+    desc: "Pick the Chief. We deploy them in 1 to 3 weeks — trained on your inbox, calls, calendar, tone, and the systems your team already uses. Daily progress updates while we onboard.",
   },
   {
     num: 3,
     title: "Manage",
-    desc: "We monitor, optimize, and handle the day-to-day so you don't have to. Monthly reports show exactly what your AI is doing for your business.",
+    desc: "Your AI employee runs in the background, reports through Telegram, WhatsApp, or iMessage, and asks for approval before anything important goes out. We handle the monitoring and tuning.",
   },
   {
     num: 4,
-    title: "Scale",
-    desc: "As results compound, we deploy AI across more of your operations. Each new deployment builds on what's already working.",
+    title: "Promote",
+    desc: "When the first hire is paying off, hire the next Chief. Each new role builds on what the first one already learned about your business.",
   },
 ];
 
@@ -32,7 +32,7 @@ export function HowItWorks() {
           id="how-heading"
           className="text-3xl font-bold tracking-tight mb-10"
         >
-          From audit to results
+          From hiring call to first paycheck
         </h2>
 
         <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
