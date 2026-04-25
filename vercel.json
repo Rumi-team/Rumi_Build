@@ -1,5 +1,4 @@
 {
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':!**/*.md' ':!__tests__/**' ':!**/*.test.ts' ':!**/*.test.tsx' ':!.github/**'",
   "framework": "nextjs",
   "redirects": [
     { "source": "/services/rag-knowledge-systems", "destination": "/services", "permanent": false },
