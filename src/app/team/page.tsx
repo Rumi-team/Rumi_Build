@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { PageHeader } from "@/components/page-header";
-import { StatsBar } from "@/components/stats-bar";
 import { SectionCTA } from "@/components/section-cta";
 import { TEAM } from "@/lib/data";
 
@@ -72,8 +71,6 @@ export default function TeamPage() {
             ))}
           </div>
         </section>
-
-        <StatsBar />
 
         {/* Proof of Work */}
         <section className="py-20 px-6">

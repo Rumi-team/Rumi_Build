@@ -52,18 +52,6 @@ export const TEAM: TeamMember[] = [
 
 // ── Stats ──
 
-export interface Stat {
-  value: string;
-  label: string;
-}
-
-export const STATS: Stat[] = [
-  { value: "10+ hrs/wk", label: "Freed from repetitive tasks" },
-  { value: "3 weeks", label: "From audit to first results" },
-  { value: "30+", label: "Languages supported by voice AI" },
-  { value: "24/7", label: "Your AI never calls in sick" },
-];
-
 // ── Services (the three Chiefs) ──
 
 export interface Service {
