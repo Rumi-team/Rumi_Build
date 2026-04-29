@@ -97,6 +97,14 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href="/workplace"
+                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
+                >
+                  Workplace
+                </a>
+              </li>
+              <li>
+                <a
                   href="/pricing"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
