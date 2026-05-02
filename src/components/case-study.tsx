@@ -1,17 +1,17 @@
 import { PORTFOLIO } from "@/lib/data";
 
 const BEFORE = [
-  "WordPress site from 2018",
-  "No mobile responsiveness",
+  "Hand-coded WordPress site from 2018",
+  "Months of agency back-and-forth",
   "Manual event updates",
-  "No bilingual support",
+  "No mobile, no bilingual support",
 ];
 
 const AFTER = [
-  "Modern bilingual design system",
+  "AI-generated design system, shipped in days",
   "Prayer times API integration",
   "Admin CMS for content management",
-  "Mobile-first responsive design",
+  "Mobile-first, fully bilingual",
 ];
 
 function IconX() {
@@ -71,11 +71,9 @@ export function CaseStudy() {
 
         {/* IMAN website case study — featured */}
         <div className="card-glass card-featured rounded-xl p-6 md:p-10 mb-6">
-          <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-2">
-            IMAN.org — Website Redesign
-          </p>
           <h3 className="text-xl md:text-2xl font-bold mb-6">
-            Bilingual community website with custom design system
+            Bilingual community website,{" "}
+            <span className="text-amber-400">designed and built by AI</span>
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -118,7 +116,7 @@ export function CaseStudy() {
           <div className="flex flex-wrap gap-x-10 gap-y-4">
             <div>
               <p className="font-mono text-3xl font-bold text-amber-400">
-                3 days
+                5 days
               </p>
               <p className="text-sm text-zinc-400">from call to live site</p>
             </div>

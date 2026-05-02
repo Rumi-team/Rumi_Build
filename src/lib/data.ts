@@ -361,12 +361,12 @@ export interface PortfolioItem {
 
 export const PORTFOLIO: PortfolioItem[] = [
   {
-    label: "Web Deployment",
+    label: "AI Website Build",
     title: "IMAN — Community Website",
     description:
-      "Bilingual Persian/English website with custom design system, prayer times API, and admin CMS. From first call to live site in 3 days.",
+      "Bilingual Persian/English website designed and built by AI. Custom design system, prayer times API, and admin CMS. From first call to live site in 5 days.",
     url: "https://iman-website-seven.vercel.app/",
-    stat: "3 days",
+    stat: "5 days",
     statLabel: "from call to live",
   },
   {
