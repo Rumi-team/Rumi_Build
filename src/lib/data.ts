@@ -2,6 +2,9 @@
 
 export const CALENDLY_URL = "https://cal.com/rumi.team/30min";
 
+// Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>)
+export const CAL_LINK = "rumi.team/30min";
+
 export const SUPPORT_EMAIL = "support@rumi.build";
 
 // ── Team ──
