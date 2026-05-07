@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SERVICES, VERTICALS } from "@/lib/data";
+import { VERTICALS } from "@/lib/data";
 
 // rumi.build uses `output: "export"` (static HTML export). Metadata routes
 // like sitemap.ts need to be force-static, otherwise Next.js treats them as
@@ -11,17 +11,15 @@ const BASE = "https://rumi.build";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  // Static top-level routes.
+  // Static top-level routes (post-pivot: only the new core routes are indexed).
+  // Legacy routes (/services, /chief-of-staff, /workplace, /audit) still exist
+  // as files but are no longer linked from nav and are dropped from the sitemap.
   const staticRoutes = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
-    { path: "/services", priority: 0.9, changeFrequency: "weekly" as const },
-    { path: "/industries", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/pricing", priority: 0.7, changeFrequency: "monthly" as const },
-    { path: "/team", priority: 0.5, changeFrequency: "monthly" as const },
-    { path: "/workplace", priority: 0.5, changeFrequency: "monthly" as const },
-    { path: "/audit", priority: 0.6, changeFrequency: "monthly" as const },
-    // Featured: Chief of Staff has its own rich landing page.
-    { path: "/chief-of-staff", priority: 0.95, changeFrequency: "weekly" as const },
+    { path: "/pricing", priority: 0.9, changeFrequency: "weekly" as const },
+    { path: "/team", priority: 0.7, changeFrequency: "monthly" as const },
+    { path: "/schedule", priority: 0.8, changeFrequency: "weekly" as const },
+    { path: "/industries", priority: 0.7, changeFrequency: "monthly" as const },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((r) => ({
@@ -31,25 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: r.priority,
   }));
 
-  // Dynamic /services/[slug] routes from SERVICES. Skip chief-of-staff —
-  // the rich landing page at /chief-of-staff is the canonical URL, and
-  // /services/chief-of-staff redirects to it via vercel.json.
-  const serviceEntries: MetadataRoute.Sitemap = SERVICES.filter(
-    (s) => s.slug !== "chief-of-staff"
-  ).map((s) => ({
-    url: `${BASE}/services/${s.slug}`,
-    lastModified,
-    changeFrequency: "weekly" as const,
-    priority: 0.85,
-  }));
-
-  // Dynamic /industries/[slug] routes from VERTICALS.
+  // Dynamic /industries/[slug] routes from VERTICALS (Iranian-diaspora retail).
   const industryEntries: MetadataRoute.Sitemap = VERTICALS.map((v) => ({
     url: `${BASE}/industries/${v.slug}`,
     lastModified,
     changeFrequency: "monthly" as const,
-    priority: 0.7,
+    priority: 0.8,
   }));
 
-  return [...staticEntries, ...serviceEntries, ...industryEntries];
+  return [...staticEntries, ...industryEntries];
 }

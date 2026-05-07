@@ -1,12 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { CALENDLY_URL } from "@/lib/data";
 
 const LINKS = [
-  { label: "Open Roles", href: "/services" },
-  { label: "Industries", href: "/industries" },
-  { label: "Hiring", href: "/pricing" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Team", href: "/team" },
 ];
 
@@ -61,13 +58,11 @@ export function MobileMenu() {
             ))}
           </div>
           <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/schedule"
             className="block mt-4 w-full rounded-lg bg-amber-400 py-3 text-center text-base font-semibold text-zinc-900 transition hover:bg-amber-300"
             onClick={() => setOpen(false)}
           >
-            Book Free Call
+            Book Free 15-min Call
           </a>
         </div>
       )}

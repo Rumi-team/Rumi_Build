@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Vazirmatn } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-vazirmatn",
+});
+
 export const metadata: Metadata = {
-  title: "Rumi Build — Head of HR for AI Employees",
+  title: "Rumi Build — Local growth for Iranian-American businesses",
   description:
-    "Cut your payroll. Hire AI employees that work 24/7. Rumi is your Head of HR — we recruit, deploy, and manage three AI specialists trained on your context: Chief of Staff, Chief of Marketing, Chief of Customer Service.",
+    "We're an Iranian-American team that brings 5–20 qualified local customers — Persian, English, or Spanish — calling your store every month. Targeted local campaigns, leads routed straight to your phone, money-back guarantee. From $499/mo.",
   openGraph: {
-    title: "Rumi Build — Head of HR for AI Employees",
+    title: "Rumi Build — Local growth for Iranian-American businesses",
     description:
-      "Cut your payroll. Hire AI employees that work 24/7. Three specialists, deployed in days.",
+      "5–20 qualified local customers calling your store every month, in Persian, English, or Spanish. Iranian-American team. From $499/mo with money-back guarantee.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -19,9 +27,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Head of HR for AI Employees",
+    title: "Rumi Build — Local growth for Iranian-American businesses",
     description:
-      "Cut your payroll. Hire AI employees that work 24/7. Three specialists, deployed in days.",
+      "5–20 qualified local customers calling your store every month — Persian, English, or Spanish. From $499/mo.",
     images: ["/og-image.png"],
   },
 };
@@ -32,7 +40,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${vazirmatn.variable}`}
+    >
       <body className="font-sans antialiased">
         {children}
         <Analytics />

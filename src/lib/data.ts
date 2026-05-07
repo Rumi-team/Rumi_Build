@@ -1,8 +1,37 @@
 // ── Single source of truth for all site content ──
 
-export const CALENDLY_URL = "https://cal.com/rumi.team/30min";
+export const CALENDLY_URL = "https://cal.com/rumi.team/15min";
+
+// Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>)
+export const CAL_LINK = "rumi.team/15min";
 
 export const SUPPORT_EMAIL = "support@rumi.build";
+
+// ── Customer-facing copy (English-primary, Farsi accent layer) ──
+// Saba reviews and rewrites every Farsi line Farsi-first before launch.
+// English is the working language for the site; Farsi accents signal cultural fit only.
+
+export const COPY = {
+  hero: {
+    taglinePill: "Local growth for Iranian-American businesses",
+    headline: "5–20 qualified local customers calling your store every month.",
+    headlineAccent: "From $499/mo.",
+    sub: "We're an Iranian-American team running targeted local campaigns in Persian, English, and Spanish. Every interested customer goes straight to your phone with photos, contact, and budget. Money-back guarantee if we under-deliver.",
+    farsiAccent: "هر ماه ۵ تا ۲۰ مشتری به فروشگاه شما زنگ می‌زنند.",
+    ctaPrimary: "See pricing",
+    ctaPrimaryHref: "/pricing",
+    ctaSecondary: "Book a free 15-min call",
+    ctaSecondaryHref: "/schedule",
+    ctaSecondaryFarsi: "تماس رایگان",
+  },
+  trustRibbon: {
+    line: "Iranian-American team. Persian, English, and Spanish. We charge per lead, not per campaign.",
+  },
+  footer: {
+    farsiGreeting: "ما فارسی صحبت می‌کنیم. درخواست تماس به فارسی.",
+    farsiGreetingTranslation: "We speak Farsi. Request your call in Farsi if you prefer.",
+  },
+} as const;
 
 // ── Team ──
 
@@ -16,14 +45,14 @@ export interface TeamMember {
 
 export const TEAM: TeamMember[] = [
   {
-    name: "Ali Naeini, Ph.D",
+    name: "Dr. Ali Naeini",
     role: "Chief Executive Officer",
     photo: "/team-ali.jpeg",
     school: "",
     experience: [
-      "Led AI at Business Insider & Spotter ($1B+ startups)",
-      "Shipped products to millions of users, $100M+ revenue impact",
-      "PhD @ UC Berkeley & Merced",
+      "Iranian-American. Led products serving 100M+ users at Business Insider and Spotter.",
+      "Now focused on local Iranian-diaspora businesses across North America.",
+      "PhD @ UC Berkeley & Merced.",
     ],
   },
   {
@@ -32,9 +61,9 @@ export const TEAM: TeamMember[] = [
     photo: "/team-saba.jpeg",
     school: "",
     experience: [
-      "Turns complex business problems into clear product roadmaps",
-      "Bridges the gap between what AI can do and what your team needs",
-      "Data Science @ UCLA",
+      "Talks to merchants in Farsi every week. Builds the offer that actually closes.",
+      "Owns customer development, sales conversations, and weekly check-ins with active customers.",
+      "Data Science @ UCLA.",
     ],
   },
   {
@@ -43,16 +72,14 @@ export const TEAM: TeamMember[] = [
     photo: "/team-parnian.jpeg",
     school: "",
     experience: [
-      "Built personalization systems processing millions of daily predictions",
-      "Ships end-to-end: architecture, backend, infrastructure, deployment",
-      "MSc Machine Learning @ Imperial College London",
+      "Builds the lead-routing systems that get every customer to your phone in under a minute.",
+      "Native Farsi speaker. Ships end-to-end: architecture, backend, infrastructure, deployment.",
+      "MSc Machine Learning @ Imperial College London.",
     ],
   },
 ];
 
-// ── Stats ──
-
-// ── Services (the three Chiefs) ──
+// ── Product (single productized offer; replaces the legacy 3-Chief services menu) ──
 
 export interface Service {
   slug: string;
@@ -63,90 +90,43 @@ export interface Service {
   features: string[];
   useCases: string[];
   relatedVerticals: string[];
-  /**
-   * Optional override for the card link. Defaults to `/services/{slug}`.
-   * Use this when a service has a dedicated landing page outside the
-   * dynamic /services/[slug] route (e.g. /chief-of-staff).
-   */
   href?: string;
 }
 
+// Internal name for this offer is "Persian Lead Engine" (see design doc).
+// Buyer-facing copy stays plain and outcome-led; no internal-product naming on the site.
+// We lead on the Persian-speaking wedge and deliver English- and Spanish-speaking
+// customers too — the Iranian-American team gives us community access generic
+// agencies cannot replicate, and that same team can run multilingual campaigns
+// across the languages real local customers actually use.
 export const SERVICES: Service[] = [
   {
-    slug: "chief-of-staff",
-    name: "Chief of Staff",
-    icon: "✍️",
+    slug: "persian-leads",
+    name: "Qualified local customers, delivered",
+    icon: "📞",
     tagline:
-      "Your AI manager + back office. Approvals on Telegram, WhatsApp, or iMessage.",
+      "5–20 qualified local customers calling your store every month — Persian, English, or Spanish. Fixed price, money-back guarantee.",
     description:
-      "Reads your inbox, answers your phone, runs your calendar, organizes your documents, AND automates the back office: bookkeeping, invoicing, intake forms, project portals, scheduling. One AI employee covering both executive admin and operations. Reports through your preferred channel (Telegram, WhatsApp, iMessage) and asks for approval before anything important goes out.",
+      "We're an Iranian-American team that runs targeted local campaigns in Persian, English, and Spanish. We build a multilingual landing page for your business, run Instagram and Persian Telegram-channel outreach, and route every interested customer directly to your phone with photos, contact, and budget. You close. We charge per lead, not per campaign.",
     features: [
-      "Email triage and reply drafting in your voice",
-      "Phone answering with smart escalation when it matters",
-      "Calendar booking, conflict resolution, focus-time defense",
-      "Bookkeeping, invoicing, and back-office workflow automation",
-      "Client and project portals with real-time updates",
-      "Intake forms, scheduling, and follow-up automation",
-      "Connects to QuickBooks, Notion, Slack, your CRM",
-      "Reports and one-tap approval via Telegram, WhatsApp, or iMessage",
+      "Multilingual landing page (Persian, English, Spanish) for your business",
+      "Targeted Instagram campaigns plus Persian Telegram-channel outreach",
+      "Every interested customer routed straight to your phone within minutes",
+      "Lead status tracker (new, contacted, appointment, won, lost) shared with you weekly",
+      "Money-back guarantee if we deliver fewer than 60% of promised leads in month one",
     ],
     useCases: [
-      "Founder: 121 inbound emails a day handled, the 5% that matter surface to you",
-      "Executive: every call answered, meetings booked, focus time defended",
-      "Accounting firm: bookkeeping and client communication automated, focus on advisory",
-      "Construction: estimating, change orders, and a client-facing project portal",
-      "Law firm: intake forms, client portals, matter management on your phone",
+      "Real estate agent: pre-qualified buyer and seller leads with budget, timeline, and neighborhood preferences",
+      "Curtain & drapery retailer: free in-home measurement appointments booked at your store",
+      "Rug and home goods shop: showroom visits and quote requests from local buyers",
+      "Beauty salon and spa: appointment bookings from your local community",
+      "Home services contractor: quote requests with photos, address, and budget range",
     ],
-    relatedVerticals: ["accounting", "construction", "legal", "healthcare"],
-    href: "/chief-of-staff",
-  },
-  {
-    slug: "chief-of-marketing",
-    name: "Chief of Marketing",
-    icon: "📈",
-    tagline:
-      "Your competitors are eating your search traffic. Take it back.",
-    description:
-      "AI marketing analyst that reads your product pages, audits your landing copy, compares it side-by-side against competitors, and ranks rewrites by impact. Daily search opportunities surfaced before your competitors find them.",
-    features: [
-      "Side-by-side competitor analysis on the pages that matter",
-      "Keyword and search-intent gaps your team is missing",
-      "Rewrite suggestions ranked by traffic and conversion impact",
-      "Weekly content audit reports delivered to your inbox",
-    ],
-    useCases: [
-      "Ecommerce: PDP rewrites that close the gap with category leaders",
-      "B2B SaaS: landing-page copy audits against the top three competitors",
-      "Agency: scale content quality reviews across 100+ pages a week",
-      "DTC brand: catch new competitor positioning the day it ships",
-    ],
-    relatedVerticals: ["restaurants", "healthcare", "legal", "home-services"],
-  },
-  {
-    slug: "chief-of-customer-service",
-    name: "Chief of Customer Service",
-    icon: "🎙️",
-    tagline: "Never miss a call. Never miss a lead. 24/7 in 30+ languages.",
-    description:
-      "AI phone agent that answers every call, books appointments, handles triage, and follows up — in 30+ languages, around the clock. Customers hear a real conversation, not a phone tree. Deployed in 1–3 weeks.",
-    features: [
-      "24/7 phone answering with natural conversation",
-      "Appointment booking integrated with your calendar",
-      "Emergency triage and smart call routing",
-      "Automated follow-up calls and reminders",
-      "30+ languages, auto-detected on the first sentence",
-    ],
-    useCases: [
-      "Medical office: scheduling, reminders, no-show reduction",
-      "HVAC company: emergency dispatch, booking, follow-up",
-      "Law firm: client intake screening and appointment scheduling",
-      "Restaurant: reservation management and order inquiries",
-    ],
-    relatedVerticals: ["home-services", "healthcare", "legal", "restaurants"],
+    relatedVerticals: ["real-estate", "curtains", "rugs", "beauty", "home-services"],
   },
 ];
 
-// ── Voice AI Multilingual ──
+// ── Voice AI Multilingual (legacy — kept for backward compatibility on existing pages) ──
 
 export const VOICE_AI_LANGUAGES = [
   "Arabic",
@@ -194,7 +174,7 @@ export const VOICE_AI_MULTILINGUAL = {
     "Research shows language barriers reduce appointment access and patient adherence. A caller who hears their own language is more likely to book, show up, and come back.",
 };
 
-// ── Industry Verticals ──
+// ── Industry Verticals (Iranian-diaspora retail focus) ──
 
 export interface Vertical {
   slug: string;
@@ -210,141 +190,119 @@ export interface Vertical {
 
 export const VERTICALS: Vertical[] = [
   {
+    slug: "real-estate",
+    name: "Real Estate",
+    stat: "Trust-driven, community-led local market",
+    tagline: "More qualified buyer and seller leads from your community",
+    description:
+      "Persian-American real estate runs on trust, language, and community referrals. We bring you qualified Persian-, English-, and Spanish-speaking buyers and sellers, pre-screened by neighborhood, budget, and timeline. Every lead lands directly on your phone with the context you need to close.",
+    painPoints: [
+      "Zillow and Redfin leads go to whoever responds first, not who fits the buyer best",
+      "Community referrals are uneven and slow to compound into pipeline",
+      "Generic agencies do not know Persian-American clients' priorities (commute, schools, neighborhoods)",
+      "Lead quality varies wildly: many tire-kickers, few qualified buyers ready to tour",
+    ],
+    solutions: [
+      "Multilingual landing page with your active listings and neighborhood expertise",
+      "Targeted local ads to Persian-, English-, and Spanish-speaking buyers in your service area",
+      "Lead form pre-qualifies budget range, timeline, bedrooms, and preferred neighborhoods",
+      "Instant phone notification with full lead context, plus a weekly pipeline report",
+    ],
+    roiData:
+      "Subscription tiers from $499/month for 5 qualified leads. Book a free 15-min call to start.",
+    relatedServices: ["persian-leads"],
+  },
+  {
+    slug: "curtains",
+    name: "Curtains & Drapery",
+    stat: "Local appointment-driven retail",
+    tagline: "More in-home measurement bookings, in your language",
+    description:
+      "Curtain and drapery retail in the Iranian-diaspora community runs on word of mouth, in-home consultations, and trust. We bring you Persian-speaking neighbors who want a free measurement at your store, with photos and budget range captured up front.",
+    painPoints: [
+      "Family member runs Instagram sporadically with no analytics",
+      "Word of mouth is slow and uneven across the community",
+      "Local agencies do not speak Farsi or know the diaspora",
+      "No system to know which leads showed up and which didn't",
+    ],
+    solutions: [
+      "Bilingual landing page with photos of your inventory and storefront",
+      "Targeted Instagram and Telegram campaigns to your local Persian community",
+      "Lead form captures name, phone, city, curtain type, budget — instant phone notification",
+      "Weekly status report: how many leads, who booked, who closed",
+    ],
+    roiData:
+      "Sprint pricing: $750 setup plus $750 after the first 5 qualified leads, or $1,200 flat upfront. Book a free 15-min call to start.",
+    relatedServices: ["persian-leads"],
+  },
+  {
+    slug: "rugs",
+    name: "Rugs & Home Goods",
+    stat: "Local showroom-driven retail",
+    tagline: "More showroom visits and quote requests from your community",
+    description:
+      "Persian rug and home goods retail is high-trust, in-person, often family-run. We bring you Persian-speaking buyers actively shopping for rugs in your area, with quote requests and showroom visits booked through your phone.",
+    painPoints: [
+      "Browsers rarely become buyers without a relationship",
+      "Online competitors with no inventory undercut your prices",
+      "Walk-ins are concentrated on weekends only",
+      "Hard to track which marketing actually delivers customers",
+    ],
+    solutions: [
+      "Showroom-visit booking flow with photo previews of your inventory",
+      "Persian-language Instagram reels showing real pieces and prices",
+      "Targeted local ads to Iranian-diaspora buyers shopping for home goods",
+      "Lead routing direct to your phone within minutes",
+    ],
+    roiData:
+      "Subscription tiers from $499/month for 5 qualified leads. Book a free 15-min call to start.",
+    relatedServices: ["persian-leads"],
+  },
+  {
+    slug: "beauty",
+    name: "Beauty & Salon",
+    stat: "Appointment-driven service retail",
+    tagline: "More Persian-speaking clients in your chair every week",
+    description:
+      "Persian-speaking beauty and salon clients want a stylist who understands their hair, their language, and their style. We bring local Persian-speaking neighbors directly to your booking calendar.",
+    painPoints: [
+      "Slow weeks because no one knows you exist outside your block",
+      "Generic agencies do not understand Persian beauty culture",
+      "No-shows hurt revenue and you have no follow-up system",
+      "Repeat customers are everything but you have no retention engine",
+    ],
+    solutions: [
+      "Booking-first landing page in English with Farsi accent",
+      "Local Persian community Instagram and Telegram outreach",
+      "Lead form pre-qualifies service type and time-of-day preference",
+      "Weekly report on bookings, no-shows, and follow-up touchpoints",
+    ],
+    roiData:
+      "Subscription from $499/month or one-time sprint at $1,200. Book a free 15-min call to start.",
+    relatedServices: ["persian-leads"],
+  },
+  {
     slug: "home-services",
     name: "Home Services",
-    stat: "The average contractor misses 40% of incoming calls",
-    tagline: "Every missed call is $200-$500 walking to your competitor",
+    stat: "Quote-driven local service",
+    tagline: "More quote requests from Persian-speaking homeowners in your area",
     description:
-      "78% of homeowners hire the first company that picks up. If your phone rings while your team is on a job, that customer calls the next name on the list. We deploy AI that answers every call, books the job, and follows up, so you stop bleeding revenue.",
+      "Persian-owned plumbers, HVAC techs, contractors, and handyman services already know the community. We help you reach more of them, faster, with quote requests routed straight to your phone.",
     painPoints: [
-      "Missed calls during jobs = $200-$500 lost per call",
-      "After-hours emergencies go to voicemail (and your competitor)",
-      "Hours spent on dispatching instead of billable work",
-      "No system to turn one-time jobs into repeat customers",
+      "Phone rings unevenly; you miss calls during jobs",
+      "Word-of-mouth pipeline can't scale without a system",
+      "Generic local agencies don't get Persian-diaspora trust signals",
+      "Every missed call is hundreds of dollars walking to a competitor",
     ],
     solutions: [
-      "AI answers every call, 24/7, in your customer's language (Chief of Customer Service)",
-      "Automated dispatching gets the right tech to the right job (Chief of Staff)",
-      "Post-job follow-up calls drive reviews and repeat bookings (Chief of Customer Service)",
-      "Monthly reports show exactly how many leads you captured (Chief of Staff)",
+      "Quote-request landing page in English with Farsi accent",
+      "Targeted local ads to Persian-speaking homeowners by service type",
+      "Lead form captures address, service type, urgency, and photos",
+      "Instant phone notification with full lead context, plus weekly status report",
     ],
     roiData:
-      "Book a free 30-minute discovery call to see exactly where your business is leaking revenue.",
-    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
-  },
-  {
-    slug: "healthcare",
-    name: "Healthcare Clinics",
-    stat: "250K+ practices · $150B lost to no-shows",
-    tagline: "Reduce no-shows up to 90%",
-    description:
-      "No-shows cost US healthcare $150+ billion annually. Phone hold times drive patients to competitors. AI phone answering and automated reminders solve both.",
-    painPoints: [
-      "No-shows cost $150+ billion annually across US healthcare",
-      "Phone hold times drive patients to competitors",
-      "Manual appointment reminders are unreliable",
-      "Staff spend hours on scheduling instead of patient care",
-    ],
-    solutions: [
-      "AI phone answering and scheduling in 30+ languages (Chief of Customer Service)",
-      "Automated appointment reminders via call, text, and email (Chief of Staff)",
-      "No-show reduction up to 90% with smart follow-up (Chief of Customer Service)",
-      "Intake forms, referrals, and chart prep automated end-to-end (Chief of Staff)",
-    ],
-    roiData:
-      "Book a free 30-minute call to see how much we can reduce your no-show rate.",
-    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
-  },
-  {
-    slug: "restaurants",
-    name: "Restaurants",
-    stat: "660K+ businesses · 86% AI-comfortable",
-    tagline: "Never miss a reservation call again",
-    description:
-      "AI phone answering handles reservations, takeout orders, and inquiries 24/7. Workflow automation streamlines ordering, scheduling, and follow-up.",
-    painPoints: [
-      "Missed reservation calls during rush hours",
-      "Staff pulled from service to answer phones",
-      "Manual ordering and scheduling processes",
-      "No follow-up system for repeat customers",
-    ],
-    solutions: [
-      "24/7 AI phone answering for reservations and orders (Chief of Customer Service)",
-      "Multilingual support for a diverse customer base (Chief of Customer Service)",
-      "Order confirmation, scheduling, and inventory alerts on autopilot (Chief of Staff)",
-      "Menu and listings audited against the top restaurants in your area (Chief of Marketing)",
-    ],
-    roiData:
-      "Book a free 30-minute discovery call to map your busiest hours and missed-call cost.",
-    relatedServices: ["chief-of-customer-service", "chief-of-staff", "chief-of-marketing"],
-  },
-  {
-    slug: "legal",
-    name: "Legal",
-    stat: "450K firms · First response wins the client",
-    tagline: "AI that answers client calls before your competitors do",
-    description:
-      "The first firm to respond wins the client. AI phone answering handles intake screening and appointment scheduling 24/7 while back-office automation runs the matter portal and intake forms.",
-    painPoints: [
-      "Missed client calls go straight to your competitor",
-      "Client intake is manual and slow",
-      "Matter status updates are still phone tag and email threads",
-      "After-hours inquiries get no response until morning",
-    ],
-    solutions: [
-      "24/7 AI phone answering with client intake screening (Chief of Customer Service)",
-      "Automated appointment scheduling and confirmation (Chief of Customer Service)",
-      "Client intake forms, document collection, and matter portal (Chief of Staff)",
-      "Multilingual support for a diverse client base (Chief of Customer Service)",
-    ],
-    roiData:
-      "First-response advantage: firms that answer within 5 minutes are 10x more likely to win the client. Book a free discovery call to see your conversion gap.",
-    relatedServices: ["chief-of-customer-service", "chief-of-staff"],
-  },
-  {
-    slug: "accounting",
-    name: "Accounting",
-    stat: "AI adoption 9% → 41% in one year",
-    tagline: "Automate the manual work, focus on advisory",
-    description:
-      "AI adoption in accounting jumped from 9% to 41% in one year. Workflow automation handles bookkeeping, categorization, and client communication so your team focuses on advisory.",
-    painPoints: [
-      "Manual bookkeeping is time-consuming and error-prone",
-      "Client communication is reactive, not proactive",
-      "Staff spend hours on categorization and data entry",
-      "Phone calls interrupt deep work throughout the day",
-    ],
-    solutions: [
-      "Automated bookkeeping and transaction categorization (Chief of Staff)",
-      "AI phone answering for client calls and scheduling (Chief of Customer Service)",
-      "Proactive client communication and approvals on your phone (Chief of Staff)",
-      "Automated reporting and deadline management (Chief of Staff)",
-    ],
-    roiData:
-      "A Coral Springs firm saw cost-per-lead drop 38% and client acquisition rise 67%. Book a free discovery call.",
-    relatedServices: ["chief-of-staff", "chief-of-customer-service"],
-  },
-  {
-    slug: "construction",
-    name: "Construction",
-    stat: "750K firms · First to bid wins",
-    tagline: "Streamline bids and keep projects on track",
-    description:
-      "Workflow automation streamlines estimating, change orders, and project communication. A modern project portal keeps clients informed and your team organized — all from your phone.",
-    painPoints: [
-      "Estimating takes days of manual work per bid",
-      "Change order tracking is chaotic",
-      "Client communication is fragmented across email and phone",
-      "No centralized project portal for stakeholders",
-    ],
-    solutions: [
-      "Workflow automation for estimating and bid management (Chief of Staff)",
-      "Automated change-order tracking and notifications (Chief of Staff)",
-      "Client-facing project portal with real-time updates (Chief of Staff)",
-      "Centralized communication hub and approvals on your phone (Chief of Staff)",
-    ],
-    roiData: "Book a free discovery call to see how much faster your bids could ship.",
-    relatedServices: ["chief-of-staff", "chief-of-marketing"],
+      "Subscription from $499/month or one-time sprint at $1,200. Book a free 15-min call to start.",
+    relatedServices: ["persian-leads"],
   },
 ];
 
@@ -361,13 +319,13 @@ export interface PortfolioItem {
 
 export const PORTFOLIO: PortfolioItem[] = [
   {
-    label: "Web Deployment",
-    title: "IMAN — Community Website",
+    label: "Local lead generation",
+    title: "Persian curtain retailer — pilot in progress",
     description:
-      "Bilingual Persian/English website with custom design system, prayer times API, and admin CMS. From first call to live site in 3 days.",
-    url: "https://iman-website-seven.vercel.app/",
-    stat: "3 days",
-    statLabel: "from call to live",
+      "Founding-customer pilot launching Q2. Bilingual landing page, targeted local campaigns, and a weekly lead report. We'll publish the numbers as they land.",
+    url: "/pricing",
+    stat: "Pilot",
+    statLabel: "founding-customer story",
   },
   {
     label: "Voice AI + Web + iOS",

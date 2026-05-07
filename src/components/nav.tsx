@@ -1,9 +1,7 @@
 import { MobileMenu } from "./mobile-menu";
 
 const LINKS = [
-  { label: "Open Roles", href: "/services" },
-  { label: "Industries", href: "/industries" },
-  { label: "Hiring", href: "/pricing" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Team", href: "/team" },
 ];
 
@@ -58,10 +56,10 @@ export function Nav() {
           ))}
         </div>
         <a
-          href="/book"
+          href="/schedule"
           className="rounded-lg bg-amber-400 px-5 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
         >
-          Book Call
+          Book Free 15-min Call
         </a>
       </div>
 
@@ -82,7 +80,7 @@ export function Nav() {
           </a>
         ))}
         <a
-          href="/book"
+          href="/schedule"
           className="rounded-lg bg-amber-400 px-4 py-1.5 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300"
         >
           Book Call

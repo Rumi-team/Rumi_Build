@@ -1,7 +1,6 @@
 import { Nav } from "@/components/nav";
 import { Hero } from "@/components/hero";
 import { ServicesPreview } from "@/components/services-preview";
-import { CaseStudy } from "@/components/case-study";
 import { IndustriesPreview } from "@/components/industries-preview";
 import { HowItWorks } from "@/components/how-it-works";
 import { SectionCTA } from "@/components/section-cta";
@@ -14,7 +13,7 @@ export default function Home() {
       <main>
         <Hero />
         <ServicesPreview />
-        <CaseStudy />
+        {/* CaseStudy hidden in v1 — bring back as "Pilot in progress: Persian curtain retailer" once founding-customer story consents */}
         <IndustriesPreview />
         <HowItWorks />
         <SectionCTA />
