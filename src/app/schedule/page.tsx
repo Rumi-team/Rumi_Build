@@ -40,7 +40,7 @@ export default function SchedulePage() {
           <p className="mt-4 text-xs text-zinc-500">
             Trouble with the calendar?{" "}
             <a
-              href="https://cal.com/rumi.team/15min"
+              href="https://cal.com/rumi.build/15min"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-zinc-300"

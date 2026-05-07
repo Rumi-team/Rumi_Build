@@ -1,9 +1,9 @@
 // ── Single source of truth for all site content ──
 
-export const CALENDLY_URL = "https://cal.com/rumi.team/15min";
+export const CALENDLY_URL = "https://cal.com/rumi.build/15min";
 
 // Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>)
-export const CAL_LINK = "rumi.team/15min";
+export const CAL_LINK = "rumi.build/15min";
 
 export const SUPPORT_EMAIL = "support@rumi.build";
 
