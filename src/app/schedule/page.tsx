@@ -5,8 +5,9 @@ import { CalEmbed } from "@/components/cal-embed";
 import { CAL_LINK } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Schedule a call | Rumi Build",
-  description: "Pick a 30-minute slot to talk with the Rumi Build team.",
+  title: "Book a free 15-min call | Rumi Build",
+  description:
+    "Free 15-minute call. English or Farsi. Built for Iranian-diaspora retail businesses in North America.",
 };
 
 export default function SchedulePage() {
@@ -19,11 +20,19 @@ export default function SchedulePage() {
             Schedule
           </p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3">
-            Pick a 30-minute slot
+            Free 15-min call. English or Farsi.
           </h1>
-          <p className="text-base sm:text-lg text-zinc-400 mb-6 sm:mb-8">
-            We map your team, the work eating your day, and which AI employee
-            would replace the most cost.
+          <p className="text-base sm:text-lg text-zinc-400 mb-2">
+            Built for Iranian-diaspora retail businesses in North America. We
+            map your store, your current lead flow, and quote a tier or a sprint
+            on the call. No commitment.
+          </p>
+          <p
+            lang="fa"
+            dir="rtl"
+            className="font-vazirmatn text-base text-zinc-500 mb-6 sm:mb-8"
+          >
+            تماس رایگان ۱۵ دقیقه‌ای — به فارسی یا انگلیسی.
           </p>
 
           <CalEmbed calLink={CAL_LINK} />
@@ -31,7 +40,7 @@ export default function SchedulePage() {
           <p className="mt-4 text-xs text-zinc-500">
             Trouble with the calendar?{" "}
             <a
-              href="https://cal.com/rumi.team/30min"
+              href="https://cal.com/rumi.team/15min"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-zinc-300"

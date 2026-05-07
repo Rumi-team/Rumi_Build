@@ -88,35 +88,36 @@ export default function TeamPage() {
 
             <div className="space-y-5">
               <a
-                href="https://www.rumi.team"
+                href="https://www.rumiagent.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group block rounded-xl border border-zinc-700 bg-zinc-800/30 p-8 transition hover:border-amber-400/40"
               >
                 <div className="flex flex-col sm:flex-row gap-6 items-start">
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-amber-400/10 text-2xl">
-                    &#x1F399;&#xFE0F;
+                    &#x1F916;
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-2 group-hover:text-amber-400 transition">
-                      AI Coaching App
+                      Rumi Customer Management Platform
                     </h3>
                     <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-                      Built a full voice AI product from zero to production.
-                      Real-time speech processing, personalized coaching engine
-                      with reinforcement learning, and a 20-step behavior change
-                      program. Shipped on iOS and web, handling live voice
-                      sessions at scale. The same AI, voice, and real-time
-                      infrastructure we deploy for our clients.
+                      The customer acquisition system we built for our own
+                      product. Tracks every prospect from first touch to first
+                      purchase, runs targeted campaigns across Instagram,
+                      Telegram, and email, and tells you which channels
+                      actually bring in customers worth keeping. We use it to
+                      grow Rumi every day. The same engine now runs the
+                      marketing for our clients' Iranian-American businesses.
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "Voice AI",
-                        "Real-time Processing",
-                        "Reinforcement Learning",
-                        "iOS + Web",
-                        "GCP Cloud Run",
-                        "Vercel",
+                        "Customer Acquisition",
+                        "Marketing Campaigns",
+                        "Lead Management",
+                        "Channel Tracking",
+                        "Conversion Analytics",
+                        "Personalized Outreach",
                       ].map((tag) => (
                         <span
                           key={tag}
@@ -131,35 +132,37 @@ export default function TeamPage() {
               </a>
 
               <a
-                href="https://www.rumiagent.com"
+                href="https://www.rumi.team"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group block rounded-xl border border-zinc-700 bg-zinc-800/30 p-8 transition hover:border-amber-400/40"
               >
                 <div className="flex flex-col sm:flex-row gap-6 items-start">
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-amber-400/10 text-2xl">
-                    &#x1F916;
+                    &#x1F399;&#xFE0F;
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-2 group-hover:text-amber-400 transition">
-                      Agentic AI Platform
+                      Multi-Lingual Conversational AI
                     </h3>
                     <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-                      Built an autonomous AI decision engine that optimizes user
-                      retention across channels. Thompson Sampling, multi-armed
-                      bandits, and LLM-powered message personalization. 12-page
-                      analytics dashboard with cohort analysis, A/B testing, and
-                      real-time decision monitoring. The same data-driven
-                      automation stack we bring to client projects.
+                      We built voice AI that recognizes your customer&apos;s
+                      language on the first hello and responds in kind &mdash;
+                      Persian, English, Spanish, and more. We use this to
+                      acquire customers from communities that generic
+                      English-only marketing misses entirely. The same
+                      multilingual conversation tech runs on the landing
+                      pages, ads, and phone follow-ups we build for our
+                      clients&apos; Iranian-American businesses.
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "Agentic AI",
-                        "Thompson Sampling",
-                        "LLM Pipeline",
-                        "Analytics Dashboard",
-                        "FastAPI",
-                        "Supabase",
+                        "Multilingual",
+                        "Persian, English, Spanish",
+                        "Voice Conversations",
+                        "Customer Acquisition",
+                        "Local Communities",
+                        "Phone Follow-up",
                       ].map((tag) => (
                         <span
                           key={tag}

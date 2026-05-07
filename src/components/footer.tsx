@@ -1,66 +1,59 @@
-import { CALENDLY_URL } from "@/lib/data";
+import { COPY } from "@/lib/data";
 
 export function Footer() {
   return (
     <footer className="border-t border-zinc-800 py-12 px-6">
       <div className="mx-auto max-w-5xl">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-10">
           <div>
             <img src="/rumi-logo.png" alt="Rumi" className="h-10 mb-3" />
-            <p className="text-xs text-zinc-500">Designed in California</p>
+            <p className="text-xs text-zinc-500 mb-4">
+              Iranian-American team. Designed in California.
+            </p>
+            <p
+              lang="fa"
+              dir="rtl"
+              className="font-vazirmatn text-sm text-zinc-400"
+            >
+              {COPY.footer.farsiGreeting}
+            </p>
           </div>
 
           <div>
             <h3 className="text-xs font-medium uppercase tracking-widest text-zinc-500 mb-3">
-              Open Roles
+              Verticals
             </h3>
             <ul className="space-y-2">
               <li>
                 <a
-                  href="/services"
+                  href="/industries/real-estate"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  All Roles
+                  Real Estate
                 </a>
               </li>
               <li>
                 <a
-                  href="/chief-of-staff"
+                  href="/industries/curtains"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Chief of Staff
+                  Curtains &amp; Drapery
                 </a>
               </li>
               <li>
                 <a
-                  href="/services/chief-of-marketing"
+                  href="/industries/rugs"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Chief of Marketing
+                  Rugs &amp; Home Goods
                 </a>
               </li>
               <li>
                 <a
-                  href="/services/chief-of-customer-service"
+                  href="/industries/beauty"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Chief of Customer Service
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xs font-medium uppercase tracking-widest text-zinc-500 mb-3">
-              Industries
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="/industries"
-                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
-                >
-                  All Industries
+                  Beauty &amp; Salon
                 </a>
               </li>
               <li>
@@ -69,14 +62,6 @@ export function Footer() {
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
                   Home Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/industries/healthcare"
-                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
-                >
-                  Healthcare
                 </a>
               </li>
             </ul>
@@ -97,28 +82,18 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="/workplace"
-                  className="text-sm text-zinc-400 hover:text-zinc-200 transition"
-                >
-                  Workplace
-                </a>
-              </li>
-              <li>
-                <a
                   href="/pricing"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  How hiring works
+                  Pricing
                 </a>
               </li>
               <li>
                 <a
-                  href={CALENDLY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/schedule"
                   className="text-sm text-zinc-400 hover:text-zinc-200 transition"
                 >
-                  Book a hiring call
+                  Book a free 15-min call
                 </a>
               </li>
               <li>

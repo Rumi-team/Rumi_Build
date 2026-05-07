@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { CALENDLY_URL } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Hiring Assessment | Rumi Build",
   description:
-    "Free 30-minute hiring assessment. We map your workflows, identify which AI employees would have the biggest impact on your payroll, and tell you how fast we can deploy them.",
+    "30-minute hiring assessment. $100, refunded if we can't help — credited toward your project if we can. We map your workflows, identify which AI employees would have the biggest impact on your payroll, and tell you how fast we can deploy them.",
 };
 
 export default function AuditPage() {
@@ -26,7 +25,8 @@ export default function AuditPage() {
             A 30-minute call where we look at your team, your tools, and the
             work that&rsquo;s eating your day. We tell you which AI employee
             would have the biggest impact on your payroll, and how fast we can
-            have them on the job. Free.
+            have them on the job. $100 — refunded if we can&rsquo;t help, or
+            credited toward your project if we can.
           </p>
 
           <div className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-8 mb-8">
@@ -37,7 +37,7 @@ export default function AuditPage() {
                 "Three specific roles where an AI employee would replace cost",
                 "Realistic estimate of payroll impact and deployment timeline",
                 "Recommendation: which Chief to hire first, and why",
-                "No commitment, no obligation",
+                "Refunded if we can’t help — or credited toward your project if we can",
               ].map((item) => (
                 <li
                   key={item}
@@ -88,9 +88,7 @@ export default function AuditPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/book"
               className="rounded-lg bg-amber-400 px-8 py-4 text-center text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
             >
               Book Your Hiring Assessment →
@@ -98,9 +96,10 @@ export default function AuditPage() {
           </div>
 
           <p className="text-xs text-zinc-500">
-            We don&rsquo;t charge for the assessment. If we can&rsquo;t identify
-            at least one role where an AI employee earns its cost back inside
-            three months, we tell you that too.
+            $100 for the call. If we can&rsquo;t identify at least one role
+            where an AI employee earns its cost back inside three months, we
+            refund you in full. If we can, the $100 credits toward your
+            project.
           </p>
         </div>
       </div>

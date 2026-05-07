@@ -1,15 +1,15 @@
-import { CALENDLY_URL } from "@/lib/data";
-
 export function SectionCTA({
-  title = "Ready to interview your first AI hire?",
-  description = "Free 30-minute call. We\u2019ll show you which AI employee saves you the most \u2014 and how fast you can have them on the job.",
-  cta = "Book a hiring call",
-  sub = "No commitment. We size the role and the cost together.",
+  title = "Ready to bring more local customers to your store?",
+  description = "Free 15-min call. English or Farsi. We’ll learn your business, walk through pricing, and answer any questions. No commitment.",
+  cta = "Book a free 15-min call",
+  sub = "Built for Iranian-American businesses in North America.",
+  href = "/schedule",
 }: {
   title?: string;
   description?: string;
   cta?: string;
   sub?: string;
+  href?: string;
 }) {
   return (
     <section className="py-20 px-6 text-center border-t border-zinc-800">
@@ -18,9 +18,7 @@ export function SectionCTA({
       </h2>
       <p className="text-lg text-zinc-400 mb-8">{description}</p>
       <a
-        href={CALENDLY_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={href}
         className="inline-block rounded-lg bg-amber-400 px-8 py-3.5 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
       >
         {cta} &rarr;
