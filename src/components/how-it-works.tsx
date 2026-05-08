@@ -12,7 +12,7 @@ const STEPS = [
   {
     num: 3,
     title: "Launch local campaigns",
-    desc: "We run targeted ads to Persian-speaking customers in your city plus organic outreach to Iranian-diaspora Telegram channels. Your offer reaches the right neighbors.",
+    desc: "We run targeted local ads in Persian, English, and Spanish, plus organic outreach to community channels (Telegram, Instagram, neighborhood groups). Your offer reaches the right neighbors.",
   },
   {
     num: 4,

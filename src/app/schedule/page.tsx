@@ -7,7 +7,7 @@ import { CAL_LINK } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Book a free 15-min call | Rumi Build",
   description:
-    "Free 15-minute call. English or Farsi. Built for Iranian-diaspora retail businesses in North America.",
+    "Free 15-minute call. English, Farsi, or Spanish. We map your business, walk through pricing, and quote on the call.",
 };
 
 export default function SchedulePage() {
@@ -23,9 +23,9 @@ export default function SchedulePage() {
             Free 15-min call. English or Farsi.
           </h1>
           <p className="text-base sm:text-lg text-zinc-400 mb-2">
-            Built for Iranian-diaspora retail businesses in North America. We
-            map your store, your current lead flow, and quote a tier or a sprint
-            on the call. No commitment.
+            We map your business, your current lead flow, and quote a tier or a
+            sprint on the call. Multilingual local marketing — Persian, English,
+            and Spanish. No commitment.
           </p>
           <p
             lang="fa"

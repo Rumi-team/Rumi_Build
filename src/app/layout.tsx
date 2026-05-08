@@ -13,13 +13,13 @@ const vazirmatn = Vazirmatn({
 });
 
 export const metadata: Metadata = {
-  title: "Rumi Build — Local growth for Iranian-American businesses",
+  title: "Rumi Build — Local growth for small businesses",
   description:
-    "We're an Iranian-American team that brings 5–20 qualified local customers — Persian, English, or Spanish — calling your store every month. Targeted local campaigns, leads routed straight to your phone, money-back guarantee. From $499/mo.",
+    "5–20 qualified local customers calling your store every month, in Persian, English, or Spanish. Targeted local campaigns, leads routed straight to your phone, money-back guarantee. From $499/mo.",
   openGraph: {
-    title: "Rumi Build — Local growth for Iranian-American businesses",
+    title: "Rumi Build — Local growth for small businesses",
     description:
-      "5–20 qualified local customers calling your store every month, in Persian, English, or Spanish. Iranian-American team. From $499/mo with money-back guarantee.",
+      "5–20 qualified local customers calling your store every month, in Persian, English, or Spanish. Multilingual local marketing. From $499/mo with money-back guarantee.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Local growth for Iranian-American businesses",
+    title: "Rumi Build — Local growth for small businesses",
     description:
       "5–20 qualified local customers calling your store every month — Persian, English, or Spanish. From $499/mo.",
     images: ["/og-image.png"],

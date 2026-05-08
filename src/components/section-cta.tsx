@@ -2,7 +2,7 @@ export function SectionCTA({
   title = "Ready to bring more local customers to your store?",
   description = "Free 15-min call. English or Farsi. We’ll learn your business, walk through pricing, and answer any questions. No commitment.",
   cta = "Book a free 15-min call",
-  sub = "Built for Iranian-American businesses in North America.",
+  sub = "Multilingual local marketing for small businesses. Persian, English, and Spanish.",
   href = "/schedule",
 }: {
   title?: string;

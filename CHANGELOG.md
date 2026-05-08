@@ -4,6 +4,21 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.2.1] - 2026-05-07
+
+### Fixed
+
+- Booking link 404 on production. Cal.com team slug is `rumi.build`, not `rumi.team` — corrected `CALENDLY_URL` and `CAL_LINK` in `data.ts` plus the fallback link in `/schedule`.
+
+### Changed
+
+- Broadened positioning from "Iranian-American businesses" to "small businesses." The marketing surface (hero tagline, sub, trust ribbon, layout metadata, footer credential strip, schedule subtitle, section-CTA default, llms.txt) no longer leads with "Iranian-American team" or "Iranian-American businesses."
+- Persian/Farsi multilingual angle stays — the Farsi accent line on the hero, the trilingual delivery (Persian, English, Spanish), the Farsi greeting in the footer, and the EN/Farsi/Spanish booking copy are all preserved.
+- Vertical descriptions broadened: curtains, rugs, beauty, home services no longer lead with "Iranian-diaspora community" framing. Multilingual delivery is the differentiator instead.
+- Team page case-study copy updated: "marketing for our clients' Iranian-American businesses" → "marketing for our clients' small businesses."
+- HowItWorks step 3 broadened: targeted ads in Persian/English/Spanish + community-channel outreach (Telegram/Instagram/neighborhood groups) instead of "Iranian-diaspora Telegram channels."
+- Founder bios in `data.ts` no longer lead with "Iranian-American" as the primary identifier.
+
 ## [0.2.0] - 2026-05-07
 
 ### Changed

@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: r.priority,
   }));
 
-  // Dynamic /industries/[slug] routes from VERTICALS (Iranian-diaspora retail).
+  // Dynamic /industries/[slug] routes from VERTICALS (local retail focus).
   const industryEntries: MetadataRoute.Sitemap = VERTICALS.map((v) => ({
     url: `${BASE}/industries/${v.slug}`,
     lastModified,

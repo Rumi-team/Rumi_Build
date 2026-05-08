@@ -8,7 +8,7 @@ export function Footer() {
           <div>
             <img src="/rumi-logo.png" alt="Rumi" className="h-10 mb-3" />
             <p className="text-xs text-zinc-500 mb-4">
-              Iranian-American team. Designed in California.
+              Designed in California. Multilingual local marketing.
             </p>
             <p
               lang="fa"

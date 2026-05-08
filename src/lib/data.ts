@@ -13,10 +13,10 @@ export const SUPPORT_EMAIL = "support@rumi.build";
 
 export const COPY = {
   hero: {
-    taglinePill: "Local growth for Iranian-American businesses",
+    taglinePill: "Local growth for small businesses",
     headline: "5–20 qualified local customers calling your store every month.",
     headlineAccent: "From $499/mo.",
-    sub: "We're an Iranian-American team running targeted local campaigns in Persian, English, and Spanish. Every interested customer goes straight to your phone with photos, contact, and budget. Money-back guarantee if we under-deliver.",
+    sub: "We run targeted local campaigns in Persian, English, and Spanish. Every interested customer goes straight to your phone with photos, contact, and budget. Money-back guarantee if we under-deliver.",
     farsiAccent: "هر ماه ۵ تا ۲۰ مشتری به فروشگاه شما زنگ می‌زنند.",
     ctaPrimary: "See pricing",
     ctaPrimaryHref: "/pricing",
@@ -25,7 +25,7 @@ export const COPY = {
     ctaSecondaryFarsi: "تماس رایگان",
   },
   trustRibbon: {
-    line: "Iranian-American team. Persian, English, and Spanish. We charge per lead, not per campaign.",
+    line: "Multilingual local campaigns. Persian, English, and Spanish. We charge per lead, not per campaign.",
   },
   footer: {
     farsiGreeting: "ما فارسی صحبت می‌کنیم. درخواست تماس به فارسی.",
@@ -50,8 +50,8 @@ export const TEAM: TeamMember[] = [
     photo: "/team-ali.jpeg",
     school: "",
     experience: [
-      "Iranian-American. Led products serving 100M+ users at Business Insider and Spotter.",
-      "Now focused on local Iranian-diaspora businesses across North America.",
+      "Led products serving 100M+ users at Business Insider and Spotter.",
+      "Now focused on local growth for small businesses across North America.",
       "PhD @ UC Berkeley & Merced.",
     ],
   },
@@ -95,10 +95,8 @@ export interface Service {
 
 // Internal name for this offer is "Persian Lead Engine" (see design doc).
 // Buyer-facing copy stays plain and outcome-led; no internal-product naming on the site.
-// We lead on the Persian-speaking wedge and deliver English- and Spanish-speaking
-// customers too — the Iranian-American team gives us community access generic
-// agencies cannot replicate, and that same team can run multilingual campaigns
-// across the languages real local customers actually use.
+// Multilingual delivery is the differentiator: we run campaigns in Persian, English,
+// and Spanish, with cultural and language fluency for each market.
 export const SERVICES: Service[] = [
   {
     slug: "persian-leads",
@@ -107,10 +105,10 @@ export const SERVICES: Service[] = [
     tagline:
       "5–20 qualified local customers calling your store every month — Persian, English, or Spanish. Fixed price, money-back guarantee.",
     description:
-      "We're an Iranian-American team that runs targeted local campaigns in Persian, English, and Spanish. We build a multilingual landing page for your business, run Instagram and Persian Telegram-channel outreach, and route every interested customer directly to your phone with photos, contact, and budget. You close. We charge per lead, not per campaign.",
+      "We run targeted local campaigns in Persian, English, and Spanish. We build a multilingual landing page for your business, run Instagram and local-community outreach (including Persian Telegram channels when relevant), and route every interested customer directly to your phone with photos, contact, and budget. You close. We charge per lead, not per campaign.",
     features: [
       "Multilingual landing page (Persian, English, Spanish) for your business",
-      "Targeted Instagram campaigns plus Persian Telegram-channel outreach",
+      "Targeted Instagram campaigns plus local-community outreach in your customers' languages",
       "Every interested customer routed straight to your phone within minutes",
       "Lead status tracker (new, contacted, appointment, won, lost) shared with you weekly",
       "Money-back guarantee if we deliver fewer than 60% of promised leads in month one",
@@ -174,7 +172,7 @@ export const VOICE_AI_MULTILINGUAL = {
     "Research shows language barriers reduce appointment access and patient adherence. A caller who hears their own language is more likely to book, show up, and come back.",
 };
 
-// ── Industry Verticals (Iranian-diaspora retail focus) ──
+// ── Industry Verticals (local retail focus) ──
 
 export interface Vertical {
   slug: string;
@@ -218,7 +216,7 @@ export const VERTICALS: Vertical[] = [
     stat: "Local appointment-driven retail",
     tagline: "More in-home measurement bookings, in your language",
     description:
-      "Curtain and drapery retail in the Iranian-diaspora community runs on word of mouth, in-home consultations, and trust. We bring you Persian-speaking neighbors who want a free measurement at your store, with photos and budget range captured up front.",
+      "Curtain and drapery retail runs on word of mouth, in-home consultations, and trust. We bring you local neighbors — Persian, English, or Spanish-speaking — who want a free measurement at your store, with photos and budget range captured up front.",
     painPoints: [
       "Family member runs Instagram sporadically with no analytics",
       "Word of mouth is slow and uneven across the community",
@@ -251,7 +249,7 @@ export const VERTICALS: Vertical[] = [
     solutions: [
       "Showroom-visit booking flow with photo previews of your inventory",
       "Persian-language Instagram reels showing real pieces and prices",
-      "Targeted local ads to Iranian-diaspora buyers shopping for home goods",
+      "Targeted local ads to multilingual buyers shopping for home goods",
       "Lead routing direct to your phone within minutes",
     ],
     roiData:
@@ -287,7 +285,7 @@ export const VERTICALS: Vertical[] = [
     stat: "Quote-driven local service",
     tagline: "More quote requests from Persian-speaking homeowners in your area",
     description:
-      "Persian-owned plumbers, HVAC techs, contractors, and handyman services already know the community. We help you reach more of them, faster, with quote requests routed straight to your phone.",
+      "Plumbers, HVAC techs, contractors, and handyman services know their local communities. We help you reach more of them, faster, with quote requests routed straight to your phone — in Persian, English, or Spanish.",
     painPoints: [
       "Phone rings unevenly; you miss calls during jobs",
       "Word-of-mouth pipeline can't scale without a system",

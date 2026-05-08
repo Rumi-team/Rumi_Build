@@ -108,7 +108,7 @@ export default function TeamPage() {
                       Telegram, and email, and tells you which channels
                       actually bring in customers worth keeping. We use it to
                       grow Rumi every day. The same engine now runs the
-                      marketing for our clients' Iranian-American businesses.
+                      marketing for our clients&apos; small businesses.
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {[
@@ -153,7 +153,7 @@ export default function TeamPage() {
                       English-only marketing misses entirely. The same
                       multilingual conversation tech runs on the landing
                       pages, ads, and phone follow-ups we build for our
-                      clients&apos; Iranian-American businesses.
+                      clients&apos; small businesses.
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {[
