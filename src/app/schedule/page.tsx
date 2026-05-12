@@ -23,9 +23,9 @@ export default function SchedulePage() {
             Free 15-min call. English or Farsi.
           </h1>
           <p className="text-base sm:text-lg text-zinc-400 mb-2">
-            We map your business, your current lead flow, and quote a tier or a
-            sprint on the call. Multilingual local marketing — Persian, English,
-            and Spanish. No commitment.
+            We map your business, your current lead flow, and quote a tier on
+            the call. Multilingual local marketing across Southern California,
+            in every language LA speaks. No commitment.
           </p>
           <p
             lang="fa"

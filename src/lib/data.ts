@@ -13,25 +13,76 @@ export const SUPPORT_EMAIL = "support@rumi.build";
 
 export const COPY = {
   hero: {
-    taglinePill: "Local growth for small businesses",
-    headline: "5–20 qualified local customers calling your store every month.",
-    headlineAccent: "From $499/mo.",
-    sub: "We run targeted local campaigns in Persian, English, and Spanish. Every interested customer goes straight to your phone with photos, contact, and budget. Money-back guarantee if we under-deliver.",
-    farsiAccent: "هر ماه ۵ تا ۲۰ مشتری به فروشگاه شما زنگ می‌زنند.",
+    headline: "Qualified local customers calling your store every month.",
+    headlineAccent: "From $199/mo.",
+    sub: "We deliver qualified local customers across Southern California from communities your competitors lose to language barriers. Money-back guarantee if we under-deliver.",
     ctaPrimary: "See pricing",
     ctaPrimaryHref: "/pricing",
     ctaSecondary: "Book a free 15-min call",
     ctaSecondaryHref: "/schedule",
-    ctaSecondaryFarsi: "تماس رایگان",
   },
   trustRibbon: {
-    line: "Multilingual local campaigns. Persian, English, and Spanish. We charge per lead, not per campaign.",
+    line: "Qualified local customers, delivered straight to your phone. We charge per booked lead, not per campaign.",
   },
   footer: {
     farsiGreeting: "ما فارسی صحبت می‌کنیم. درخواست تماس به فارسی.",
     farsiGreetingTranslation: "We speak Farsi. Request your call in Farsi if you prefer.",
   },
 } as const;
+
+// ── Hero language strip ──
+// 3 pills above the hero headline: English, the dominant non-English language
+// in LA (Spanish), and the founder's language (Persian/Farsi — Westwood is
+// "Tehrangeles"). Clicking a pill translates the hero's 6 strings via
+// /locales/<code>.json. Other languages remain available in the full Southern
+// California language list below the hero.
+
+export const HERO_STRIP_LANGUAGES = [
+  { code: "en", label: "English", rtl: false },
+  { code: "es", label: "Español", rtl: false },
+  { code: "fa", label: "فارسی", rtl: true },
+] as const;
+
+export type HeroLangCode = (typeof HERO_STRIP_LANGUAGES)[number]["code"];
+
+// ── Supported languages (Southern California focus) ──
+// Ordered by approximate LA County speaker count + community visibility.
+// Source: U.S. Census ACS 2022, LA Almanac. The underlying AI handles 70+
+// languages; this list is what we actually deploy and translate for
+// Southern California merchants.
+
+export const LA_LANGUAGES = [
+  "English",
+  "Spanish",
+  "Chinese (Mandarin)",
+  "Chinese (Cantonese)",
+  "Tagalog/Filipino",
+  "Korean",
+  "Armenian",
+  "Persian/Farsi",
+  "Vietnamese",
+  "Arabic",
+  "Russian",
+  "Japanese",
+  "Khmer (Cambodian)",
+  "Thai",
+  "Hebrew",
+  "Hindi",
+  "Punjabi",
+  "Urdu",
+  "Gujarati",
+  "French",
+  "Portuguese",
+  "Indonesian",
+  "Italian",
+] as const;
+
+export const LANGUAGE_BAR = {
+  eyebrow: "56% of LA County",
+  heading: "56% of LA County speaks a language other than English at home.",
+  sub: "That's nearly 5 million customers most Southern California businesses lose the moment a caller hits an English-only menu. We don't. Here are the languages we deliver in across LA, OC, and the Inland Empire.",
+  footnote: "Rumi answers every caller in their own language from the first word. Just qualified customers, delivered to your phone.",
+};
 
 // ── Team ──
 
@@ -93,24 +144,26 @@ export interface Service {
   href?: string;
 }
 
-// Internal name for this offer is "Persian Lead Engine" (see design doc).
+// Internal name for this offer is "Multilingual Lead Engine" (see design doc).
 // Buyer-facing copy stays plain and outcome-led; no internal-product naming on the site.
-// Multilingual delivery is the differentiator: we run campaigns in Persian, English,
-// and Spanish, with cultural and language fluency for each market.
+// Southern California language reach is the differentiator: we capture the
+// customers your competitors lose to language barriers — 56% of LA County
+// speaks a non-English language at home and hangs up on English-only menus.
 export const SERVICES: Service[] = [
   {
     slug: "persian-leads",
-    name: "Qualified local customers, delivered",
+    name: "Qualified local customers, delivered — in every language spoken in LA",
     icon: "📞",
     tagline:
-      "5–20 qualified local customers calling your store every month — Persian, English, or Spanish. Fixed price, money-back guarantee.",
+      "Qualified local customers calling your store every month — in every language spoken in Southern California. Fixed price, money-back guarantee.",
     description:
-      "We run targeted local campaigns in Persian, English, and Spanish. We build a multilingual landing page for your business, run Instagram and local-community outreach (including Persian Telegram channels when relevant), and route every interested customer directly to your phone with photos, contact, and budget. You close. We charge per lead, not per campaign.",
+      "We deliver qualified local customers in every language Southern California speaks — Spanish, Mandarin, Cantonese, Tagalog, Korean, Armenian, Persian, Vietnamese, Arabic, Russian, Khmer, Thai, Hebrew, Hindi, and more. We run targeted local campaigns, build a multilingual landing page, and route every interested customer directly to your phone with photos, contact, and budget. Calls that used to end in a hang-up turn into bookings. You close. We charge per booked lead, not per campaign.",
     features: [
-      "Multilingual landing page (Persian, English, Spanish) for your business",
-      "Targeted Instagram campaigns plus local-community outreach in your customers' languages",
-      "Every interested customer routed straight to your phone within minutes",
-      "Lead status tracker (new, contacted, appointment, won, lost) shared with you weekly",
+      "Local customers in every Southern California language — every caller hears their own language from the first word",
+      "Multilingual landing page tailored to the languages your customers actually speak",
+      "Targeted Instagram campaigns plus local-community outreach in those same languages",
+      "Every booked lead routed straight to your phone within minutes",
+      "Weekly lead status tracker (new, contacted, appointment, won, lost)",
       "Money-back guarantee if we deliver fewer than 60% of promised leads in month one",
     ],
     useCases: [
@@ -124,7 +177,7 @@ export const SERVICES: Service[] = [
   },
 ];
 
-// ── Voice AI Multilingual (legacy — kept for backward compatibility on existing pages) ──
+// ── Multilingual (legacy — kept for backward compatibility on existing pages) ──
 
 export const VOICE_AI_LANGUAGES = [
   "Arabic",
@@ -207,7 +260,7 @@ export const VERTICALS: Vertical[] = [
       "Instant phone notification with full lead context, plus a weekly pipeline report",
     ],
     roiData:
-      "Subscription tiers from $499/month for 5 qualified leads. Book a free 15-min call to start.",
+      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -230,7 +283,7 @@ export const VERTICALS: Vertical[] = [
       "Weekly status report: how many leads, who booked, who closed",
     ],
     roiData:
-      "Sprint pricing: $750 setup plus $750 after the first 5 qualified leads, or $1,200 flat upfront. Book a free 15-min call to start.",
+      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -253,7 +306,7 @@ export const VERTICALS: Vertical[] = [
       "Lead routing direct to your phone within minutes",
     ],
     roiData:
-      "Subscription tiers from $499/month for 5 qualified leads. Book a free 15-min call to start.",
+      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -276,7 +329,7 @@ export const VERTICALS: Vertical[] = [
       "Weekly report on bookings, no-shows, and follow-up touchpoints",
     ],
     roiData:
-      "Subscription from $499/month or one-time sprint at $1,200. Book a free 15-min call to start.",
+      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -299,7 +352,7 @@ export const VERTICALS: Vertical[] = [
       "Instant phone notification with full lead context, plus weekly status report",
     ],
     roiData:
-      "Subscription from $499/month or one-time sprint at $1,200. Book a free 15-min call to start.",
+      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
     relatedServices: ["persian-leads"],
   },
 ];
@@ -326,10 +379,10 @@ export const PORTFOLIO: PortfolioItem[] = [
     statLabel: "founding-customer story",
   },
   {
-    label: "Voice AI + Web + iOS",
+    label: "AI + Web + iOS",
     title: "Rumi — AI Coaching Platform",
     description:
-      "Full-stack AI coaching platform with voice agent, real-time sessions, and personalized progress tracking. Deployed across web and iOS.",
+      "Full-stack AI coaching platform with real-time conversations and personalized progress tracking. Deployed across web and iOS.",
     url: "https://www.rumi.team",
     stat: "iOS + Web",
     statLabel: "platforms deployed",

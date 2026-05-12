@@ -13,13 +13,13 @@ const vazirmatn = Vazirmatn({
 });
 
 export const metadata: Metadata = {
-  title: "Rumi Build — Local growth for small businesses",
+  title: "Rumi Build — Qualified local customers across Southern California",
   description:
-    "5–20 qualified local customers calling your store every month, in Persian, English, or Spanish. Targeted local campaigns, leads routed straight to your phone, money-back guarantee. From $499/mo.",
+    "Qualified local customers calling your store every month — in every language spoken in Southern California. Capture the 56% of LA County your competitors lose to language barriers. Limited-time launch pricing from $199/mo with money-back guarantee.",
   openGraph: {
-    title: "Rumi Build — Local growth for small businesses",
+    title: "Rumi Build — Qualified local customers across Southern California",
     description:
-      "5–20 qualified local customers calling your store every month, in Persian, English, or Spanish. Multilingual local marketing. From $499/mo with money-back guarantee.",
+      "Qualified local customers calling your store every month, in every language LA speaks. Capture the customers your competitors lose. Limited-time launch pricing from $199/mo with money-back guarantee.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Local growth for small businesses",
+    title: "Rumi Build — Qualified local customers across Southern California",
     description:
-      "5–20 qualified local customers calling your store every month — Persian, English, or Spanish. From $499/mo.",
+      "Qualified local customers across Southern California — in every language LA speaks. Capture the customers English-only menus lose. Limited-time launch pricing from $199/mo.",
     images: ["/og-image.png"],
   },
 };

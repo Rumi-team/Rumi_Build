@@ -7,17 +7,17 @@ const STEPS = [
   {
     num: 2,
     title: "Build in 48 hours",
-    desc: "We build your bilingual landing page, write your offer, and design the creative for Instagram and Telegram. You review and approve before anything goes live.",
+    desc: "We build your multilingual landing page in the languages your customers speak, write your offer, and design the Instagram and Telegram creative. You review and approve before anything goes live.",
   },
   {
     num: 3,
     title: "Launch local campaigns",
-    desc: "We run targeted local ads in Persian, English, and Spanish, plus organic outreach to community channels (Telegram, Instagram, neighborhood groups). Your offer reaches the right neighbors.",
+    desc: "We run targeted local ads in Southern California's languages — Spanish, Mandarin, Cantonese, Tagalog, Korean, Armenian, Persian, Vietnamese, Arabic, Russian, Khmer, Thai, and more — plus organic outreach to community channels (Telegram, Instagram, neighborhood groups). Your offer reaches every neighbor in their own language.",
   },
   {
     num: 4,
-    title: "Leads to your phone",
-    desc: "Every interested customer lands directly on your phone within minutes. Name, photo, location, what they want, budget range. You call, you close.",
+    title: "Customers to your phone",
+    desc: "Every interested customer lands directly on your phone within minutes — name, photo, location, what they want, budget range. No language barrier, no missed call. You call, you close.",
   },
   {
     num: 5,

@@ -4,6 +4,42 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.3.0] - 2026-05-11
+
+### Added
+
+- Hero language strip — three native-script pills (English, Español, فارسی) above the headline. Clicking a non-English pill translates the six hero strings via lazy-loaded `/locales/<code>.json`. RTL handling for Farsi via Vazirmatn font + `dir="rtl"`.
+- Southern California language list — 23 pills ordered by LA County speaker count + community visibility (Spanish, Chinese, Tagalog, Korean, Armenian, Persian, Vietnamese, Arabic, Russian, Japanese, Khmer, Thai, Hebrew, Hindi, Punjabi, Urdu, Gujarati, French, Portuguese, Indonesian, Italian). Replaces the prior 74-language generic Whisper grid.
+- Fourth pricing tier — **High-Ticket**: from $1,500/mo + 5–15% success fee on closed deals, for merchants with avg customer value $5,000+ (real estate, jewelry, luxury home services). Visible minimum + consultation, no strikethrough.
+- Lead-price calculator on `/pricing` — three pill-radio questions returning the matching tier with a transparent value breakdown: first-sale gross profit + repeat business / referrals / brand / multilingual community trust uplift × volume = monthly revenue lift. LTV multipliers tuned per tier (6× low-ticket, 4× mid, 2.5× premium, 2× high-ticket) so every recommendation reads as ≥2× the tier price.
+- Limited-time launch pricing — strikethrough originals ($499/$799/$999), discounted prices in amber ($199/$299/$499), explicit "Save $X/mo · N% off" pill per tier through 2026-05-31. Banner above the tier grid summarizes the offer.
+- Spanish and Farsi hero translations (`public/locales/es.json`, `fa.json`), translated with Southern California framing.
+- `PLAN-hero-language-strip.md` — design plan from the `/plan-design-review` walkthrough.
+
+### Changed
+
+- Repositioned the entire site to **Southern California** focus. Hero, footer, metadata, schedule page, services preview, vertical descriptions, How-It-Works, section CTA, and `llms.txt` all updated. "1 in 5 Americans" → **"56% of LA County"**.
+- Pricing tier rename: Starter → **Local**, Scale → **Premium** (Growth kept). Each tier now displays its value band (under $150 / $150–$750 / $750–$5,000 / $5,000+) below the name.
+- "Most popular" badge moved from Local to **Premium** — captures the highest gross-profit cohort.
+- Hero headline simplified: dropped "5–20" volume claim so it doesn't ceiling-cap perception for higher-volume merchants. Now reads: *"Qualified local customers calling your store every month. From $199/mo."*
+- Hero accent price: $499/mo → **$199/mo** (matches Local launch tier). Propagated across Spanish and Farsi locale JSONs and the SEO descriptions.
+- Buyer-objection block on `/pricing` rewritten — six new Q&As targeting the new pricing model: *"Why do you need to know my average sale size?"*, *"Are you charging me more just because my customers are worth more?"*, *"Do I pay for bad-fit leads?"*, *"Is this ad spend, software, or an agency fee?"*, plus the kept money-back-guarantee and Yelp-comparison answers.
+- All site copy purged of *"Voice AI agent"* / *"AI agent"* / *"voice agent"* terminology — just "AI". Outcome-led language, no tech-stack name-dropping.
+- Vertical `roiData` strings across all 5 industries updated to *"Launch pricing from $199/month for 5 qualified leads (was $499)."*
+- Footer credential strip → *"Made in Southern California. Local growth in LA's languages."*
+- Strikethrough on original prices changed from neutral gray to muted amber so the discount reads as one cohesive amber moment.
+- Hero is now a client component (`"use client"`) for language-strip state. Home-page route weight grew 783B → 2.52KB First Load JS.
+
+### Removed
+
+- 7-day Sprint pricing option ($1,200 flat for 5 leads) — dropped from `/pricing`, `/schedule`, vertical `roiData`, and both `/llms.txt` versions. The four monthly tiers cover the full pricing surface.
+- Standalone Farsi accent line under the hero headline — strip carries the multilingual signal.
+- Tagline pill at top of hero ("Qualified local customers in 70+ languages") — strip replaces it.
+- Body subhead inline language list ("Spanish, Mandarin, Tagalog…") — strip carries that signal.
+- Farsi parenthetical on secondary hero CTA ("(تماس رایگان)") — strip handles language switching.
+- *"No menus, no 'press 2 for Spanish.'"* from the LanguageBar footnote.
+- Eleven orphan locale JSONs (zh/tl/vi/ar/ko/ru/ht/fr/pt/hi/it) — no longer reachable since the strip only surfaces English/Spanish/Farsi.
+
 ## [0.2.1] - 2026-05-07
 
 ### Fixed

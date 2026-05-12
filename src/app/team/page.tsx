@@ -143,23 +143,22 @@ export default function TeamPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-2 group-hover:text-amber-400 transition">
-                      Multi-Lingual Conversational AI
+                      Customers in Every Southern California Language
                     </h3>
                     <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-                      We built voice AI that recognizes your customer&apos;s
-                      language on the first hello and responds in kind &mdash;
-                      Persian, English, Spanish, and more. We use this to
-                      acquire customers from communities that generic
+                      We built AI that recognizes your customer&apos;s language
+                      on the first hello and responds in kind &mdash; in every
+                      language spoken across Southern California. We use this
+                      to deliver customers from communities that generic
                       English-only marketing misses entirely. The same
-                      multilingual conversation tech runs on the landing
-                      pages, ads, and phone follow-ups we build for our
-                      clients&apos; small businesses.
+                      multilingual reach runs on the landing pages, ads, and
+                      phone follow-ups we build for our clients&apos; small
+                      businesses.
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "Multilingual",
-                        "Persian, English, Spanish",
-                        "Voice Conversations",
+                        "Southern California",
+                        "LA's Languages",
                         "Customer Acquisition",
                         "Local Communities",
                         "Phone Follow-up",
