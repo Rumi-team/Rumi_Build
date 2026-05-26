@@ -108,10 +108,24 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-zinc-800 pt-6 text-center">
+        <div className="border-t border-zinc-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-zinc-500">
             Copyright &copy;2026, Rumi, Inc. Made in California.
           </p>
+          <div className="flex items-center gap-6">
+            <a
+              href="/terms"
+              className="text-sm text-zinc-400 hover:text-zinc-200 transition"
+            >
+              Terms &amp; Conditions
+            </a>
+            <a
+              href="/privacy"
+              className="text-sm text-zinc-400 hover:text-zinc-200 transition"
+            >
+              Privacy
+            </a>
+          </div>
         </div>
       </div>
     </footer>
