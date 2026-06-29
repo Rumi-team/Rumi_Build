@@ -13,13 +13,14 @@ const vazirmatn = Vazirmatn({
 });
 
 export const metadata: Metadata = {
-  title: "Rumi Build — Qualified local customers across Southern California",
+  metadataBase: new URL("https://rumi.build"),
+  title: "Rumi Build — Be found in the AI era, in every language LA speaks",
   description:
-    "Qualified local customers calling your store every month — in every language spoken in Southern California. Capture the 56% of LA County your competitors lose to language barriers. Limited-time launch pricing from $199/mo with money-back guarantee.",
+    "Your competitors lose the 56% of LA County who don't search in English first. We build and run your whole web presence — a multilingual site and an AI chatbot that answers every visitor in their own language and captures the lead. Request a free evaluation.",
   openGraph: {
-    title: "Rumi Build — Qualified local customers across Southern California",
+    title: "Rumi Build — Be found in the AI era, in every language LA speaks",
     description:
-      "Qualified local customers calling your store every month, in every language LA speaks. Capture the customers your competitors lose. Limited-time launch pricing from $199/mo with money-back guarantee.",
+      "We build and run your whole web presence — a multilingual site and an AI chatbot that answers every visitor in their own language and captures the customers your competitors lose. Request a free evaluation.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -27,9 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Qualified local customers across Southern California",
+    title: "Rumi Build — Be found in the AI era, in every language LA speaks",
     description:
-      "Qualified local customers across Southern California — in every language LA speaks. Capture the customers English-only menus lose. Limited-time launch pricing from $199/mo.",
+      "We build and run your whole web presence — multilingual site + an AI chatbot that answers every visitor in their own language. Capture the customers your competitors lose. Request a free evaluation.",
     images: ["/og-image.png"],
   },
 };

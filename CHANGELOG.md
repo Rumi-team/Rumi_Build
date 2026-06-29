@@ -4,6 +4,28 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.0] - 2026-06-29
+
+### Changed
+
+- Repositioned the homepage around **"Be found in the AI era"** — a done-for-you, multilingual-first web-presence offer. The new hero leads with the moat ("Your competitors lose the 56% who don't search in English first. You won't.") plus the visibility/AI-era frame, and presents the platform as a service Rumi builds and runs, not self-serve software. The $199/mo multilingual lead-gen offer stays available via `/pricing` and the industries/services pages.
+- Primary call to action is now **"Request a free evaluation"** (new `/evaluate`); "Book a 15-min call" is secondary. Nav and mobile-menu CTAs updated to match.
+- `HowItWorks` rewritten to a 3-step "from first call to a live presence in days" flow, now driven from `data.ts` (`HOW_IT_WORKS_STEPS`).
+- Hero gained a translatable overline; `public/locales/es.json` + `fa.json` re-translated for the new hero. The locale loader now key-merges over English so a missing key never renders blank.
+- Site metadata (`layout.tsx`) and AI-crawler content (`llms.txt` / `llms-full.txt`) rewritten for the new positioning; removed the stale launch-date and per-lead-only claims. Added `metadataBase` so OG/Twitter image URLs resolve absolutely.
+- `DESIGN.md` product context and decisions log updated to the new positioning.
+
+### Added
+
+- **Free evaluation intake** — `/evaluate` page and form (current website, languages, needs checkboxes, contact) posting to a new `/api/evaluate` endpoint. Capture is required: zod-validated, rate-limited, and persisted to the retention backend; on failure the visitor gets an honest "email support@rumi.build" fallback instead of a false success. Requires `RETENTION_API_URL` + `RETENTION_API_KEY` in the environment.
+- `PlatformPillars` — a "what we build and run" capability strip (multilingual site, in-language AI chatbot, customer list + email, events/ticketing, on-site payments + tips/contributions), service-framed and rendered through the shared `ServiceCard`.
+- `/evaluate` added to the sitemap.
+
+### Notes
+
+- "Donations" wording dropped in favor of "tips / contributions" — the audience is for-profit small businesses, so this avoids implying nonprofit/tax-receipt handling.
+- Strategic note: a CEO/Design/Eng review (via /autoplan) recommended keeping lead-gen primary and adding the platform as an upsell; the founder chose the full reposition. Lead-gen pages remain live as the entry tier.
+
 ## [0.3.0] - 2026-05-11
 
 ### Added
