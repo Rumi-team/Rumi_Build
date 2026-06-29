@@ -14,13 +14,13 @@ const vazirmatn = Vazirmatn({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rumi.build"),
-  title: "Rumi Build — Be found in the AI era, in every language LA speaks",
+  title: "Rumi Build — Stop being invisible in the AI era",
   description:
-    "Your competitors lose the 56% of LA County who don't search in English first. We build and run your whole web presence — a multilingual site and an AI chatbot that answers every visitor in their own language and captures the lead. Request a free evaluation.",
+    "More customers ask ChatGPT, Claude, and Perplexity who to hire. We build your website, mobile app, and social media — and make all of it findable by the AI engines, so when someone asks AI for your service, you're the answer. Request a free evaluation.",
   openGraph: {
-    title: "Rumi Build — Be found in the AI era, in every language LA speaks",
+    title: "Rumi Build — Stop being invisible in the AI era",
     description:
-      "We build and run your whole web presence — a multilingual site and an AI chatbot that answers every visitor in their own language and captures the customers your competitors lose. Request a free evaluation.",
+      "Customers ask ChatGPT, Claude, and Perplexity who to hire. We build your website, mobile app, and social media — and make it all findable by the AI engines, so you're the answer. Request a free evaluation.",
     url: "https://rumi.build",
     siteName: "Rumi Build",
     type: "website",
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Be found in the AI era, in every language LA speaks",
+    title: "Rumi Build — Stop being invisible in the AI era",
     description:
-      "We build and run your whole web presence — multilingual site + an AI chatbot that answers every visitor in their own language. Capture the customers your competitors lose. Request a free evaluation.",
+      "Customers ask ChatGPT and Claude who to hire. We build your website, mobile app, and social media — and make it all findable by the AI engines. Request a free evaluation.",
     images: ["/og-image.png"],
   },
 };
