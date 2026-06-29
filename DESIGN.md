@@ -1,11 +1,11 @@
 # Design System — rumi.build
 
 ## Product Context
-- **What this is:** AI consulting & implementation agency website
-- **Who it's for:** SMB decision-makers (owners, ops leads, CTOs) seeking AI solutions
-- **Space/industry:** AI consulting for small/medium businesses ($28B market, 13-19% CAGR)
-- **Project type:** Marketing site with service pages and booking flow
-- **Positioning:** Boutique AI firm that ships working software in days, not roadmaps in months
+- **What this is:** Marketing site for a done-for-you, multilingual-first web-presence agency
+- **Who it's for:** Southern California small-business owners (studios, salons, instructors, retailers, contractors) losing customers to language barriers and weak online presence
+- **Space/industry:** Done-for-you local marketing + web presence (website + AI chatbot + customer list/email + events + on-site payments), built multilingual-first
+- **Project type:** Marketing site with a free-evaluation intake, pricing, and booking flow
+- **Positioning:** "Be found in the AI era." We build and run your whole web presence so the customers your competitors lose to language barriers find you — and get answered — in their own language. Entry multilingual lead-gen plans remain available.
 
 ## Aesthetic Direction
 - **Direction:** Premium dark, developer-tool-meets-consulting-firm
@@ -86,3 +86,7 @@ Based on market research (April 2026), ordered by margin and demand:
 | 2026-04-03 | Team page expanded to full subpage | Design consultation: services, verticals, stats, proof-of-work added |
 | 2026-04-03 | 9 service categories defined | Based on SMB AI market research — margin, demand, lean-team fit |
 | 2026-04-03 | 6 industry verticals selected | Largest addressable markets with clearest ROI narratives |
+| 2026-06-28 | Homepage repositioned to "be found in the AI era" done-for-you presence | Founder decision (overrode unanimous autoplan "augment" rec); new hero leads with the multilingual moat + visibility frame, platform shown as done-for-you service (not self-serve software) |
+| 2026-06-28 | Primary CTA → free evaluation (`/evaluate`) | Founder requirement; intake captures current site + needs, posts to retention backend; "Book a 15-min call" is now secondary |
+| 2026-06-28 | "donations" → "tips / contributions" | For-profit audience; avoids nonprofit/tax-receipt implication (autoplan UC-2) |
+| 2026-06-28 | Amber kept rare | Reused zinc/amber system; reserved amber for CTAs + accents, pillar icons stay zinc-toned tiles |

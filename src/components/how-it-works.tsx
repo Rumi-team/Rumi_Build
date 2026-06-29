@@ -1,30 +1,4 @@
-const STEPS = [
-  {
-    num: 1,
-    title: "Quick call",
-    desc: "We learn your business in 15 minutes — what you sell, where, what kind of customers you want more of. English or Farsi, your call.",
-  },
-  {
-    num: 2,
-    title: "Build in 48 hours",
-    desc: "We build your multilingual landing page in the languages your customers speak, write your offer, and design the Instagram and Telegram creative. You review and approve before anything goes live.",
-  },
-  {
-    num: 3,
-    title: "Launch local campaigns",
-    desc: "We run targeted local ads in Southern California's languages — Spanish, Mandarin, Cantonese, Tagalog, Korean, Armenian, Persian, Vietnamese, Arabic, Russian, Khmer, Thai, and more — plus organic outreach to community channels (Telegram, Instagram, neighborhood groups). Your offer reaches every neighbor in their own language.",
-  },
-  {
-    num: 4,
-    title: "Customers to your phone",
-    desc: "Every interested customer lands directly on your phone within minutes — name, photo, location, what they want, budget range. No language barrier, no missed call. You call, you close.",
-  },
-  {
-    num: 5,
-    title: "Weekly results, money-back guarantee",
-    desc: "Every week you see exactly how many leads, how many booked, how many bought. If we deliver fewer than 60% of promised leads in month one, you get a pro-rated refund.",
-  },
-];
+import { HOW_IT_WORKS_STEPS } from "@/lib/data";
 
 export function HowItWorks() {
   return (
@@ -37,11 +11,11 @@ export function HowItWorks() {
           id="how-heading"
           className="text-3xl font-bold tracking-tight mb-10"
         >
-          From first call to first customer in 7 days
+          From first call to a live presence in days
         </h2>
 
-        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-          {STEPS.map((step) => (
+        <ol className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {HOW_IT_WORKS_STEPS.map((step) => (
             <li
               key={step.num}
               className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-6"

@@ -13,22 +13,94 @@ export const SUPPORT_EMAIL = "support@rumi.build";
 
 export const COPY = {
   hero: {
-    headline: "Qualified local customers calling your store every month.",
-    headlineAccent: "From $199/mo.",
-    sub: "We deliver qualified local customers across Southern California from communities your competitors lose to language barriers. Money-back guarantee if we under-deliver.",
-    ctaPrimary: "See pricing",
-    ctaPrimaryHref: "/pricing",
-    ctaSecondary: "Book a free 15-min call",
+    overline: "Southern California · Be found in the AI era",
+    headline: "Your competitors lose the 56% who don't search in English first.",
+    headlineAccent: "You won't.",
+    sub: "Nearly 5 million people in LA County speak a language other than English at home — and now they search and ask AI in that language too. Most local businesses never show up for them. We build and run your whole web presence, with an AI chatbot that answers every visitor in their own language and captures the lead, so the customers your competitors lose end up calling you.",
+    ctaPrimary: "Request a free evaluation",
+    ctaPrimaryHref: "/evaluate",
+    ctaSecondary: "Book a 15-min call",
     ctaSecondaryHref: "/schedule",
   },
   trustRibbon: {
-    line: "Qualified local customers, delivered straight to your phone. We charge per booked lead, not per campaign.",
+    line: "Stop being invisible. In the AI era, the customers your competitors can't speak to are the ones you win.",
   },
   footer: {
     farsiGreeting: "ما فارسی صحبت می‌کنیم. درخواست تماس به فارسی.",
     farsiGreetingTranslation: "We speak Farsi. Request your call in Farsi if you prefer.",
   },
 } as const;
+
+// ── Platform pillars (what we build and run — done-for-you service framing) ──
+// These are capabilities Rumi builds and operates FOR a client. Copy is
+// deliberately service-framed ("we build / we run / we set up"), never
+// "log in and use" — the software is delivered as an agency service, not a
+// self-serve SaaS product the visitor signs up for.
+
+export interface Pillar {
+  icon: string;
+  name: string;
+  tagline: string;
+}
+
+export const PILLARS: Pillar[] = [
+  {
+    icon: "🌐",
+    name: "A modern multilingual website",
+    tagline:
+      "We build and run a fast, mobile site that speaks your customers' languages — so they find you in search and AI, and stay.",
+  },
+  {
+    icon: "💬",
+    name: "An AI chatbot that answers in every language",
+    tagline:
+      "We set up a 24/7 front desk that greets visitors in their own language, answers common questions, captures the lead, and hands complex requests to you.",
+  },
+  {
+    icon: "📇",
+    name: "Your customer list + email",
+    tagline:
+      "We build the admin to keep every customer in one place and send updates — to one person or your whole list.",
+  },
+  {
+    icon: "🎟️",
+    name: "Events that sell tickets",
+    tagline:
+      "We build event pages that take payment on your own site, so you keep more of every ticket.",
+  },
+  {
+    icon: "💳",
+    name: "On-site payments, tips & contributions",
+    tagline:
+      "We wire up payments so customers pay you directly on your site — tickets, services, tips, and contributions.",
+  },
+];
+
+// ── How it works (3 steps — lifted out of the component so copy lives here) ──
+
+export interface HowItWorksStep {
+  num: number;
+  title: string;
+  desc: string;
+}
+
+export const HOW_IT_WORKS_STEPS: HowItWorksStep[] = [
+  {
+    num: 1,
+    title: "Free evaluation",
+    desc: "Tell us about your business, your current site, and the customers you want more of — English, Farsi, or Spanish. We map where customers are slipping past you today.",
+  },
+  {
+    num: 2,
+    title: "We build and launch",
+    desc: "We build your multilingual site and AI front desk, wire up your customer list, events, and on-site payments, and get it live. You review and approve before anything ships.",
+  },
+  {
+    num: 3,
+    title: "We keep it running",
+    desc: "One team stays accountable — answering visitors in every language, capturing leads, and keeping the whole presence working while you run your business.",
+  },
+];
 
 // ── Hero language strip ──
 // 3 pills above the hero headline: English, the dominant non-English language

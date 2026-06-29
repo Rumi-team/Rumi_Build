@@ -56,10 +56,10 @@ export function Nav() {
           ))}
         </div>
         <a
-          href="/schedule"
+          href="/evaluate"
           className="rounded-lg bg-amber-400 px-5 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
         >
-          Book Free 15-min Call
+          Free evaluation
         </a>
       </div>
 
@@ -80,10 +80,10 @@ export function Nav() {
           </a>
         ))}
         <a
-          href="/schedule"
+          href="/evaluate"
           className="rounded-lg bg-amber-400 px-4 py-1.5 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300"
         >
-          Book Call
+          Free eval
         </a>
         <MobileMenu />
       </div>
