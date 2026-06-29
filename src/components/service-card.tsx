@@ -1,11 +1,22 @@
-import type { Service } from "@/lib/data";
+// Accepts the structural subset of `Service` the card actually renders, so it
+// can also render lighter shapes like `Pillar` (icon/name/tagline). `footer`
+// is the small mono line at the bottom; pass `null` to hide it.
+type CardItem = {
+  icon: string;
+  name: string;
+  tagline: string;
+  slug?: string;
+  href?: string;
+};
 
 export function ServiceCard({
   service,
   linked = true,
+  footer = "Talk to us about hiring →",
 }: {
-  service: Service;
+  service: CardItem;
   linked?: boolean;
+  footer?: string | null;
 }) {
   const inner = (
     <>
@@ -21,9 +32,9 @@ export function ServiceCard({
       <p className="text-sm text-zinc-400 leading-relaxed mb-3">
         {service.tagline}
       </p>
-      <p className="font-mono text-xs text-amber-400/70 mt-auto">
-        Talk to us about hiring →
-      </p>
+      {footer !== null && (
+        <p className="font-mono text-xs text-amber-400/70 mt-auto">{footer}</p>
+      )}
     </>
   );
 

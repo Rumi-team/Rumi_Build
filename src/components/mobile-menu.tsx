@@ -58,11 +58,11 @@ export function MobileMenu() {
             ))}
           </div>
           <a
-            href="/schedule"
+            href="/evaluate"
             className="block mt-4 w-full rounded-lg bg-amber-400 py-3 text-center text-base font-semibold text-zinc-900 transition hover:bg-amber-300"
             onClick={() => setOpen(false)}
           >
-            Book Free 15-min Call
+            Request a free evaluation
           </a>
         </div>
       )}
