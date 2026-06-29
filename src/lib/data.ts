@@ -14,16 +14,16 @@ export const SUPPORT_EMAIL = "support@rumi.build";
 export const COPY = {
   hero: {
     overline: "Southern California · Be found in the AI era",
-    headline: "Your competitors lose the 56% who don't search in English first.",
-    headlineAccent: "You won't.",
-    sub: "Nearly 5 million people in LA County speak a language other than English at home — and now they search and ask AI in that language too. Most local businesses never show up for them. We build and run your whole web presence, with an AI chatbot that answers every visitor in their own language and captures the lead, so the customers your competitors lose end up calling you.",
+    headline: "Stop being invisible in the digital world.",
+    headlineAccent: "In the AI era, you can't afford it.",
+    sub: "More and more customers don't just Google anymore — they ask ChatGPT, Claude, and Perplexity who to hire. If AI doesn't know your business exists, you're invisible to them. We build your website, mobile app, and social media, then make all of it readable to the AI engines — so when someone asks AI for your service, you're the answer.",
     ctaPrimary: "Request a free evaluation",
     ctaPrimaryHref: "/evaluate",
     ctaSecondary: "Book a 15-min call",
     ctaSecondaryHref: "/schedule",
   },
   trustRibbon: {
-    line: "Stop being invisible. In the AI era, the customers your competitors can't speak to are the ones you win.",
+    line: "Plus an AI chatbot that answers every visitor in their own language and captures the lead — 56% of LA County speaks one other than English.",
   },
   footer: {
     farsiGreeting: "ما فارسی صحبت می‌کنیم. درخواست تماس به فارسی.",
@@ -46,33 +46,39 @@ export interface Pillar {
 export const PILLARS: Pillar[] = [
   {
     icon: "🌐",
-    name: "A modern multilingual website",
+    name: "A modern website",
     tagline:
-      "We build and run a fast, mobile site that speaks your customers' languages — so they find you in search and AI, and stay.",
+      "Fast, mobile, built to convert — and structured so search engines and AI engines can read it.",
+  },
+  {
+    icon: "📱",
+    name: "A mobile app",
+    tagline:
+      "Your business in your customers' pocket. We design, build, and ship it to the App Store and Google Play.",
+  },
+  {
+    icon: "📣",
+    name: "Social media, managed",
+    tagline:
+      "We run your Instagram, TikTok, and the rest — content, posting, and replies — so you stay visible without the daily grind.",
+  },
+  {
+    icon: "🤖",
+    name: "Found by AI engines",
+    tagline:
+      "We make your site and content readable and citable by ChatGPT, Claude, and Perplexity — so when customers ask AI who to hire, your business comes up.",
   },
   {
     icon: "💬",
-    name: "An AI chatbot that answers in every language",
+    name: "An AI chatbot in every language",
     tagline:
-      "We set up a 24/7 front desk that greets visitors in their own language, answers common questions, captures the lead, and hands complex requests to you.",
+      "A 24/7 front desk that answers visitors in their own language, captures the lead, and hands complex requests to you.",
   },
   {
-    icon: "📇",
-    name: "Your customer list + email",
+    icon: "🧰",
+    name: "Customers, events & payments",
     tagline:
-      "We build the admin to keep every customer in one place and send updates — to one person or your whole list.",
-  },
-  {
-    icon: "🎟️",
-    name: "Events that sell tickets",
-    tagline:
-      "We build event pages that take payment on your own site, so you keep more of every ticket.",
-  },
-  {
-    icon: "💳",
-    name: "On-site payments, tips & contributions",
-    tagline:
-      "We wire up payments so customers pay you directly on your site — tickets, services, tips, and contributions.",
+      "Manage your customer list and email, sell event tickets, and take payments, tips, and contributions on your own site.",
   },
 ];
 

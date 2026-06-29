@@ -90,3 +90,5 @@ Based on market research (April 2026), ordered by margin and demand:
 | 2026-06-28 | Primary CTA → free evaluation (`/evaluate`) | Founder requirement; intake captures current site + needs, posts to retention backend; "Book a 15-min call" is now secondary |
 | 2026-06-28 | "donations" → "tips / contributions" | For-profit audience; avoids nonprofit/tax-receipt implication (autoplan UC-2) |
 | 2026-06-28 | Amber kept rare | Reused zinc/amber system; reserved amber for CTAs + accents, pillar icons stay zinc-toned tiles |
+| 2026-06-29 | Hero re-topiced to "Stop being invisible in the digital world" + AI-discovery lead | Founder direction; emotional driver = fear of being un-findable as customers shift to asking ChatGPT/Claude/Perplexity who to hire. Multilingual moat kept as supporting trust line + chatbot pillar |
+| 2026-06-29 | Pillars expanded to website + mobile app + social media + "Found by AI engines" | Founder added mobile app, social management, and AI-engine discoverability (real capability — site already ships llms.txt). Original CRM/events/payments consolidated into one card to keep the grid tight (6 pillars) |
