@@ -43,6 +43,12 @@ export function Hero() {
           dir={isRtl ? "rtl" : undefined}
           className={isRtl ? "font-vazirmatn" : undefined}
         >
+          {strings.overline && (
+            <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-4">
+              {strings.overline}
+            </p>
+          )}
+
           <h1
             id="hero-heading"
             className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-5"
