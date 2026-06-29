@@ -4,6 +4,14 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.1] - 2026-06-29
+
+### Changed
+
+- Re-topiced the homepage hero to **"Stop being invisible in the digital world. In the AI era, you can't afford it."** The subhead now leads with the shift from Google to AI: customers ask ChatGPT, Claude, and Perplexity who to hire, and we make the client's whole presence readable to those engines so they're the answer. The multilingual AI chatbot moves to the hero's supporting line.
+- Reworked the capability pillars to 6 under "Everywhere your customers look — including AI.": added **a mobile app**, **managed social media**, and **Found by AI engines** (AI-engine discoverability via structured content + `llms.txt`); consolidated the customer list/email, events, and payments into a single card.
+- Updated site metadata, `llms.txt` / `llms-full.txt`, and the es/fa hero translations to match. The AI-crawler content now describes website + mobile app + social + AI discoverability, so AI engines summarize Rumi Build accurately.
+
 ## [0.4.0] - 2026-06-29
 
 ### Changed

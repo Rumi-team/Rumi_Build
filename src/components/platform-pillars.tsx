@@ -18,12 +18,13 @@ export function PlatformPillars() {
           id="pillars-heading"
           className="text-3xl md:text-4xl font-bold tracking-tight mb-3"
         >
-          One team builds and runs your whole presence.
+          Everywhere your customers look — including AI.
         </h2>
         <p className="text-zinc-400 mb-10 max-w-xl text-lg">
-          You run your business. We build the website, the AI front desk, and
-          the tools to capture and keep every customer — then we keep them
-          running. One team accountable for all of it.
+          You run your business. We build and run your website, mobile app, and
+          social media, plus an AI chatbot that answers every visitor — and we
+          make sure the AI engines can find and recommend you. One team
+          accountable for all of it.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
