@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 // Launch pricing — change this string once to extend the offer everywhere.
-const LAUNCH_PRICING_ENDS = "May 31, 2026";
+const LAUNCH_PRICING_ENDS = "August 31, 2026";
 
 // Derive savings from the strikethrough "$X" + discounted "$Y" strings.
 // Returns null when there's no discount (e.g. High-Ticket has no originalPrice).
