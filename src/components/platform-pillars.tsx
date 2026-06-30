@@ -1,10 +1,14 @@
-import { PILLARS } from "@/lib/data";
+"use client";
+
+import { useT } from "@/lib/i18n";
 import { ServiceCard } from "@/components/service-card";
 
-// "What we build and run" — the done-for-you capability strip. Cards are
-// service-framed (we build / we run), rendered through the shared ServiceCard
-// with its CTA footer hidden (one section CTA carries the action instead).
+// Icons are not translatable, so they live here and zip with the translated
+// pillar copy (same order as the dictionary's pillars.items).
+const ICONS = ["🌐", "📱", "📣", "🤖", "💬", "🧰"];
+
 export function PlatformPillars() {
+  const { t } = useT();
   return (
     <section
       aria-labelledby="pillars-heading"
@@ -12,26 +16,21 @@ export function PlatformPillars() {
     >
       <div className="mx-auto max-w-5xl">
         <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-          What we build and run
+          {t.pillars.eyebrow}
         </p>
         <h2
           id="pillars-heading"
           className="text-3xl md:text-4xl font-bold tracking-tight mb-3"
         >
-          Everywhere your customers look — including AI.
+          {t.pillars.heading}
         </h2>
-        <p className="text-zinc-400 mb-10 max-w-xl text-lg">
-          You run your business. We build and run your website, mobile app, and
-          social media, plus an AI chatbot that answers every visitor — and we
-          make sure the AI engines can find and recommend you. One team
-          accountable for all of it.
-        </p>
+        <p className="text-zinc-400 mb-10 max-w-xl text-lg">{t.pillars.sub}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {PILLARS.map((pillar) => (
+          {t.pillars.items.map((pillar, i) => (
             <ServiceCard
               key={pillar.name}
-              service={pillar}
+              service={{ icon: ICONS[i] ?? "•", name: pillar.name, tagline: pillar.tagline }}
               linked={false}
               footer={null}
             />
