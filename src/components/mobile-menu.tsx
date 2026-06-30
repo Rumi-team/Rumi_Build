@@ -7,10 +7,7 @@ export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const { t } = useT();
 
-  const links = [
-    { label: t.nav.pricing, href: "/pricing" },
-    { label: t.nav.team, href: "/team" },
-  ];
+  const links = [{ label: t.nav.team, href: "/team" }];
 
   return (
     <div className="md:hidden">

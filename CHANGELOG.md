@@ -4,6 +4,20 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.5] - 2026-06-29
+
+### Added
+
+- The free-evaluation form now **emails each submission to support@rumi.build** (via Resend; the prospect's address is set as reply-to so support can reply directly). Retention-backend capture is kept as a best-effort secondary; if neither delivers, the form fails honestly with an "email us" message instead of a false success. Requires `RESEND_API_KEY` and a verified rumi.build sender domain in Resend (`EVALUATION_TO` / `EVALUATION_FROM` override the addresses).
+
+### Removed
+
+- **Pricing page.** Deleted `/pricing` and the lead-price calculator; `/pricing` now 301-redirects to `/evaluate`. Removed Pricing links from the nav, mobile menu, footer, sitemap, and AI-crawler content. Pricing is now scoped on the free evaluation call rather than a public page.
+
+### Changed
+
+- Moved the social links (X, LinkedIn) from the top nav to the footer.
+
 ## [0.4.4] - 2026-06-29
 
 ### Fixed

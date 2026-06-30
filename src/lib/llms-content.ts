@@ -17,7 +17,7 @@ export const LLMS_TXT = `# Rumi Build
 - [Book a 15-min call](https://rumi.build/schedule): English, Farsi, or Spanish. No commitment.
 
 ## Pricing
-- [Plans](https://rumi.build/pricing): Entry multilingual lead-generation plans plus done-for-you presence builds. Pricing is matched to what a new customer is worth to your business; a calculator returns your fit before you talk to us.
+- Pricing is custom and scoped on a free evaluation call — there is no public pricing page. Start at [the free evaluation](https://rumi.build/evaluate) and we'll scope the work and cost together.
 
 ## About
 - [Team](https://rumi.build/team): Three founders. Native Farsi speakers, fluent in English and Spanish, based in Southern California.

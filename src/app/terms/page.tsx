@@ -57,10 +57,10 @@ export default function TermsPage() {
                 automated multilingual phone agent, lead routing, and related
                 support, as described on our{" "}
                 <a
-                  href="/pricing"
+                  href="/evaluate"
                   className="text-amber-400 hover:text-amber-300 underline"
                 >
-                  pricing
+                  free evaluation
                 </a>{" "}
                 page and in any order or statement of work you agree to with us.
                 We may update, add, or remove features over time.
@@ -89,10 +89,10 @@ export default function TermsPage() {
                 of the then-current billing period. Our money-back guarantee and
                 lead-rollover terms are described on our{" "}
                 <a
-                  href="/pricing"
+                  href="/evaluate"
                   className="text-amber-400 hover:text-amber-300 underline"
                 >
-                  pricing
+                  free evaluation
                 </a>{" "}
                 page and apply as stated there. Plan prices, lead limits, and
                 per-lead charges are also set out on the pricing page and may

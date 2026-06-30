@@ -1,6 +1,6 @@
 {
   "name": "rumi-build",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,6 +17,7 @@
     "next": "^15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "resend": "^4.0.0",
     "stripe": "^22.1.0",
     "zod": "^4.4.2"
   },
