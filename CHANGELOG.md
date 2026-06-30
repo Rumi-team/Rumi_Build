@@ -4,6 +4,12 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.4] - 2026-06-29
+
+### Fixed
+
+- Regenerated `public/og-image.png` (1200×630) to match the current **"Stop being invisible in the AI era"** positioning. The social/Twitter card still carried the retired v0.3.0 hero ("Qualified local customers calling your store every month. From $199/mo."), so link unfurls on iMessage, Slack, X, etc. advertised stale copy and pricing. The new card renders the live hero — "Stop being invisible in the digital world." with the amber accent "In the AI era, you can't afford it." — plus a subhead distilled from `COPY.hero.sub` / `layout.tsx` metadata (customers ask ChatGPT, Claude, and Perplexity who to hire; we make your whole presence findable). Visual system unchanged: zinc-900 background with amber radial glow, amber-400 accents, Geist font, "Rumi Build" wordmark, the multilingual strip (English · Español · فارسی · Tiếng Việt · 中文 · 한국어), and `rumi.build`. Persian hand-shaped to contextual presentation forms; rendered at 2× and downscaled with LANCZOS. No code changed — `layout.tsx` and the other pages already reference `/og-image.png`.
+
 ## [0.4.3] - 2026-06-29
 
 ### Added
