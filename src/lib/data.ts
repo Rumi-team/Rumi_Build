@@ -456,7 +456,7 @@ export const PORTFOLIO: PortfolioItem[] = [
     title: "Persian curtain retailer — pilot in progress",
     description:
       "Founding-customer pilot launching Q2. Bilingual landing page, targeted local campaigns, and a weekly lead report. We'll publish the numbers as they land.",
-    url: "/pricing",
+    url: "/evaluate",
     stat: "Pilot",
     statLabel: "founding-customer story",
   },

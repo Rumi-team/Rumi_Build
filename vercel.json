@@ -1,6 +1,7 @@
 {
   "framework": "nextjs",
   "redirects": [
+    { "source": "/pricing", "destination": "/evaluate", "permanent": true },
     { "source": "/services/rag-knowledge-systems", "destination": "/services", "permanent": true },
     { "source": "/services/agentic-ai", "destination": "/services", "permanent": true },
     { "source": "/services/document-processing", "destination": "/chief-of-staff", "permanent": true },
