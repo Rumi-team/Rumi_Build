@@ -17,7 +17,7 @@ export const LLMS_TXT = `# Rumi Build
 - [Book a 15-min call](https://rumi.build/schedule): English, Farsi, or Spanish. No commitment.
 
 ## Pricing
-- [Plans](https://rumi.build/pricing): Entry multilingual lead-generation plans plus done-for-you presence builds. Pricing is matched to what a new customer is worth to your business; a calculator returns your fit before you talk to us.
+- [Plans](https://rumi.build/pricing): Entry multilingual lead-generation plans plus done-for-you presence builds. Pricing is matched to what a new customer is worth to your business and quoted on a free call — book a call for a custom quote.
 
 ## About
 - [Team](https://rumi.build/team): Three founders. Native Farsi speakers, fluent in English and Spanish, based in Southern California.
@@ -58,7 +58,7 @@ We deliver and operate all of it as a service. Entry multilingual lead-generatio
 
 ### Pricing
 
-Pricing is matched to what a new customer is worth to your business, not a flat one-size-fits-all package. Entry multilingual lead-generation plans bring qualified local customers to your phone; done-for-you presence builds add the site, AI front desk, customer list, events, and payments. A "Find your fit" calculator on the pricing page asks three questions (average customer price, gross margin, monthly customer volume) and returns the matching plan before you talk to us.
+Pricing is matched to what a new customer is worth to your business, not a flat one-size-fits-all package. Entry multilingual lead-generation plans bring qualified local customers to your phone; done-for-you presence builds add the site, AI front desk, customer list, events, and payments. Pricing is quoted on a free call and matched to your average customer value, so book a call for a custom quote — the pricing page does not list set prices.
 
 ### Why this is different
 

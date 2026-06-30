@@ -94,9 +94,10 @@ export default function TermsPage() {
                 >
                   pricing
                 </a>{" "}
-                page and apply as stated there. Plan prices, lead limits, and
-                per-lead charges are also set out on the pricing page and may
-                change with notice for future billing periods. Except as
+                page and apply as stated there. Plan details and lead limits are
+                also set out on the pricing page; the specific fees that apply to
+                you are provided in your custom quote and may change with notice
+                for future billing periods. Except as
                 described in our money-back guarantee or as required by law, fees
                 already paid are non-refundable.
               </p>
