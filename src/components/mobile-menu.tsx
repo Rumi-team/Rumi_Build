@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
-
-const LINKS = [
-  { label: "Pricing", href: "/pricing" },
-  { label: "Team", href: "/team" },
-];
+import { useT } from "@/lib/i18n";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const { t } = useT();
+
+  const links = [
+    { label: t.nav.pricing, href: "/pricing" },
+    { label: t.nav.team, href: "/team" },
+  ];
 
   return (
     <div className="md:hidden">
@@ -19,25 +21,11 @@ export function MobileMenu() {
         aria-expanded={open}
       >
         {open ? (
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          >
+          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M6 6l12 12M6 18L18 6" />
           </svg>
         ) : (
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          >
+          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         )}
@@ -46,7 +34,7 @@ export function MobileMenu() {
       {open && (
         <div className="absolute top-16 left-0 right-0 border-b border-zinc-800 bg-zinc-900 px-6 pb-6 pt-2 z-40">
           <div className="flex flex-col gap-1">
-            {LINKS.map((link) => (
+            {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -62,7 +50,7 @@ export function MobileMenu() {
             className="block mt-4 w-full rounded-lg bg-amber-400 py-3 text-center text-base font-semibold text-zinc-900 transition hover:bg-amber-300"
             onClick={() => setOpen(false)}
           >
-            Request a free evaluation
+            {t.hero.ctaPrimary}
           </a>
         </div>
       )}

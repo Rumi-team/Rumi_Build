@@ -169,6 +169,7 @@ export interface TeamMember {
   role: string;
   photo: string;
   school: string;
+  bio: string;
   experience: string[];
 }
 
@@ -178,6 +179,7 @@ export const TEAM: TeamMember[] = [
     role: "Chief Executive Officer",
     photo: "/team-ali.jpeg",
     school: "",
+    bio: "Builds products people actually use — and now puts that behind Southern California's small businesses, so they get found in the AI era.",
     experience: [
       "Led products serving 100M+ users at Business Insider and Spotter.",
       "Now focused on local growth for small businesses across North America.",
@@ -189,6 +191,7 @@ export const TEAM: TeamMember[] = [
     role: "Chief Product Officer",
     photo: "/team-saba.jpeg",
     school: "",
+    bio: "The voice on the other end of the call. Turns what merchants actually need into the offer that closes — in their own language.",
     experience: [
       "Talks to merchants in Farsi every week. Builds the offer that actually closes.",
       "Owns customer development, sales conversations, and weekly check-ins with active customers.",
@@ -200,6 +203,7 @@ export const TEAM: TeamMember[] = [
     role: "Chief Technology Officer",
     photo: "/team-parnian.jpeg",
     school: "",
+    bio: "Ships the whole stack — website, app, infrastructure. If it touches a customer, she's made sure it works.",
     experience: [
       "Builds the lead-routing systems that get every customer to your phone in under a minute.",
       "Native Farsi speaker. Ships end-to-end: architecture, backend, infrastructure, deployment.",

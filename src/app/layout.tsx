@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Vazirmatn } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { LanguageProvider } from "@/lib/i18n";
 import "./globals.css";
 
 const vazirmatn = Vazirmatn({
@@ -46,7 +47,7 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} ${vazirmatn.variable}`}
     >
       <body className="font-sans antialiased">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
     </html>

@@ -4,6 +4,22 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.3] - 2026-06-29
+
+### Added
+
+- **Full-page language switcher.** A language dropdown in the nav (English, Spanish, Farsi) translates the entire landing page and the evaluation form instantly — hero, capability pillars, how-it-works, team teaser, CTA, nav, and footer. Farsi switches the page to RTL with the Vazirmatn font. Backed by a single client-side i18n dictionary (`src/lib/i18n.tsx`); adding a language = drop in one translated dictionary. Brand names (ChatGPT, Claude, Perplexity, etc.) stay in Latin script. Visitors can fill out the free-evaluation form in their own language.
+
+### Changed
+
+- Removed the dedicated "56% of LA County" multilingual section from the homepage; the multilingual capability is now a one-line mention in the hero plus the language dropdown itself.
+- Hero now has a single CTA ("Request a free evaluation"); removed the secondary "Book a 15-min call" button.
+- **Team page** rebuilt: each founder gets a richer individual profile with a personal bio, and the project write-up cards were replaced with a compact "What we build" section linking rumi.team and rumiagent.com.
+
+### Removed
+
+- Legacy hero-only i18n mechanism (`hero-i18n.ts`, `language-strip.tsx`, `/locales/*.json`) and the `language-bar` component, superseded by the full-page i18n dictionary.
+
 ## [0.4.2] - 2026-06-29
 
 ### Fixed
