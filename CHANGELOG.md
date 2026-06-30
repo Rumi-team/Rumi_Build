@@ -4,6 +4,12 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.2] - 2026-06-29
+
+### Fixed
+
+- Launch-pricing banner on `/pricing` advertised an expired deadline ("May 31, 2026", now in the past). Extended the `LAUNCH_PRICING_ENDS` constant to **August 31, 2026** so the offer reads as live. The banner remains display-only with no auto-expiry — see the v0.4.0 cleanup of dated launch copy in `llms.txt`/`llms-full.txt`; those AI-crawler files already carry no launch date, so the constant is now the page's only date reference. Stripe checkout (`/book` → `/api/checkout`) and the tier `savings()` logic are untouched.
+
 ## [0.4.1] - 2026-06-29
 
 ### Changed
