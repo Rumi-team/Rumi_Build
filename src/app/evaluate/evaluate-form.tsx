@@ -1,17 +1,11 @@
 "use client";
 
 import { useState } from "react";
-
-const NEEDS = [
-  "A new or rebuilt website",
-  "AI chatbot / front desk",
-  "Customer list + email",
-  "Events & ticketing",
-  "On-site payments, tips & contributions",
-  "More local customers (lead generation)",
-];
+import { useT } from "@/lib/i18n";
 
 export function EvaluateForm() {
+  const { t } = useT();
+  const f = t.evaluate.form;
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,27 +22,25 @@ export function EvaluateForm() {
   });
 
   function update<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
-    setForm((f) => ({ ...f, [key]: value }));
+    setForm((prev) => ({ ...prev, [key]: value }));
   }
 
   function toggleNeed(need: string) {
-    setForm((f) => ({
-      ...f,
-      needs: f.needs.includes(need)
-        ? f.needs.filter((n) => n !== need)
-        : [...f.needs, need],
+    setForm((prev) => ({
+      ...prev,
+      needs: prev.needs.includes(need)
+        ? prev.needs.filter((n) => n !== need)
+        : [...prev.needs, need],
     }));
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-
     if (!form.consentChecked) {
-      setError("Please confirm we can save your contact info to follow up.");
+      setError(f.errConsent);
       return;
     }
-
     setSubmitting(true);
     try {
       const resp = await fetch("/api/evaluate", {
@@ -58,13 +50,13 @@ export function EvaluateForm() {
       });
       const data = (await resp.json()) as { ok?: boolean; error?: string };
       if (!resp.ok || !data.ok) {
-        setError(data.error || "Could not send your request. Try again in a moment.");
+        setError(data.error || f.errGeneric);
         setSubmitting(false);
         return;
       }
       setSubmitted(true);
     } catch {
-      setError("Network error. Try again.");
+      setError(f.errNetwork);
       setSubmitting(false);
     }
   }
@@ -84,15 +76,14 @@ export function EvaluateForm() {
           ✓
         </p>
         <h2 className="text-xl font-semibold mb-2">
-          Got it{form.name ? `, ${form.name.split(" ")[0]}` : ""} — thanks.
+          {f.successTitle}
+          {form.name ? ` (${form.name.split(" ")[0]})` : ""}
         </h2>
         <p className="text-zinc-400">
-          We&rsquo;ll review your business and reply within one business day, in
-          your language. If it&rsquo;s urgent, book a 15-min call at{" "}
+          {f.successBody}{" "}
           <a href="/schedule" className="text-amber-400 hover:text-amber-300 underline">
             /schedule
           </a>
-          .
         </p>
       </div>
     );
@@ -102,89 +93,37 @@ export function EvaluateForm() {
     <form onSubmit={onSubmit} className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className={labelCls}>
-            Full name *
-          </label>
-          <input
-            id="name"
-            type="text"
-            required
-            value={form.name}
-            onChange={(e) => update("name", e.target.value)}
-            className={inputCls}
-          />
+          <label htmlFor="name" className={labelCls}>{f.name} *</label>
+          <input id="name" type="text" required value={form.name} onChange={(e) => update("name", e.target.value)} className={inputCls} />
         </div>
         <div>
-          <label htmlFor="email" className={labelCls}>
-            Email *
-          </label>
-          <input
-            id="email"
-            type="email"
-            required
-            value={form.email}
-            onChange={(e) => update("email", e.target.value)}
-            className={inputCls}
-          />
+          <label htmlFor="email" className={labelCls}>{f.email} *</label>
+          <input id="email" type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} className={inputCls} />
         </div>
         <div>
-          <label htmlFor="phone" className={labelCls}>
-            Phone
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            value={form.phone}
-            onChange={(e) => update("phone", e.target.value)}
-            className={inputCls}
-          />
+          <label htmlFor="phone" className={labelCls}>{f.phone}</label>
+          <input id="phone" type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputCls} />
         </div>
         <div>
-          <label htmlFor="business" className={labelCls}>
-            Business name
-          </label>
-          <input
-            id="business"
-            type="text"
-            value={form.business}
-            onChange={(e) => update("business", e.target.value)}
-            className={inputCls}
-          />
+          <label htmlFor="business" className={labelCls}>{f.business}</label>
+          <input id="business" type="text" value={form.business} onChange={(e) => update("business", e.target.value)} className={inputCls} />
         </div>
       </div>
 
       <div>
-        <label htmlFor="website" className={labelCls}>
-          Your current website
-        </label>
-        <input
-          id="website"
-          type="text"
-          value={form.website}
-          onChange={(e) => update("website", e.target.value)}
-          placeholder="yoursite.com — or “I don’t have one yet”"
-          className={inputCls}
-        />
+        <label htmlFor="website" className={labelCls}>{f.website}</label>
+        <input id="website" type="text" value={form.website} onChange={(e) => update("website", e.target.value)} placeholder={f.websitePlaceholder} className={inputCls} />
       </div>
 
       <div>
-        <label htmlFor="languages" className={labelCls}>
-          Languages your customers speak
-        </label>
-        <input
-          id="languages"
-          type="text"
-          value={form.languages}
-          onChange={(e) => update("languages", e.target.value)}
-          placeholder="e.g. Spanish, Farsi, Armenian, English"
-          className={inputCls}
-        />
+        <label htmlFor="languages" className={labelCls}>{f.languages}</label>
+        <input id="languages" type="text" value={form.languages} onChange={(e) => update("languages", e.target.value)} placeholder={f.languagesPlaceholder} className={inputCls} />
       </div>
 
       <fieldset>
-        <legend className={labelCls}>What do you need? (pick any)</legend>
+        <legend className={labelCls}>{f.needsLegend}</legend>
         <div className="grid sm:grid-cols-2 gap-2 mt-1">
-          {NEEDS.map((need) => {
+          {f.needs.map((need) => {
             const checked = form.needs.includes(need);
             return (
               <label
@@ -209,17 +148,8 @@ export function EvaluateForm() {
       </fieldset>
 
       <div>
-        <label htmlFor="message" className={labelCls}>
-          Anything else?
-        </label>
-        <textarea
-          id="message"
-          rows={4}
-          value={form.message}
-          onChange={(e) => update("message", e.target.value)}
-          placeholder="Tell us about your business, your customers, what's not working today..."
-          className={inputCls}
-        />
+        <label htmlFor="message" className={labelCls}>{f.message}</label>
+        <textarea id="message" rows={4} value={form.message} onChange={(e) => update("message", e.target.value)} placeholder={f.messagePlaceholder} className={inputCls} />
       </div>
 
       <label className="flex items-start gap-3 text-sm text-zinc-300">
@@ -230,8 +160,7 @@ export function EvaluateForm() {
           className="mt-0.5 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-amber-400 focus:ring-amber-400 focus:ring-offset-zinc-900"
         />
         <span>
-          We&rsquo;ll save your contact info to follow up about your evaluation.
-          We don&rsquo;t share it. <span className="text-zinc-500">(required)</span>
+          {f.consent} <span className="text-zinc-500">{f.consentRequired}</span>
         </span>
       </label>
 
@@ -246,12 +175,10 @@ export function EvaluateForm() {
         disabled={submitting}
         className="w-full rounded-lg bg-amber-400 px-8 py-4 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
       >
-        {submitting ? "Sending..." : "Request my free evaluation →"}
+        {submitting ? f.sending : `${f.submit} →`}
       </button>
 
-      <p className="text-xs text-zinc-500">
-        Free, no commitment. We reply within one business day, in your language.
-      </p>
+      <p className="text-xs text-zinc-500">{f.footnote}</p>
     </form>
   );
 }

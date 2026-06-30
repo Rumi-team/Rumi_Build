@@ -6,6 +6,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Farsi (and any RTL locale): use Vazirmatn site-wide when the language
+   dropdown sets <html lang="fa">. Keeps the whole translated page on-brand. */
+html[lang="fa"] body {
+  font-family: var(--font-vazirmatn), system-ui, sans-serif;
+}
+
 body {
   background-color: #18181b;
   color: #e4e4e7;

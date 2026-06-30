@@ -1,4 +1,7 @@
+"use client";
+
 import { TEAM } from "@/lib/data";
+import { useT } from "@/lib/i18n";
 
 function Avatar({ name, photo }: { name: string; photo: string }) {
   return (
@@ -11,23 +14,19 @@ function Avatar({ name, photo }: { name: string; photo: string }) {
 }
 
 export function TeamTeaser() {
+  const { t } = useT();
   return (
     <section aria-labelledby="team-heading" className="py-20 px-6">
       <div className="mx-auto max-w-4xl text-center">
         <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-          Team
+          {t.team.eyebrow}
         </p>
-        <h2
-          id="team-heading"
-          className="text-3xl font-bold tracking-tight mb-3"
-        >
-          Built by people who&apos;ve done it at scale
+        <h2 id="team-heading" className="text-3xl font-bold tracking-tight mb-3">
+          {t.team.heading}
         </h2>
-        <p className="text-zinc-400 mb-8">
-          Management team — backed by a dedicated engineering and design team.
-        </p>
+        <p className="text-zinc-400 mb-8">{t.team.sub}</p>
 
-        <div className="flex items-center justify-center gap-6 mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-6 mb-8">
           {TEAM.map((member) => (
             <div key={member.name} className="flex flex-col items-center gap-2">
               <Avatar name={member.name} photo={member.photo} />
@@ -43,7 +42,7 @@ export function TeamTeaser() {
           href="/team"
           className="inline-block rounded-lg border border-zinc-700 px-6 py-2.5 text-sm text-zinc-300 transition hover:border-zinc-500 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
         >
-          Meet the full team &rarr;
+          {t.team.cta} &rarr;
         </a>
       </div>
     </section>
