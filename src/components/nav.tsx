@@ -1,9 +1,8 @@
-import { MobileMenu } from "./mobile-menu";
+"use client";
 
-const LINKS = [
-  { label: "Pricing", href: "/pricing" },
-  { label: "Team", href: "/team" },
-];
+import { MobileMenu } from "./mobile-menu";
+import { LanguageDropdown } from "./language-dropdown";
+import { useT } from "@/lib/i18n";
 
 const SOCIALS = [
   {
@@ -19,6 +18,12 @@ const SOCIALS = [
 ];
 
 export function Nav() {
+  const { t } = useT();
+  const links = [
+    { label: t.nav.pricing, href: "/pricing" },
+    { label: t.nav.team, href: "/team" },
+  ];
+
   return (
     <nav
       aria-label="Main"
@@ -30,7 +35,7 @@ export function Nav() {
 
       {/* Desktop links */}
       <div className="hidden md:flex items-center gap-6">
-        {LINKS.map((link) => (
+        {links.map((link) => (
           <a
             key={link.href}
             href={link.href}
@@ -55,35 +60,23 @@ export function Nav() {
             </a>
           ))}
         </div>
+        <LanguageDropdown />
         <a
           href="/evaluate"
           className="rounded-lg bg-amber-400 px-5 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
         >
-          Free evaluation
+          {t.nav.freeEval}
         </a>
       </div>
 
-      {/* Mobile: socials + CTA + hamburger */}
-      <div className="flex md:hidden items-center gap-3">
-        {SOCIALS.map((social) => (
-          <a
-            key={social.href}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={social.label}
-            className="text-zinc-400 transition hover:text-zinc-200"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
-              <path d={social.path} />
-            </svg>
-          </a>
-        ))}
+      {/* Mobile: language + CTA + hamburger */}
+      <div className="flex md:hidden items-center gap-2">
+        <LanguageDropdown />
         <a
           href="/evaluate"
-          className="rounded-lg bg-amber-400 px-4 py-1.5 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300"
+          className="rounded-lg bg-amber-400 px-3 py-1.5 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300"
         >
-          Free eval
+          {t.nav.freeEval}
         </a>
         <MobileMenu />
       </div>

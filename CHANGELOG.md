@@ -4,11 +4,27 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
-## [0.4.3] - 2026-06-29
+## [0.4.4] - 2026-06-29
 
 ### Fixed
 
 - Regenerated `public/og-image.png` (1200×630) to match the current **"Stop being invisible in the AI era"** positioning. The social/Twitter card still carried the retired v0.3.0 hero ("Qualified local customers calling your store every month. From $199/mo."), so link unfurls on iMessage, Slack, X, etc. advertised stale copy and pricing. The new card renders the live hero — "Stop being invisible in the digital world." with the amber accent "In the AI era, you can't afford it." — plus a subhead distilled from `COPY.hero.sub` / `layout.tsx` metadata (customers ask ChatGPT, Claude, and Perplexity who to hire; we make your whole presence findable). Visual system unchanged: zinc-900 background with amber radial glow, amber-400 accents, Geist font, "Rumi Build" wordmark, the multilingual strip (English · Español · فارسی · Tiếng Việt · 中文 · 한국어), and `rumi.build`. Persian hand-shaped to contextual presentation forms; rendered at 2× and downscaled with LANCZOS. No code changed — `layout.tsx` and the other pages already reference `/og-image.png`.
+
+## [0.4.3] - 2026-06-29
+
+### Added
+
+- **Full-page language switcher.** A language dropdown in the nav (English, Spanish, Farsi) translates the entire landing page and the evaluation form instantly — hero, capability pillars, how-it-works, team teaser, CTA, nav, and footer. Farsi switches the page to RTL with the Vazirmatn font. Backed by a single client-side i18n dictionary (`src/lib/i18n.tsx`); adding a language = drop in one translated dictionary. Brand names (ChatGPT, Claude, Perplexity, etc.) stay in Latin script. Visitors can fill out the free-evaluation form in their own language.
+
+### Changed
+
+- Removed the dedicated "56% of LA County" multilingual section from the homepage; the multilingual capability is now a one-line mention in the hero plus the language dropdown itself.
+- Hero now has a single CTA ("Request a free evaluation"); removed the secondary "Book a 15-min call" button.
+- **Team page** rebuilt: each founder gets a richer individual profile with a personal bio, and the project write-up cards were replaced with a compact "What we build" section linking rumi.team and rumiagent.com.
+
+### Removed
+
+- Legacy hero-only i18n mechanism (`hero-i18n.ts`, `language-strip.tsx`, `/locales/*.json`) and the `language-bar` component, superseded by the full-page i18n dictionary.
 
 ## [0.4.2] - 2026-06-29
 
