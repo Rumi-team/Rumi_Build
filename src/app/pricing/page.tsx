@@ -2,38 +2,17 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionCTA } from "@/components/section-cta";
-import { LeadPriceCalculator } from "@/components/lead-price-calculator";
 
 export const metadata: Metadata = {
   title: "Pricing — Rumi Build",
   description:
-    "Pricing matched to what a new customer is worth to you. Launch tiers from $199/mo. Money-back guarantee. We charge per lead, not per campaign.",
+    "Pricing matched to what a new customer is worth to you. Money-back guarantee. We charge per qualified lead, not per campaign. Book a free call for a custom quote.",
 };
-
-// Launch pricing — change this string once to extend the offer everywhere.
-const LAUNCH_PRICING_ENDS = "May 31, 2026";
-
-// Derive savings from the strikethrough "$X" + discounted "$Y" strings.
-// Returns null when there's no discount (e.g. High-Ticket has no originalPrice).
-function savings(
-  original: string | null,
-  current: string,
-): { dollars: number; pct: number } | null {
-  if (!original) return null;
-  const orig = Number(original.replace(/[^\d]/g, ""));
-  const cur = Number(current.replace(/[^\d]/g, ""));
-  if (!orig || !cur || cur >= orig) return null;
-  return { dollars: orig - cur, pct: Math.round(((orig - cur) / orig) * 100) };
-}
 
 type Tier = {
   slug: string;
   name: string;
-  originalPrice: string | null;
-  price: string;
-  cadence: string;
   leads: string;
-  extraLead: string;
   description: string;
   valueBand: string;
   recommended: boolean;
@@ -46,14 +25,10 @@ const TIERS: Tier[] = [
   {
     slug: "tier-local",
     name: "Local",
-    originalPrice: "$499",
-    price: "$199",
-    cadence: "/mo",
     leads: "Up to 5 qualified leads/month",
-    extraLead: "+$50 per extra lead",
     description:
       "For salons, casual restaurants, small retail. Self-serve monthly plan, cancel anytime.",
-    valueBand: "Avg customer under $150",
+    valueBand: "Lower-ticket local businesses",
     recommended: false,
     customPricing: false,
     ctaHref: "/schedule",
@@ -62,14 +37,10 @@ const TIERS: Tier[] = [
   {
     slug: "tier-growth",
     name: "Growth",
-    originalPrice: "$799",
-    price: "$299",
-    cadence: "/mo",
     leads: "Up to 10 qualified leads/month",
-    extraLead: "+$50 per extra lead",
     description:
       "For beauty clinics, specialty retail, repair services. Self-serve monthly plan, cancel anytime.",
-    valueBand: "Avg customer $150–$750",
+    valueBand: "Mid-ticket businesses",
     recommended: false,
     customPricing: false,
     ctaHref: "/schedule",
@@ -78,14 +49,10 @@ const TIERS: Tier[] = [
   {
     slug: "tier-premium",
     name: "Premium",
-    originalPrice: "$999",
-    price: "$499",
-    cadence: "/mo",
     leads: "Up to 20 qualified leads/month",
-    extraLead: "+$50 per extra lead",
     description:
       "For custom curtains, rugs, med spas, mid-ticket home services. Self-serve monthly plan.",
-    valueBand: "Avg customer $750–$5,000",
+    valueBand: "Higher-ticket businesses",
     recommended: true,
     customPricing: false,
     ctaHref: "/schedule",
@@ -94,14 +61,10 @@ const TIERS: Tier[] = [
   {
     slug: "tier-high-ticket",
     name: "High-Ticket",
-    originalPrice: null,
-    price: "From $1,500",
-    cadence: "/mo",
     leads: "Custom lead volume",
-    extraLead: "+ 5–15% success fee on closed deals",
     description:
-      "For real estate, jewelry, luxury home services. Visible floor, success-fee structure, attribution included.",
-    valueBand: "Avg customer $5,000+",
+      "For real estate, jewelry, luxury home services. Success-fee structure on closed deals, attribution included.",
+    valueBand: "Luxury & high-ticket businesses",
     recommended: false,
     customPricing: true,
     ctaHref: "/schedule",
@@ -119,11 +82,11 @@ const QUALIFIED_LEAD_DEFINITION = [
 const OBJECTIONS = [
   {
     q: "Why do you need to know my average sale size?",
-    a: "Your pricing is based on what a new customer is worth to your business, not on a one-size-fits-all package. A jeweler closing $4,000 sales rationally pays more per lead than a salon booking $80 appointments — and we don't price either out of the market.",
+    a: "Your pricing is based on what a new customer is worth to your business, not on a one-size-fits-all package. A jeweler closing four-figure sales rationally pays more per lead than a salon booking small-ticket appointments — and we don't price either out of the market.",
   },
   {
     q: "Are you charging me more just because my customers are worth more?",
-    a: "We're charging proportional to the gross profit each lead generates for you. A high-ticket lead delivers ten to fifty times the profit of a low-ticket lead; our cut scales with that. You still keep the majority of the upside. The calculator above shows the math before you book.",
+    a: "We're charging proportional to the gross profit each lead generates for you. A high-ticket lead delivers ten to fifty times the profit of a low-ticket lead; our cut scales with that. You still keep the majority of the upside. We walk you through the math on a free call before you commit.",
   },
   {
     q: "Do I pay for bad-fit leads?",
@@ -158,8 +121,8 @@ export default function PricingPage() {
               <span className="text-amber-400">what a new customer is worth.</span>
             </h1>
             <p className="text-lg text-zinc-400 leading-relaxed mb-2">
-              Self-serve monthly plans for Local, Growth, and Premium. Visible
-              minimum + success fee for High-Ticket. Money-back guarantee on every
+              Self-serve monthly plans for Local, Growth, and Premium. Custom
+              quote + success fee for High-Ticket. Money-back guarantee on every
               plan.
             </p>
             <p className="text-sm text-zinc-500">
@@ -194,27 +157,16 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* Calculator — answers "what do I pay" before showing tier cards */}
-        <LeadPriceCalculator />
-
         {/* Tier table */}
         <section className="py-16 px-6 border-t border-zinc-800">
           <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 text-center">
               Monthly plans
             </h2>
-
-            {/* Launch pricing banner */}
-            <div className="mx-auto mb-8 max-w-xl rounded-lg border border-amber-400/40 bg-amber-400/5 px-5 py-3 text-center">
-              <p className="text-sm">
-                <span className="font-semibold text-amber-400">
-                  Limited-time launch pricing
-                </span>
-                <span className="text-zinc-300">
-                  {" "}— Local, Growth, and Premium through {LAUNCH_PRICING_ENDS}. Up to 62% off.
-                </span>
-              </p>
-            </div>
+            <p className="mx-auto mb-8 max-w-xl text-center text-sm text-zinc-400">
+              Every plan is quoted to your business and your average customer value.
+              Book a free call to get yours.
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {TIERS.map((tier) => (
@@ -245,35 +197,12 @@ export default function PricingPage() {
                     {tier.valueBand}
                   </p>
 
-                  {/* Price block — strikethrough only when there's a launch discount */}
-                  {tier.originalPrice && (
-                    <p className="text-sm text-amber-500/60 line-through decoration-amber-500/60 mb-0.5">
-                      <span className="sr-only">Was </span>
-                      {tier.originalPrice}
-                      {tier.cadence}
-                    </p>
-                  )}
-                  <p className="text-3xl font-bold mb-1">
-                    <span className="text-amber-400">{tier.price}</span>
-                    <span className="text-base font-normal text-zinc-400">
-                      {tier.cadence}
-                    </span>
+                  {/* Pricing is quoted to the buyer's customer value on a call */}
+                  <p className="text-2xl font-bold text-amber-400 mb-4">
+                    Custom quote
                   </p>
 
-                  {/* Savings tag — explicit discount value */}
-                  {(() => {
-                    const s = savings(tier.originalPrice, tier.price);
-                    return s ? (
-                      <p className="mb-2">
-                        <span className="inline-block rounded-md bg-amber-400/15 border border-amber-400/30 px-2 py-0.5 text-xs font-semibold text-amber-200">
-                          Save ${s.dollars}/mo · {s.pct}% off
-                        </span>
-                      </p>
-                    ) : null;
-                  })()}
-
-                  <p className="text-sm text-amber-400 mb-1">{tier.leads}</p>
-                  <p className="text-xs text-zinc-500 mb-4">{tier.extraLead}</p>
+                  <p className="text-sm text-amber-400 mb-4">{tier.leads}</p>
 
                   <p className="text-sm text-zinc-400 leading-relaxed mb-5">
                     {tier.description}

@@ -41,7 +41,7 @@ export function ServicesPreview() {
               href="/pricing"
               className="rounded-lg bg-amber-400 px-6 py-3 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
             >
-              See pricing — from $199/mo
+              See our plans
             </a>
             <a
               href="/schedule"

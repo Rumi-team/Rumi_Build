@@ -338,7 +338,7 @@ export const VERTICALS: Vertical[] = [
       "Instant phone notification with full lead context, plus a weekly pipeline report",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
+      "Pricing is matched to what each new customer is worth to your business — you keep the majority of the upside. Book a free 15-min call for a custom quote.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -361,7 +361,7 @@ export const VERTICALS: Vertical[] = [
       "Weekly status report: how many leads, who booked, who closed",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
+      "Pricing is matched to what each new customer is worth to your business — you keep the majority of the upside. Book a free 15-min call for a custom quote.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -384,7 +384,7 @@ export const VERTICALS: Vertical[] = [
       "Lead routing direct to your phone within minutes",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
+      "Pricing is matched to what each new customer is worth to your business — you keep the majority of the upside. Book a free 15-min call for a custom quote.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -407,7 +407,7 @@ export const VERTICALS: Vertical[] = [
       "Weekly report on bookings, no-shows, and follow-up touchpoints",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
+      "Pricing is matched to what each new customer is worth to your business — you keep the majority of the upside. Book a free 15-min call for a custom quote.",
     relatedServices: ["persian-leads"],
   },
   {
@@ -430,7 +430,7 @@ export const VERTICALS: Vertical[] = [
       "Instant phone notification with full lead context, plus weekly status report",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
+      "Pricing is matched to what each new customer is worth to your business — you keep the majority of the upside. Book a free 15-min call for a custom quote.",
     relatedServices: ["persian-leads"],
   },
 ];
