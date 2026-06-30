@@ -233,7 +233,7 @@ export const SERVICES: Service[] = [
     name: "Qualified local customers, delivered — in every language spoken in LA",
     icon: "📞",
     tagline:
-      "Qualified local customers calling your store every month — in every language spoken in Southern California. Fixed price, money-back guarantee.",
+      "Qualified local customers calling your store every month — in every language spoken in Southern California. Pay per booked lead, money-back guarantee.",
     description:
       "We deliver qualified local customers in every language Southern California speaks — Spanish, Mandarin, Cantonese, Tagalog, Korean, Armenian, Persian, Vietnamese, Arabic, Russian, Khmer, Thai, Hebrew, Hindi, and more. We run targeted local campaigns, build a multilingual landing page, and route every interested customer directly to your phone with photos, contact, and budget. Calls that used to end in a hang-up turn into bookings. You close. We charge per booked lead, not per campaign.",
     features: [

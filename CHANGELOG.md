@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 
-- Reworked `/pricing` to a consultative, quote-on-a-call model. The tiers (Local, Growth, Premium, High-Ticket) still show their lead volume and who they fit, but each now shows a **"Custom quote"** anchor and a "book a free call" CTA instead of a price — pricing is matched to each business's customer value rather than published on the page. Value bands are now descriptive ("Mid-ticket businesses") instead of dollar ranges.
+- Reworked `/pricing` to a consultative, quote-on-a-call model. The tiers (Local, Growth, Premium, High-Ticket) still show their lead volume and who they fit, but each now shows a **"Custom quote"** anchor and a book-a-call CTA instead of a price — pricing is matched to each business's customer value rather than published on the page. Value bands are now descriptive ("Mid-ticket businesses") instead of dollar ranges.
 - Updated supporting copy to match: the industry-page ROI line, the services CTA ("See our plans"), the Terms "Plans, billing & refunds" section, and the AI-crawler content in `llms.txt` / `llms-full.txt` (which previously described a now-removed pricing calculator).
 
 ### Removed
