@@ -4,6 +4,12 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.6] - 2026-07-01
+
+### Fixed
+
+- Removed three stale references to the deleted pricing page that v0.4.5 left behind. `llms.txt` / `llms-full.txt` no longer tell AI engines about a "Find your fit" calculator "on the pricing page" (there is no pricing page — it now describes the free-evaluation scoping instead). The Terms "Plans, billing & refunds" section no longer points to plan prices/per-lead charges "on the pricing page" (now scoped on the free evaluation and set out in the quote). The `persian-leads` services tagline dropped "Fixed price" (which contradicted its own "we charge per booked lead" copy) in favor of "Pay per booked lead."
+
 ## [0.4.5] - 2026-06-29
 
 ### Added
