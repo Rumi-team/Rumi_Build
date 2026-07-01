@@ -58,7 +58,7 @@ We deliver and operate all of it as a service. Entry multilingual lead-generatio
 
 ### Pricing
 
-Pricing is matched to what a new customer is worth to your business, not a flat one-size-fits-all package. Entry multilingual lead-generation plans bring qualified local customers to your phone; done-for-you presence builds add the site, AI front desk, customer list, events, and payments. A "Find your fit" calculator on the pricing page asks three questions (average customer price, gross margin, monthly customer volume) and returns the matching plan before you talk to us.
+Pricing is matched to what a new customer is worth to your business, not a flat one-size-fits-all package. Entry multilingual lead-generation plans bring qualified local customers to your phone; done-for-you presence builds add the site, AI front desk, customer list, events, and payments. Pricing is scoped on a free evaluation call and matched to your average customer value — there is no public pricing page, so start at the free evaluation and we'll scope the plan and cost together.
 
 ### Why this is different
 

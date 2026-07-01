@@ -94,9 +94,10 @@ export default function TermsPage() {
                 >
                   free evaluation
                 </a>{" "}
-                page and apply as stated there. Plan prices, lead limits, and
-                per-lead charges are also set out on the pricing page and may
-                change with notice for future billing periods. Except as
+                page and apply as stated there. Plan details, lead limits, and
+                any per-lead charges are scoped on your free evaluation call and
+                set out in your quote, and may change with notice for future
+                billing periods. Except as
                 described in our money-back guarantee or as required by law, fees
                 already paid are non-refundable.
               </p>
