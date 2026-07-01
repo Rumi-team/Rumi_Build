@@ -14,10 +14,6 @@ export function Hero() {
       <div className="hero-glow" />
 
       <div className="relative mx-auto max-w-3xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-4">
-          {t.hero.overline}
-        </p>
-
         <h1
           id="hero-heading"
           className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-5"
@@ -38,8 +34,6 @@ export function Hero() {
             {t.hero.ctaPrimary}
           </a>
         </div>
-
-        <p className="mt-8 text-sm text-zinc-500 max-w-xl">{t.hero.trust}</p>
       </div>
     </section>
   );
