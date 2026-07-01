@@ -25,13 +25,11 @@ export type Lang = (typeof LANGUAGES)[number]["code"];
 const EN = {
   nav: { pricing: "Pricing", team: "Team", freeEval: "Free evaluation" },
   hero: {
-    overline: "Southern California · Be found in the AI era",
     headline: "Stop being invisible in the digital world.",
     headlineAccent: "In the AI era, you can't afford it.",
     sub: "More and more customers don't just Google anymore — they ask ChatGPT, Claude, and Perplexity who to hire. If AI doesn't know your business exists, you're invisible to them. We build your website, mobile app, and social media, then make all of it readable to the AI engines — so when someone asks AI for your service, you're the answer.",
     ctaPrimary: "Request a free evaluation",
     ctaSecondary: "Book a 15-min call",
-    trust: "We work in your language too — pick yours at the top and the whole page (and the evaluation form) switches. 56% of LA County speaks one other than English.",
   },
   pillars: {
     eyebrow: "What we build and run",
@@ -131,13 +129,11 @@ const ES: Dict = {
     "freeEval": "Evaluación gratuita"
   },
   "hero": {
-    "overline": "Sur de California · Hazte visible en la era de la IA",
     "headline": "Deja de ser invisible en el mundo digital.",
     "headlineAccent": "En la era de la IA, no te lo puedes permitir.",
     "sub": "Cada vez más clientes ya no solo buscan en Google: le preguntan a ChatGPT, Claude y Perplexity a quién contratar. Si la IA no sabe que tu negocio existe, para ella eres invisible. Construimos tu sitio web, tu app móvil y tus redes sociales, y hacemos que todo sea legible para los motores de IA, para que cuando alguien le pregunte a la IA por tu servicio, la respuesta seas tú.",
     "ctaPrimary": "Solicita una evaluación gratuita",
-    "ctaSecondary": "Agenda una llamada de 15 min",
-    "trust": "También trabajamos en tu idioma: elige el tuyo arriba y toda la página (y el formulario de evaluación) cambia. El 56% del condado de Los Ángeles habla un idioma distinto al inglés."
+    "ctaSecondary": "Agenda una llamada de 15 min"
   },
   "pillars": {
     "eyebrow": "Lo que construimos y administramos",
@@ -259,13 +255,11 @@ const FA: Dict = {
     "freeEval": "ارزیابی رایگان"
   },
   "hero": {
-    "overline": "جنوب کالیفرنیا · در عصر هوش مصنوعی دیده شوید",
     "headline": "دیگر در دنیای دیجیتال نامرئی نباشید.",
     "headlineAccent": "در عصر هوش مصنوعی، این یعنی از دست دادن مشتری.",
     "sub": "مشتری‌ها دیگر فقط در Google جست‌وجو نمی‌کنند — حالا از ChatGPT، Claude و Perplexity می‌پرسند سراغ چه کسی بروند. اگر هوش مصنوعی از وجود کسب‌وکار شما خبر نداشته باشد، برای آن‌ها نامرئی هستید. ما وب‌سایت، اپلیکیشن موبایل و شبکه‌های اجتماعی شما را می‌سازیم و همه را برای موتورهای هوش مصنوعی قابل‌خواندن می‌کنیم — تا وقتی کسی خدمات شما را از هوش مصنوعی می‌پرسد، جواب، شما باشید.",
     "ctaPrimary": "درخواست ارزیابی رایگان",
-    "ctaSecondary": "رزرو تماس ۱۵ دقیقه‌ای",
-    "trust": "ما به زبان شما هم کار می‌کنیم — زبانتان را از بالای صفحه انتخاب کنید تا کل صفحه (و فرم ارزیابی) به همان زبان تغییر کند. ۵۶٪ مردم کانتی لس‌آنجلس به زبانی غیر از انگلیسی صحبت می‌کنند."
+    "ctaSecondary": "رزرو تماس ۱۵ دقیقه‌ای"
   },
   "pillars": {
     "eyebrow": "چه چیزی می‌سازیم و اداره می‌کنیم",

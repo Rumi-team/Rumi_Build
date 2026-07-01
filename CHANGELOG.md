@@ -4,6 +4,12 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.7] - 2026-07-01
+
+### Removed
+
+- Trimmed two elements from the homepage hero: the **"Southern California · Be found in the AI era" overline** and the **multilingual explainer line** ("We work in your language too — pick yours at the top…"). The hero now opens straight on the headline. The `overline`/`trust` dictionary keys were removed from all three languages (EN/ES/FA) in `i18n.tsx`; the language switcher is unaffected and the bottom CTA still notes you can answer in any language.
+
 ## [0.4.6] - 2026-07-01
 
 ### Fixed
