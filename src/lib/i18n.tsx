@@ -107,11 +107,11 @@ const EN = {
     },
   },
   footer: {
-    tagline: "Made in Southern California. We build the digital presence — and make you findable by AI.",
+    tagline: "We build the digital presence — and make you findable by AI.",
     vert: "Verticals",
     company: "Company",
     bookCall: "Book a free 15-min call",
-    rights: "Copyright ©2026, Rumi, Inc. Made in California.",
+    rights: "Copyright ©2026, Rumi, Inc.",
     terms: "Terms & Conditions",
     privacy: "Privacy",
   },
@@ -238,11 +238,11 @@ const ES: Dict = {
     }
   },
   "footer": {
-    "tagline": "Hecho en el Sur de California. Construimos tu presencia digital, y hacemos que la IA te encuentre.",
+    "tagline": "Construimos tu presencia digital, y hacemos que la IA te encuentre.",
     "vert": "Sectores",
     "company": "Empresa",
     "bookCall": "Agenda una llamada gratuita de 15 min",
-    "rights": "Copyright ©2026, Rumi, Inc. Hecho en California.",
+    "rights": "Copyright ©2026, Rumi, Inc.",
     "terms": "Términos y condiciones",
     "privacy": "Privacidad"
   },
@@ -364,11 +364,11 @@ const FA: Dict = {
     }
   },
   "footer": {
-    "tagline": "ساخته‌شده در جنوب کالیفرنیا. ما حضور دیجیتال را می‌سازیم — و شما را برای هوش مصنوعی قابل‌یافتن می‌کنیم.",
+    "tagline": "ما حضور دیجیتال را می‌سازیم — و شما را برای هوش مصنوعی قابل‌یافتن می‌کنیم.",
     "vert": "حوزه‌های کاری",
     "company": "شرکت",
     "bookCall": "رزرو تماس رایگان ۱۵ دقیقه‌ای",
-    "rights": "حق نشر ©۲۰۲۶، Rumi, Inc. ساخته‌شده در کالیفرنیا.",
+    "rights": "حق نشر ©۲۰۲۶، Rumi, Inc.",
     "terms": "شرایط و قوانین",
     "privacy": "حریم خصوصی"
   },
