@@ -24,8 +24,8 @@ export default function SchedulePage() {
           </h1>
           <p className="text-base sm:text-lg text-zinc-400 mb-2">
             We map your business, your current lead flow, and quote a tier on
-            the call. Multilingual local marketing across Southern California,
-            in every language LA speaks. No commitment.
+            the call. Multilingual marketing in every language your customers
+            speak. No commitment.
           </p>
           <p
             lang="fa"

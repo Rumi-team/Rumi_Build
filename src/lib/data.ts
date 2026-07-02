@@ -13,7 +13,7 @@ export const SUPPORT_EMAIL = "support@rumi.build";
 
 export const COPY = {
   hero: {
-    overline: "Southern California · Be found in the AI era",
+    overline: "Be found in the AI era",
     headline: "Stop being invisible in the digital world.",
     headlineAccent: "In the AI era, you can't afford it.",
     sub: "More and more customers don't just Google anymore — they ask ChatGPT, Claude, and Perplexity who to hire. If AI doesn't know your business exists, you're invisible to them. We build your website, mobile app, and social media, then make all of it readable to the AI engines — so when someone asks AI for your service, you're the answer.",
@@ -112,8 +112,8 @@ export const HOW_IT_WORKS_STEPS: HowItWorksStep[] = [
 // 3 pills above the hero headline: English, the dominant non-English language
 // in LA (Spanish), and the founder's language (Persian/Farsi — Westwood is
 // "Tehrangeles"). Clicking a pill translates the hero's 6 strings via
-// /locales/<code>.json. Other languages remain available in the full Southern
-// California language list below the hero.
+// /locales/<code>.json. Other languages remain available in the full
+// language list below the hero.
 
 export const HERO_STRIP_LANGUAGES = [
   { code: "en", label: "English", rtl: false },
@@ -123,11 +123,11 @@ export const HERO_STRIP_LANGUAGES = [
 
 export type HeroLangCode = (typeof HERO_STRIP_LANGUAGES)[number]["code"];
 
-// ── Supported languages (Southern California focus) ──
+// ── Supported languages ──
 // Ordered by approximate LA County speaker count + community visibility.
 // Source: U.S. Census ACS 2022, LA Almanac. The underlying AI handles 70+
 // languages; this list is what we actually deploy and translate for
-// Southern California merchants.
+// merchants.
 
 export const LA_LANGUAGES = [
   "English",
@@ -158,7 +158,7 @@ export const LA_LANGUAGES = [
 export const LANGUAGE_BAR = {
   eyebrow: "56% of LA County",
   heading: "56% of LA County speaks a language other than English at home.",
-  sub: "That's nearly 5 million customers most Southern California businesses lose the moment a caller hits an English-only menu. We don't. Here are the languages we deliver in across LA, OC, and the Inland Empire.",
+  sub: "That's nearly 5 million customers most businesses lose the moment a caller hits an English-only menu. We don't. Here are the languages we deliver in.",
   footnote: "Rumi answers every caller in their own language from the first word. Just qualified customers, delivered to your phone.",
 };
 
@@ -179,7 +179,7 @@ export const TEAM: TeamMember[] = [
     role: "Chief Executive Officer",
     photo: "/team-ali.jpeg",
     school: "",
-    bio: "Builds products people actually use — and now puts that behind Southern California's small businesses, so they get found in the AI era.",
+    bio: "Builds products people actually use — and now puts that behind small businesses, so they get found in the AI era.",
     experience: [
       "Led products serving 100M+ users at Business Insider and Spotter.",
       "Now focused on local growth for small businesses across North America.",
@@ -228,7 +228,7 @@ export interface Service {
 
 // Internal name for this offer is "Multilingual Lead Engine" (see design doc).
 // Buyer-facing copy stays plain and outcome-led; no internal-product naming on the site.
-// Southern California language reach is the differentiator: we capture the
+// Multilingual reach is the differentiator: we capture the
 // customers your competitors lose to language barriers — 56% of LA County
 // speaks a non-English language at home and hangs up on English-only menus.
 export const SERVICES: Service[] = [
@@ -237,11 +237,11 @@ export const SERVICES: Service[] = [
     name: "Qualified local customers, delivered — in every language spoken in LA",
     icon: "📞",
     tagline:
-      "Qualified local customers calling your store every month — in every language spoken in Southern California. Pay per booked lead, money-back guarantee.",
+      "Qualified local customers calling your store every month — in every language your customers speak. Pay per booked lead, money-back guarantee.",
     description:
-      "We deliver qualified local customers in every language Southern California speaks — Spanish, Mandarin, Cantonese, Tagalog, Korean, Armenian, Persian, Vietnamese, Arabic, Russian, Khmer, Thai, Hebrew, Hindi, and more. We run targeted local campaigns, build a multilingual landing page, and route every interested customer directly to your phone with photos, contact, and budget. Calls that used to end in a hang-up turn into bookings. You close. We charge per booked lead, not per campaign.",
+      "We deliver qualified local customers in every language your customers speak — Spanish, Mandarin, Cantonese, Tagalog, Korean, Armenian, Persian, Vietnamese, Arabic, Russian, Khmer, Thai, Hebrew, Hindi, and more. We run targeted local campaigns, build a multilingual landing page, and route every interested customer directly to your phone with photos, contact, and budget. Calls that used to end in a hang-up turn into bookings. You close. We charge per booked lead, not per campaign.",
     features: [
-      "Local customers in every Southern California language — every caller hears their own language from the first word",
+      "Local customers in every language — every caller hears their own language from the first word",
       "Multilingual landing page tailored to the languages your customers actually speak",
       "Targeted Instagram campaigns plus local-community outreach in those same languages",
       "Every booked lead routed straight to your phone within minutes",
