@@ -33,6 +33,21 @@ body {
   pointer-events: none;
 }
 
+/* Hero headline accent — warm amber gradient for a richer, more designed title */
+.hero-accent {
+  background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 45%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Branded text selection — replaces the default gray highlight site-wide */
+::selection {
+  background: rgba(251, 191, 36, 0.85);
+  color: #18181b;
+}
+
 /* Card glass effect */
 .card-glass {
   background: linear-gradient(

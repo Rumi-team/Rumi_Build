@@ -13,7 +13,7 @@ export const SUPPORT_EMAIL = "support@rumi.build";
 
 export const COPY = {
   hero: {
-    overline: "Southern California · Be found in the AI era",
+    overline: "Be found in the AI era",
     headline: "Stop being invisible in the digital world.",
     headlineAccent: "In the AI era, you can't afford it.",
     sub: "More and more customers don't just Google anymore — they ask ChatGPT, Claude, and Perplexity who to hire. If AI doesn't know your business exists, you're invisible to them. We build your website, mobile app, and social media, then make all of it readable to the AI engines — so when someone asks AI for your service, you're the answer.",
@@ -123,11 +123,11 @@ export const HERO_STRIP_LANGUAGES = [
 
 export type HeroLangCode = (typeof HERO_STRIP_LANGUAGES)[number]["code"];
 
-// ── Supported languages (Southern California focus) ──
-// Ordered by approximate LA County speaker count + community visibility.
-// Source: U.S. Census ACS 2022, LA Almanac. The underlying AI handles 70+
+// ── Supported languages ──
+// Ordered by approximate speaker count + community visibility.
+// Source: U.S. Census ACS 2022. The underlying AI handles 70+
 // languages; this list is what we actually deploy and translate for
-// Southern California merchants.
+// merchants.
 
 export const LA_LANGUAGES = [
   "English",
@@ -158,7 +158,7 @@ export const LA_LANGUAGES = [
 export const LANGUAGE_BAR = {
   eyebrow: "56% of LA County",
   heading: "56% of LA County speaks a language other than English at home.",
-  sub: "That's nearly 5 million customers most Southern California businesses lose the moment a caller hits an English-only menu. We don't. Here are the languages we deliver in across LA, OC, and the Inland Empire.",
+  sub: "That's nearly 5 million customers most businesses lose the moment a caller hits an English-only menu. We don't. Here are the languages we deliver in.",
   footnote: "Rumi answers every caller in their own language from the first word. Just qualified customers, delivered to your phone.",
 };
 

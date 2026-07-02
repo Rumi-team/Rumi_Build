@@ -8,7 +8,7 @@ export function Footer() {
           <div>
             <img src="/rumi-logo.png" alt="Rumi" className="h-10 mb-3" />
             <p className="text-xs text-zinc-500 mb-4">
-              Made in Southern California. Local growth in LA's languages.
+              We build your digital presence in every language your customers speak.
             </p>
             <p
               lang="fa"
@@ -110,7 +110,7 @@ export function Footer() {
 
         <div className="border-t border-zinc-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-zinc-500">
-            Copyright &copy;2026, Rumi, Inc. Made in California.
+            Copyright &copy;2026, Rumi, Inc.
           </p>
           <div className="flex items-center gap-6">
             <a
