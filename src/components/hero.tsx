@@ -16,10 +16,10 @@ export function Hero() {
       <div className="relative mx-auto max-w-3xl">
         <h1
           id="hero-heading"
-          className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-5"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-balance mb-5"
         >
           {t.hero.headline}{" "}
-          <span className="text-amber-400">{t.hero.headlineAccent}</span>
+          <span className="hero-accent">{t.hero.headlineAccent}</span>
         </h1>
 
         <p className="max-w-xl text-lg text-zinc-400 mb-8 leading-relaxed">
