@@ -102,10 +102,10 @@ export function CalEmbed({
     });
 
     window.Cal!("ui", {
-      theme: "dark",
+      theme: "light",
       cssVarsPerTheme: {
-        light: { "cal-brand": "#fbbf24" },
-        dark: { "cal-brand": "#fbbf24" },
+        light: { "cal-brand": "#059669" },
+        dark: { "cal-brand": "#059669" },
       },
       hideEventTypeDetails: false,
       layout: "month_view",
@@ -115,12 +115,12 @@ export function CalEmbed({
   return (
     <div
       ref={containerRef}
-      className="w-full overflow-visible rounded-xl border border-zinc-800 bg-zinc-950"
+      className="w-full overflow-visible rounded-xl border border-line bg-white"
       style={{ minHeight }}
     >
       {!ready && (
         <div
-          className="flex w-full items-center justify-center text-sm text-zinc-500"
+          className="flex w-full items-center justify-center text-sm text-muted"
           style={{ minHeight }}
         >
           Loading calendar…

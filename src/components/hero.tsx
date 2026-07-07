@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative pt-28 pb-20 px-6 overflow-hidden"
+      className="relative bg-navy pt-28 pb-24 px-6 md:px-12 overflow-hidden"
     >
       {/* Ambient glow */}
       <div className="hero-glow" />
@@ -16,22 +16,28 @@ export function Hero() {
       <div className="relative mx-auto max-w-3xl">
         <h1
           id="hero-heading"
-          className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-balance mb-5"
+          className="text-[36px] md:text-[56px] font-black tracking-h1 leading-[1.05] text-white text-balance mb-5"
         >
           {t.hero.headline}{" "}
-          <span className="hero-accent">{t.hero.headlineAccent}</span>
+          <span className="text-accent">{t.hero.headlineAccent}</span>
         </h1>
 
-        <p className="max-w-xl text-lg text-zinc-400 mb-8 leading-relaxed">
+        <p className="max-w-xl text-lg text-white/70 mb-8 leading-relaxed">
           {t.hero.sub}
         </p>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <a
             href="/evaluate"
-            className="w-full sm:w-auto text-center rounded-lg bg-amber-400 px-7 py-3.5 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 hover:shadow-[0_0_24px_rgba(251,191,36,0.25)] focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+            className="btn-primary w-full sm:w-auto text-center px-7 py-3.5 text-base"
           >
             {t.hero.ctaPrimary}
+          </a>
+          <a
+            href="/schedule"
+            className="btn-secondary-navy w-full sm:w-auto text-center px-7 py-3.5 text-base"
+          >
+            {t.hero.ctaSecondary}
           </a>
         </div>
       </div>

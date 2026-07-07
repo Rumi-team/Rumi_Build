@@ -14,15 +14,15 @@ export default function SchedulePage() {
   return (
     <>
       <Nav />
-      <div className="min-h-screen bg-zinc-900 text-zinc-200 pt-16">
+      <div className="min-h-screen bg-white text-ink pt-16">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-          <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
+          <p className="eyebrow mb-3">
             Schedule
           </p>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          <h1 className="text-4xl md:text-5xl font-black tracking-h1 text-ink mb-3">
             Free 15-min call. English or Farsi.
           </h1>
-          <p className="text-base sm:text-lg text-zinc-400 mb-2">
+          <p className="text-base sm:text-lg text-muted mb-2">
             We map your business, your current lead flow, and quote a tier on
             the call. Multilingual marketing in every language your customers
             speak. No commitment.
@@ -30,20 +30,20 @@ export default function SchedulePage() {
           <p
             lang="fa"
             dir="rtl"
-            className="font-vazirmatn text-base text-zinc-500 mb-6 sm:mb-8"
+            className="font-vazirmatn text-base text-muted mb-6 sm:mb-8"
           >
             تماس رایگان ۱۵ دقیقه‌ای — به فارسی یا انگلیسی.
           </p>
 
           <CalEmbed calLink={CAL_LINK} />
 
-          <p className="mt-4 text-xs text-zinc-500">
+          <p className="mt-4 text-xs text-muted">
             Trouble with the calendar?{" "}
             <a
               href="https://cal.com/rumi.build/15min"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-zinc-300"
+              className="underline text-accent hover:text-accent-hover"
             >
               Open it in a new tab
             </a>

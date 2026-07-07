@@ -12,19 +12,17 @@ export function PlatformPillars() {
   return (
     <section
       aria-labelledby="pillars-heading"
-      className="py-20 px-6 section-alt section-divider"
+      className="bg-white py-20 px-6 md:px-12"
     >
       <div className="mx-auto max-w-5xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-          {t.pillars.eyebrow}
-        </p>
+        <p className="eyebrow mb-3">{t.pillars.eyebrow}</p>
         <h2
           id="pillars-heading"
-          className="text-3xl md:text-4xl font-bold tracking-tight mb-3"
+          className="text-3xl md:text-4xl font-bold tracking-h2 text-ink mb-3"
         >
           {t.pillars.heading}
         </h2>
-        <p className="text-zinc-400 mb-10 max-w-xl text-lg">{t.pillars.sub}</p>
+        <p className="text-muted mb-10 max-w-xl text-lg">{t.pillars.sub}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {t.pillars.items.map((pillar, i) => (

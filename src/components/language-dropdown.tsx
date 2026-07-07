@@ -11,7 +11,7 @@ export function LanguageDropdown({ className = "" }: { className?: string }) {
       <svg
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="pointer-events-none absolute left-2.5 h-4 w-4 text-zinc-500"
+        className="pointer-events-none absolute left-2.5 h-4 w-4 text-white/50"
         aria-hidden="true"
       >
         <path
@@ -24,10 +24,10 @@ export function LanguageDropdown({ className = "" }: { className?: string }) {
         value={lang}
         onChange={(e) => setLang(e.target.value as Lang)}
         aria-label={t.langLabel}
-        className="appearance-none rounded-lg border border-zinc-700 bg-zinc-800/60 py-1.5 pl-8 pr-8 text-sm text-zinc-200 transition hover:border-zinc-500 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400 cursor-pointer"
+        className="appearance-none rounded-md border border-white/20 bg-white/10 py-1.5 pl-8 pr-8 text-sm text-white transition hover:border-white/40 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent cursor-pointer"
       >
         {LANGUAGES.map((l) => (
-          <option key={l.code} value={l.code} className="bg-zinc-900 text-zinc-200">
+          <option key={l.code} value={l.code} className="bg-navy text-white">
             {l.label}
           </option>
         ))}
@@ -35,7 +35,7 @@ export function LanguageDropdown({ className = "" }: { className?: string }) {
       <svg
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="pointer-events-none absolute right-2 h-4 w-4 text-zinc-500"
+        className="pointer-events-none absolute right-2 h-4 w-4 text-white/50"
         aria-hidden="true"
       >
         <path

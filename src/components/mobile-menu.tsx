@@ -13,7 +13,7 @@ export function MobileMenu() {
     <div className="md:hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="p-2 text-zinc-400 hover:text-zinc-200 transition"
+        className="p-2 text-white/60 hover:text-white transition"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
       >
@@ -29,13 +29,13 @@ export function MobileMenu() {
       </button>
 
       {open && (
-        <div className="absolute top-16 left-0 right-0 border-b border-zinc-800 bg-zinc-900 px-6 pb-6 pt-2 z-40">
+        <div className="absolute top-16 left-0 right-0 border-b border-white/10 bg-navy px-6 pb-6 pt-2 z-40">
           <div className="flex flex-col gap-1">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="block py-3 text-base text-zinc-300 hover:text-zinc-100 transition border-b border-zinc-800"
+                className="block py-3 text-base text-white/80 hover:text-white transition border-b border-white/10"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -44,7 +44,7 @@ export function MobileMenu() {
           </div>
           <a
             href="/evaluate"
-            className="block mt-4 w-full rounded-lg bg-amber-400 py-3 text-center text-base font-semibold text-zinc-900 transition hover:bg-amber-300"
+            className="btn-primary block mt-4 w-full py-3 text-center text-base"
             onClick={() => setOpen(false)}
           >
             {t.hero.ctaPrimary}

@@ -48,31 +48,31 @@ export default function TeamPage() {
             {TEAM.map((member) => (
               <div
                 key={member.name}
-                className="flex flex-col sm:flex-row gap-6 rounded-xl border border-zinc-700 bg-zinc-800/30 p-6 sm:p-8"
+                className="flex flex-col sm:flex-row gap-6 card rounded-xl p-6 sm:p-8"
               >
                 <div className="flex flex-col items-center sm:items-start shrink-0 sm:w-44 text-center sm:text-left">
                   <img
                     src={member.photo}
                     alt={member.name}
-                    className="h-24 w-24 rounded-full object-cover border-2 border-zinc-700"
+                    className="h-24 w-24 rounded-full object-cover border-2 border-line"
                   />
-                  <p className="text-base font-semibold mt-3">{member.name}</p>
-                  <span className="inline-block mt-1.5 rounded-full bg-amber-400 px-3 py-0.5 text-xs font-semibold text-zinc-900">
+                  <p className="text-base font-semibold text-ink mt-3">{member.name}</p>
+                  <span className="inline-block mt-1.5 rounded-full bg-accent px-3 py-0.5 text-xs font-semibold text-white">
                     {member.role}
                   </span>
                 </div>
 
                 <div className="flex-1">
-                  <p className="text-base text-zinc-200 leading-relaxed mb-4">
+                  <p className="text-base text-ink leading-relaxed mb-4">
                     {member.bio}
                   </p>
                   <ul className="space-y-2">
                     {member.experience.map((item) => (
                       <li
                         key={item}
-                        className="flex items-start gap-2 text-sm text-zinc-400 leading-relaxed"
+                        className="flex items-start gap-2 text-sm text-muted leading-relaxed"
                       >
-                        <span className="text-amber-400 mt-0.5 shrink-0">&#8226;</span>
+                        <span className="text-accent mt-0.5 shrink-0">&#8226;</span>
                         {item}
                       </li>
                     ))}
@@ -86,13 +86,13 @@ export default function TeamPage() {
         {/* What we build — link the two products instead of project write-ups */}
         <section className="py-16 px-6">
           <div className="mx-auto max-w-4xl">
-            <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
+            <p className="eyebrow mb-3">
               What we build
             </p>
-            <h2 className="text-2xl font-bold tracking-tight mb-3">
+            <h2 className="text-2xl font-bold tracking-h2 text-ink mb-3">
               We ship our own AI products
             </h2>
-            <p className="text-zinc-400 mb-8 max-w-xl">
+            <p className="text-muted mb-8 max-w-xl">
               We don&apos;t just consult. We build and operate AI products
               ourselves — and the same engines run the work we do for clients.
             </p>
@@ -104,20 +104,20 @@ export default function TeamPage() {
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col rounded-xl border border-zinc-700 bg-zinc-800/30 p-6 transition hover:border-amber-400/40"
+                  className="group flex flex-col card rounded-xl p-6 transition hover:border-accent/40"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-semibold group-hover:text-amber-400 transition">
+                    <h3 className="text-lg font-semibold text-ink group-hover:text-accent transition">
                       {p.name}
                     </h3>
-                    <span className="text-amber-400/70 transition group-hover:translate-x-0.5">
+                    <span className="text-accent/70 transition group-hover:translate-x-0.5">
                       &rarr;
                     </span>
                   </div>
-                  <p className="text-sm text-zinc-400 leading-relaxed mb-3">
+                  <p className="text-sm text-muted leading-relaxed mb-3">
                     {p.tagline}
                   </p>
-                  <span className="mt-auto font-mono text-xs text-zinc-500">
+                  <span className="mt-auto text-xs text-muted">
                     {p.href.replace("https://www.", "")}
                   </span>
                 </a>

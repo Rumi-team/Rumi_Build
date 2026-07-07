@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import { Vazirmatn } from "next/font/google";
+import { Inter, Vazirmatn } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { LanguageProvider } from "@/lib/i18n";
 import "./globals.css";
 
+// Inter is the single brand font (Saba spec §3). All weights the site uses.
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "900"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+// Vazirmatn covers Farsi (Persian script); Inter can't render it.
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
   weight: ["400", "500", "600", "700"],
@@ -44,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${vazirmatn.variable}`}
+      className={`${inter.variable} ${vazirmatn.variable}`}
     >
       <body className="font-sans antialiased">
         <LanguageProvider>{children}</LanguageProvider>

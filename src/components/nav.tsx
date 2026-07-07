@@ -11,10 +11,10 @@ export function Nav() {
   return (
     <nav
       aria-label="Main"
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 border-b border-zinc-800 bg-zinc-900/95 backdrop-blur"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 border-b border-white/10 bg-navy/95 backdrop-blur"
     >
       <a href="/">
-        <img src="/rumi-logo.png" alt="Rumi" className="h-10" />
+        <img src="/rumi-logo-on-navy.png" alt="Rumi" className="h-9 w-auto" />
       </a>
 
       {/* Desktop links */}
@@ -23,16 +23,13 @@ export function Nav() {
           <a
             key={link.href}
             href={link.href}
-            className="text-sm text-zinc-400 transition hover:text-zinc-200"
+            className="text-sm font-medium text-white/60 transition hover:text-accent"
           >
             {link.label}
           </a>
         ))}
         <LanguageDropdown />
-        <a
-          href="/evaluate"
-          className="rounded-lg bg-amber-400 px-5 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
-        >
+        <a href="/evaluate" className="btn-primary px-5 py-2 text-sm">
           {t.nav.freeEval}
         </a>
       </div>
@@ -40,10 +37,7 @@ export function Nav() {
       {/* Mobile: language + CTA + hamburger */}
       <div className="flex md:hidden items-center gap-2">
         <LanguageDropdown />
-        <a
-          href="/evaluate"
-          className="rounded-lg bg-amber-400 px-3 py-1.5 text-sm font-semibold text-zinc-900 transition hover:bg-amber-300"
-        >
+        <a href="/evaluate" className="btn-primary px-3 py-1.5 text-sm">
           {t.nav.freeEval}
         </a>
         <MobileMenu />

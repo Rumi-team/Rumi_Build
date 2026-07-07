@@ -43,7 +43,7 @@ function Avatar({
       <img
         src={photo}
         alt={name}
-        className="h-16 w-16 rounded-full object-cover border-2 border-zinc-700"
+        className="h-16 w-16 rounded-full object-cover border-2 border-line"
       />
     );
   }
@@ -53,7 +53,7 @@ function Avatar({
     .slice(0, 2)
     .join("");
   return (
-    <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-zinc-700 bg-zinc-800 text-lg font-semibold text-zinc-400">
+    <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-line bg-surface text-lg font-semibold text-muted">
       {initials}
     </div>
   );
@@ -63,16 +63,16 @@ export function Team() {
   return (
     <section aria-labelledby="team-heading" className="py-20 px-6">
       <div className="mx-auto max-w-4xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
+        <p className="eyebrow mb-3">
           Team
         </p>
         <h2
           id="team-heading"
-          className="text-3xl font-bold tracking-tight mb-3"
+          className="text-3xl font-bold tracking-h2 text-ink mb-3"
         >
           Built by people who&apos;ve done it at scale
         </h2>
-        <p className="text-zinc-400 mb-10">
+        <p className="text-muted mb-10">
           Management team — backed by a dedicated engineering and design team.
         </p>
 
@@ -80,25 +80,25 @@ export function Team() {
           {TEAM.map((member) => (
             <div
               key={member.name}
-              className="flex flex-col sm:flex-row gap-5 rounded-xl border border-zinc-700 bg-zinc-800/30 p-6"
+              className="flex flex-col sm:flex-row gap-5 card p-6"
             >
               <div className="flex items-center gap-4 sm:flex-col sm:items-center sm:min-w-[140px]">
                 <Avatar name={member.name} photo={member.photo} />
                 <div className="sm:text-center">
-                  <span className="inline-block rounded-full bg-amber-400 px-3 py-0.5 text-xs font-semibold text-zinc-900 mb-1">
+                  <span className="inline-block rounded-full bg-accent px-3 py-0.5 text-xs font-semibold text-white mb-1">
                     {member.role}
                   </span>
-                  <p className="text-sm font-semibold">{member.name}</p>
-                  <p className="text-xs text-zinc-500">{member.school}</p>
+                  <p className="text-sm font-semibold text-ink">{member.name}</p>
+                  <p className="text-xs text-muted">{member.school}</p>
                 </div>
               </div>
               <ul className="flex-1 space-y-2">
                 {member.experience.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-2 text-base md:text-lg text-zinc-400"
+                    className="flex items-start gap-2 text-base md:text-lg text-muted"
                   >
-                    <span className="text-amber-400 mt-0.5">&#8226;</span>
+                    <span className="text-accent mt-0.5">&#8226;</span>
                     {item}
                   </li>
                 ))}

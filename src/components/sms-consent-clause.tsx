@@ -4,7 +4,7 @@
 // cannot drift. Do not reword without re-checking the campaign registration.
 export function SmsConsentClause() {
   return (
-    <div className="space-y-4 text-base text-zinc-300 leading-relaxed">
+    <div className="space-y-4 text-xs text-muted leading-relaxed">
       <p>
         Consent. By providing your mobile phone number and agreeing to be
         contacted — including verbally during a phone call with Rumi or our
