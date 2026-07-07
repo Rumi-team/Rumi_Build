@@ -17,24 +17,22 @@ export default function PrivacyPage() {
         {/* Header */}
         <section className="py-20 px-6">
           <div className="mx-auto max-w-3xl">
-            <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-              Legal
-            </p>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+            <p className="eyebrow mb-3">Legal</p>
+            <h1 className="text-4xl md:text-5xl font-black tracking-h1 leading-[1.1] text-ink mb-4">
               Privacy Policy
             </h1>
-            <p className="text-sm text-zinc-500">Effective May 26, 2026</p>
+            <p className="text-sm text-muted">Effective May 26, 2026</p>
           </div>
         </section>
 
         {/* Body */}
-        <section className="pb-20 px-6 border-t border-zinc-800">
+        <section className="pb-20 px-6 border-t border-line">
           <div className="mx-auto max-w-3xl pt-12 space-y-10">
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 1. Introduction
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 Rumi, Inc. (&ldquo;Rumi,&rdquo; &ldquo;we,&rdquo;
                 &ldquo;us,&rdquo; or &ldquo;our&rdquo;) provides lead generation
                 and multilingual customer communications for local businesses in
@@ -46,13 +44,13 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 2. Information we collect
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed mb-3">
+              <p className="text-base text-muted leading-relaxed mb-3">
                 We collect the following categories of information:
               </p>
-              <ul className="list-disc space-y-2 pl-5 text-base text-zinc-300 leading-relaxed">
+              <ul className="list-disc space-y-2 pl-5 text-base text-muted leading-relaxed">
                 <li>Your name.</li>
                 <li>
                   Your mobile phone number, including the inbound caller ID
@@ -71,13 +69,13 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 3. How we use information
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed mb-3">
+              <p className="text-base text-muted leading-relaxed mb-3">
                 We use the information we collect to:
               </p>
-              <ul className="list-disc space-y-2 pl-5 text-base text-zinc-300 leading-relaxed">
+              <ul className="list-disc space-y-2 pl-5 text-base text-muted leading-relaxed">
                 <li>Respond to and fulfill the request or inquiry you made.</li>
                 <li>
                   Send confirmations and customer-care follow-ups related to
@@ -89,28 +87,28 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 4. SMS / text messaging &amp; consent
               </h2>
               <SmsConsentClause />
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 5. How we share information
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed mb-3">
+              <p className="text-base text-muted leading-relaxed mb-3">
                 We share personal information only with service providers and
                 processors acting on our behalf, under contract and only as
                 needed to provide the Services. These providers fall into the
                 following categories:
               </p>
-              <ul className="list-disc space-y-2 pl-5 text-base text-zinc-300 leading-relaxed mb-3">
+              <ul className="list-disc space-y-2 pl-5 text-base text-muted leading-relaxed mb-3">
                 <li>Telephony and messaging providers.</li>
                 <li>AI transcription and processing providers.</li>
                 <li>Cloud hosting and analytics providers.</li>
               </ul>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 We may also disclose information when required by law or to
                 protect our rights. We never sell your personal information, and,
                 as stated in our SMS terms above, we do not share mobile opt-in
@@ -120,16 +118,16 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 6. Your choices
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 You can opt out of text messages at any time by replying STOP to
                 any message from us. To access, correct, or delete the personal
                 information we hold about you, email us at{" "}
                 <a
                   href="mailto:support@rumi.build"
-                  className="text-amber-400 hover:text-amber-300 underline"
+                  className="text-accent hover:text-accent-hover underline"
                 >
                   support@rumi.build
                 </a>{" "}
@@ -138,10 +136,10 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 7. Data retention
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 We retain personal information for as long as needed to provide
                 the Services, fulfill the purposes described in this policy,
                 resolve disputes, and comply with our legal obligations. When
@@ -150,10 +148,10 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 8. Security
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 We use reasonable administrative, technical, and physical
                 safeguards designed to protect personal information. No method of
                 transmission or storage is completely secure, however, and we
@@ -162,10 +160,10 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 9. Children&rsquo;s privacy
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 The Services are intended for businesses and are not directed to
                 children under 13. We do not knowingly collect personal
                 information from children. If you believe a child has provided us
@@ -174,10 +172,10 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 10. Changes to this policy
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 We may update this Privacy Policy from time to time. When we do,
                 we will revise the effective date above and, where appropriate,
                 provide additional notice. Your continued use of the Services
@@ -187,14 +185,14 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 11. Contact
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 Questions about this Privacy Policy or your data? Contact us at{" "}
                 <a
                   href="mailto:support@rumi.build"
-                  className="text-amber-400 hover:text-amber-300 underline"
+                  className="text-accent hover:text-accent-hover underline"
                 >
                   support@rumi.build
                 </a>

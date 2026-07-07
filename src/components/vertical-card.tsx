@@ -9,20 +9,22 @@ export function VerticalCard({
 }) {
   const inner = (
     <>
-      <h3 className="text-base font-semibold mb-1">{vertical.name}</h3>
-      <p className="font-mono text-xs text-amber-400 mb-3">{vertical.stat}</p>
-      <p className="text-sm text-zinc-400 leading-relaxed">
+      <h3 className="text-base font-semibold text-ink mb-1">{vertical.name}</h3>
+      <p className="text-xs text-accent mb-3">{vertical.stat}</p>
+      <p className="text-sm text-muted leading-relaxed">
         {vertical.tagline}
       </p>
     </>
   );
 
-  const className =
-    "flex flex-col rounded-xl border border-zinc-700 bg-zinc-800/30 p-6 transition hover:border-zinc-600";
+  const className = "card flex flex-col p-6";
 
   if (linked) {
     return (
-      <a href={`/industries/${vertical.slug}`} className={className}>
+      <a
+        href={`/industries/${vertical.slug}`}
+        className={`${className} focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2`}
+      >
         {inner}
       </a>
     );

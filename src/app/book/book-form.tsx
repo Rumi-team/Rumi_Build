@@ -47,15 +47,14 @@ export function BookForm() {
     }
   }
 
-  const inputCls =
-    "w-full rounded-md border border-zinc-700 bg-zinc-800/60 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400";
-  const labelCls = "block text-xs font-medium uppercase tracking-wider text-zinc-400 mb-1.5";
+  const inputCls = "field text-sm";
+  const labelCls = "block text-sm font-medium text-ink mb-1.5";
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className={labelCls}>Full name *</label>
+          <label htmlFor="name" className={labelCls}>Full name <span className="text-danger">*</span></label>
           <input
             id="name"
             type="text"
@@ -66,7 +65,7 @@ export function BookForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className={labelCls}>Email *</label>
+          <label htmlFor="email" className={labelCls}>Email <span className="text-danger">*</span></label>
           <input
             id="email"
             type="email"
@@ -99,7 +98,7 @@ export function BookForm() {
       </div>
 
       <div>
-        <label htmlFor="project" className={labelCls}>What do you want to discuss? *</label>
+        <label htmlFor="project" className={labelCls}>What do you want to discuss? <span className="text-danger">*</span></label>
         <textarea
           id="project"
           required
@@ -111,21 +110,21 @@ export function BookForm() {
         />
       </div>
 
-      <label className="flex items-start gap-3 text-sm text-zinc-300">
+      <label className="flex items-start gap-3 text-sm text-ink">
         <input
           type="checkbox"
           checked={form.consentChecked}
           onChange={(e) => update("consentChecked", e.target.checked)}
-          className="mt-0.5 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-amber-400 focus:ring-amber-400 focus:ring-offset-zinc-900"
+          className="mt-0.5 h-4 w-4 rounded border-line accent-accent focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-white"
         />
         <span>
           We&rsquo;ll save your contact info to follow up about this call. We don&rsquo;t
-          share it. <span className="text-zinc-500">(required)</span>
+          share it. <span className="text-muted">(required)</span>
         </span>
       </label>
 
       {error && (
-        <div className="rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-300">
+        <div className="rounded-md border border-danger/40 bg-danger/10 p-3 text-sm text-danger">
           {error}
         </div>
       )}
@@ -133,7 +132,7 @@ export function BookForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-lg bg-amber-400 px-8 py-4 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+        className="btn-primary w-full px-8 py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {submitting ? "Starting checkout..." : "Book Call → $100"}
       </button>

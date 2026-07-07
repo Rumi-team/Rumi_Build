@@ -5,20 +5,18 @@ export function ServicesPreview() {
   if (!product) return null;
 
   return (
-    <section className="py-20 px-6 section-alt section-divider">
+    <section className="bg-surface py-20 px-6 md:px-12 border-t border-line">
       <div className="mx-auto max-w-3xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-          What you get
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+        <p className="eyebrow mb-3">What you get</p>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-h2 text-ink mb-3">
           {product.name}
         </h2>
-        <p className="text-zinc-400 mb-10 max-w-xl text-lg">
+        <p className="text-muted mb-10 max-w-xl text-lg">
           {product.tagline}
         </p>
 
-        <div className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-8">
-          <p className="text-base text-zinc-300 leading-relaxed mb-6">
+        <div className="card p-8">
+          <p className="text-base text-muted leading-relaxed mb-6">
             {product.description}
           </p>
 
@@ -26,9 +24,9 @@ export function ServicesPreview() {
             {product.features.map((feature) => (
               <li
                 key={feature}
-                className="flex items-start gap-3 text-sm text-zinc-300 leading-relaxed"
+                className="flex items-start gap-3 text-sm text-muted leading-relaxed"
               >
-                <span className="text-amber-400 mt-1 shrink-0" aria-hidden>
+                <span className="text-accent mt-1 shrink-0" aria-hidden>
                   ✓
                 </span>
                 <span>{feature}</span>
@@ -37,15 +35,12 @@ export function ServicesPreview() {
           </ul>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="/evaluate"
-              className="rounded-lg bg-amber-400 px-6 py-3 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
-            >
+            <a href="/evaluate" className="btn-primary px-6 py-3 text-base">
               Request a free evaluation
             </a>
             <a
               href="/schedule"
-              className="rounded-lg border border-zinc-700 px-6 py-3 text-base text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-800/50"
+              className="btn-secondary-white px-6 py-3 text-base"
             >
               Book a free 15-min call
             </a>

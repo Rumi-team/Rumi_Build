@@ -17,24 +17,22 @@ export default function TermsPage() {
         {/* Header */}
         <section className="py-20 px-6">
           <div className="mx-auto max-w-3xl">
-            <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-3">
-              Legal
-            </p>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+            <p className="eyebrow mb-3">Legal</p>
+            <h1 className="text-4xl md:text-5xl font-black tracking-h1 leading-[1.1] text-ink mb-4">
               Terms &amp; Conditions
             </h1>
-            <p className="text-sm text-zinc-500">Effective May 26, 2026</p>
+            <p className="text-sm text-muted">Effective May 26, 2026</p>
           </div>
         </section>
 
         {/* Body */}
-        <section className="pb-20 px-6 border-t border-zinc-800">
+        <section className="pb-20 px-6 border-t border-line">
           <div className="mx-auto max-w-3xl pt-12 space-y-10">
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 1. Agreement to these Terms
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 These Terms &amp; Conditions (&ldquo;Terms&rdquo;) govern your
                 access to and use of the websites, products, and services
                 (collectively, the &ldquo;Services&rdquo;) provided by Rumi, Inc.
@@ -47,10 +45,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 2. Our Services
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 Rumi provides lead generation and multilingual customer
                 communications for local businesses in Southern California. The
                 Services may include advertising, multilingual landing pages, an
@@ -58,7 +56,7 @@ export default function TermsPage() {
                 support, as described on our{" "}
                 <a
                   href="/evaluate"
-                  className="text-amber-400 hover:text-amber-300 underline"
+                  className="text-accent hover:text-accent-hover underline"
                 >
                   free evaluation
                 </a>{" "}
@@ -68,10 +66,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 3. Eligibility
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 You must be at least 18 years old to use the Services. If you use
                 the Services on behalf of a business or other entity, you
                 represent that you have the authority to bind that entity to
@@ -80,17 +78,17 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 4. Plans, billing &amp; refunds
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 Paid plans are billed monthly in advance. You may cancel at any
                 time after your first month; cancellation takes effect at the end
                 of the then-current billing period. Our money-back guarantee and
                 lead-rollover terms are described on our{" "}
                 <a
                   href="/evaluate"
-                  className="text-amber-400 hover:text-amber-300 underline"
+                  className="text-accent hover:text-accent-hover underline"
                 >
                   free evaluation
                 </a>{" "}
@@ -104,17 +102,17 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 5. SMS / text-messaging program
               </h2>
               <SmsConsentClause />
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 6. Acceptable use
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 You agree not to misuse the Services. You will not use the
                 Services to violate any law or regulation; send unlawful,
                 deceptive, or unsolicited messages; infringe the rights of
@@ -127,10 +125,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 7. Intellectual property
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 The Services, including all software, text, designs, and other
                 content we provide (excluding your own content), are owned by
                 Rumi or its licensors and are protected by intellectual-property
@@ -143,10 +141,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 8. Third-party services
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 The Services rely on third-party providers — for example,
                 telephony, AI transcription and processing, payment processing,
                 cloud hosting, and analytics. Your use of those services may be
@@ -156,10 +154,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 9. Disclaimers
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 The Services are provided &ldquo;as is&rdquo; and &ldquo;as
                 available&rdquo; without warranties of any kind, whether express
                 or implied, including implied warranties of merchantability,
@@ -172,10 +170,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 10. Limitation of liability
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 To the maximum extent permitted by law, Rumi will not be liable
                 for any indirect, incidental, special, consequential, or punitive
                 damages, or for any loss of profits, revenue, data, or goodwill.
@@ -187,10 +185,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 11. Indemnification
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 You agree to indemnify and hold harmless Rumi and its officers,
                 employees, and agents from any claims, damages, liabilities, and
                 expenses (including reasonable legal fees) arising out of your use
@@ -200,10 +198,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 12. Changes to these Terms
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 We may update these Terms from time to time. When we do, we will
                 revise the effective date above and, where appropriate, provide
                 additional notice. Your continued use of the Services after
@@ -212,10 +210,10 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 13. Governing law
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 These Terms are governed by the laws of the State of California,
                 without regard to its conflict-of-laws rules. The state and
                 federal courts located in California will have exclusive
@@ -225,14 +223,14 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold tracking-tight mb-3">
+              <h2 className="text-xl font-bold tracking-h2 text-ink mb-3">
                 14. Contact
               </h2>
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-muted leading-relaxed">
                 Questions about these Terms? Contact us at{" "}
                 <a
                   href="mailto:support@rumi.build"
-                  className="text-amber-400 hover:text-amber-300 underline"
+                  className="text-accent hover:text-accent-hover underline"
                 >
                   support@rumi.build
                 </a>

@@ -49,21 +49,21 @@ export default async function IndustryDetailPage({
               description={vertical.tagline}
             />
 
-            <p className="text-base text-zinc-400 leading-relaxed mb-10">
+            <p className="text-base text-muted leading-relaxed mb-10">
               {vertical.description}
             </p>
 
             {/* Pain points */}
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="text-xl font-semibold text-ink mb-4">
               The problems we solve
             </h2>
             <ul className="space-y-3 mb-10">
               {vertical.painPoints.map((point) => (
                 <li
                   key={point}
-                  className="flex items-start gap-3 text-sm text-zinc-400"
+                  className="flex items-start gap-3 text-sm text-muted"
                 >
-                  <span className="text-red-400 mt-0.5 shrink-0">
+                  <span className="text-accent mt-0.5 shrink-0">
                     &times;
                   </span>
                   {point}
@@ -72,14 +72,14 @@ export default async function IndustryDetailPage({
             </ul>
 
             {/* Solutions */}
-            <h2 className="text-xl font-semibold mb-4">What we deliver</h2>
+            <h2 className="text-xl font-semibold text-ink mb-4">What we deliver</h2>
             <ul className="space-y-3 mb-10">
               {vertical.solutions.map((solution) => (
                 <li
                   key={solution}
-                  className="flex items-start gap-3 text-sm text-zinc-400"
+                  className="flex items-start gap-3 text-sm text-muted"
                 >
-                  <span className="text-green-400 mt-0.5 shrink-0">
+                  <span className="text-accent mt-0.5 shrink-0">
                     &#10003;
                   </span>
                   {solution}
@@ -88,17 +88,15 @@ export default async function IndustryDetailPage({
             </ul>
 
             {/* ROI */}
-            <div className="rounded-xl border border-amber-400/30 bg-amber-400/5 p-6 mb-10">
-              <p className="text-xs font-medium uppercase tracking-widest text-amber-400 mb-2">
-                ROI
-              </p>
-              <p className="text-sm text-zinc-300">{vertical.roiData}</p>
+            <div className="rounded-xl border border-line bg-surface p-6 mb-10">
+              <p className="eyebrow mb-2">ROI</p>
+              <p className="text-sm text-ink">{vertical.roiData}</p>
             </div>
 
             {/* Related services */}
             {related.length > 0 && (
               <>
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="text-xl font-semibold text-ink mb-4">
                   Services for {vertical.name.toLowerCase()}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
@@ -108,13 +106,15 @@ export default async function IndustryDetailPage({
                         <a
                           key={s.slug}
                           href={s.href ?? `/services/${s.slug}`}
-                          className="rounded-lg border border-zinc-700 bg-zinc-800/30 p-4 transition hover:border-zinc-600"
+                          className="card p-4"
                         >
                           <div className="flex items-center gap-3 mb-2">
-                            <span className="text-lg">{s.icon}</span>
-                            <h3 className="text-sm font-semibold">{s.name}</h3>
+                            <div className="icon-badge text-lg" aria-hidden="true">
+                              {s.icon}
+                            </div>
+                            <h3 className="text-sm font-semibold text-ink">{s.name}</h3>
                           </div>
-                          <p className="text-xs text-zinc-400">{s.tagline}</p>
+                          <p className="text-xs text-muted">{s.tagline}</p>
                         </a>
                       )
                   )}
