@@ -12,18 +12,15 @@ export function SectionCTA({
   href?: string;
 }) {
   return (
-    <section className="py-20 px-6 text-center border-t border-zinc-800">
-      <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+    <section className="bg-navy py-20 px-6 md:px-12 text-center">
+      <h2 className="text-3xl sm:text-4xl font-bold tracking-h2 text-white mb-3">
         {title}
       </h2>
-      <p className="text-lg text-zinc-400 mb-8">{description}</p>
-      <a
-        href={href}
-        className="inline-block rounded-lg bg-amber-400 px-8 py-3.5 text-base font-semibold text-zinc-900 transition hover:bg-amber-300 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
-      >
+      <p className="text-lg text-white/70 mb-8">{description}</p>
+      <a href={href} className="btn-primary px-8 py-3.5 text-base">
         {cta} &rarr;
       </a>
-      <p className="text-xs text-zinc-500 mt-4">{sub}</p>
+      <p className="text-xs text-white/50 mt-4">{sub}</p>
     </section>
   );
 }
