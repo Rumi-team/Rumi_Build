@@ -4,6 +4,12 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.8] - 2026-07-09
+
+### Removed
+
+- **"Book a 15-min call" CTA** dropped from the homepage. Removed the secondary hero button (next to "Request a free evaluation") and the matching link in the footer's Company column, so the landing page no longer pushes a competing booking action alongside the primary evaluation CTA. The now-unused `ctaSecondary`/`bookCall` translation strings were removed from all three languages (EN/ES/FA) in `i18n.tsx`. The `/schedule` page itself and its other entry points (services, evaluate form, sitemap) are unchanged.
+
 ## [0.4.7] - 2026-07-01
 
 ### Removed

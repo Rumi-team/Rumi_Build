@@ -33,12 +33,6 @@ export function Hero() {
           >
             {t.hero.ctaPrimary}
           </a>
-          <a
-            href="/schedule"
-            className="btn-secondary-navy w-full sm:w-auto text-center px-7 py-3.5 text-base"
-          >
-            {t.hero.ctaSecondary}
-          </a>
         </div>
       </div>
     </section>
