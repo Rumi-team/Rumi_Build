@@ -29,7 +29,6 @@ const EN = {
     headlineAccent: "In the AI era, you can't afford it.",
     sub: "More and more customers don't just Google anymore — they ask ChatGPT, Claude, and Perplexity who to hire. If AI doesn't know your business exists, you're invisible to them. We build your website, mobile app, and social media, then make all of it readable to the AI engines — so when someone asks AI for your service, you're the answer.",
     ctaPrimary: "Request a free evaluation",
-    ctaSecondary: "Book a 15-min call",
   },
   pillars: {
     eyebrow: "What we build and run",
@@ -110,7 +109,6 @@ const EN = {
     tagline: "We build the digital presence — and make you findable by AI.",
     vert: "Verticals",
     company: "Company",
-    bookCall: "Book a free 15-min call",
     rights: "Copyright ©2026, Rumi, Inc.",
     terms: "Terms & Conditions",
     privacy: "Privacy",
@@ -132,8 +130,7 @@ const ES: Dict = {
     "headline": "Deja de ser invisible en el mundo digital.",
     "headlineAccent": "En la era de la IA, no te lo puedes permitir.",
     "sub": "Cada vez más clientes ya no solo buscan en Google: le preguntan a ChatGPT, Claude y Perplexity a quién contratar. Si la IA no sabe que tu negocio existe, para ella eres invisible. Construimos tu sitio web, tu app móvil y tus redes sociales, y hacemos que todo sea legible para los motores de IA, para que cuando alguien le pregunte a la IA por tu servicio, la respuesta seas tú.",
-    "ctaPrimary": "Solicita una evaluación gratuita",
-    "ctaSecondary": "Agenda una llamada de 15 min"
+    "ctaPrimary": "Solicita una evaluación gratuita"
   },
   "pillars": {
     "eyebrow": "Lo que construimos y administramos",
@@ -241,7 +238,6 @@ const ES: Dict = {
     "tagline": "Construimos tu presencia digital, y hacemos que la IA te encuentre.",
     "vert": "Sectores",
     "company": "Empresa",
-    "bookCall": "Agenda una llamada gratuita de 15 min",
     "rights": "Copyright ©2026, Rumi, Inc.",
     "terms": "Términos y condiciones",
     "privacy": "Privacidad"
@@ -258,8 +254,7 @@ const FA: Dict = {
     "headline": "دیگر در دنیای دیجیتال نامرئی نباشید.",
     "headlineAccent": "در عصر هوش مصنوعی، این یعنی از دست دادن مشتری.",
     "sub": "مشتری‌ها دیگر فقط در Google جست‌وجو نمی‌کنند — حالا از ChatGPT، Claude و Perplexity می‌پرسند سراغ چه کسی بروند. اگر هوش مصنوعی از وجود کسب‌وکار شما خبر نداشته باشد، برای آن‌ها نامرئی هستید. ما وب‌سایت، اپلیکیشن موبایل و شبکه‌های اجتماعی شما را می‌سازیم و همه را برای موتورهای هوش مصنوعی قابل‌خواندن می‌کنیم — تا وقتی کسی خدمات شما را از هوش مصنوعی می‌پرسد، جواب، شما باشید.",
-    "ctaPrimary": "درخواست ارزیابی رایگان",
-    "ctaSecondary": "رزرو تماس ۱۵ دقیقه‌ای"
+    "ctaPrimary": "درخواست ارزیابی رایگان"
   },
   "pillars": {
     "eyebrow": "چه چیزی می‌سازیم و اداره می‌کنیم",
@@ -367,7 +362,6 @@ const FA: Dict = {
     "tagline": "ما حضور دیجیتال را می‌سازیم — و شما را برای هوش مصنوعی قابل‌یافتن می‌کنیم.",
     "vert": "حوزه‌های کاری",
     "company": "شرکت",
-    "bookCall": "رزرو تماس رایگان ۱۵ دقیقه‌ای",
     "rights": "حق نشر ©۲۰۲۶، Rumi, Inc.",
     "terms": "شرایط و قوانین",
     "privacy": "حریم خصوصی"

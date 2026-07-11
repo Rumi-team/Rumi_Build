@@ -47,7 +47,6 @@ export function Footer() {
             <ul className="space-y-2">
               <li><a href="/team" className="text-sm text-white/60 hover:text-accent transition">{t.nav.team}</a></li>
               <li><a href="/evaluate" className="text-sm text-white/60 hover:text-accent transition">{t.nav.freeEval}</a></li>
-              <li><a href="/schedule" className="text-sm text-white/60 hover:text-accent transition">{t.footer.bookCall}</a></li>
               <li><a href="mailto:support@rumi.build" className="text-sm text-white/60 hover:text-accent transition">support@rumi.build</a></li>
             </ul>
           </div>

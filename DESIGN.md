@@ -63,7 +63,7 @@ color without Saba's sign-off.
 
 ## Page structure (Saba §6 — dark → light → dark bookend)
 1. **Nav** — navy, sticky, 64px (`h-16`).
-2. **Hero** — navy, tall, headline + sub + CTAs.
+2. **Hero** — navy, tall, headline + sub + CTA (single).
 3. **Content / services** — white, card grid (`PlatformPillars`).
 4. **Secondary "why us"** — `surface` (#FEFCF7) (`HowItWorks`).
 5. **Social proof** — white (`TeamTeaser`, founders as credibility — never fabricated testimonials).
@@ -103,3 +103,4 @@ color without Saba's sign-off.
 | 2026-03-31 | Initial site — Next.js 15 + Tailwind + Geist, amber-400 on zinc-900 | Original premium-dark direction |
 | 2026-06-29 | Homepage "be found in the AI era" positioning | Founder direction; multilingual moat + AI-discovery frame |
 | 2026-07-06 | **Replace zinc/amber/Geist with Saba's locked white/navy/green/Inter system** | Saba brand spec; kills the unapproved amber accent. Homepage pilot on `saba-brand-rebrand`, gated on Saba sign-off before other pages. Same system rolls to rumiagent.com + rumi.marketing next. |
+| 2026-07-09 | Drop secondary "Book a 15-min call" hero/footer CTA; hero is single-CTA | One dominant ask ("Request a free evaluation") instead of two competing CTAs. `/schedule` page and other entry points unchanged. |
