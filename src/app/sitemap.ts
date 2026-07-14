@@ -16,10 +16,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // as files but are no longer linked from nav and are dropped from the sitemap.
   const staticRoutes = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
-    { path: "/evaluate", priority: 0.9, changeFrequency: "weekly" as const },
-    { path: "/team", priority: 0.7, changeFrequency: "monthly" as const },
-    { path: "/schedule", priority: 0.8, changeFrequency: "weekly" as const },
+    { path: "/book", priority: 0.9, changeFrequency: "weekly" as const },
     { path: "/industries", priority: 0.7, changeFrequency: "monthly" as const },
+    { path: "/team", priority: 0.7, changeFrequency: "monthly" as const },
+    { path: "/faq", priority: 0.7, changeFrequency: "monthly" as const },
+    { path: "/schedule", priority: 0.6, changeFrequency: "weekly" as const },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((r) => ({

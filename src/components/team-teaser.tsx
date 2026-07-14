@@ -18,7 +18,9 @@ export function TeamTeaser() {
   return (
     <section aria-labelledby="team-heading" className="bg-white py-20 px-6 md:px-12">
       <div className="mx-auto max-w-4xl text-center">
-        <p className="eyebrow mb-3">{t.team.eyebrow}</p>
+        <p className="eyebrow mb-3">
+          {t.team.eyebrow}
+        </p>
         <h2 id="team-heading" className="text-3xl font-bold tracking-h2 text-ink mb-3">
           {t.team.heading}
         </h2>
@@ -36,7 +38,10 @@ export function TeamTeaser() {
           ))}
         </div>
 
-        <a href="/team" className="btn-secondary-white px-6 py-2.5 text-sm">
+        <a
+          href="/team"
+          className="btn-secondary-white px-6 py-2.5 text-sm"
+        >
           {t.team.cta} &rarr;
         </a>
       </div>

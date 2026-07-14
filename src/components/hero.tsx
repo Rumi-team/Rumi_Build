@@ -28,7 +28,7 @@ export function Hero() {
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <a
-            href="/evaluate"
+            href="/book"
             className="btn-primary w-full sm:w-auto text-center px-7 py-3.5 text-base"
           >
             {t.hero.ctaPrimary}

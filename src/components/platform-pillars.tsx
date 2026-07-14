@@ -15,7 +15,9 @@ export function PlatformPillars() {
       className="bg-white py-20 px-6 md:px-12"
     >
       <div className="mx-auto max-w-5xl">
-        <p className="eyebrow mb-3">{t.pillars.eyebrow}</p>
+        <p className="eyebrow mb-3">
+          {t.pillars.eyebrow}
+        </p>
         <h2
           id="pillars-heading"
           className="text-3xl md:text-4xl font-bold tracking-h2 text-ink mb-3"

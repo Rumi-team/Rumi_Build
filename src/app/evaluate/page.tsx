@@ -1,20 +1,9 @@
-import type { Metadata } from "next";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
-import { EvaluateContent } from "./evaluate-content";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Free evaluation | Rumi Build",
-  description:
-    "Tell us about your business and your current website. We'll show you where local customers are slipping past you — and what we'd build to catch them. Free, no commitment, in your own language.",
-};
-
+// The separate "free evaluation" intake was absorbed into a single "Book a Call"
+// path (implementation guide §2 — one path instead of two). Anyone landing on
+// the old /evaluate URL (bookmarks, external links, stale search results) is
+// sent to the booking page so nothing dead-ends.
 export default function EvaluatePage() {
-  return (
-    <>
-      <Nav />
-      <EvaluateContent />
-      <Footer />
-    </>
-  );
+  redirect("/book");
 }

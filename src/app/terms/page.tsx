@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer";
 import { SmsConsentClause } from "@/components/sms-consent-clause";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions — Rumi Build",
+  title: "Terms & Conditions — Rumi AI",
   description:
     "The terms and conditions governing your use of Rumi's lead-generation and multilingual communications services, including our SMS / text-messaging program.",
 };
@@ -49,19 +49,20 @@ export default function TermsPage() {
                 2. Our Services
               </h2>
               <p className="text-base text-muted leading-relaxed">
-                Rumi provides lead generation and multilingual customer
-                communications for local businesses in Southern California. The
-                Services may include advertising, multilingual landing pages, an
-                automated multilingual phone agent, lead routing, and related
-                support, as described on our{" "}
+                Rumi provides done-for-you digital presence and multilingual
+                customer communications for local businesses. The Services may
+                include websites and apps, content and social visibility,
+                discoverability across search and AI engines, an automated
+                multilingual front desk, lead routing, and related support, as
+                described when you{" "}
                 <a
-                  href="/evaluate"
+                  href="/book"
                   className="text-accent hover:text-accent-hover underline"
                 >
-                  free evaluation
+                  book a call
                 </a>{" "}
-                page and in any order or statement of work you agree to with us.
-                We may update, add, or remove features over time.
+                and in any order or statement of work you agree to with us. We
+                may update, add, or remove features over time.
               </p>
             </div>
 
@@ -84,20 +85,18 @@ export default function TermsPage() {
               <p className="text-base text-muted leading-relaxed">
                 Paid plans are billed monthly in advance. You may cancel at any
                 time after your first month; cancellation takes effect at the end
-                of the then-current billing period. Our money-back guarantee and
-                lead-rollover terms are described on our{" "}
+                of the then-current billing period. Any guarantee or refund terms
+                that apply to your engagement are set out in your quote or
+                statement of work. Plan details and pricing are scoped when you{" "}
                 <a
-                  href="/evaluate"
+                  href="/book"
                   className="text-accent hover:text-accent-hover underline"
                 >
-                  free evaluation
+                  book a call
                 </a>{" "}
-                page and apply as stated there. Plan details, lead limits, and
-                any per-lead charges are scoped on your free evaluation call and
-                set out in your quote, and may change with notice for future
-                billing periods. Except as
-                described in our money-back guarantee or as required by law, fees
-                already paid are non-refundable.
+                and set out in your quote, and may change with notice for future
+                billing periods. Except as required by law or stated in your
+                quote, fees already paid are non-refundable.
               </p>
             </div>
 

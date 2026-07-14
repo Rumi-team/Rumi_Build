@@ -188,13 +188,14 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Saba Fazel",
-    role: "Chief Product Officer",
+    role: "Chief Growth Officer",
     photo: "/team-saba.jpeg",
     school: "",
-    bio: "The voice on the other end of the call. Turns what merchants actually need into the offer that closes — in their own language.",
+    bio: "The person on the other end of the first call. Saba talks to merchants directly, in English or Farsi, turns what they actually need into the offer that closes, and runs growth, partnerships, and go-to-market for Rumi AI.",
     experience: [
-      "Talks to merchants in Farsi every week. Builds the offer that actually closes.",
-      "Owns customer development, sales conversations, and weekly check-ins with active customers.",
+      "Talks to merchants directly, in English or Farsi.",
+      "Turns what a merchant actually needs into the offer that closes.",
+      "Runs growth, partnerships, and go-to-market.",
       "Data Science @ UCLA.",
     ],
   },
@@ -328,7 +329,7 @@ export const VERTICALS: Vertical[] = [
     stat: "Trust-driven, community-led local market",
     tagline: "More qualified buyer and seller leads from your community",
     description:
-      "Persian-American real estate runs on trust, language, and community referrals. We bring you qualified Persian-, English-, and Spanish-speaking buyers and sellers, pre-screened by neighborhood, budget, and timeline. Every lead lands directly on your phone with the context you need to close.",
+      "LA's real estate buyers speak more than English — a lot of qualified buyers only trust an agent who can talk to them in their own language. We give any agent access to Persian- and English-speaking buyers, pre-qualified, with budget and photos captured before they walk in. Every lead lands directly on your phone with the context you need to close.",
     painPoints: [
       "Zillow and Redfin leads go to whoever responds first, not who fits the buyer best",
       "Community referrals are uneven and slow to compound into pipeline",
@@ -337,13 +338,13 @@ export const VERTICALS: Vertical[] = [
     ],
     solutions: [
       "Multilingual landing page with your active listings and neighborhood expertise",
-      "Targeted local ads to Persian-, English-, and Spanish-speaking buyers in your service area",
+      "Targeted local ads to Persian- and English-speaking buyers in your service area",
       "Lead form pre-qualifies budget range, timeline, bedrooms, and preferred neighborhoods",
       "Instant phone notification with full lead context, plus a weekly pipeline report",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
-    relatedServices: ["persian-leads"],
+      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+    relatedServices: [],
   },
   {
     slug: "curtains",
@@ -351,7 +352,7 @@ export const VERTICALS: Vertical[] = [
     stat: "Local appointment-driven retail",
     tagline: "More in-home measurement bookings, in your language",
     description:
-      "Curtain and drapery retail runs on word of mouth, in-home consultations, and trust. We bring you local neighbors — Persian, English, or Spanish-speaking — who want a free measurement at your store, with photos and budget range captured up front.",
+      "Curtain and drapery retail runs on word of mouth, in-home consultations, and trust. We bring you local neighbors — Persian- or English-speaking — who want a free measurement at your store, with photos and budget range captured up front.",
     painPoints: [
       "Family member runs Instagram sporadically with no analytics",
       "Word of mouth is slow and uneven across the community",
@@ -365,8 +366,8 @@ export const VERTICALS: Vertical[] = [
       "Weekly status report: how many leads, who booked, who closed",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
-    relatedServices: ["persian-leads"],
+      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+    relatedServices: [],
   },
   {
     slug: "rugs",
@@ -388,8 +389,8 @@ export const VERTICALS: Vertical[] = [
       "Lead routing direct to your phone within minutes",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
-    relatedServices: ["persian-leads"],
+      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+    relatedServices: [],
   },
   {
     slug: "beauty",
@@ -411,8 +412,8 @@ export const VERTICALS: Vertical[] = [
       "Weekly report on bookings, no-shows, and follow-up touchpoints",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
-    relatedServices: ["persian-leads"],
+      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+    relatedServices: [],
   },
   {
     slug: "home-services",
@@ -420,7 +421,7 @@ export const VERTICALS: Vertical[] = [
     stat: "Quote-driven local service",
     tagline: "More quote requests from Persian-speaking homeowners in your area",
     description:
-      "Plumbers, HVAC techs, contractors, and handyman services know their local communities. We help you reach more of them, faster, with quote requests routed straight to your phone — in Persian, English, or Spanish.",
+      "Plumbers, HVAC techs, contractors, and handyman services know their local communities. We help you reach more of them, faster, with quote requests routed straight to your phone — in Persian or English.",
     painPoints: [
       "Phone rings unevenly; you miss calls during jobs",
       "Word-of-mouth pipeline can't scale without a system",
@@ -434,8 +435,8 @@ export const VERTICALS: Vertical[] = [
       "Instant phone notification with full lead context, plus weekly status report",
     ],
     roiData:
-      "Launch pricing from $199/month for 5 qualified leads (was $499). Book a free 15-min call to start.",
-    relatedServices: ["persian-leads"],
+      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+    relatedServices: [],
   },
 ];
 
