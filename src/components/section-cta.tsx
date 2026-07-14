@@ -1,9 +1,9 @@
 export function SectionCTA({
-  title = "Ready to bring more local customers to your store?",
-  description = "Free 15-min call. English or Farsi. We’ll learn your business, walk through pricing, and answer any questions. No commitment.",
-  cta = "Book a free 15-min call",
-  sub = "Qualified customers — in every language they speak. We charge per booked lead, not per campaign.",
-  href = "/schedule",
+  title = "Let’s find out what’s actually holding you back.",
+  description = "Book a call. We’ll ask about your business, tell you plainly where you’re losing customers, and offer exactly what would help — nothing you don’t need.",
+  cta = "Book a Call",
+  sub = "A real conversation, not a sales pitch. In English or Farsi.",
+  href = "/book",
 }: {
   title?: string;
   description?: string;

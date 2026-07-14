@@ -6,7 +6,7 @@ import { SectionCTA } from "@/components/section-cta";
 import { TEAM } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Team — Rumi Build",
+  title: "Team — Rumi AI",
   description:
     "Meet the team behind rumi.build. Product and AI builders who've shipped at Business Insider, Spotter, UCLA, and Imperial College — now building websites, apps, and AI-era visibility for small businesses everywhere.",
 };
@@ -35,9 +35,9 @@ export default function TeamPage() {
         <section className="py-20 px-6">
           <div className="mx-auto max-w-4xl">
             <PageHeader
-              overline="Management Team"
-              title="Built by people who&apos;ve done it at scale"
-              description="A small, senior team that ships. We've built products for 100M+ users and now put that behind growing businesses — websites, apps, social, and visibility in the AI era. Backed by a dedicated engineering and design team."
+              overline="Founded and based in Los Angeles"
+              title="The team behind Rumi AI"
+              description="A small, senior team that talks to you directly and does the work. We've built products for 100M+ users and now put that behind local businesses — websites, apps, social, and visibility in the AI era. All three co-founders speak Farsi."
             />
           </div>
         </section>

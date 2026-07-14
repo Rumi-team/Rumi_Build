@@ -1,6 +1,6 @@
 // Accepts the structural subset of `Service` the card actually renders, so it
 // can also render lighter shapes like `Pillar` (icon/name/tagline). `footer`
-// is the small line at the bottom; pass `null` to hide it.
+// is the small mono line at the bottom; pass `null` to hide it.
 type CardItem = {
   icon: string;
   name: string;
@@ -22,7 +22,10 @@ export function ServiceCard({
     <>
       {/* Decorative icon — hidden from assistive tech, the heading
           carries the actual service name. */}
-      <div className="icon-badge text-lg mb-4" aria-hidden="true">
+      <div
+        className="icon-badge text-lg mb-4"
+        aria-hidden="true"
+      >
         {service.icon}
       </div>
       <h3 className="text-base font-semibold text-ink mb-1">{service.name}</h3>
@@ -36,7 +39,7 @@ export function ServiceCard({
   );
 
   // Linked variant gets an explicit focus-visible ring so keyboard users see
-  // a clear focus indicator on the full-card link, plus the card hover lift.
+  // a clear focus indicator on the full-card link, plus a subtle hover lift.
   const linkedClassName =
     "card flex flex-col p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2";
   const staticClassName = "card flex flex-col p-6";

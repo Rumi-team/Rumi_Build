@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer";
 import { SmsConsentClause } from "@/components/sms-consent-clause";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Rumi Build",
+  title: "Privacy Policy — Rumi AI",
   description:
     "How Rumi, Inc. collects, uses, shares, and protects your information, including our SMS / text-messaging consent terms and our commitment not to sell or share mobile opt-in data.",
 };
@@ -34,9 +34,10 @@ export default function PrivacyPage() {
               </h2>
               <p className="text-base text-muted leading-relaxed">
                 Rumi, Inc. (&ldquo;Rumi,&rdquo; &ldquo;we,&rdquo;
-                &ldquo;us,&rdquo; or &ldquo;our&rdquo;) provides lead generation
-                and multilingual customer communications for local businesses in
-                Southern California. This Privacy Policy explains what
+                &ldquo;us,&rdquo; or &ldquo;our&rdquo;) provides done-for-you
+                digital presence and multilingual customer communications for
+                local businesses. Rumi AI is founded and based in Los Angeles.
+                This Privacy Policy explains what
                 information we collect, how we use and share it, and the choices
                 you have. It applies to our website and to the services we
                 provide, including our inbound phone line and SMS program.

@@ -6,7 +6,11 @@ import { useT } from "@/lib/i18n";
 
 export function Nav() {
   const { t } = useT();
-  const links = [{ label: t.nav.team, href: "/team" }];
+  const links = [
+    { label: t.nav.industries, href: "/industries" },
+    { label: t.nav.team, href: "/team" },
+    { label: t.nav.faq, href: "/faq" },
+  ];
 
   return (
     <nav
@@ -29,16 +33,16 @@ export function Nav() {
           </a>
         ))}
         <LanguageDropdown />
-        <a href="/evaluate" className="btn-primary px-5 py-2 text-sm">
-          {t.nav.freeEval}
+        <a href="/book" className="btn-primary px-5 py-2 text-sm">
+          {t.nav.bookCall}
         </a>
       </div>
 
       {/* Mobile: language + CTA + hamburger */}
       <div className="flex md:hidden items-center gap-2">
         <LanguageDropdown />
-        <a href="/evaluate" className="btn-primary px-3 py-1.5 text-sm">
-          {t.nav.freeEval}
+        <a href="/book" className="btn-primary px-3 py-1.5 text-sm">
+          {t.nav.bookCall}
         </a>
         <MobileMenu />
       </div>

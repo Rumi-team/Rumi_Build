@@ -22,23 +22,23 @@ const vazirmatn = Vazirmatn({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rumi.build"),
-  title: "Rumi Build — Stop being invisible in the AI era",
+  title: "Rumi AI — We handle the digital work, so you can run your business",
   description:
-    "More customers ask ChatGPT, Claude, and Perplexity who to hire. We build your website, mobile app, and social media — and make all of it findable by the AI engines, so when someone asks AI for your service, you're the answer. Request a free evaluation.",
+    "Rumi AI builds and runs your website, social presence, and AI visibility — so customers find you, including when they ask ChatGPT, Claude, or Perplexity who to hire. One team, accountable for all of it. Founded and based in Los Angeles. Book a call.",
   openGraph: {
-    title: "Rumi Build — Stop being invisible in the AI era",
+    title: "Rumi AI — We handle the digital work, so you can run your business",
     description:
-      "Customers ask ChatGPT, Claude, and Perplexity who to hire. We build your website, mobile app, and social media — and make it all findable by the AI engines, so you're the answer. Request a free evaluation.",
+      "We build and run your website, social presence, and AI visibility — so customers find you, including when they ask AI who to hire. One team, accountable for all of it. Book a call.",
     url: "https://rumi.build",
-    siteName: "Rumi Build",
+    siteName: "Rumi AI",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi Build — Stop being invisible in the AI era",
+    title: "Rumi AI — We handle the digital work, so you can run your business",
     description:
-      "Customers ask ChatGPT and Claude who to hire. We build your website, mobile app, and social media — and make it all findable by the AI engines. Request a free evaluation.",
+      "We build and run your website, social presence, and AI visibility — so customers find you, including when they ask AI who to hire. Book a call.",
     images: ["/og-image.png"],
   },
 };

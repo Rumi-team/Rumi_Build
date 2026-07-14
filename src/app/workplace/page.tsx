@@ -3,21 +3,21 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "Workplace — How We Work at Rumi Build",
+  title: "Workplace — How We Work at Rumi AI",
   description:
     "Remote-first AI agency. Async-by-default, outcome-based, deep-work mornings. We ship in days, not roadmaps in months.",
   openGraph: {
-    title: "Workplace — How We Work at Rumi Build",
+    title: "Workplace — How We Work at Rumi AI",
     description:
       "Remote-first AI agency. Async-by-default, outcome-based, deep-work mornings. We ship in days, not roadmaps in months.",
     url: "https://rumi.build/workplace",
-    siteName: "Rumi Build",
+    siteName: "Rumi AI",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Workplace — How We Work at Rumi Build",
+    title: "Workplace — How We Work at Rumi AI",
     description:
       "Remote-first AI agency. Async-by-default, outcome-based, deep-work mornings.",
     images: ["/og-image.png"],

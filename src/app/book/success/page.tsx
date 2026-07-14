@@ -7,7 +7,7 @@ import { getStripe, STRIPE_PRICE_ID_30MIN } from "@/lib/stripe";
 import { CAL_LINK, CALENDLY_URL } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Payment received | Rumi Build",
+  title: "Payment received | Rumi AI",
   description: "Pick your time for the strategy call.",
 };
 

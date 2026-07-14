@@ -13,7 +13,7 @@ export function HomeSectionCTA() {
       description={t.cta.description}
       cta={t.cta.button}
       sub={t.cta.sub}
-      href="/evaluate"
+      href="/book"
     />
   );
 }

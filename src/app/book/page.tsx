@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer";
 import { BookForm } from "./book-form";
 
 export const metadata: Metadata = {
-  title: "Book a strategy call | Rumi Build",
+  title: "Book a strategy call | Rumi AI",
   description:
     "30-minute strategy call. $100, refunded if we can't help, or credited toward your project if we can.",
 };
@@ -28,8 +28,10 @@ export default async function BookPage({
             30-min strategy call — $100
           </h1>
           <p className="text-lg text-muted mb-8">
-            We map your team, the work eating your day, and which AI employee would
-            replace the most cost. You leave with a recommendation and a quote.
+            A real conversation, not a sales pitch. We ask about your business and
+            where you&rsquo;re actually losing time or customers — your website,
+            your social presence, how easy you are to find. You leave with a plain
+            recommendation and a quote. In English or Farsi.
           </p>
 
           {canceled === "1" && (

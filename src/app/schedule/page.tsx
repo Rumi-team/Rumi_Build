@@ -5,9 +5,9 @@ import { CalEmbed } from "@/components/cal-embed";
 import { CAL_LINK } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Book a free 15-min call | Rumi Build",
+  title: "Book a free 15-min call | Rumi AI",
   description:
-    "Free 15-minute call. English, Farsi, or Spanish. We map your business, walk through pricing, and quote on the call.",
+    "Free 15-minute call. English or Farsi. We map your business, walk through pricing, and quote on the call.",
 };
 
 export default function SchedulePage() {

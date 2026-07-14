@@ -7,7 +7,11 @@ export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const { t } = useT();
 
-  const links = [{ label: t.nav.team, href: "/team" }];
+  const links = [
+    { label: t.nav.industries, href: "/industries" },
+    { label: t.nav.team, href: "/team" },
+    { label: t.nav.faq, href: "/faq" },
+  ];
 
   return (
     <div className="md:hidden">
@@ -43,11 +47,11 @@ export function MobileMenu() {
             ))}
           </div>
           <a
-            href="/evaluate"
+            href="/book"
             className="btn-primary block mt-4 w-full py-3 text-center text-base"
             onClick={() => setOpen(false)}
           >
-            {t.hero.ctaPrimary}
+            {t.nav.bookCall}
           </a>
         </div>
       )}
