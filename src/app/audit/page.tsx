@@ -3,7 +3,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "Hiring Assessment | Rumi Build",
+  title: "Hiring Assessment | Rumi AI",
   description:
     "30-minute hiring assessment. $100, refunded if we can't help — credited toward your project if we can. We map your workflows, identify which AI employees would have the biggest impact on your payroll, and tell you how fast we can deploy them.",
 };

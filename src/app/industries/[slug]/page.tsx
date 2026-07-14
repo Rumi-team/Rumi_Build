@@ -19,7 +19,7 @@ export async function generateMetadata({
   const vertical = getVerticalBySlug(slug);
   if (!vertical) return {};
   return {
-    title: `AI for ${vertical.name} — Rumi Build`,
+    title: `AI for ${vertical.name} — Rumi AI`,
     description: vertical.tagline + ". " + vertical.description,
   };
 }

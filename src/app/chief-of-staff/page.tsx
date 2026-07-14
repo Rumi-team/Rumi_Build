@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       "Your AI manager and back office, on your phone. Approvals via Telegram, WhatsApp, or iMessage.",
     url: "https://rumi.build/chief-of-staff",
-    siteName: "Rumi Build",
+    siteName: "Rumi AI",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
