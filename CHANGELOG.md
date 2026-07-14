@@ -4,6 +4,30 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.5.0] - 2026-07-14
+
+Implements the Rumi AI website rebuild spec (`rumi_build_implementation_guide-3.md`): brand rename, homepage copy, a new FAQ page, and information-architecture cleanup. The domain and contact email stay `rumi.build` / `support@rumi.build` — only the display name changed.
+
+### Changed
+
+- **Brand renamed Rumi Build → Rumi AI** across all page titles, metadata, OpenGraph/Twitter cards, and body copy (29 occurrences, 16 files). The logo wordmark image is untouched.
+- **Homepage rewritten to the guide copy.** New hero ("Don't get left behind. We handle the digital work, so you can run your business."), a reworked six-card "What we do" grid (Content strategy / Found everywhere / AI front desk / Leads that don't go cold), a four-step "How it works" (was three), and a new Mission/Vision section. Single primary CTA: **Book a Call**.
+- **Navigation** is now Industries · Team · FAQ · Book a Call (was Team + a Free-evaluation CTA). Every primary CTA points at `/book`.
+- **Team page:** Saba Fazel's title corrected to **Chief Growth Officer** (was Chief Product Officer) with a new bio; header is now "Founded and based in Los Angeles."
+- **Industries hub** reframed to "local, trust-based businesses" with a required catch-all card ("Don't see your business?").
+- **Language scope is English + Farsi only.** Spanish removed from the language switcher and from all live copy (the `es` dictionary was dropped from `i18n.tsx`); the site no longer claims Spanish as a served language.
+- AI-facing `llms.txt` / `llms-full.txt` rewritten to the new positioning (LA-based, Book-a-Call, EN/FA).
+
+### Added
+
+- **FAQ page (`/faq`)** with the 14 ready-to-use Q&As from the guide, rendered as static text (SEO/AI-engine readable) plus schema.org `FAQPage` JSON-LD.
+
+### Removed
+
+- **Retired `/evaluate`** — the separate evaluation intake folds into one Book-a-Call path (guide §2); the route now redirects to `/book` and the old form is deleted.
+- **Retired `/services` and `/services/[slug]`** (the persian-leads offer, guide §7); both redirect to `/industries`, and the "Services for X" links were removed so nothing dead-ends.
+- **Public pricing** (`$199/mo`, `was $499`) removed from all industry verticals; replaced with a book-a-call CTA. No phone number anywhere.
+
 ## [0.4.8] - 2026-07-09
 
 ### Removed
