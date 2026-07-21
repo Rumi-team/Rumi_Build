@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { CalEmbed } from "@/components/cal-embed";
-import { CAL_LINK } from "@/lib/data";
+import { CAL_LINK, CALENDLY_URL } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Book a free 15-min call | Rumi AI",
+  title: "Book a call | Rumi AI",
   description:
-    "Free 15-minute call. English or Farsi. We map your business, walk through pricing, and quote on the call.",
+    "Book a 30-minute call. English or Farsi. We map your business, walk through pricing, and quote on the call.",
 };
 
 export default function SchedulePage() {
@@ -20,7 +20,7 @@ export default function SchedulePage() {
             Schedule
           </p>
           <h1 className="text-4xl md:text-5xl font-black tracking-h1 text-ink mb-3">
-            Free 15-min call. English or Farsi.
+            Book a 30-min call. English or Farsi.
           </h1>
           <p className="text-base sm:text-lg text-muted mb-2">
             We map your business, your current lead flow, and quote a tier on
@@ -32,7 +32,7 @@ export default function SchedulePage() {
             dir="rtl"
             className="font-vazirmatn text-base text-muted mb-6 sm:mb-8"
           >
-            تماس رایگان ۱۵ دقیقه‌ای — به فارسی یا انگلیسی.
+            تماس ۳۰ دقیقه‌ای — به فارسی یا انگلیسی.
           </p>
 
           <CalEmbed calLink={CAL_LINK} />
@@ -40,7 +40,7 @@ export default function SchedulePage() {
           <p className="mt-4 text-xs text-muted">
             Trouble with the calendar?{" "}
             <a
-              href="https://cal.com/rumi.build/15min"
+              href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="underline text-accent hover:text-accent-hover"
