@@ -1,9 +1,10 @@
 // ── Single source of truth for all site content ──
 
-export const CALENDLY_URL = "https://cal.com/rumi.build/15min";
+export const CALENDLY_URL = "https://cal.com/rumi-app/30-min-meeting";
 
-// Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>)
-export const CAL_LINK = "rumi.build/15min";
+// Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>).
+// 30-min meeting — matches the $100 strategy call booked on /book.
+export const CAL_LINK = "rumi-app/30-min-meeting";
 
 export const SUPPORT_EMAIL = "support@rumi.build";
 
