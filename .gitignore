@@ -7,3 +7,8 @@ next-env.d.ts
 .env*.local
 .gstack/
 .context/
+
+# test artifacts
+test-results/
+playwright-report/
+.playwright/

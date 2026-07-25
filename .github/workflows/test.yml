@@ -1,0 +1,54 @@
+name: test
+
+on:
+  # Scoped to the default branch on purpose: an unfiltered `push` paired with
+  # `pull_request` runs the whole matrix twice for every commit on a branch that
+  # has an open PR — two installs, two Chromium downloads, two `next build`s.
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # tsconfig.json covers tests/ as well as src/, but nothing else here
+      # typechecks it: `next build` only checks what it compiles, and Vitest
+      # transpiles tests without checking types.
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+
+      - name: Unit + component tests
+        run: pnpm test
+
+      # chromium only — the suite pins content and routing, not cross-browser rendering.
+      - name: Install Playwright chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Playwright's webServer block runs `pnpm build && pnpm start --port 3311`.
+      - name: End-to-end tests
+        run: pnpm test:e2e
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
