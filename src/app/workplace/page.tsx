@@ -59,7 +59,7 @@ const PRINCIPLES = [
     title: "Trust, then tools",
     icon: "◇",
     body:
-      "We hire people who can run their own loop. Tooling is there to amplify good judgment, not replace it. If you need a manager to make a decision, this isn't the right team.",
+      "We hire people who can run their own loop. Tooling is there to amplify good judgment, not stand in for it. If you need a manager to make a decision, this isn't the right team.",
   },
 ];
 

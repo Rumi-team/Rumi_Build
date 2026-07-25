@@ -10,6 +10,14 @@ export function generateStaticParams() {
   return VERTICALS.map((v) => ({ slug: v.slug }));
 }
 
+// VERTICALS is the complete set of industry pages, so there is nothing to
+// resolve on demand. Without this, an unknown slug reaches notFound() from
+// inside the segment and returns a 404 whose body arrives only in the RSC
+// payload — first paint is blank. Turning dynamicParams off 404s at the routing
+// layer instead, which serves the fully server-rendered not-found page.
+// Matches services/[slug]/page.tsx.
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {

@@ -20,15 +20,20 @@ const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
 });
 
+// Site-wide metadata leads with the AI Employees offer (the five roles) and
+// still names the extra services we build and run. `title` is a plain string,
+// not a { default, template } pair, so every page that sets a title replaces
+// this one wholesale — and any page that sets openGraph must restate
+// images/type/siteName or it loses the social preview image.
 export const metadata: Metadata = {
   metadataBase: new URL("https://rumi.build"),
-  title: "Rumi AI — We handle the digital work, so you can run your business",
+  title: "Rumi AI — Hire AI employees that work 24/7, from $300/mo",
   description:
-    "Rumi AI builds and runs your website, social presence, and AI visibility — so customers find you, including when they ask ChatGPT, Claude, or Perplexity who to hire. One team, accountable for all of it. Founded and based in Los Angeles. Book a call.",
+    "Rumi recruits, trains, and manages AI employees for your business: an AI Receptionist from $300/mo, Executive Assistant from $500/mo, Social Media Manager from $400/mo, or a bundle from $800/mo. Each covers work that costs roughly ten times as much today, and takes the repetitive part off your team. We also build the website, app, content, and AI visibility behind it. Book a call.",
   openGraph: {
-    title: "Rumi AI — We handle the digital work, so you can run your business",
+    title: "Rumi AI — Hire AI employees that work 24/7, from $300/mo",
     description:
-      "We build and run your website, social presence, and AI visibility — so customers find you, including when they ask AI who to hire. One team, accountable for all of it. Book a call.",
+      "Five AI employees you can hire — reception, executive support, social media, or a bundle — trained on your business, live in 1-3 weeks, managed by our team, at about a tenth of what that work costs today. Plus the website, app, and visibility behind it.",
     url: "https://rumi.build",
     siteName: "Rumi AI",
     type: "website",
@@ -36,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rumi AI — We handle the digital work, so you can run your business",
+    title: "Rumi AI — Hire AI employees that work 24/7, from $300/mo",
     description:
-      "We build and run your website, social presence, and AI visibility — so customers find you, including when they ask AI who to hire. Book a call.",
+      "Five AI employees you can hire — trained on your business, live in 1-3 weeks, managed by our team, at about a tenth of what that work costs today. Book a call.",
     images: ["/og-image.png"],
   },
 };

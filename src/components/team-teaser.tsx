@@ -16,7 +16,7 @@ function Avatar({ name, photo }: { name: string; photo: string }) {
 export function TeamTeaser() {
   const { t } = useT();
   return (
-    <section aria-labelledby="team-heading" className="bg-white py-20 px-6 md:px-12">
+    <section aria-labelledby="team-heading" className="bg-surface py-20 px-6 md:px-12">
       <div className="mx-auto max-w-4xl text-center">
         <p className="eyebrow mb-3">
           {t.team.eyebrow}

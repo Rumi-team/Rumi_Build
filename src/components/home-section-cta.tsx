@@ -12,6 +12,7 @@ export function HomeSectionCTA() {
       title={t.cta.title}
       description={t.cta.description}
       cta={t.cta.button}
+      arrow={t.arrow}
       sub={t.cta.sub}
       href="/book"
     />

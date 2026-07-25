@@ -8,6 +8,210 @@ export const CAL_LINK = "rumi-app/30-min-meeting";
 
 export const SUPPORT_EMAIL = "support@rumi.build";
 
+// ═══════════════════════════════════════════════════════════════════════════
+// AI EMPLOYEES — the lead offer
+// ═══════════════════════════════════════════════════════════════════════════
+//
+// TONE RULE (non-negotiable, applies to every string below):
+// price the WORK, never the person. "~$3,000/mo of front-desk work" is correct;
+// "a ~$3,000/mo receptionist" is not. No role ever "replaces" anyone and no
+// human job title is ever named as the thing being cut. These roles absorb the
+// repetitive work so the people stay on the work that needs a person.
+//
+// Pricing is always "from"/"starting at" — never a bare fixed number.
+
+/** Short pill shown beside a price. The headline number of the whole offer. */
+export const SAVING_LABEL = "90% off";
+
+/** How pricing works. Shown on the /services pages, not the homepage cards. */
+export const PRICING_NOTE =
+  "Every role is priced at roughly a tenth of what that work costs a business today — the same work handled, about 90% less spent handling it. The listed number is where a role starts; we set the actual figure once we have seen your call volume, your inbox, and the tools you already run on. Month to month, no setup fee, and you can add or drop a role as the workload moves.";
+
+/** Every role can also run under the client's own brand. */
+export const WHITE_LABEL_NOTE =
+  "Any of these roles can run under your own brand instead of ours — your name on it, your logo, a voice you choose. Your customers only ever see you. We walk through what that looks like on the call.";
+
+/** What happens between signing and going live. */
+export const ONBOARDING_NOTE =
+  "Live in one to three weeks. We train the role on your own calls, your inbox, your calendar, your tone of voice, and the systems you already use — then our team keeps managing it after launch: tuning it, fixing it, and reporting back. It asks for your approval before anything important goes out.";
+
+export interface AIEmployee {
+  slug: string;
+  name: string;
+  icon: string;
+  tagline: string;
+  /**
+   * Volume of WORK this role covers, priced as work — never as a person.
+   * e.g. "~$3,000/mo of front-desk work". Never "a ~$3,000/mo receptionist".
+   */
+  workload: string;
+  /** Starting price. Always rendered as "from {priceFrom}", never bare. */
+  priceFrom: string;
+  /** Bundles only: slugs of the roles included in this hire. */
+  includes?: string[];
+  description: string;
+  features: string[];
+  useCases: string[];
+}
+
+export const AI_EMPLOYEES: AIEmployee[] = [
+  {
+    slug: "ai-receptionist",
+    name: "AI Receptionist",
+    icon: "📞",
+    tagline:
+      "Answers every call, day or night, and turns it into a booked appointment.",
+    workload: "~$3,000/mo of front-desk work",
+    priceFrom: "$300/mo",
+    description:
+      "A phone line that always gets picked up. The AI Receptionist answers in a natural voice around the clock, works out what the caller actually needs, and puts the appointment straight onto your calendar. Every inquiry is written down with the caller's details, so the 7pm question and the Sunday-morning quote request are both waiting for you on Monday instead of sitting in voicemail. When a call genuinely needs a person, it hands over with the context already gathered.",
+    features: [
+      "Picks up 24/7 in a natural voice — no phone tree, no hold music",
+      "Books, moves, and confirms appointments on your live calendar",
+      "Writes down every inquiry with the caller's name, number, and question",
+      "Knows when to escalate, and hands the call over with the context attached",
+      "Chases missed calls, open quotes, and reminders without being asked",
+      "Talks to each caller in the language they called in",
+    ],
+    useCases: [
+      "Dental and medical offices: bookings, reminders, and far fewer empty chairs",
+      "Plumbing and HVAC: the 2am emergency gets answered and triaged",
+      "Law practices: intake screened before it reaches anyone's desk",
+      "Restaurants: reservations taken while the floor is slammed",
+      "Salons and studios: the phone still gets answered mid-appointment",
+    ],
+  },
+  {
+    slug: "ai-executive-assistant",
+    name: "AI Executive Assistant",
+    // U+1F5D3 is text-default in Unicode (no Emoji_Presentation), so the
+    // trailing U+FE0F is required to force the colour glyph — without it this
+    // one tile renders monochrome next to four colour emoji.
+    icon: "🗓️",
+    tagline:
+      "Works inside your inbox, calendar, and CRM — and briefs you at 9am.",
+    workload: "~$5,000/mo of executive-support work",
+    priceFrom: "$500/mo",
+    description:
+      "An assistant that lives in the tools you already have open. It reads the inbox, holds the calendar, keeps the CRM tidy, and at 9am sends one short brief on the handful of things that genuinely need you today. Ask for what you want in plain English — move everything on Thursday, chase the three people who never replied — and it does the work, drafting in your own voice and waiting for your yes before anything leaves the building.",
+    features: [
+      "Sits inside your email, calendar, and CRM — nothing new to log into",
+      "One 9am brief: what needs you today, and what it already took care of",
+      "Takes instructions in plain language, not menus or macros",
+      "Drafts replies that sound like you, then holds them for your approval",
+      "Books, moves, and defends blocks of focus time",
+      "Keeps CRM records current so your pipeline view stays honest",
+    ],
+    useCases: [
+      "Founders: a day of inbound triaged down to four real decisions",
+      "Partners and principals: the calendar stops being a second job",
+      "Sales teams: no lead sits unanswered past the afternoon",
+      "Accounting practices: client requests and filing dates tracked to the day",
+      "Contractors: change orders, estimates, and site updates all logged",
+    ],
+  },
+  {
+    slug: "ai-social-media-manager",
+    name: "AI Social Media Manager",
+    icon: "📣",
+    // The DMs go to EXISTING clients only. Keep that scope in the tagline —
+    // without it this reads as general DM outreach, which is not the offer.
+    tagline:
+      "Twelve posts, four shorts, and personal DMs to the clients you already have, in your own voice.",
+    workload: "~$4,000/mo of social media work",
+    priceFrom: "$400/mo",
+    description:
+      "A social presence that keeps moving while you work. Every month it produces twelve posts and four short-form videos for your accounts, planned around what your customers actually respond to. It also handles the personal touch: announcements to the clients you already have, sent as Instagram DMs written in a clone of the owner's own voice — up to 100 a month, each one shown to you first so you approve it with a tap.",
+    features: [
+      "12 posts and 4 short videos every month, written and produced for you",
+      "Announcements to your existing clients as Instagram DMs, up to 100 a month",
+      "DMs written in a clone of the owner's own voice, not agency boilerplate",
+      "Tap to approve — nothing goes out before you have seen it",
+      "A content plan built from what is already working in your market",
+      "Captions and replies in the language your customers use",
+    ],
+    useCases: [
+      "Realtors: a new listing announced to past buyers the day it goes live",
+      "Salons and clinics: a quiet week filled from your own client list",
+      "Showrooms: new stock in front of the people who already bought once",
+      "Restaurants: a specials calendar that posts itself",
+      "Trades: finished-job photos turned into a steady feed",
+    ],
+  },
+  {
+    slug: "ai-office-manager",
+    name: "AI Office Manager",
+    icon: "🏢",
+    tagline: "The Receptionist and the Executive Assistant, hired together.",
+    workload: "~$8,000/mo of front-office work",
+    priceFrom: "$800/mo",
+    includes: ["ai-receptionist", "ai-executive-assistant"],
+    description:
+      "The front of the house and the desk behind it, hired as one. The Receptionist takes every call and fills the calendar; the Executive Assistant works the inbox behind it, keeps the CRM straight, and sends the 9am brief. Because both share one calendar and one customer record, a call at 8pm and the follow-up email the next morning are the same conversation rather than two loose ends nobody ties together.",
+    features: [
+      "Everything the AI Receptionist does, 24/7 on the phone",
+      "Everything the AI Executive Assistant does, in your inbox and CRM",
+      "One shared calendar and one customer record across both roles",
+      "A single 9am brief that covers the calls and the email together",
+      "Approvals land in one place instead of two",
+      "One monthly number for the whole front office",
+    ],
+    useCases: [
+      "Clinics: phones answered, schedule full, patient email kept current",
+      "Law practices: intake, scheduling, and client correspondence in one hire",
+      "Home-services companies: dispatch calls and the paperwork behind them",
+      "Small firms with no office manager on staff and no plan to add one",
+      "Owners who are the switchboard and the inbox at the same time",
+    ],
+  },
+  {
+    slug: "ai-chief-of-staff",
+    name: "AI Chief of Staff",
+    icon: "👔",
+    tagline: "Phone, inbox, and social — the whole front office in one hire.",
+    workload: "~$9,000+/mo of front-office, admin and marketing work",
+    priceFrom: "$900/mo",
+    includes: [
+      "ai-receptionist",
+      "ai-executive-assistant",
+      "ai-social-media-manager",
+    ],
+    description:
+      "All three roles at once, for owners who would rather hire one thing than three. Calls answered around the clock, the inbox and calendar run, the CRM kept honest, and the social accounts posting and messaging on schedule — all sharing the same context, so what a customer said on the phone in March shows up when they get a message in April. You still approve anything that matters before it goes out.",
+    features: [
+      "The AI Receptionist, Executive Assistant, and Social Media Manager together",
+      "One shared context across phone, inbox, calendar, CRM, and social",
+      "A single daily brief covering everything the three roles handled",
+      "One approval queue for calls, drafts, posts, and DMs",
+      "Our team manages all three and reports on them monthly",
+      // Every role is priced at 10% of its workload, so no role saves a larger
+      // percentage than any other — a superlative here contradicts the five
+      // identical "90% off" badges. The true bundle benefit is the arithmetic:
+      // $900/mo against $300 + $500 + $400 = $1,200/mo hired separately.
+      "From $900/mo for all three — against $1,200/mo if you hire the three roles separately",
+    ],
+    useCases: [
+      "Owner-operators doing reception, admin, and marketing after hours",
+      "Practices growing faster than they can hire administrators",
+      "Multi-location businesses that need one consistent front office",
+      "Firms whose social account has been quiet since the last person left",
+      "Anyone who wants one accountable hire instead of three vendors",
+    ],
+  },
+];
+
+/** The three roles you can hire on their own. */
+export const CORE_ROLES: AIEmployee[] = AI_EMPLOYEES.filter((r) => !r.includes);
+
+/** The two bundles (a bundle is two or more core roles hired together). */
+export const BUNDLE_ROLES: AIEmployee[] = AI_EMPLOYEES.filter(
+  (r) => !!r.includes
+);
+
+export function getAIEmployeeBySlug(slug: string): AIEmployee | undefined {
+  return AI_EMPLOYEES.find((r) => r.slug === slug);
+}
+
 // ── Customer-facing copy (English-primary, Farsi accent layer) ──
 // Saba reviews and rewrites every Farsi line Farsi-first before launch.
 // English is the working language for the site; Farsi accents signal cultural fit only.
@@ -214,7 +418,10 @@ export const TEAM: TeamMember[] = [
   },
 ];
 
-// ── Product (single productized offer; replaces the legacy 3-Chief services menu) ──
+// ── Legacy productized offer (retired) ──
+// Kept only so nothing that still imports `Service` / `SERVICES` breaks. No page
+// renders it any more: /services is now the AI Employees hub (see AI_EMPLOYEES
+// above) and the language-reach story lives on the industry pages.
 
 export interface Service {
   slug: string;
@@ -301,7 +508,7 @@ export const VOICE_AI_LANGUAGES = [
 export const VOICE_AI_MULTILINGUAL = {
   heading: "Speak Your Customer’s Language",
   autoDetect:
-    "Our AI detects the caller’s language within the first 2–3 seconds and switches seamlessly. No menu prompts, no ‘press 2 for Spanish.’ The caller hears their language from the first word.",
+    "Our AI detects the caller’s language within the first 2–3 seconds and switches over without a pause. No menu prompts, no ‘press 2 for Spanish.’ The caller hears their language from the first word.",
   stat: "55%+",
   statLabel: "of LA County residents speak a non-English language at home",
   source: "U.S. Census Bureau, QuickFacts",
@@ -344,7 +551,7 @@ export const VERTICALS: Vertical[] = [
       "Instant phone notification with full lead context, plus a weekly pipeline report",
     ],
     roiData:
-      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+      "AI employee roles start from $300/mo — about a tenth of what that work costs today. We set the exact number on the call, once we have seen your volume. A website, an app, or a content plan is scoped there too, because what it costs depends on what you need built.",
     relatedServices: [],
   },
   {
@@ -367,7 +574,7 @@ export const VERTICALS: Vertical[] = [
       "Weekly status report: how many leads, who booked, who closed",
     ],
     roiData:
-      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+      "AI employee roles start from $300/mo — about a tenth of what that work costs today. We set the exact number on the call, once we have seen your volume. A website, an app, or a content plan is scoped there too, because what it costs depends on what you need built.",
     relatedServices: [],
   },
   {
@@ -390,7 +597,7 @@ export const VERTICALS: Vertical[] = [
       "Lead routing direct to your phone within minutes",
     ],
     roiData:
-      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+      "AI employee roles start from $300/mo — about a tenth of what that work costs today. We set the exact number on the call, once we have seen your volume. A website, an app, or a content plan is scoped there too, because what it costs depends on what you need built.",
     relatedServices: [],
   },
   {
@@ -413,7 +620,7 @@ export const VERTICALS: Vertical[] = [
       "Weekly report on bookings, no-shows, and follow-up touchpoints",
     ],
     roiData:
-      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+      "AI employee roles start from $300/mo — about a tenth of what that work costs today. We set the exact number on the call, once we have seen your volume. A website, an app, or a content plan is scoped there too, because what it costs depends on what you need built.",
     relatedServices: [],
   },
   {
@@ -436,7 +643,7 @@ export const VERTICALS: Vertical[] = [
       "Instant phone notification with full lead context, plus weekly status report",
     ],
     roiData:
-      "Book a call to talk pricing — no public pricing, we scope it to your business.",
+      "AI employee roles start from $300/mo — about a tenth of what that work costs today. We set the exact number on the call, once we have seen your volume. A website, an app, or a content plan is scoped there too, because what it costs depends on what you need built.",
     relatedServices: [],
   },
 ];

@@ -1,5 +1,6 @@
 "use client";
 
+import { AI_EMPLOYEES } from "@/lib/data";
 import { useT } from "@/lib/i18n";
 
 // Social links live in the footer (bottom of the page).
@@ -18,13 +19,41 @@ const SOCIALS = [
 
 export function Footer() {
   const { t } = useT();
+
+  const roleNames = new Map(
+    [...t.roles.items, ...t.roles.bundles].map((r) => [r.slug, r.name] as const)
+  );
+
   return (
     <footer className="bg-navy border-t border-white/10 py-12 px-6 md:px-12">
       <div className="mx-auto max-w-5xl">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
           <div>
             <img src="/rumi-logo-on-navy.png" alt="Rumi" className="h-9 mb-3" />
             <p className="text-sm text-white/50 mb-4">{t.footer.tagline}</p>
+          </div>
+
+          {/* The offer. Order and slugs come from AI_EMPLOYEES so the column
+              can't drift from the pages it links to; the label uses the same
+              translated name the homepage cards render, looked up by slug —
+              otherwise a Farsi visitor sees each role named twice, two
+              different ways, on the same page. */}
+          <div>
+            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-3">
+              {t.footer.roles}
+            </h3>
+            <ul className="space-y-2">
+              {AI_EMPLOYEES.map((role) => (
+                <li key={role.slug}>
+                  <a
+                    href={`/services/${role.slug}`}
+                    className="text-sm text-white/60 hover:text-accent transition"
+                  >
+                    {roleNames.get(role.slug) ?? role.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div>

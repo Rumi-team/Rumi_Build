@@ -4,8 +4,11 @@ import { useT } from "@/lib/i18n";
 
 export function HowItWorks() {
   const { t } = useT();
+  // White so the homepage keeps alternating: extras (surface) sits above this
+  // section and team-teaser (surface) below it. Bordered white cards on a white
+  // section is the same treatment the .card grids use elsewhere on the site.
   return (
-    <section aria-labelledby="how-heading" className="bg-surface py-20 px-6 md:px-12">
+    <section aria-labelledby="how-heading" className="bg-white py-20 px-6 md:px-12">
       <div className="mx-auto max-w-5xl">
         <p className="eyebrow mb-3">
           {t.how.eyebrow}

@@ -14,6 +14,9 @@ export function Hero() {
       <div className="hero-glow" />
 
       <div className="relative mx-auto max-w-3xl">
+        {/* Positioning line: Rumi is the HR department, the roles are the hires. */}
+        <p className="eyebrow mb-4">{t.hero.eyebrow}</p>
+
         <h1
           id="hero-heading"
           className="text-[36px] md:text-[56px] font-black tracking-h1 leading-[1.05] text-white text-balance mb-5"

@@ -6,7 +6,10 @@ import { useT } from "@/lib/i18n";
 
 export function Nav() {
   const { t } = useT();
+  // AI Employees leads — it's the offer. Keep this list in sync with
+  // mobile-menu.tsx.
   const links = [
+    { label: t.nav.aiEmployees, href: "/services" },
     { label: t.nav.industries, href: "/industries" },
     { label: t.nav.team, href: "/team" },
     { label: t.nav.faq, href: "/faq" },
