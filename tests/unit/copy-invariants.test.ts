@@ -217,4 +217,33 @@ describe("data.ts prose the /services pages render", () => {
       .filter((path) => !ALLOWED_EMPTY.includes(path));
     expect(empty).toEqual([]);
   });
+
+  it("never sells reception as an unpriced extra in llms-content", () => {
+    // llms-content.ts declares itself "the source of truth" for AI crawlers, and
+    // it shipped a self-contradiction: one paragraph states reception and
+    // multilingual answering are deliberately NOT extras (that work is the AI
+    // Receptionist, priced as a role), while the crawler-directed paragraph
+    // listed "a multilingual AI front desk" among what Rumi "also builds and
+    // runs" — i.e. as an unpriced extra. An engine quoting this file verbatim
+    // would tell a buyer they can get reception without paying for the role.
+    for (const [name, text] of [
+      ["LLMS_TXT", LLMS_TXT],
+      ["LLMS_FULL_TXT", LLMS_FULL_TXT],
+    ] as const) {
+      // Anchor on the sentence that enumerates the extras, not the whole file:
+      // the exclusion statement itself legitimately says these words.
+      const alsoBuilds = text.match(/also builds and runs[^.]*/gi) ?? [];
+      expect(
+        alsoBuilds.length,
+        `${name} no longer describes the extra services — re-anchor this test`,
+      ).toBeGreaterThan(0);
+
+      for (const sentence of alsoBuilds) {
+        expect(
+          sentence,
+          `${name} sells reception/answering as an unpriced extra: "${sentence}"`,
+        ).not.toMatch(/front desk|reception|answering/i);
+      }
+    }
+  });
 });
