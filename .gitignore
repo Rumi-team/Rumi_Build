@@ -4,7 +4,12 @@ out/
 .vercel
 *.tsbuildinfo
 next-env.d.ts
-.env*.local
+# Every env file. This is a public repo and the server routes read
+# STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET and RESEND_API_KEY — `.env*.local`
+# alone would have left a plain `.env` or `.env.production` committable.
+.env
+.env*
+!.env.example
 .gstack/
 .context/
 
