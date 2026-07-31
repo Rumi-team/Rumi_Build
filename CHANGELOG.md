@@ -13,12 +13,12 @@ The site now leads with the AI Employees offer. Visitors land on the five roles 
 - **The AI Employees offer, front and center.** The homepage opens on the five roles — AI Receptionist (from $300/mo), AI Executive Assistant (from $500/mo), AI Social Media Manager (from $400/mo), AI Office Manager (from $800/mo), and AI Chief of Staff (from $900/mo) — each with the volume of work it covers and a 90%-off badge. Fully translated, English and Farsi.
 - **Real role pages.** `/services` is now a hub listing all five roles, and each role has its own prerendered page (price, what they handle, what it looks like on the job, onboarding, white-label) — both were bare redirects before. Bundles list the roles inside them.
 - **A branded 404** with recovery links, replacing the framework default on unknown role/industry URLs.
-- **A full test suite where none existed**: 152 unit tests + 26 browser tests covering content integrity (EN/FA parity, pricing arithmetic, tone rules), routing/redirect/canonical invariants, and the booking path — plus CI that runs them on every push and PR.
+- **A full test suite where none existed**: 152 unit tests + 26 browser tests covering content integrity (EN/FA parity, pricing arithmetic, tone rules), routing/redirect/canonical invariants, and the booking path — plus CI that runs them on every PR and every push to main.
 
 ### Changed
 
 - **The bundle math is honest.** AI Chief of Staff now states the true sum of the work its three roles cover (~$12,000/mo) and prices at $900/mo — 7.5%, better than the 10% rule the individual roles are priced on. A test now pins every bundle's workload to the sum of its parts.
-- **Every page shares as itself.** Per-page canonical URLs, OpenGraph, and Twitter metadata across the site — previously a shared link to `/faq` or `/book` previewed as the homepage.
+- **Every page shares as itself.** Per-page canonical URLs and OpenGraph across the site, and the shared Twitter card trimmed to card+image so X falls back to each page's own OpenGraph — previously a shared link to `/faq` or `/book` previewed as the homepage.
 - **Farsi visitors get correct pages everywhere.** English-only pages now pin their direction and typeface instead of rendering right-to-left in the Persian font when Farsi is the stored language, and step numerals render as Persian digits on the Farsi homepage.
 - **Readability fixes site-wide**: the pricing badges, card links, role pills, and step numbers now meet WCAG AA contrast (the accent-on-white eyebrow treatment is logged for a brand-owner decision).
 - **Pages got lighter.** Role and industry prose moved out of the shared client bundle — the chunk loaded on every page halved.
@@ -30,6 +30,7 @@ The site now leads with the AI Employees offer. Visitors land on the five roles 
 - The AI-crawler file (`llms.txt`) no longer contradicts itself by listing reception as an unpriced extra service — that work is the AI Receptionist's job, priced as a role.
 - Checkout verification fails closed: a missing Stripe price configuration can no longer skip the product check, junk session ids never reach Stripe (shape-check + rate limit), and a Stripe outage now shows "something went wrong on our side — your payment is safe" instead of telling a paying customer their session doesn't exist.
 - The FAQ's structured data escapes `<`, closing a script-injection foothold for future copy edits.
+- Plain `.env` / `.env.production` files — the ones that hold `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` — are now ignored by both git and the Vercel CLI upload; the old `.env*.local` pattern left them committable and deployable from a working tree (`.env.example` stays tracked).
 
 ### Removed
 

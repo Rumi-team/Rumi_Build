@@ -80,7 +80,7 @@ are **awaiting Saba's sign-off** (see the Decisions Log).
 7. **Mission & vision** — white — `mission-vision.tsx`.
 8. **CTA** — navy, centered, single strong CTA — `home-section-cta.tsx`
    (a translated wrapper around `section-cta.tsx`, which is what renders navy).
-9. **Footer** — navy, three-column (logo+desc, verticals, company) + copyright bar.
+9. **Footer** — navy, four-column (logo+desc, roles, verticals, company) + copyright bar.
 
 ## Components (helper classes in `globals.css`)
 - `.eyebrow` — 11px accent label.
@@ -107,7 +107,7 @@ are **awaiting Saba's sign-off** (see the Decisions Log).
 ## Rebuild status (branch `saba-brand-rebrand`)
 - ✅ Foundation: tokens, Inter, logos, globals, this doc.
 - ✅ Pilot: global chrome (nav, footer) + homepage.
-- ⏳ Pending Saba sign-off on the homepage before rebuilding: team, evaluate, schedule, industries, services, terms, privacy, book. Interior pages render transitionally until then; nothing merges to prod until the full rebuild is signed off.
+- ⏳ Pending Saba sign-off on the homepage before rebuilding: team, schedule, industries, terms, privacy, book. (`/evaluate` has since been retired to a redirect, and `/services` was rebuilt on `feat/ai-employees-lead` — awaiting the same sign-off; see the Decisions Log.) Interior pages render transitionally until then; nothing merges to prod until the full rebuild is signed off.
 
 ## Decisions Log
 | Date | Decision | Rationale |
