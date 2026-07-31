@@ -62,13 +62,25 @@ color without Saba's sign-off.
 - Radius: **8px** cards/inputs (`rounded-lg`), **6px** buttons (`rounded-md`), **12px** large feature cards (`rounded-xl`). Never `0` or full pill.
 
 ## Page structure (Saba §6 — dark → light → dark bookend)
-1. **Nav** — navy, sticky, 64px (`h-16`).
-2. **Hero** — navy, tall, headline + sub + CTA (single).
-3. **Content / services** — white, card grid (`PlatformPillars`).
-4. **Secondary "why us"** — `surface` (#FEFCF7) (`HowItWorks`).
-5. **Social proof** — white (`TeamTeaser`, founders as credibility — never fabricated testimonials).
-6. **CTA** — navy, centered, single strong CTA (`HomeSectionCTA`).
-7. **Footer** — navy, three-column (logo+desc, verticals, company) + copyright bar.
+
+The homepage as it renders today, in `src/app/page.tsx` order. The dark → light →
+dark bookend and the white/`surface` alternation are Saba's; the section list and
+the specific background assignments below changed on `feat/ai-employees-lead` and
+are **awaiting Saba's sign-off** (see the Decisions Log).
+
+1. **Nav** — navy, sticky, 64px (`h-16`) — `nav.tsx`.
+2. **Hero** — navy, tall, headline + sub + CTA (single) — `hero.tsx`.
+3. **AI Employees** — white, the five priced role cards. This is the offer and it
+   leads — `ai-employees.tsx`.
+4. **Extra services** — `surface` (#FEFCF7), the website / app / content /
+   visibility grid — `extras.tsx`.
+5. **How it works** — white, four numbered steps — `how-it-works.tsx`.
+6. **Team teaser** — `surface`, founders as credibility — never fabricated
+   testimonials — `team-teaser.tsx`.
+7. **Mission & vision** — white — `mission-vision.tsx`.
+8. **CTA** — navy, centered, single strong CTA — `home-section-cta.tsx`
+   (a translated wrapper around `section-cta.tsx`, which is what renders navy).
+9. **Footer** — navy, three-column (logo+desc, verticals, company) + copyright bar.
 
 ## Components (helper classes in `globals.css`)
 - `.eyebrow` — 11px accent label.
@@ -104,3 +116,7 @@ color without Saba's sign-off.
 | 2026-06-29 | Homepage "be found in the AI era" positioning | Founder direction; multilingual moat + AI-discovery frame |
 | 2026-07-06 | **Replace zinc/amber/Geist with Saba's locked white/navy/green/Inter system** | Saba brand spec; kills the unapproved amber accent. Homepage pilot on `saba-brand-rebrand`, gated on Saba sign-off before other pages. Same system rolls to rumiagent.com + rumi.marketing next. |
 | 2026-07-09 | Drop secondary "Book a 15-min call" hero/footer CTA; hero is single-CTA | One dominant ask ("Request a free evaluation") instead of two competing CTAs. `/schedule` page and other entry points unchanged. |
+| 2026-07-27 | **Homepage section order and background assignment changed — AWAITING SABA SIGN-OFF.** `PlatformPillars` is gone; the page is now Nav navy → Hero navy → AIEmployees white → Extras `surface` → HowItWorks white → TeamTeaser `surface` → MissionVision white → HomeSectionCTA navy → Footer navy (see Page structure above). | The offer changed: the five hireable AI-employee roles lead, and everything Rumi also builds and runs follows as "extra services". The white/`surface` alternation was re-dealt so the rhythm survives the two new sections. No token, font, radius or spacing value moved — this is section order and which locked fill each section gets. |
+| 2026-07-27 | White-on-`accent` micro-text moved to `bg-accent-hover` (#047857). **Buttons unchanged.** Sites: `team-teaser.tsx` role pill, `how-it-works.tsx` step number, `team/page.tsx` role pill, `workplace/page.tsx` week numeral. | White on #059669 measures 3.77:1 — below the WCAG AA 4.5:1 floor for text at these sizes (11–14px). #047857 is already in the locked palette, so this stays inside the system rather than adding a colour. `.btn-primary` keeps white on accent: this doc blesses it (Typography table, "Button … white on accent") and buttons carry their own affordances. Accent-on-white hover states were left alone and are Saba's call. |
+| 2026-07-27 | **Same WCAG row, the other direction: `.eyebrow` ON NAVY moved to `text-white/70`.** One site today — the hero eyebrow, `hero.tsx:27` (`className="eyebrow text-white/70"`). **`.eyebrow` on white is UNCHANGED and remains an OPEN AA FAILURE — see the row below.** | `.eyebrow` carries `text-accent`, and accent (#059669) on navy (#1E293B) measures **3.88:1** — under the 4.5:1 floor for 11px text. `accent-hover` (#047857) is darker and therefore worse against navy, so the fix that worked for white-on-accent inverts here. `white/70` composites to #B9C0C4 on navy = **7.94:1**, passes AA and AAA, and is the treatment this doc already uses for text on navy (hero sub, footer columns) rather than a new value. Applied as a utility class beside `.eyebrow` because `globals.css` is LOCKED: Tailwind emits `utilities` after `components`, same specificity, so the later origin wins — verified in the compiled CSS (`.eyebrow` at byte 4694, `.text-white\/70` at 16483) and in the served HTML. |
+| 2026-07-27 | **OPEN, UNRESOLVED — needs Saba. `.eyebrow` on white/`surface` sections fails WCAG AA.** accent (#059669) on white measures **3.77:1** against a 4.5:1 floor, at 11px — 29 of the 30 `.eyebrow` sites in `src/` (all but the hero, fixed above). **Not fixed in this pass.** | Fixing it properly means changing what `.eyebrow` *is*, and `src/app/globals.css` is locked (so is `tailwind.config.ts`). The two in-palette options both cost something Saba owns: `accent-hover` (#047857) on white measures 5.49:1 and passes, but darkens the brand's most-repeated accent moment on every page; `muted` passes but gives up the green entirely. Papering over it per-site with utility classes — the escape hatch used for the hero above, where there was exactly one site and no in-palette alternative — would mean ~30 overrides of a class whose whole purpose is to be one decision. Left visible and unfixed on purpose rather than half-fixed: it is a brand-system call, not a code call. |
