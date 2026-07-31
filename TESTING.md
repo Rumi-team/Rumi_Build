@@ -108,11 +108,16 @@ the four `.ts` files that render.
    nothing and the page quietly renders one card fewer. Every slug must resolve, and
    `getAIEmployeeBySlug` must return `undefined` for junk (that is what makes
    `/services/not-a-real-role` a 404 rather than a blank page).
-3. **Pricing arithmetic.** Every role costs exactly 10% of the workload it covers
-   (300/3000, 500/5000, 400/4000, 800/8000, 900/9000) — that is the "90% off" claim. The
-   numbers are **parsed out of the strings**, never restated in the test, so the suite
-   cannot agree with a typo. The same figures are cross-checked against the dictionary
-   display strings (both languages) and against `/llms.txt`, which AI engines cite verbatim.
+3. **Pricing arithmetic.** Every core role costs exactly 10% of the workload it covers
+   (300/3000, 500/5000, 400/4000) — that is the "90% off" claim. For the two bundles the
+   rule is a **ceiling, not an equality**: a bundle's workload must be the sum of the
+   workloads of the roles inside it, and its price may never exceed a tenth of that sum —
+   the AI Office Manager sits exactly on the rule (800/8000), the AI Chief of Staff beats
+   it (900/12000 = 7.5%), and the "90% off" badge is therefore a floor no role may deliver
+   less than. The numbers are **parsed out of the strings**, never restated in the test, so
+   the suite cannot agree with a typo. The same figures are cross-checked against the
+   dictionary display strings (both languages) and against `/llms.txt`, which AI engines
+   cite verbatim.
 4. **Tone rule.** No user-facing copy in `data.ts`, **`ai-employee-details.ts`,
    `vertical-details.ts`**, `i18n.tsx` or `llms-content.ts` may match `/replac/i` or
    `/cut your payroll/i`, or name a human job as the thing being removed. The test walks the

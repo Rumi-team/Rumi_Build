@@ -1,8 +1,9 @@
-# Frontend_Rumi_Build — Next.js 15 marketing site (agency offer: "we handle the digital work")
+# Frontend_Rumi_Build — Next.js 15 marketing site (lead offer: hire AI employees — five roles priced at ~10% of the workload they cover)
 
 ## It has a near-clone twin: `../Frontend_Rumi_AIEmployees`
 
-Same design system, different offer. Identical `"name": "rumi-build"` in package.json,
+Same design system — and since v1.0.0.0 this repo ALSO leads with AI Employees, so
+the offer no longer tells the two repos apart. Identical `"name": "rumi-build"` in package.json,
 byte-identical `tailwind.config.ts` and `pnpm-lock.yaml`, same route and component names
 (`services/[slug]`, `nav.tsx`, `hero.tsx`, `llms.txt`). Different GitHub org, too:
 `Rumi-team/…` here, `rumiai-ai/…` there. **Never port a change between them** — matching
@@ -17,6 +18,31 @@ here to settle it; the twin's `.vercel/project.json` owns the Vercel project nam
 `rumi-build`. Confirm before changing a canonical URL, and never link this checkout to
 that project.
 
+## The offer, as shipped (v1.0.0.0)
+
+The homepage leads with five hireable AI-employee roles — AI Receptionist (from
+$300/mo), AI Executive Assistant (from $500/mo), AI Social Media Manager (from
+$400/mo), AI Office Manager (from $800/mo) and AI Chief of Staff (from $900/mo).
+Core roles are priced at exactly 10% of the monthly workload they cover (the
+"90% off" badge); for the two bundles that rule is a ceiling, and a bundle's
+workload must equal the sum of its parts. The agency work (website, app, content,
+visibility) sells below as "Extra services". Canonical role data lives in
+`src/lib/data.ts`; the long-form prose only the detail pages render lives in
+`src/lib/ai-employee-details.ts` and `src/lib/vertical-details.ts` — never import
+those back into `data.ts` (`footer.tsx` puts everything reachable from `data.ts`
+into every page's client bundle).
+
+Languages are English + Farsi, translated client-side in `src/lib/i18n.tsx`
+(homepage only; every other page is English, pinned LTR via
+`src/components/english-main.tsx`). `/evaluate`, `/audit`, `/chief-of-staff` and
+`/pricing` are permanent redirects — do not resurrect them; `/api/evaluate` is
+gone entirely.
+
+Releases carry a 4-digit version: `VERSION`, `package.json` and the newest
+CHANGELOG.md heading must agree (currently 1.0.0.0). The other docs: DESIGN.md
+(locked brand system — Saba owns it), TESTING.md (the test contract), TODOS.md
+(deferred work), CHANGELOG.md (release history).
+
 ## Testing
 
 ```bash
@@ -27,9 +53,10 @@ pnpm test:all    # both
 
 Tests live in `tests/unit/` (Vitest + Testing Library, jsdom) and `tests/e2e/`
 (Playwright, chromium only). Read **TESTING.md** before adding to either — it explains the
-five invariants the suite exists to pin down (EN/FA parity including array lengths,
-slug referential integrity, the 10%-of-workload pricing rule, the tone rule, the locked
-design tokens) and the conventions (walk the data, never restate it; guard the walkers;
+six invariants the suite exists to pin down (EN/FA parity including array lengths,
+slug referential integrity, the pricing arithmetic — 10% of workload, a ceiling for
+bundles — the tone rule, the locked design tokens, and the routing/canonical rules)
+and the conventions (walk the data, never restate it; guard the walkers;
 `toBeDefined()` is banned).
 
 Expectations for any change here:

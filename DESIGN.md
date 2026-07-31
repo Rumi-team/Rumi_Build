@@ -11,10 +11,10 @@ This is also the reference for the two sibling Rumi web properties
 (rumiagent.com, rumi.marketing) as they move onto the same brand.
 
 ## Product context
-- **What this is:** Marketing site for a done-for-you, multilingual-first web-presence agency.
-- **Who it's for:** small-business owners (studios, salons, instructors, retailers, contractors) losing customers to weak online presence and language barriers.
-- **Positioning (kept):** "Be found in the AI era." We build and run your website, app, and social — and make all of it findable by the AI engines.
-- **Languages:** English (working language), Spanish, Farsi. Copy lives in `src/lib/i18n.tsx`; the whole page + evaluation form translate from there.
+- **What this is:** Marketing site for hiring AI employees — five roles with public "from" pricing, each priced at about a tenth of the workload it covers. The done-for-you agency work (website, app, content, visibility) sells below as "Extra services".
+- **Who it's for:** small-business owners (studios, salons, instructors, retailers, contractors) paying full price for repetitive front-office work.
+- **Positioning (v1.0.0.0):** "Get 90% off your hiring. Hire AI employees that work 24/7." The earlier "Be found in the AI era" agency framing now lives inside the Extras section, not the hero.
+- **Languages:** English (working language) + Farsi. Copy lives in `src/lib/i18n.tsx`; the homepage translates from there, and every other page renders English pinned LTR (`english-main.tsx`).
 
 ## Color (exact hex — no approximation, no #000000)
 
