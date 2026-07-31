@@ -4,6 +4,38 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.0.0.0] - 2026-07-31
+
+The site now leads with the AI Employees offer. Visitors land on the five roles they can hire — three core roles and two combinations — with public "from" pricing, and everything the agency also builds moves below as "Extra services". This is the identity-settling release, so it goes to 1.0 (and adopts the 4-digit version scheme).
+
+### Added
+
+- **The AI Employees offer, front and center.** The homepage opens on the five roles — AI Receptionist (from $300/mo), AI Executive Assistant (from $500/mo), AI Social Media Manager (from $400/mo), AI Office Manager (from $800/mo), and AI Chief of Staff (from $900/mo) — each with the volume of work it covers and a 90%-off badge. Fully translated, English and Farsi.
+- **Real role pages.** `/services` is now a hub listing all five roles, and each role has its own prerendered page (price, what they handle, what it looks like on the job, onboarding, white-label) — both were bare redirects before. Bundles list the roles inside them.
+- **A branded 404** with recovery links, replacing the framework default on unknown role/industry URLs.
+- **A full test suite where none existed**: 152 unit tests + 26 browser tests covering content integrity (EN/FA parity, pricing arithmetic, tone rules), routing/redirect/canonical invariants, and the booking path — plus CI that runs them on every push and PR.
+
+### Changed
+
+- **The bundle math is honest.** AI Chief of Staff now states the true sum of the work its three roles cover (~$12,000/mo) and prices at $900/mo — 7.5%, better than the 10% rule the individual roles are priced on. A test now pins every bundle's workload to the sum of its parts.
+- **Every page shares as itself.** Per-page canonical URLs, OpenGraph, and Twitter metadata across the site — previously a shared link to `/faq` or `/book` previewed as the homepage.
+- **Farsi visitors get correct pages everywhere.** English-only pages now pin their direction and typeface instead of rendering right-to-left in the Persian font when Farsi is the stored language, and step numerals render as Persian digits on the Farsi homepage.
+- **Readability fixes site-wide**: the pricing badges, card links, role pills, and step numbers now meet WCAG AA contrast (the accent-on-white eyebrow treatment is logged for a brand-owner decision).
+- **Pages got lighter.** Role and industry prose moved out of the shared client bundle — the chunk loaded on every page halved.
+- **`/schedule` is now the intro call for invited businesses** (same offer language as the rest of the site) rather than a page advertising a free version of the paid call. It stays reachable for old links, unindexed.
+- Retired pages excluded from the sitemap now genuinely opt out of search indexing instead of relying on sitemap absence.
+
+### Fixed
+
+- The AI-crawler file (`llms.txt`) no longer contradicts itself by listing reception as an unpriced extra service — that work is the AI Receptionist's job, priced as a role.
+- Checkout verification fails closed: a missing Stripe price configuration can no longer skip the product check, junk session ids never reach Stripe (shape-check + rate limit), and a Stripe outage now shows "something went wrong on our side — your payment is safe" instead of telling a paying customer their session doesn't exist.
+- The FAQ's structured data escapes `<`, closing a script-injection foothold for future copy edits.
+
+### Removed
+
+- **The retired evaluation flow, fully.** `/evaluate`, `/audit`, and `/chief-of-staff` are permanent redirects at both the edge and the app layer; the orphaned `/api/evaluate` endpoint (an unauthenticated mail-sending surface) and its `resend` dependency are deleted.
+- **~600 lines of dead content and components** left over from earlier positioning (old pillars, portfolio, voice-AI copy, language bars, four unmounted components), so the codebase no longer contradicts the live site.
+
 ## [0.5.0] - 2026-07-14
 
 Implements the Rumi AI website rebuild spec (`rumi_build_implementation_guide-3.md`): brand rename, homepage copy, a new FAQ page, and information-architecture cleanup. The domain and contact email stay `rumi.build` / `support@rumi.build` — only the display name changed.
