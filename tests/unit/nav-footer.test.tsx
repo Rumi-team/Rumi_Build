@@ -1,9 +1,12 @@
+// @vitest-environment jsdom
+// This file renders components, so it needs a DOM. The suite defaults to the
+// `node` environment (vitest.config.ts); only the files that render opt in.
 import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { HomeSectionCTA } from "@/components/home-section-cta";
-import { AI_EMPLOYEES } from "@/lib/data";
+import { AI_EMPLOYEES, VERTICALS } from "@/lib/data";
 import { LanguageProvider, useT, type Dict } from "@/lib/i18n";
 import { loadDicts } from "./helpers/dicts";
 
@@ -114,6 +117,36 @@ describe("footer role column", () => {
     expect(
       screen.getByRole("heading", { name: FA.footer.roles })
     ).toBeInTheDocument();
+  });
+});
+
+describe("footer industries column", () => {
+  it("links only at industry slugs that exist, derived from VERTICALS", () => {
+    // These five hrefs were typed out by hand while the role column beside them
+    // was derived. /industries/[slug] sets `dynamicParams = false`, so a
+    // renamed or dropped vertical slug is a hard 404 — and the footer renders
+    // on every page, which turns one data edit into a broken link sitewide.
+    mount(<Footer />);
+
+    const industryLinks = links(document.body).filter((l) =>
+      l.href!.startsWith("/industries/")
+    );
+    const slugs = new Set(VERTICALS.map((v) => v.slug));
+
+    expect(industryLinks, "the footer lists no industries").not.toEqual([]);
+    for (const link of industryLinks) {
+      expect(
+        slugs.has(link.href!.replace("/industries/", "")),
+        `${link.href} is not a VERTICALS slug — it 404s on every page of the site`
+      ).toBe(true);
+    }
+    // Derived, so the column cannot drift from the pages it links to.
+    expect(industryLinks.map((l) => l.href)).toEqual(
+      VERTICALS.map((v) => `/industries/${v.slug}`)
+    );
+    expect(industryLinks.map((l) => l.label)).toEqual(
+      VERTICALS.map((v) => v.name)
+    );
   });
 });
 

@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
 import * as roleRoute from "@/app/services/[slug]/page";
 import * as industryRoute from "@/app/industries/[slug]/page";
+import * as servicesHub from "@/app/services/page";
 import { AI_EMPLOYEES, VERTICALS, getAIEmployeeBySlug } from "@/lib/data";
+// The industry body copy moved to a server-only module (it was shipping in the
+// client bundle through the footer); generateMetadata builds its description
+// from the tagline plus this.
+import { VERTICAL_DETAILS } from "@/lib/vertical-details";
 
 // ── Why this file exists ──────────────────────────────────────────────────────
 // Both dynamic segments now set `dynamicParams = false`, which means
@@ -60,6 +65,13 @@ describe("/services/[slug] prerendering", () => {
         `${role.slug} lost its social preview image`
       ).toContain("/og-image.png");
       expect(meta.openGraph?.siteName).toBe("Rumi AI");
+      // `alternates` is inherited from the root layout wholesale, and the
+      // layout's canonical is "/" — so a role page without its own tells
+      // Google it IS the homepage and gets consolidated away. Relative for the
+      // same reason og:url is: the sibling site ships these exact slugs.
+      expect(meta.alternates?.canonical, `${role.slug} canonical`).toBe(
+        `/services/${role.slug}`
+      );
     }
   });
 
@@ -80,6 +92,31 @@ describe("/services/[slug] prerendering", () => {
   });
 });
 
+describe("/services hub metadata", () => {
+  // The five role pages get all of this asserted above, per role. The hub they
+  // all link back to — the page that carries the offer and the pricing, and the
+  // one the nav's first item and the FA homepage CTA both point at — restates
+  // openGraph for exactly the same reason and had nothing checking it. The root
+  // layout's openGraph is inherited wholesale, so a dropped `url` silently
+  // attributes every /services share to "/", and restating openGraph at all
+  // drops the layout's images unless they are restated too.
+  const meta = servicesHub.metadata;
+
+  it("attributes shares to itself rather than to the homepage", () => {
+    // Relative on purpose: it resolves through metadataBase and follows the
+    // canonical host, rather than hardcoding a domain a sibling site also ships.
+    expect(meta.openGraph?.url, "/services og:url").toBe("/services");
+  });
+
+  it("keeps the site name and the social preview image", () => {
+    expect(meta.openGraph?.siteName).toBe("Rumi AI");
+    expect(
+      JSON.stringify(meta.openGraph?.images),
+      "the hub lost its social preview image"
+    ).toContain("/og-image.png");
+  });
+});
+
 describe("/industries/[slug] prerendering", () => {
   it("prerenders one URL per vertical and resolves metadata for those only", async () => {
     expect(industryRoute.generateStaticParams()).toEqual(
@@ -94,7 +131,27 @@ describe("/industries/[slug] prerendering", () => {
       const meta = await industryRoute.generateMetadata(params(vertical.slug));
       expect(meta.title, `${vertical.slug} title`).toContain(vertical.name);
       expect(meta.description).toContain(vertical.tagline);
-      expect(meta.description).toContain(vertical.description);
+      expect(meta.description).toContain(
+        VERTICAL_DETAILS[vertical.slug].description
+      );
+      // Without its own, the page inherits the root layout's canonical ("/")
+      // and declares itself the homepage.
+      expect(meta.alternates?.canonical, `${vertical.slug} canonical`).toBe(
+        `/industries/${vertical.slug}`
+      );
+      // And openGraph is inherited wholesale in exactly the same way, pinning
+      // og:url to "/" — so every industry share attributed to the homepage
+      // while the canonical beside it said otherwise. Relative for the same
+      // reason the canonical is; restating openGraph drops the layout's images
+      // unless they are restated too.
+      expect(meta.openGraph?.url, `${vertical.slug} og:url`).toBe(
+        `/industries/${vertical.slug}`
+      );
+      expect(
+        JSON.stringify(meta.openGraph?.images),
+        `${vertical.slug} lost its social preview image`
+      ).toContain("/og-image.png");
+      expect(meta.openGraph?.siteName).toBe("Rumi AI");
     }
     // The five slugs vercel.json redirects into role pages — healthcare, legal,
     // restaurants, accounting, construction — are deliberately NOT verticals.

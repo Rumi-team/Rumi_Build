@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
 import { PageHeader } from "@/components/page-header";
 import { SectionCTA } from "@/components/section-cta";
 import { ServiceCard } from "@/components/service-card";
-import {
-  CORE_ROLES,
-  BUNDLE_ROLES,
-  PRICING_NOTE,
-  WHITE_LABEL_NOTE,
-  ONBOARDING_NOTE,
-  SAVING_LABEL,
-} from "@/lib/data";
+import { PolicyNotes } from "@/components/policy-notes";
+import { CORE_ROLES, BUNDLE_ROLES, SAVING_LABEL } from "@/lib/data";
 
 const TITLE = "AI Employees — hire from $300/mo — Rumi AI";
 const DESCRIPTION =
@@ -20,6 +15,10 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  // Without this the root layout's canonical ("/") is inherited and this page
+  // tells Google it is the homepage. Relative, so it resolves through
+  // metadataBase and follows the canonical host.
+  alternates: { canonical: "/services" },
   // Restated because the root layout's openGraph is inherited wholesale and
   // pins og:url to the homepage — without this, sharing /services attributes
   // to "/". Relative `url` resolves against metadataBase, so it follows the
@@ -55,7 +54,9 @@ export default function ServicesPage() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      {/* English-only (see the LOCALE SCOPE note above), pinned to LTR/en —
+          see src/components/english-main.tsx for why. */}
+      <EnglishMain className="pt-16">
         {/* The five roles */}
         <section className="bg-white py-20 px-6 md:px-12">
           <div className="mx-auto max-w-5xl">
@@ -135,32 +136,16 @@ export default function ServicesPage() {
               point rather than a fixed tag.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div className="rounded-xl border border-line bg-white p-6">
-                <h3 className="text-base font-semibold text-ink mb-2">
-                  What you pay
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {PRICING_NOTE}
-                </p>
-              </div>
-              <div className="rounded-xl border border-line bg-white p-6">
-                <h3 className="text-base font-semibold text-ink mb-2">
-                  Getting them working
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {ONBOARDING_NOTE}
-                </p>
-              </div>
-              <div className="rounded-xl border border-line bg-white p-6">
-                <h3 className="text-base font-semibold text-ink mb-2">
-                  Under your own brand
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {WHITE_LABEL_NOTE}
-                </p>
-              </div>
-            </div>
+            {/* Pricing-first here: this section is the pricing explainer. The
+                role pages show the same three onboarding-first. */}
+            <PolicyNotes
+              cardBg="bg-white"
+              notes={[
+                { note: "pricing", heading: "What you pay" },
+                { note: "onboarding", heading: "Getting them working" },
+                { note: "whiteLabel", heading: "Under your own brand" },
+              ]}
+            />
           </div>
         </section>
 
@@ -194,7 +179,7 @@ export default function ServicesPage() {
           sub="A real conversation, not a sales pitch. In English or Farsi."
           href="/book"
         />
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

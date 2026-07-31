@@ -1,7 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Hero } from "@/components/hero";
 import { AIEmployees } from "@/components/ai-employees";
-import { PlatformPillars } from "@/components/platform-pillars";
+import { Extras } from "@/components/extras";
 import { HowItWorks } from "@/components/how-it-works";
 import { TeamTeaser } from "@/components/team-teaser";
 import { MissionVision } from "@/components/mission-vision";
@@ -21,7 +21,7 @@ export default function Home() {
         {/* The offer: five roles you can hire */}
         <AIEmployees />
         {/* Secondary: what else we build and run for a business */}
-        <PlatformPillars />
+        <Extras />
         <HowItWorks />
         {/* Trust beat: founders who've done it at scale */}
         <TeamTeaser />

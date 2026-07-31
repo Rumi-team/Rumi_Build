@@ -30,7 +30,10 @@ export function TeamTeaser() {
           {TEAM.map((member) => (
             <div key={member.name} className="flex flex-col items-center gap-2">
               <Avatar name={member.name} photo={member.photo} />
-              <span className="inline-block rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-white">
+              {/* accent-hover, not accent: white on #059669 is 3.77:1, which
+                  fails WCAG AA for this 12px label. Buttons keep white on
+                  accent (DESIGN.md blesses that); micro-text does not. */}
+              <span className="inline-block rounded-full bg-accent-hover px-2.5 py-0.5 text-xs font-semibold text-white">
                 {member.role}
               </span>
               <p className="text-sm font-medium text-ink">{member.name}</p>

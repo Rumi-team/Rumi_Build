@@ -14,8 +14,17 @@ export function Hero() {
       <div className="hero-glow" />
 
       <div className="relative mx-auto max-w-3xl">
-        {/* Positioning line: Rumi is the HR department, the roles are the hires. */}
-        <p className="eyebrow mb-4">{t.hero.eyebrow}</p>
+        {/* Positioning line: Rumi is the HR department, the roles are the hires.
+            `text-white/70` overrides the accent colour `.eyebrow` carries: the
+            token green on navy measures 3.88:1, under the WCAG AA 4.5:1 floor
+            for 11px text, and accent-hover is darker still so it is worse here.
+            White/70 on navy is the treatment DESIGN.md already blesses for text
+            on navy sections (the hero sub and the footer columns use it). This
+            wins over the class because Tailwind's `utilities` layer is emitted
+            after the `components` layer that defines `.eyebrow` — same
+            specificity, later origin. globals.css is locked, so the fix is here
+            rather than in the class. */}
+        <p className="eyebrow text-white/70 mb-4">{t.hero.eyebrow}</p>
 
         <h1
           id="hero-heading"

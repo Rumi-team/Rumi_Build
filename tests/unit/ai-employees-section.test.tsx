@@ -1,3 +1,6 @@
+// @vitest-environment jsdom
+// This file renders components, so it needs a DOM. The suite defaults to the
+// `node` environment (vitest.config.ts); only the files that render opt in.
 import { act, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { AIEmployees } from "@/components/ai-employees";
@@ -65,6 +68,37 @@ describe("homepage roles section", () => {
       expect(scope.getByText(`Covers ${role.workload}`)).toBeInTheDocument();
       expect(scope.getByRole("heading", { name: role.name })).toBeInTheDocument();
     });
+  });
+
+  it("says the price and the saving in each card's ACCESSIBLE name, not just on screen", () => {
+    // The card is one big link, and it used to carry
+    // aria-label={`${name}: ${tagline}`}. An aria-label REPLACES the computed
+    // accessible name rather than adding to it, so a screen reader heard the
+    // name and the tagline and nothing else — the price, the "90% off" badge
+    // and the "Covers …" pill, i.e. the three things the card exists to say,
+    // were announced to sighted users only. The label is gone; this is what
+    // stops it coming back, because every assertion in the tests above reads
+    // the rendered text and would stay green if it did.
+    //
+    // `name` here is a matcher function, so RTL computes the real accessible
+    // name (via dom-accessibility-api) and this is a genuine a11y assertion
+    // rather than another textContent check.
+    renderSection();
+    for (const role of AI_EMPLOYEES) {
+      const link = screen.getByRole("link", {
+        name: (accessibleName: string) =>
+          accessibleName.includes(role.name) &&
+          accessibleName.includes(`from ${role.priceFrom}`) &&
+          accessibleName.includes(SAVING_LABEL) &&
+          accessibleName.includes(role.workload),
+      });
+      // …and it is the right card: a name assembled from another role's
+      // numbers would be a worse defect than a missing one.
+      expect(link, `${role.slug} card`).toHaveAttribute(
+        "href",
+        `/services/${role.slug}`,
+      );
+    }
   });
 
   it("separates the three hireable roles from the two bundles", () => {

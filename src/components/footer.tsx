@@ -1,6 +1,6 @@
 "use client";
 
-import { AI_EMPLOYEES } from "@/lib/data";
+import { AI_EMPLOYEES, VERTICALS } from "@/lib/data";
 import { useT } from "@/lib/i18n";
 
 // Social links live in the footer (bottom of the page).
@@ -56,16 +56,26 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Derived from VERTICALS for the same reason the role column is
+              derived from AI_EMPLOYEES: /industries/[slug] sets
+              `dynamicParams = false`, so a renamed or dropped vertical slug is
+              a hard 404 — and this column renders on every page of the site,
+              which would put a broken link on all of them. */}
           <div>
             <h3 className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-3">
               {t.footer.vert}
             </h3>
             <ul className="space-y-2">
-              <li><a href="/industries/real-estate" className="text-sm text-white/60 hover:text-accent transition">Real Estate</a></li>
-              <li><a href="/industries/curtains" className="text-sm text-white/60 hover:text-accent transition">Curtains &amp; Drapery</a></li>
-              <li><a href="/industries/rugs" className="text-sm text-white/60 hover:text-accent transition">Rugs &amp; Home Goods</a></li>
-              <li><a href="/industries/beauty" className="text-sm text-white/60 hover:text-accent transition">Beauty &amp; Salon</a></li>
-              <li><a href="/industries/home-services" className="text-sm text-white/60 hover:text-accent transition">Home Services</a></li>
+              {VERTICALS.map((vertical) => (
+                <li key={vertical.slug}>
+                  <a
+                    href={`/industries/${vertical.slug}`}
+                    className="text-sm text-white/60 hover:text-accent transition"
+                  >
+                    {vertical.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 

@@ -31,8 +31,11 @@ function sourceFiles(dir: string): string[] {
   });
 }
 
-/** `$3,000/mo` and `~$9,000+/mo` -> 3000 / 9000. Requires the /mo unit, so the
- *  $100 call fee and the founders' "$1B+" credentials are out of scope. */
+/** `$3,000/mo` and `~$12,000/mo` -> 3000 / 12000. Requires the /mo unit, so the
+ *  $100 call fee and the founders' "$1B+" credentials are out of scope. The
+ *  optional `+` is kept for the "~$9,000+/mo" spelling the Chief of Staff used
+ *  to carry: no figure is written that way today, but the regex must keep
+ *  parsing one if it comes back rather than skipping it as unquoted. */
 const PER_MONTH = /\$\s?([\d,]+)\+?\/mo/g;
 const figure = (raw: string) => Number(raw.replace(/,/g, ""));
 

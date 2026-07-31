@@ -1,4 +1,4 @@
-// Accepts the structural subset of a role/pillar the card actually renders, so
+// Accepts the structural subset of a role/extra the card actually renders, so
 // the same card serves the AI-Employee grids (icon + price + workload + tagline)
 // and the lighter "extra services" grid (icon + name + tagline only).
 // `footer` is the small accent line at the bottom; pass `null` to hide it.
@@ -54,8 +54,11 @@ export function ServiceCard({
       </div>
       <h3 className="text-base font-semibold text-ink mb-2">{service.name}</h3>
 
+      {/* items-center, matching the same price+badge lockup in
+          src/app/services/[slug]/page.tsx. On a baseline the badge's own
+          padding drops it below the price it belongs to. */}
       {service.price && (
-        <p className="mb-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+        <p className="mb-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
           <span className="text-xl font-bold tracking-h2 text-ink">
             {service.price}
           </span>
@@ -73,7 +76,7 @@ export function ServiceCard({
         {service.tagline}
       </p>
       {footer !== null && (
-        <p className="text-xs text-accent/80 mt-auto">{footer}</p>
+        <p className="text-sm text-accent-hover mt-auto">{footer}</p>
       )}
     </>
   );
@@ -86,12 +89,13 @@ export function ServiceCard({
 
   if (linked) {
     const href = service.href ?? `/services/${service.slug}`;
+    // No aria-label. An aria-label REPLACES the accessible name rather than
+    // adding to it, so `"${name}: ${tagline}"` was hiding the price, the
+    // "90% off" badge and the "Covers …" pill from screen readers — the three
+    // things the card exists to say. Letting the name compute from the content
+    // reads all of it; the icon is already aria-hidden.
     return (
-      <a
-        href={href}
-        className={linkedClassName}
-        aria-label={`${service.name}: ${service.tagline}`}
-      >
+      <a href={href} className={linkedClassName}>
         {inner}
       </a>
     );

@@ -1,3 +1,6 @@
+// @vitest-environment jsdom
+// This file renders components, so it needs a DOM. The suite defaults to the
+// `node` environment (vitest.config.ts); only the files that render opt in.
 import { act, render } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AI_EMPLOYEES, SAVING_LABEL } from "@/lib/data";

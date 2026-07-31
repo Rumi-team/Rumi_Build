@@ -99,7 +99,7 @@ const EN = {
         slug: "ai-chief-of-staff",
         name: "AI Chief of Staff",
         price: "from $900/mo",
-        workload: "~$9,000+/mo of front-office, admin and marketing work",
+        workload: "~$12,000/mo of front-office, admin and marketing work",
         tagline:
           "Phone, inbox, and social — the whole front office in one hire.",
       },
@@ -269,7 +269,7 @@ const FA: Dict = {
         slug: "ai-chief-of-staff",
         name: "رئیس دفتر هوش مصنوعی",
         price: "از ۹۰۰ دلار در ماه",
-        workload: "حدود ۹٬۰۰۰+ دلار در ماه کار اداری، پذیرش و بازاریابی",
+        workload: "حدود ۱۲٬۰۰۰ دلار در ماه کار اداری، پذیرش و بازاریابی",
         tagline:
           "تلفن، ایمیل و شبکه‌های اجتماعی — تمام کار اداری، پذیرش و بازاریابی در یک استخدام.",
       },

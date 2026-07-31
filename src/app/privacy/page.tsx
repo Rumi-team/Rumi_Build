@@ -1,19 +1,41 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
 import { SmsConsentClause } from "@/components/sms-consent-clause";
 
+const TITLE = "Privacy Policy — Rumi AI";
+const DESCRIPTION =
+  "How Rumi, Inc. collects, uses, shares, and protects your information, including our SMS / text-messaging consent terms and our commitment not to sell or share mobile opt-in data.";
+
 export const metadata: Metadata = {
-  title: "Privacy Policy — Rumi AI",
-  description:
-    "How Rumi, Inc. collects, uses, shares, and protects your information, including our SMS / text-messaging consent terms and our commitment not to sell or share mobile opt-in data.",
+  title: TITLE,
+  description: DESCRIPTION,
+  // The root layout's canonical is "/" and is inherited wholesale, so a page
+  // without its own declares itself the homepage. Relative, so it resolves
+  // through metadataBase and follows the canonical host.
+  alternates: { canonical: "/privacy" },
+  // `openGraph` is inherited wholesale for the same reason, so without this the
+  // page shipped its own canonical beside the homepage's og:url and og:title.
+  // It matters more here than on a marketing page: this URL is fetched and
+  // previewed by carriers during A2P/SMS campaign vetting, and a preview that
+  // titles itself "Hire AI employees … from $300/mo" is not the policy document
+  // they asked for.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/privacy",
+    siteName: "Rumi AI",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 export default function PrivacyPage() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      <EnglishMain className="pt-16">
         {/* Header */}
         <section className="py-20 px-6">
           <div className="mx-auto max-w-3xl">
@@ -202,7 +224,7 @@ export default function PrivacyPage() {
             </div>
           </div>
         </section>
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

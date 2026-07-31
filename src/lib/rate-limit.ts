@@ -23,8 +23,15 @@ export function rateLimit(ip: string): { ok: boolean; retryAfterMs: number } {
   return { ok: true, retryAfterMs: 0 };
 }
 
-export function ipFromRequest(req: Request): string {
-  const xff = req.headers.get("x-forwarded-for");
+// Structurally typed rather than `Headers`: next/headers hands server
+// components a ReadonlyHeaders that drops the mutators and is not assignable
+// to Headers, and `.get` is all the derivation needs.
+export function ipFromHeaders(h: { get(name: string): string | null }): string {
+  const xff = h.get("x-forwarded-for");
   if (xff) return xff.split(",")[0].trim();
-  return req.headers.get("x-real-ip") || "unknown";
+  return h.get("x-real-ip") || "unknown";
+}
+
+export function ipFromRequest(req: Request): string {
+  return ipFromHeaders(req.headers);
 }

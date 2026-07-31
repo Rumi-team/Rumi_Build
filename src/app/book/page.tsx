@@ -1,12 +1,34 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
 import { BookForm } from "./book-form";
 
+const TITLE = "Book a strategy call | Rumi AI";
+const DESCRIPTION =
+  "30-minute strategy call. $100, refunded if we can't help, or credited toward your project if we can.";
+
 export const metadata: Metadata = {
-  title: "Book a strategy call | Rumi AI",
-  description:
-    "30-minute strategy call. $100, refunded if we can't help, or credited toward your project if we can.",
+  title: TITLE,
+  description: DESCRIPTION,
+  // The root layout's canonical is "/" and is inherited wholesale, so a page
+  // without its own declares itself the homepage. Relative, so it resolves
+  // through metadataBase and follows the canonical host.
+  alternates: { canonical: "/book" },
+  // `openGraph` is inherited wholesale for the same reason. This is the page
+  // every CTA on the site points at and the only one that takes money, so a
+  // share of it attributing to "/" is the most expensive instance of the bug:
+  // the link someone pastes into a DM to close a deal previewed as the
+  // homepage. Restating openGraph replaces the layout's object, so
+  // images/type/siteName have to be restated too.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/book",
+    siteName: "Rumi AI",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 export default async function BookPage({
@@ -19,7 +41,7 @@ export default async function BookPage({
   return (
     <>
       <Nav />
-      <div className="min-h-screen bg-white text-ink pt-16">
+      <EnglishMain className="min-h-screen bg-white text-ink pt-16">
         <div className="mx-auto max-w-2xl px-6 py-16">
           <p className="eyebrow mb-3">
             Book a call
@@ -68,7 +90,7 @@ export default async function BookPage({
             We respond within one business day.
           </p>
         </div>
-      </div>
+      </EnglishMain>
       <Footer />
     </>
   );

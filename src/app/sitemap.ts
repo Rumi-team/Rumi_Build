@@ -18,11 +18,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // out; /workplace is deliberately unindexed.
   //
   // /schedule is also out: it renders the same Cal.com embed as /book with a
-  // near-identical title, and nothing on the site links to it (its only href
-  // lives in the retired COPY block in src/lib/data.ts). Listing both made the
-  // sitemap advertise two competing booking pages for the same query while
-  // /book took every internal link. The route still resolves — it may have been
-  // handed out by email or DM — it just isn't submitted for indexing.
+  // near-identical title, and listing both made the sitemap advertise two
+  // competing booking pages for the same query while /book took every internal
+  // link. Nothing on the site links to it any more — the two hrefs that did
+  // (the retired COPY block in src/lib/data.ts and the secondary CTA in
+  // src/components/services-preview.tsx) were both deleted with the dead code.
+  // The route still resolves, because the URL may have been handed out by email
+  // or DM; it just isn't linked and isn't submitted for indexing. Omission
+  // alone does not deindex it, which is why the page declares robots.index =
+  // false (pinned in tests/unit/routing.test.ts).
   const staticRoutes = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
     { path: "/services", priority: 0.95, changeFrequency: "weekly" as const },

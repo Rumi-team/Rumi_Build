@@ -14,7 +14,10 @@ test.describe("booking path", () => {
   test("every role page offers a way into /book", async ({ page }) => {
     for (const role of AI_EMPLOYEES) {
       await page.goto(`/services/${role.slug}`);
-      const toBook = page.locator('a[href="/book"]');
+      // Scoped to <main>: the Nav renders its own `a[href="/book"]` on every
+      // page, so a page-wide locator here resolved to the nav button and passed
+      // with the role page's own CTAs deleted.
+      const toBook = page.locator('main a[href="/book"]');
       await expect(
         toBook.first(),
         `${role.slug} has no link to /book`,
@@ -35,7 +38,9 @@ test.describe("booking path", () => {
     page,
   }) => {
     await page.goto("/services/ai-receptionist");
-    await page.locator('a[href="/book"]').first().click();
+    // main-scoped for the same reason as above — the nav CTA would satisfy this
+    // click on any page on the site.
+    await page.locator('main a[href="/book"]').first().click();
     await expect(page).toHaveURL(/\/book$/);
 
     // On this site /book is the paid-call checkout, NOT a calendar: the visitor
@@ -78,9 +83,12 @@ test.describe("industry routing", () => {
     page,
   }) => {
     // /industries/[slug] carries the same dynamicParams = false contract as the
-    // role route. Slugs from the sibling rumi.build site (healthcare, legal,
-    // accounting) are NOT verticals here, so they are the realistic bad input.
-    const response = await page.goto("/industries/healthcare");
+    // role route. The slug has to be one with NO vercel.json rule: healthcare,
+    // legal, restaurants, accounting and construction are all 308'd to a role
+    // page in production, and Playwright runs `next start`, which ignores
+    // vercel.json — asserting a 404 for one of those would pin behaviour that
+    // never happens on the live site and would survive deleting the redirect.
+    const response = await page.goto("/industries/not-a-real-industry");
     expect(response?.status()).toBe(404);
     await expect(
       page.getByRole("heading", { name: /couldn't find that page/i }),

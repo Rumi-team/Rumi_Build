@@ -2,18 +2,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
 import { PageHeader } from "@/components/page-header";
 import { SectionCTA } from "@/components/section-cta";
 import { ServiceCard } from "@/components/service-card";
+import { PolicyNotes } from "@/components/policy-notes";
 import { SavingBadge, WorkloadPill } from "@/components/price-badges";
-import {
-  AI_EMPLOYEES,
-  getAIEmployeeBySlug,
-  PRICING_NOTE,
-  WHITE_LABEL_NOTE,
-  ONBOARDING_NOTE,
-  SAVING_LABEL,
-} from "@/lib/data";
+import { AI_EMPLOYEES, getAIEmployeeBySlug, SAVING_LABEL } from "@/lib/data";
+// Server-only: the description, feature list and use cases for the five roles.
+// Deliberately NOT re-exported through @/lib/data — the footer is a client
+// component that imports AI_EMPLOYEES, so anything data.ts touches is compiled
+// into the browser bundle on every page of the site. This is the only file that
+// may import it.
+import { AI_EMPLOYEE_DETAILS } from "@/lib/ai-employee-details";
 
 export function generateStaticParams() {
   return AI_EMPLOYEES.map((role) => ({ slug: role.slug }));
@@ -39,6 +40,11 @@ export async function generateMetadata({
   return {
     title,
     description,
+    // Without this every role page inherits the root layout's canonical ("/")
+    // and declares itself the homepage. Relative, so it resolves through
+    // metadataBase — the sibling site ships the same role slugs, so a hardcoded
+    // host here is exactly the wrong thing.
+    alternates: { canonical: `/services/${role.slug}` },
     // openGraph is inherited wholesale from the root layout, so without this a
     // share of this page resolves and attributes to the homepage (the layout
     // pins og:url to "/"). Restating it means restating images/type/siteName
@@ -64,6 +70,7 @@ export default async function AIEmployeeDetailPage({
   const { slug } = await params;
   const role = getAIEmployeeBySlug(slug);
   if (!role) notFound();
+  const detail = AI_EMPLOYEE_DETAILS[role.slug];
 
   // Bundles list the roles they are made of; every page lists the others.
   const included = (role.includes ?? [])
@@ -72,10 +79,22 @@ export default async function AIEmployeeDetailPage({
 
   const others = AI_EMPLOYEES.filter((r) => r.slug !== role.slug);
 
+  // The page alternates white and surface all the way down, and the bundle
+  // section — always white, and rendered only for a bundle — shifts everything
+  // below it by one. So every fill under it flips on this single condition,
+  // which used to be re-derived by an inline ternary at five separate sites.
+  const hasBundle = included.length > 0;
+  const sectionBg = hasBundle ? "bg-surface" : "bg-white";
+  // The alternate fill: cards sitting inside `sectionBg`, and the next section
+  // down, are both the opposite of it.
+  const cardBg = hasBundle ? "bg-white" : "bg-surface";
+
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      {/* English-only server page, pinned to LTR/en — see
+          src/components/english-main.tsx for why. */}
+      <EnglishMain className="pt-16">
         {/* Who you're hiring, what it costs, what it covers */}
         <section className="bg-white py-20 px-6 md:px-12">
           <div className="mx-auto max-w-3xl">
@@ -94,7 +113,7 @@ export default async function AIEmployeeDetailPage({
             </div>
 
             <p className="text-base text-muted leading-relaxed mb-8">
-              {role.description}
+              {detail.description}
             </p>
 
             <a href="/book" className="btn-primary px-7 py-3.5 text-base">
@@ -117,7 +136,7 @@ export default async function AIEmployeeDetailPage({
               What they handle
             </h2>
             <ul className="space-y-3 mb-12">
-              {role.features.map((feature) => (
+              {detail.features.map((feature) => (
                 <li
                   key={feature}
                   className="flex items-start gap-3 text-sm text-muted"
@@ -133,7 +152,7 @@ export default async function AIEmployeeDetailPage({
               What it looks like on the job
             </h2>
             <ul className="space-y-3">
-              {role.useCases.map((useCase) => (
+              {detail.useCases.map((useCase) => (
                 <li
                   key={useCase}
                   className="flex items-start gap-3 text-sm text-muted"
@@ -147,7 +166,7 @@ export default async function AIEmployeeDetailPage({
         </section>
 
         {/* Bundles: the roles inside this hire */}
-        {included.length > 0 && (
+        {hasBundle && (
           <section
             aria-labelledby="included-heading"
             className="bg-white py-20 px-6 md:px-12"
@@ -164,11 +183,12 @@ export default async function AIEmployeeDetailPage({
                 {included.length} roles in one hire, sharing a calendar, a
                 customer record, and a single approval queue.
               </p>
-              {/* No workload pills here on purpose. The component workloads sum
-                  to more than the bundle's own headline figure (the Chief of
-                  Staff covers ~$9,000+/mo while its three roles list
-                  3,000 + 5,000 + 4,000), so showing both a screen apart reads
-                  as an arithmetic error. The hero carries the price story. */}
+              {/* No workload pills here on purpose. A bundle's workload IS the
+                  sum of its roles' workloads (the Chief of Staff covers
+                  ~$12,000/mo = 3,000 + 5,000 + 4,000), so a pill on each card
+                  would restate the hero's figure in parts, a screen below it,
+                  and invite the reader to add up three numbers to check our
+                  arithmetic. The hero carries the price story. */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {included.map((r) => (
                   <ServiceCard
@@ -191,9 +211,7 @@ export default async function AIEmployeeDetailPage({
         {/* Onboarding, pricing, white-label */}
         <section
           aria-labelledby="onboarding-heading"
-          className={`${
-            included.length > 0 ? "bg-surface" : "bg-white"
-          } py-20 px-6 md:px-12`}
+          className={`${sectionBg} py-20 px-6 md:px-12`}
         >
           <div className="mx-auto max-w-5xl">
             <p className="eyebrow mb-3">Hiring them</p>
@@ -203,53 +221,25 @@ export default async function AIEmployeeDetailPage({
             >
               From the call to their first day
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div
-                className={`rounded-xl border border-line p-6 ${
-                  included.length > 0 ? "bg-white" : "bg-surface"
-                }`}
-              >
-                <h3 className="text-base font-semibold text-ink mb-2">
-                  Onboarding
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {ONBOARDING_NOTE}
-                </p>
-              </div>
-              <div
-                className={`rounded-xl border border-line p-6 ${
-                  included.length > 0 ? "bg-white" : "bg-surface"
-                }`}
-              >
-                <h3 className="text-base font-semibold text-ink mb-2">
-                  What you pay
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {PRICING_NOTE}
-                </p>
-              </div>
-              <div
-                className={`rounded-xl border border-line p-6 ${
-                  included.length > 0 ? "bg-white" : "bg-surface"
-                }`}
-              >
-                <h3 className="text-base font-semibold text-ink mb-2">
-                  Under your own brand
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">
-                  {WHITE_LABEL_NOTE}
-                </p>
-              </div>
-            </div>
+            {/* Onboarding-first here: this section is about getting the role
+                working. /services shows the same three pricing-first. */}
+            <PolicyNotes
+              cardBg={cardBg}
+              notes={[
+                { note: "onboarding", heading: "Onboarding" },
+                { note: "pricing", heading: "What you pay" },
+                { note: "whiteLabel", heading: "Under your own brand" },
+              ]}
+            />
           </div>
         </section>
 
         {/* The other roles */}
+        {/* `cardBg` is the alternate fill, which is what this section takes:
+            it sits directly under `sectionBg`. */}
         <section
           aria-labelledby="others-heading"
-          className={`${
-            included.length > 0 ? "bg-white" : "bg-surface"
-          } py-20 px-6 md:px-12`}
+          className={`${cardBg} py-20 px-6 md:px-12`}
         >
           <div className="mx-auto max-w-5xl">
             <p className="eyebrow mb-3">The rest of the team</p>
@@ -295,7 +285,7 @@ export default async function AIEmployeeDetailPage({
           sub="A real conversation, not a sales pitch. In English or Farsi."
           href="/book"
         />
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

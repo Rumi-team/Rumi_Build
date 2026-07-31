@@ -21,11 +21,11 @@ export const LLMS_TXT = `# Rumi AI
 - [AI Executive Assistant](https://rumi.build/services/ai-executive-assistant): from $500/mo. Covers ~$5,000/mo of executive-support work. Lives in your email, calendar, and CRM, sends one 9am brief, takes plain-language instructions, and drafts in your voice pending your approval.
 - [AI Social Media Manager](https://rumi.build/services/ai-social-media-manager): from $400/mo. Covers ~$4,000/mo of social media work. Twelve posts and four short videos a month, plus announcements to your existing clients as Instagram DMs in a clone of the owner's own voice, up to 100 a month, each approved with a tap.
 - [AI Office Manager](https://rumi.build/services/ai-office-manager): from $800/mo. Covers ~$8,000/mo of front-office work. The Receptionist and the Executive Assistant hired together, sharing one calendar and one customer record.
-- [AI Chief of Staff](https://rumi.build/services/ai-chief-of-staff): from $900/mo. Covers ~$9,000+/mo of front-office, admin and marketing work. All three core roles at once, sharing one context and one approval queue.
+- [AI Chief of Staff](https://rumi.build/services/ai-chief-of-staff): from $900/mo. Covers ~$12,000/mo of front-office, admin and marketing work. All three core roles at once, sharing one context and one approval queue.
 - [All five roles and pricing](https://rumi.build/services): the hub, with how pricing is set and what onboarding looks like.
 
 ## Pricing
-- Every role is priced at roughly 10% of what that work costs a business today — about a 90% saving on the same work. Listed prices are starting points ("from $300/mo"), set precisely once we have seen your call volume, inbox, and tools. Month to month, no setup fee, add or drop a role as the workload moves.
+- Every role is priced at roughly 10% of what that work costs a business today — about a 90% saving on the same work. The bundles do better than the rule, never worse: the AI Chief of Staff is $900/mo against the ~$12,000/mo of work its three roles cover, which is 7.5%. Listed prices are starting points ("from $300/mo"), set precisely once we have seen your call volume, inbox, and tools. Month to month, no setup fee, add or drop a role as the workload moves.
 - Every role is also available white-labeled under the client's own brand — their name, logo, and chosen voice. Covered on the call.
 
 ## Extra services
@@ -70,12 +70,14 @@ Twelve posts and four short-form videos every month, written and produced for yo
 **AI Office Manager — from $800/mo. Covers ~$8,000/mo of front-office work.**
 The AI Receptionist and the AI Executive Assistant hired together. Both share one calendar and one customer record, so a call at 8pm and the follow-up email the next morning are the same conversation. One 9am brief covers calls and email together, approvals land in one place, and it is one monthly number for the whole front office.
 
-**AI Chief of Staff — from $900/mo. Covers ~$9,000+/mo of front-office, admin and marketing work.**
-All three core roles at once, for owners who would rather hire one thing than three. Calls answered around the clock, inbox and calendar run, CRM kept honest, social accounts posting and messaging on schedule — all sharing the same context, and all feeding one approval queue. From $900/mo for all three, against $1,200/mo if the same three roles are hired separately. (Every role is priced at roughly a tenth of its workload, so the percentage saving is the same across all five — the bundle saving is the flat $300/mo.)
+**AI Chief of Staff — from $900/mo. Covers ~$12,000/mo of front-office, admin and marketing work.**
+All three core roles at once, for owners who would rather hire one thing than three. Calls answered around the clock, inbox and calendar run, CRM kept honest, social accounts posting and messaging on schedule — all sharing the same context, and all feeding one approval queue. From $900/mo for all three, against $1,200/mo if the same three roles are hired separately. (Two savings, not one: the $300/mo off the separate prices, and the rate itself — each core role costs a tenth of its own workload, while $900/mo against the ~$12,000/mo those three roles cover is 7.5%, better than the 10% rule.)
 
 ### Pricing
 
 Every role is priced at roughly 10% of what that work costs a business today — about a 90% saving on the same work. That is the whole idea of the offer.
+
+The three core roles sit exactly on that rule: $300/mo against ~$3,000/mo of work, $500/mo against ~$5,000/mo, $400/mo against ~$4,000/mo. A bundle covers the sum of its roles' workloads and can only beat the rule, never fall short of it — the AI Office Manager is $800/mo against ~$8,000/mo (10%), and the AI Chief of Staff is $900/mo against ~$12,000/mo (7.5%).
 
 Prices are starting points, not fixed tags: "from $300/mo" through "from $900/mo". We set the actual figure once we have seen your call volume, your inbox, and the tools you already run on. Month to month, no setup fee, and you can add or drop a role as the workload moves.
 

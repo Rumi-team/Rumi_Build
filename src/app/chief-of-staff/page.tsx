@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
 // Retired. This page sold an "AI Employee · Chief of Staff" at a second URL,
 // with a scope (bookkeeping, invoicing, intake forms, project portals) that is
@@ -8,7 +8,9 @@ import { redirect } from "next/navigation";
 //
 // vercel.json also 308s /chief-of-staff to the same destination, so the edge
 // handles this before Next ever runs. This stub is the backstop if that rule is
-// ever removed. Prior content is in git history.
+// ever removed, so it has to emit the same status the edge does:
+// permanentRedirect() is a 308, plain redirect() is a 307 and would tell search
+// engines the URL is coming back. Prior content is in git history.
 export default function ChiefOfStaffPage() {
-  redirect("/services/ai-chief-of-staff");
+  permanentRedirect("/services/ai-chief-of-staff");
 }

@@ -1,3 +1,9 @@
+// @vitest-environment jsdom
+// Needs a DOM: this file reads the dictionaries through helpers/dicts.tsx,
+// which mounts LanguageProvider. The suite defaults to `node`
+// (vitest.config.ts); only the files that render opt in.
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 import * as data from "@/lib/data";
 import {
@@ -5,6 +11,12 @@ import {
   PRICING_NOTE,
   WHITE_LABEL_NOTE,
 } from "@/lib/data";
+// The two server-only detail modules the role and industry prose moved into,
+// so it stopped shipping in the client bundle through the footer. Walked here
+// for the same reason tone.test.ts walks them: the empty-string check below is
+// about copy that renders, and most of the copy that renders now lives there.
+import * as aiEmployeeDetails from "@/lib/ai-employee-details";
+import * as verticalDetails from "@/lib/vertical-details";
 import type { Dict } from "@/lib/i18n";
 import { LLMS_FULL_TXT, LLMS_TXT } from "@/lib/llms-content";
 import { loadDicts } from "./helpers/dicts";
@@ -60,6 +72,14 @@ const EN_RANGE = new RegExp(
   "gi"
 );
 
+// The same range written as a hyphenated numeral pair — "live in 1-3 weeks".
+// data.ts and the dictionaries spell it out; the page files below write it this
+// way, and matching only the spelled-out form is exactly why those three
+// surfaces were unpinned. Digits only, and a plain hyphen only: this copy is
+// full of em-dashes ("trained on your business — live in ...") and an
+// em-dash alternative here would start reading two unrelated numbers as a range.
+const EN_HYPHEN_RANGE = /\b(\d+)\s*-\s*(\d+)\s+(day|week|month)s?\b/gi;
+
 const FA_RANGE = new RegExp(
   `(${Object.keys(FA_WORDS).join("|")}|[۰-۹]+)\\s+تا\\s+` +
     `(${Object.keys(FA_WORDS).join("|")}|[۰-۹]+)\\s+(${Object.keys(FA_UNITS).join("|")})`,
@@ -70,11 +90,40 @@ const fromPersianDigits = (s: string) =>
   s.replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d)));
 
 function enRanges(text: string): string[] {
-  return [...text.matchAll(EN_RANGE)].map((m) => {
+  return [
+    ...[...text.matchAll(EN_RANGE)],
+    ...[...text.matchAll(EN_HYPHEN_RANGE)],
+  ].map((m) => {
     const lo = EN_WORDS[m[1].toLowerCase()] ?? Number(m[1]);
     const hi = EN_WORDS[m[2].toLowerCase()] ?? Number(m[2]);
     return `${lo}-${hi} ${m[3].toLowerCase()}s`;
   });
+}
+
+// ── Page-file surfaces ───────────────────────────────────────────────────────
+// These four write the timeline into metadata and JSX as a literal rather than
+// importing ONBOARDING_NOTE, so nothing tied them to it: each could be edited to
+// a different number and every assertion in this file would still pass. They are
+// read as SOURCE TEXT (comments stripped, so a comment discussing the timeline
+// is not mistaken for a claim made to a buyer) and folded into the same
+// agreement check as the data and dictionary surfaces.
+//
+// /faq is the one a buyer is most likely to read the answer on ("we get it live
+// in one to three weeks", the first answer on the page) and was the one left
+// out — it spells the range in words where the other page files hyphenate it,
+// so the surface that phrases the promise differently was also the surface
+// nothing compared.
+const PAGE_SURFACES = [
+  join("src", "app", "layout.tsx"),
+  join("src", "app", "services", "page.tsx"),
+  join("src", "app", "services", "[slug]", "page.tsx"),
+  join("src", "app", "faq", "page.tsx"),
+];
+
+function pageText(relative: string): string {
+  return readFileSync(join(process.cwd(), relative), "utf8")
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\/\/.*$/gm, "");
 }
 
 function faRanges(text: string): string[] {
@@ -95,6 +144,14 @@ describe("go-live timeline says the same thing on every surface", () => {
     expect(enRanges("goes live in 2 to 4 months, managed by us")).toEqual([
       "2-4 months",
     ]);
+    // The hyphenated spelling the page files use, normalising to the same form.
+    expect(enRanges("trained on your business, live in 1-3 weeks, managed")).toEqual([
+      "1-3 weeks",
+    ]);
+    expect(enRanges("live in 2 - 4 months")).toEqual(["2-4 months"]);
+    // An em-dash between two numbers is punctuation, not a range: "5 — three
+    // weeks" and "$1,200 — 630 days later" must not parse.
+    expect(enRanges("about 90% less — 3 weeks in")).toEqual([]);
     expect(enRanges("no range in this sentence at all")).toEqual([]);
     expect(faRanges("در یک تا سه هفته فعال می‌شود")).toEqual(["1-3 weeks"]);
     expect(faRanges("در ۲ تا ۴ ماه فعال می‌شود")).toEqual(["2-4 months"]);
@@ -104,9 +161,12 @@ describe("go-live timeline says the same thing on every surface", () => {
   it("states one and the same timeline in data.ts, the EN copy and /llms.txt", () => {
     const stated = [
       ...collectStrings(data, "data.ts"),
+      ...collectStrings(aiEmployeeDetails, "ai-employee-details.ts"),
+      ...collectStrings(verticalDetails, "vertical-details.ts"),
       ...collectStrings(EN, "i18n EN"),
       ["llms-content.ts LLMS_TXT", LLMS_TXT] as [string, string],
       ["llms-content.ts LLMS_FULL_TXT", LLMS_FULL_TXT] as [string, string],
+      ...PAGE_SURFACES.map((rel) => [rel, pageText(rel)] as [string, string]),
     ].flatMap(([path, value]) =>
       enRanges(value).map((range) => [path, range] as const)
     );
@@ -129,6 +189,12 @@ describe("go-live timeline says the same thing on every surface", () => {
       paths,
       "llms-full.txt no longer states a go-live timeline"
     ).toContain("llms-content.ts LLMS_FULL_TXT");
+    // Each page file writes the timeline as its own literal rather than
+    // importing ONBOARDING_NOTE, so each has to keep stating one — a silently
+    // deleted claim is the other half of this defect, exactly as above.
+    for (const rel of PAGE_SURFACES) {
+      expect(paths, `${rel} no longer states a go-live timeline`).toContain(rel);
+    }
 
     const distinct = [...new Set(stated.map(([, range]) => range))];
     expect(
@@ -192,29 +258,58 @@ describe("data.ts prose the /services pages render", () => {
       .toMatch(/month to month/i);
   });
 
-  it("leaves no exported copy string in data.ts empty", () => {
+  it("leaves no exported copy string in data.ts or the detail modules empty", () => {
     // i18n-parity.test.ts does exactly this for the two dictionaries. data.ts
     // needs it too: an emptied export renders an empty <p> rather than failing
     // the build, which is how WHITE_LABEL_NOTE could have gone missing unseen.
-    const ALLOWED_EMPTY = [
-      // Legacy field. The rendered team section (src/components/team.tsx)
-      // carries its own school strings; these three are deliberately blank.
-      "data.ts.TEAM[0].school",
-      "data.ts.TEAM[1].school",
-      "data.ts.TEAM[2].school",
-    ];
+    // No allowlist. `TEAM[*].school` used to be exempted here on the grounds
+    // that src/components/team.tsx carried its own school strings — which was
+    // never true of the page that renders (/team reads TEAM from this module and
+    // never showed a school), and stopped being true of anything at all when
+    // that unimported component was deleted. The field went with it, so every
+    // exported string in data.ts is now genuinely required to be non-empty.
+    const byModule = {
+      "data.ts": collectStrings(data, "data.ts"),
+      "ai-employee-details.ts": collectStrings(
+        aiEmployeeDetails,
+        "ai-employee-details.ts"
+      ),
+      "vertical-details.ts": collectStrings(verticalDetails, "vertical-details.ts"),
+    };
+    const strings = Object.values(byModule).flat();
 
-    const strings = collectStrings(data, "data.ts");
-    expect(strings.length, "the export walk came up short").toBeGreaterThan(150);
-    const paths = strings.map(([path]) => path);
-    for (const allowed of ALLOWED_EMPTY) {
-      expect(paths, `${allowed} is gone — prune the allowlist`).toContain(allowed);
+    // WALKER GUARD, not a content target. Retuned twice now, and the second
+    // retune is the reason each module is counted separately below rather than
+    // one number for the lot:
+    //   - It was >250 against a data.ts that walked to 310, back when the role
+    //     and industry prose still lived on the AI_EMPLOYEES and VERTICALS
+    //     entries.
+    //   - That prose has since moved to the two detail modules (it was shipping
+    //     in the client bundle on every route through the footer). Measured
+    //     today: data.ts 119, ai-employee-details.ts 60, vertical-details.ts 51
+    //     — 230 in total, against the 310 data.ts alone used to walk to. A
+    //     single combined bound would have kept passing if one of the two new
+    //     modules silently stopped being walked, which is exactly the failure
+    //     this split introduced the risk of.
+    // Each bound keeps roughly 20% slack under its measured count, so ordinary
+    // copy edits never trip it while a collectStrings that stops recursing, or
+    // an import that resolves to an empty namespace, fails here rather than
+    // letting the empty check below pass vacuously.
+    const FLOOR: Record<keyof typeof byModule, number> = {
+      "data.ts": 95,
+      "ai-employee-details.ts": 48,
+      "vertical-details.ts": 40,
+    };
+    for (const [module, floor] of Object.entries(FLOOR)) {
+      expect(
+        byModule[module as keyof typeof byModule].length,
+        `the export walk came up short on ${module}`
+      ).toBeGreaterThan(floor);
     }
 
     const empty = strings
       .filter(([, value]) => value.trim() === "")
-      .map(([path]) => path)
-      .filter((path) => !ALLOWED_EMPTY.includes(path));
+      .map(([path]) => path);
     expect(empty).toEqual([]);
   });
 
@@ -226,23 +321,90 @@ describe("data.ts prose the /services pages render", () => {
     // listed "a multilingual AI front desk" among what Rumi "also builds and
     // runs" — i.e. as an unpriced extra. An engine quoting this file verbatim
     // would tell a buyer they can get reception without paying for the role.
+    // Anchoring on "also builds and runs" alone only ever read the
+    // one-sentence summaries. The place a new extra actually gets added is the
+    // bullet list under the "Extra services" heading, which went unread — so
+    // both are scanned here. The exclusion statement lives inside that same
+    // block and legitimately says these words, so it is separated out first,
+    // and required: deleting it is the other half of this defect.
+    const EXTRAS_HEADING = /^#{2,4} Extra services\s*$/m;
+    const EXCLUSION = /\bnot extras\b|\bNOT on this list\b/;
+    const AS_AN_EXTRA = /front desk|reception|answering/i;
+
     for (const [name, text] of [
       ["LLMS_TXT", LLMS_TXT],
       ["LLMS_FULL_TXT", LLMS_FULL_TXT],
     ] as const) {
-      // Anchor on the sentence that enumerates the extras, not the whole file:
-      // the exclusion statement itself legitimately says these words.
+      const start = text.search(EXTRAS_HEADING);
+      expect(
+        start,
+        `${name} has no "Extra services" heading — re-anchor this test`,
+      ).toBeGreaterThan(-1);
+
+      // The heading down to the next heading of any level: the intro prose and
+      // the bullets under it.
+      const rest = text.slice(start);
+      const nextHeading = rest.search(/\n#{1,6} \S/);
+      const block = nextHeading === -1 ? rest : rest.slice(0, nextHeading);
+
+      // Bullets come out FIRST, and are only ever sentence-split within their
+      // own line. Sentence-splitting the whole block on /(?<=\.)\s+/ needs a
+      // period to break on, and `\s+` crosses newlines — so a bullet with no
+      // trailing period (the normal way a short list item gets written) merges
+      // with whatever follows it. When what follows is the exclusion statement,
+      // the merged chunk tests as an exclusion, drops out of `enumerated`, and
+      // the new bullet is never scanned at all. That is the exact escape hatch
+      // this block exists to close: "- A multilingual AI front desk" added
+      // above the exclusion sentence would have shipped green.
+      const IS_BULLET = /^\s*[-*]\s+/;
+      const lines = block.split("\n");
+      const bulletLines = lines.filter((line) => IS_BULLET.test(line));
+      expect(
+        bulletLines,
+        `${name} lists no extras under "Extra services" — re-anchor this test`,
+      ).not.toEqual([]);
+
+      const split = (s: string) =>
+        s.split(/(?<=\.)\s+/).filter((part) => part.trim() !== "");
+
+      const sentences = [
+        // Per line, so no newline can join two bullets — or a bullet and the
+        // prose under it — into one chunk. A bullet long enough to carry the
+        // exclusion in its own last sentence (LLMS_TXT writes it that way)
+        // still splits correctly, because this splits inside the line too.
+        ...bulletLines.flatMap(split),
+        ...split(lines.filter((line) => !IS_BULLET.test(line)).join("\n")),
+      ];
+
+      const exclusions = sentences.filter((s) => EXCLUSION.test(s));
+      expect(
+        exclusions,
+        `${name} no longer says reception is a priced role rather than an extra`,
+      ).not.toEqual([]);
+      for (const sentence of exclusions) {
+        expect(
+          sentence,
+          `${name}'s exclusion sentence no longer names the work it excludes`,
+        ).toMatch(AS_AN_EXTRA);
+      }
+
+      // The summaries still get read too — that is where the original defect
+      // ("a multilingual AI front desk" among what Rumi also builds) shipped.
       const alsoBuilds = text.match(/also builds and runs[^.]*/gi) ?? [];
       expect(
         alsoBuilds.length,
         `${name} no longer describes the extra services — re-anchor this test`,
       ).toBeGreaterThan(0);
 
-      for (const sentence of alsoBuilds) {
+      const enumerated = [
+        ...sentences.filter((s) => !EXCLUSION.test(s)),
+        ...alsoBuilds,
+      ];
+      for (const sentence of enumerated) {
         expect(
           sentence,
           `${name} sells reception/answering as an unpriced extra: "${sentence}"`,
-        ).not.toMatch(/front desk|reception|answering/i);
+        ).not.toMatch(AS_AN_EXTRA);
       }
     }
   });

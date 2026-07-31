@@ -11,8 +11,11 @@ import tailwindConfig from "../../tailwind.config";
 // tailwind.config.ts here rather than restated, so this test tracks the locked
 // system instead of duplicating it.
 
-// Vitest runs from the project root (jsdom rewrites import.meta.url to an http
-// URL, so the usual fileURLToPath dance is not available here).
+// Vitest runs from the project root. process.cwd() rather than import.meta.url
+// because this file used to run under jsdom, which rewrites import.meta.url to
+// an http URL and takes fileURLToPath off the table; it runs under `node` now
+// (it never touches a DOM), but cwd is correct either way and does not depend
+// on which environment the file happens to be in.
 const ROOT = process.cwd();
 const SRC = join(ROOT, "src");
 

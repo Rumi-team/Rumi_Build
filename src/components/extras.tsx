@@ -13,7 +13,7 @@ import { ServiceCard } from "@/components/service-card";
 // priced as a role, so they were removed from both.
 const ICONS = ["🌐", "📱", "📣", "🤖"];
 
-export function PlatformPillars() {
+export function Extras() {
   const { t } = useT();
   return (
     <section

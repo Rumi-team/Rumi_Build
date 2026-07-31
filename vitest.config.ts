@@ -15,7 +15,21 @@ export default defineConfig({
     },
   },
   test: {
-    environment: "jsdom",
+    // `node`, not `jsdom`. Most of this suite never touches a DOM — it reads
+    // data.ts, walks src/ off the filesystem, and parses vercel.json — but
+    // every file was paying for a jsdom instance anyway, and jsdom setup was
+    // the single largest line in the timing breakdown. The files that DO render
+    // opt in with a `// @vitest-environment jsdom` docblock on line 1 (the four
+    // component tests, plus the four that reach the dictionaries through
+    // tests/unit/helpers/dicts.tsx, which mounts LanguageProvider).
+    //
+    // A docblock rather than a config glob on purpose: `environmentMatchGlobs`
+    // was removed in Vitest 4, and a `tests/**/*.tsx` glob would not have
+    // covered the four `.ts` files that need a DOM anyway. The requirement is a
+    // property of the file, so it is declared in the file — a new test that
+    // renders fails loudly on `document is not defined` rather than quietly
+    // matching or missing a pattern in another file.
+    environment: "node",
     globals: false,
     setupFiles: ["./tests/setup.ts"],
     include: [

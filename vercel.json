@@ -8,6 +8,7 @@
 
     { "source": "/chief-of-staff", "destination": "/services/ai-chief-of-staff", "permanent": true },
     { "source": "/audit", "destination": "/book", "permanent": true },
+    { "source": "/evaluate", "destination": "/book", "permanent": true },
 
     { "source": "/services/voice-ai", "destination": "/services/ai-receptionist", "permanent": true },
     { "source": "/services/chief-of-customer-service", "destination": "/services/ai-receptionist", "permanent": true },

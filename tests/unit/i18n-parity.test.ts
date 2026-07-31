@@ -1,3 +1,7 @@
+// @vitest-environment jsdom
+// Needs a DOM: this file reads the dictionaries through helpers/dicts.tsx,
+// which mounts LanguageProvider. The suite defaults to `node`
+// (vitest.config.ts); only the files that render opt in.
 import { beforeAll, describe, expect, it } from "vitest";
 import { LANGUAGES, type Dict, type Lang } from "@/lib/i18n";
 import { loadDicts } from "./helpers/dicts";

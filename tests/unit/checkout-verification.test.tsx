@@ -16,8 +16,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 //
 // Nothing exercised any of that. The e2e suite loads /book/success with no
 // session and asserts the response is under 400, which only ever reaches the
-// `missing` branch — the five-way reason ladder and the fail-closed fix are
-// invisible to it, and to every unit test in the suite.
+// `missing` branch — the seven-way reason ladder and the fail-closed fix are
+// invisible to it, and to every unit test in the suite. The page has since
+// grown two gates in front of Stripe — the id must be shaped like a real
+// Checkout Session id, and the caller's IP must not be over the same per-IP
+// window /api/checkout uses — so the cases that never reach Stripe at all are
+// the ones this file has to prove hardest.
 //
 // `verifySession` is module-private, so the page's default export is driven
 // instead: that is the surface a visitor gets, and asserting on it also catches
@@ -31,8 +35,10 @@ const OUR_PRICE = "price_30min_strategy_call";
 type Case = {
   /** What src/lib/stripe.ts exports for the price id when the page imports it. */
   priceId: string;
-  /** The Checkout Session the stub returns, or "throw" for an unknown id. */
-  session: Record<string, unknown> | "throw";
+  /** What the retrieve stub does: return this session, or throw this error. */
+  session: Record<string, unknown> | { throws: unknown };
+  /** Simulate this visitor's IP having exhausted the lookup rate limit. */
+  overLimit?: boolean;
 };
 
 const paidForOurProduct = {
@@ -43,9 +49,28 @@ const paidForOurProduct = {
   line_items: { data: [{ price: { id: OUR_PRICE } }] },
 };
 
+// What stripe-node throws for an id Stripe has never seen: typed, 404,
+// resource_missing. Plain objects with a `type` rather than instances of
+// Stripe.errors.*: vi.resetModules gives the page its own copy of the stripe
+// package, so a class identity from this file could never match there anyway —
+// which is why the page matches on `type` too.
+const noSuchSession = () =>
+  Object.assign(new Error("No such checkout.session: 'cs_test_madeup'"), {
+    type: "StripeInvalidRequestError",
+    code: "resource_missing",
+    statusCode: 404,
+  });
+
+// What an outage looks like: any Stripe failure that is NOT an invalid id —
+// network drop, 5xx, 429.
+const stripeDown = () =>
+  Object.assign(new Error("An error occurred with our connection to Stripe."), {
+    type: "StripeConnectionError",
+  });
+
 /** Import the page with Stripe stubbed, render it, and hand back the markup. */
 async function renderSuccess(
-  { priceId, session }: Case,
+  { priceId, session, overLimit = false }: Case,
   searchParams: { session_id?: string }
 ) {
   vi.resetModules();
@@ -56,13 +81,29 @@ async function renderSuccess(
         sessions: {
           retrieve: async () => {
             retrieved += 1;
-            if (session === "throw") throw new Error("No such checkout session");
+            if ("throws" in session) throw session.throws;
             return session;
           },
         },
       },
     }),
   }));
+  // The page reads the visitor's IP for its rate limiter; a unit render has no
+  // request scope for next/headers to read, so hand it a fixed one.
+  vi.doMock("next/headers", () => ({
+    headers: async () => new Headers({ "x-forwarded-for": "203.0.113.9" }),
+  }));
+  if (overLimit) {
+    vi.doMock("@/lib/rate-limit", async (importOriginal) => ({
+      ...(await importOriginal<typeof import("@/lib/rate-limit")>()),
+      rateLimit: () => ({ ok: false, retryAfterMs: 30_000 }),
+    }));
+  } else {
+    // Not just afterEach's job: the cross-check below renders every refusal
+    // inside ONE test, so a stub left standing from the over-limit case would
+    // hand the next case the rate-limited message instead of its own.
+    vi.doUnmock("@/lib/rate-limit");
+  }
   const { default: BookSuccessPage } = await import("@/app/book/success/page");
   const element = await BookSuccessPage({
     searchParams: Promise.resolve(searchParams),
@@ -87,6 +128,8 @@ beforeEach(() => {
 afterEach(() => {
   vi.restoreAllMocks();
   vi.doUnmock("@/lib/stripe");
+  vi.doUnmock("next/headers");
+  vi.doUnmock("@/lib/rate-limit");
   localStorage.clear();
 });
 
@@ -139,7 +182,16 @@ describe("/book/success verifies the session before it renders anything", () => 
   // Driven as a table because the page picks between them with a four-deep
   // nested ternary, where a shifted branch shows the wrong explanation rather
   // than failing.
-  const REFUSALS = [
+  type Refusal = {
+    reason: string;
+    when: Case;
+    params: { session_id?: string };
+    says: RegExp;
+    asksStripe: boolean;
+    /** Set when the failure is OUR fault and must leave a trace for the operator. */
+    logs?: RegExp;
+  };
+  const REFUSALS: Refusal[] = [
     {
       reason: "not_paid",
       when: {
@@ -159,7 +211,7 @@ describe("/book/success verifies the session before it renders anything", () => 
           line_items: { data: [{ price: { id: "price_something_else" } }] },
         },
       },
-      params: { session_id: "cs_test_other_product" },
+      params: { session_id: "cs_test_otherproduct" },
       says: /isn't for our 30-min call/i,
       asksStripe: true,
     },
@@ -175,16 +227,32 @@ describe("/book/success verifies the session before it renders anything", () => 
     },
     {
       reason: "invalid",
-      when: { priceId: OUR_PRICE, session: "throw" as const },
-      params: { session_id: "cs_made_up" },
+      when: { priceId: OUR_PRICE, session: { throws: noSuchSession() } },
+      params: { session_id: "cs_test_madeup" },
       says: /couldn't find that checkout session/i,
       asksStripe: true,
     },
-  ] as const;
+    {
+      reason: "rate_limited",
+      when: { priceId: OUR_PRICE, session: paidForOurProduct, overLimit: true },
+      params: { session_id: "cs_test_wouldverify" },
+      says: /try again in a moment/i,
+      // The whole point of the limit: an over-quota visitor costs no API call.
+      asksStripe: false,
+    },
+    {
+      reason: "unavailable",
+      when: { priceId: OUR_PRICE, session: { throws: stripeDown() } },
+      params: { session_id: "cs_test_outage" },
+      says: /your payment is safe/i,
+      asksStripe: true,
+      logs: /stripe session lookup failed/i,
+    },
+  ];
 
   it.each(REFUSALS)(
     "$reason: explains itself, prints no email, and offers the way back to /book",
-    async ({ when, params, says, asksStripe }) => {
+    async ({ when, params, says, asksStripe, logs }) => {
       const { container } = await renderSuccess(when, params);
 
       expect(container.textContent, "the refusal message is missing").toMatch(says);
@@ -204,8 +272,16 @@ describe("/book/success verifies the session before it renders anything", () => 
           ? "the page never asked Stripe about the session"
           : "the page called Stripe with no session id"
       ).toBe(asksStripe);
-      // Only the unconfigured case is our fault, so only it logs.
-      expect(errors).toEqual([]);
+      // Failures that are OUR fault must leave a trace for the operator;
+      // failures that are the visitor's must not cry wolf in the logs.
+      if (logs) {
+        expect(
+          errors.join("\n"),
+          "the outage was swallowed silently — an operator cannot see Stripe failing"
+        ).toMatch(logs);
+      } else {
+        expect(errors).toEqual([]);
+      }
     }
   );
 
@@ -229,5 +305,44 @@ describe("/book/success verifies the session before it renders anything", () => 
         ).not.toMatch(says);
       }
     }
+  });
+
+  it.each([
+    "not-a-session-id",
+    "cs_test_",
+    "cs_live_abc<script>",
+    // A Stripe id of the WRONG KIND — right prefix family, still not a session.
+    "price_30min_strategy_call",
+  ])(
+    "never asks Stripe about %j — junk shapes are refused before the API call",
+    async (junk) => {
+      const { container } = await renderSuccess(
+        { priceId: OUR_PRICE, session: paidForOurProduct },
+        { session_id: junk }
+      );
+      expect(
+        retrieved,
+        "a junk-shaped id reached Stripe — free quota burn for whoever loops this URL"
+      ).toBe(0);
+      // Same verdict a genuinely unknown id gets, so a probe learns nothing
+      // about which shapes exist.
+      expect(container.textContent).toMatch(/couldn't find that checkout session/i);
+      expect(container.textContent).not.toContain(PAYER);
+      expect(errors).toEqual([]);
+    }
+  );
+
+  it("tells a paying customer the outage is ours — never that their session doesn't exist", async () => {
+    // The old bare catch mapped EVERY throw to "couldn't find that checkout
+    // session" — including the Stripe blip that hits right after a real
+    // payment, which read as "your money went nowhere".
+    const { container } = await renderSuccess(
+      { priceId: OUR_PRICE, session: { throws: stripeDown() } },
+      { session_id: "cs_live_realpayment" }
+    );
+    expect(container.textContent).toMatch(/on our side/i);
+    expect(container.textContent).toMatch(/your payment is safe/i);
+    expect(container.textContent).not.toMatch(/couldn't find/i);
+    expect(container.textContent).not.toContain(PAYER);
   });
 });

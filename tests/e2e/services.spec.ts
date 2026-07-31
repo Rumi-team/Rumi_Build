@@ -1,5 +1,14 @@
 import { expect, test } from "@playwright/test";
-import { AI_EMPLOYEES, getAIEmployeeBySlug } from "@/lib/data";
+import {
+  AI_EMPLOYEES,
+  ONBOARDING_NOTE,
+  PRICING_NOTE,
+  WHITE_LABEL_NOTE,
+  getAIEmployeeBySlug,
+} from "@/lib/data";
+// The role prose lives here now rather than on the AIEmployee entries — it was
+// shipping in the client bundle on every route through the footer.
+import { AI_EMPLOYEE_DETAILS } from "@/lib/ai-employee-details";
 
 test.describe("nav", () => {
   test('"AI Employees" leads the nav and lands on the hub', async ({ page }) => {
@@ -40,8 +49,9 @@ test.describe("role detail pages", () => {
       await expect(page.getByText("90% off").first()).toBeVisible();
 
       // The job itself, straight out of the data.
-      await expect(page.getByText(role.features[0])).toBeVisible();
-      await expect(page.getByText(role.useCases[0])).toBeVisible();
+      const detail = AI_EMPLOYEE_DETAILS[role.slug];
+      await expect(page.getByText(detail.features[0])).toBeVisible();
+      await expect(page.getByText(detail.useCases[0])).toBeVisible();
 
       // The other four roles are offered at the bottom of every role page.
       const others = AI_EMPLOYEES.filter((r) => r.slug !== role.slug);
@@ -89,4 +99,45 @@ test.describe("role detail pages", () => {
       page.getByRole("heading", { name: /couldn't find that page/i })
     ).toBeVisible();
   });
+});
+
+test.describe("the three prose notes", () => {
+  // PRICING_NOTE, ONBOARDING_NOTE and WHITE_LABEL_NOTE are the sentences that
+  // explain the offer: why the price is what it is, what happens between signing
+  // and going live, and that a role can run under the client's own brand.
+  // tests/unit/copy-invariants.test.ts pins their CONTENT — that they still make
+  // each claim — but nothing proved the pages still put them on screen. An
+  // import dropped during a refactor takes the promise off six pages while every
+  // unit test stays green, which is exactly how WHITE_LABEL_NOTE went missing
+  // before.
+  //
+  // The fragments are sliced out of the constants rather than retyped, so this
+  // cannot drift into asserting stale copy: an edit to a note moves the
+  // expectation with it, and only a note that stops RENDERING fails here. The
+  // slice starts past the opening clause because the first few words of a note
+  // are the sort of thing a nearby heading legitimately echoes.
+  const NOTES = [
+    ["PRICING_NOTE", PRICING_NOTE],
+    ["ONBOARDING_NOTE", ONBOARDING_NOTE],
+    ["WHITE_LABEL_NOTE", WHITE_LABEL_NOTE],
+  ] as const;
+
+  const fragment = (note: string) => note.slice(40, 100);
+
+  for (const path of ["/services", "/services/ai-receptionist"]) {
+    test(`${path} renders all three`, async ({ page }) => {
+      await page.goto(path);
+      const main = page.locator("main");
+      for (const [name, note] of NOTES) {
+        const text = fragment(note);
+        // Guards the slicing itself: a constant that shrank below the slice
+        // window would otherwise assert the empty string, which trivially
+        // passes.
+        expect(text.length, `${name} is too short to fingerprint`).toBe(60);
+        await expect(main, `${path} no longer renders ${name}`).toContainText(
+          text
+        );
+      }
+    });
+  }
 });

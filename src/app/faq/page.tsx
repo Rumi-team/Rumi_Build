@@ -1,11 +1,35 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
+
+const TITLE = "FAQ — Rumi AI";
+const DESCRIPTION =
+  "Straight answers on the five AI employees you can hire from Rumi AI, what each costs, how the 90% saving works, white-labeling, what it means for your existing team, and the extra services we build and run.";
 
 export const metadata: Metadata = {
-  title: "FAQ — Rumi AI",
-  description:
-    "Straight answers on the five AI employees you can hire from Rumi AI, what each costs, how the 90% saving works, white-labeling, what it means for your existing team, and the extra services we build and run.",
+  title: TITLE,
+  description: DESCRIPTION,
+  // The root layout's canonical is "/" and is inherited wholesale, so a page
+  // without its own declares itself the homepage. Relative, so it resolves
+  // through metadataBase and follows the canonical host.
+  alternates: { canonical: "/faq" },
+  // `openGraph` is inherited wholesale too — same rule as `title` and
+  // `alternates`, and the other half of the same defect. Without this block the
+  // built HTML carried `canonical: /faq` beside `og:url: /` and the homepage's
+  // og:title, so every share of this page resolved and attributed to "/".
+  // Restating openGraph replaces the layout's object rather than merging into
+  // it, so siteName/type/images have to be restated or the preview image is
+  // lost. `url` is relative on purpose: it follows metadataBase rather than
+  // pinning a host a sibling site also ships.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/faq",
+    siteName: "Rumi AI",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 // Static, visible Q&A (no accordion) — deliberate, so search engines and AI
@@ -98,10 +122,20 @@ export default function FaqPage() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      <EnglishMain className="pt-16">
+        {/* Every "<" is escaped to its JSON \u003c form before it reaches
+            dangerouslySetInnerHTML. Inside a script element the HTML parser is
+            still scanning for the closing tag, so an answer containing that
+            sequence would end the script early and spill the rest of the JSON
+            into the page as markup. The escape is transparent to every JSON
+            parser, so the FAQPage schema an engine reads is unchanged. FAQS is
+            authored in this file today, but this is an HTML sink either way and
+            getting it right costs one call. */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
+          }}
         />
         <section className="bg-white py-20 px-6 md:px-12">
           <div className="mx-auto max-w-3xl">
@@ -127,7 +161,7 @@ export default function FaqPage() {
             </dl>
           </div>
         </section>
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

@@ -27,7 +27,7 @@ export function SavingBadge({
 }) {
   return (
     <span
-      className={`rounded-md bg-accent font-semibold uppercase tracking-wide text-white ${SAVING_SIZES[size]}`}
+      className={`rounded-md bg-accent-hover font-semibold uppercase tracking-eyebrow text-white ${SAVING_SIZES[size]}`}
     >
       {label}
     </span>
