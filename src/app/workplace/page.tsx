@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
 
+// Deliberately unindexed hiring copy — it is kept out of the sitemap, and this
+// is what actually keeps it out of the index (leaving a URL out of the sitemap
+// only stops advertising it). The OG/Twitter cards below stay: the page is
+// meant to be shared in a DM or a job post, just not to rank.
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+  // The root layout's canonical is "/" and is inherited wholesale, so without
+  // this the page declares itself the homepage. Relative, so it resolves
+  // through metadataBase and follows the canonical host.
+  alternates: { canonical: "/workplace" },
   title: "Workplace — How We Work at Rumi AI",
   description:
     "Remote-first AI agency. Async-by-default, outcome-based, deep-work mornings. We ship in days, not roadmaps in months.",
@@ -10,7 +20,10 @@ export const metadata: Metadata = {
     title: "Workplace — How We Work at Rumi AI",
     description:
       "Remote-first AI agency. Async-by-default, outcome-based, deep-work mornings. We ship in days, not roadmaps in months.",
-    url: "https://rumi.build/workplace",
+    // Relative, like every other canonical and og:url on the site: it resolves
+    // through metadataBase and follows the canonical host, rather than pinning
+    // a domain a sibling site also ships under.
+    url: "/workplace",
     siteName: "Rumi AI",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -59,7 +72,7 @@ const PRINCIPLES = [
     title: "Trust, then tools",
     icon: "◇",
     body:
-      "We hire people who can run their own loop. Tooling is there to amplify good judgment, not replace it. If you need a manager to make a decision, this isn't the right team.",
+      "We hire people who can run their own loop. Tooling is there to amplify good judgment, not stand in for it. If you need a manager to make a decision, this isn't the right team.",
   },
 ];
 
@@ -106,7 +119,7 @@ export default function WorkplacePage() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      <EnglishMain className="pt-16">
         {/* Hero */}
         <section className="relative px-6 pt-20 pb-16 overflow-hidden bg-white">
           <div className="hero-glow" />
@@ -137,8 +150,15 @@ export default function WorkplacePage() {
             >
               Work with us →
             </a>
+            {/* HAND-WRITTEN durations, here and in the closing section below,
+                and deliberately so: this page is prose about how we work, not a
+                price list, and it quotes no figure. If a length is ever added
+                to or dropped from CALL_OPTIONS (src/lib/stripe.ts), both
+                sentences need a human edit — no test can spell them for you.
+                price-copy.test.ts scans this file for dollar figures only. */}
             <p className="mt-4 text-sm text-muted">
-              30-minute call. We learn the problem, you decide the fit.
+              A paid strategy call, 30 or 60 minutes. We learn the problem, you
+              decide the fit.
             </p>
           </div>
         </section>
@@ -213,8 +233,10 @@ export default function WorkplacePage() {
                   key={step.num}
                   className="card p-6 md:p-8 flex gap-6 md:gap-8"
                 >
+                  {/* accent-hover, not accent: white on #059669 fails WCAG AA.
+                      Buttons keep white-on-accent; numerals like this do not. */}
                   <span
-                    className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-accent text-base md:text-lg font-bold text-white shrink-0"
+                    className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-accent-hover text-base md:text-lg font-bold text-white shrink-0"
                     aria-hidden
                   >
                     {step.num}
@@ -288,8 +310,9 @@ export default function WorkplacePage() {
             </h2>
 
             <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl mx-auto">
-              30 minutes. We learn what you&rsquo;re building, you see how we
-              work. No commitment.
+              Thirty minutes, or sixty if there is a lot to cover. We learn what
+              you&rsquo;re building, you see how we work. Refunded if we
+              can&rsquo;t help.
             </p>
 
             <a
@@ -300,7 +323,7 @@ export default function WorkplacePage() {
             </a>
           </div>
         </section>
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

@@ -1,19 +1,27 @@
 import { Nav } from "@/components/nav";
 import { Hero } from "@/components/hero";
-import { PlatformPillars } from "@/components/platform-pillars";
+import { AIEmployees } from "@/components/ai-employees";
+import { Extras } from "@/components/extras";
 import { HowItWorks } from "@/components/how-it-works";
 import { TeamTeaser } from "@/components/team-teaser";
 import { MissionVision } from "@/components/mission-vision";
 import { HomeSectionCTA } from "@/components/home-section-cta";
 import { Footer } from "@/components/footer";
 
+// Section order leads with the AI Employees offer; everything Rumi also builds
+// and runs (website, app, content, visibility) follows as "extra services".
+// Background rhythm: navy hero -> white -> surface -> white -> surface -> white
+// -> navy CTA -> navy footer.
 export default function Home() {
   return (
     <>
       <Nav />
       <main>
         <Hero />
-        <PlatformPillars />
+        {/* The offer: five roles you can hire */}
+        <AIEmployees />
+        {/* Secondary: what else we build and run for a business */}
+        <Extras />
         <HowItWorks />
         {/* Trust beat: founders who've done it at scale */}
         <TeamTeaser />

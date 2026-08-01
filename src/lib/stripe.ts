@@ -1,4 +1,10 @@
 import Stripe from "stripe";
+import {
+  CAL_LINK,
+  CALENDLY_URL,
+  CAL_LINK_60MIN,
+  CALENDLY_URL_60MIN,
+} from "@/lib/data";
 
 let _stripe: Stripe | null = null;
 
@@ -12,6 +18,101 @@ export function getStripe(): Stripe {
   return _stripe;
 }
 
-export const STRIPE_PRICE_ID_30MIN = process.env.STRIPE_PRICE_ID_30MIN || "";
 export const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://rumi.build";
+
+// ── The paid call, in two lengths ────────────────────────────────────────────
+//
+// ONE source of truth for both options. The price used to be written out four
+// times — the <title>, the H1, the submit button and the e2e assertion — with
+// nothing tying them together, so three of them could drift from the price
+// Stripe actually charges and only the button was covered by a test. Everything
+// user-facing now reads these entries.
+//
+// PRICE IDS ARE ENV-ONLY. Never write a `price_…` literal into this file: the
+// live and test ids differ, and a hardcoded one silently charges the wrong
+// account. The `|| ""` default is load-bearing — /api/checkout and /book/success
+// both fail closed on the empty string, and CI builds the site with neither
+// variable set, so a module-level throw here would turn every build red.
+
+export type CallOptionId = "30min" | "60min";
+
+export interface CallOption {
+  /** Stable id. Travels in the POST body and in the Stripe session metadata. */
+  id: CallOptionId;
+  minutes: number;
+  /** Display price, exactly as rendered. Derived checks pin it to amountUsd. */
+  price: string;
+  amountUsd: number;
+  /** Short label for the chooser card. */
+  label: string;
+  /** One line explaining who each length is for. */
+  blurb: string;
+  /**
+   * The Stripe Price id, read from `envVar`. "" when unset — every consumer
+   * treats that as "not configured" and refuses rather than guessing.
+   */
+  priceId: string;
+  /** Named so an operator reading a server log knows what to go and set. */
+  envVar: string;
+  /**
+   * The Cal.com event type this length books on, and the same event as a full
+   * URL for the "open in a new tab" link. "" when no event type exists yet.
+   *
+   * ON THE OPTION, deliberately, and not picked with an `if` at the point of
+   * render: /book/success used to choose the calendar with
+   * `optionId === "60min" ? … : CAL_LINK`, so every length that was not
+   * literally "60min" fell through to the 30-minute event while the sentence
+   * above the embed read its length off this catalog. A third option would
+   * have rendered "Choose a 90-minute slot" over a 30-minute booking, and it
+   * would have type-checked, built and passed the suite. Required, so adding
+   * an option forces an answer here; "" is the answer that shows the
+   * email-you-times fallback instead of a calendar of the wrong length.
+   */
+  calLink: string;
+  calUrl: string;
+}
+
+export const CALL_OPTIONS: readonly CallOption[] = [
+  {
+    id: "30min",
+    minutes: 30,
+    price: "$75",
+    amountUsd: 75,
+    label: "30 minutes",
+    blurb: "One question, a straight recommendation, and a quote.",
+    priceId: process.env.STRIPE_PRICE_ID_30MIN || "",
+    envVar: "STRIPE_PRICE_ID_30MIN",
+    calLink: CAL_LINK,
+    calUrl: CALENDLY_URL,
+  },
+  {
+    id: "60min",
+    minutes: 60,
+    price: "$125",
+    amountUsd: 125,
+    label: "60 minutes",
+    blurb: "Room to walk through several roles, your tools, and the numbers.",
+    priceId: process.env.STRIPE_PRICE_ID_60MIN || "",
+    envVar: "STRIPE_PRICE_ID_60MIN",
+    // "" until someone creates the 60-minute event type in the Cal.com
+    // dashboard and sets NEXT_PUBLIC_CAL_LINK_60MIN — see TODOS.md.
+    calLink: CAL_LINK_60MIN,
+    calUrl: CALENDLY_URL_60MIN,
+  },
+];
+
+/**
+ * Pre-selected on /book. NOT a server-side fallback: `duration` is required by
+ * /api/checkout's schema and a body without one is refused, never defaulted —
+ * guessing a length is how a buyer gets charged for a call they did not pick.
+ * The one visible consequence is the deploy window: a browser still holding a
+ * pre-1.1.0.0 /book bundle posts no duration and is answered with a 400, which
+ * the form asks them to recover from by reloading.
+ */
+export const DEFAULT_CALL_OPTION_ID: CallOptionId = "30min";
+
+/** `undefined` for anything that is not one of the ids above. */
+export function getCallOption(id: string | undefined): CallOption | undefined {
+  return CALL_OPTIONS.find((o) => o.id === id);
+}

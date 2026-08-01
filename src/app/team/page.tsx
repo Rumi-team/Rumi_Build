@@ -1,14 +1,34 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
 import { PageHeader } from "@/components/page-header";
 import { SectionCTA } from "@/components/section-cta";
 import { TEAM } from "@/lib/data";
 
+const TITLE = "Team — Rumi AI";
+const DESCRIPTION =
+  "Meet the team behind rumi.build. Product and AI builders who've shipped at Business Insider, Spotter, UCLA, and Imperial College — now building websites, apps, and AI-era visibility for small businesses everywhere.";
+
 export const metadata: Metadata = {
-  title: "Team — Rumi AI",
-  description:
-    "Meet the team behind rumi.build. Product and AI builders who've shipped at Business Insider, Spotter, UCLA, and Imperial College — now building websites, apps, and AI-era visibility for small businesses everywhere.",
+  title: TITLE,
+  description: DESCRIPTION,
+  // The root layout's canonical is "/" and is inherited wholesale, so a page
+  // without its own declares itself the homepage. Relative, so it resolves
+  // through metadataBase and follows the canonical host.
+  alternates: { canonical: "/team" },
+  // `openGraph` is inherited wholesale for the same reason, so without this the
+  // page shipped its own canonical beside the homepage's og:url and og:title.
+  // Restating it replaces the layout's object, so images/type/siteName have to
+  // be restated too or the social preview image is lost.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/team",
+    siteName: "Rumi AI",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 const PRODUCTS = [
@@ -30,7 +50,7 @@ export default function TeamPage() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      <EnglishMain className="pt-16">
         {/* Hero */}
         <section className="py-20 px-6">
           <div className="mx-auto max-w-4xl">
@@ -57,7 +77,9 @@ export default function TeamPage() {
                     className="h-24 w-24 rounded-full object-cover border-2 border-line"
                   />
                   <p className="text-base font-semibold text-ink mt-3">{member.name}</p>
-                  <span className="inline-block mt-1.5 rounded-full bg-accent px-3 py-0.5 text-xs font-semibold text-white">
+                  {/* accent-hover, not accent: white on #059669 fails WCAG AA
+                      at 12px. Buttons keep white-on-accent; micro-text does not. */}
+                  <span className="inline-block mt-1.5 rounded-full bg-accent-hover px-3 py-0.5 text-xs font-semibold text-white">
                     {member.role}
                   </span>
                 </div>
@@ -127,7 +149,7 @@ export default function TeamPage() {
         </section>
 
         <SectionCTA />
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

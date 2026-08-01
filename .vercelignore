@@ -7,8 +7,16 @@ __tests__/
 
 # Dev-only config
 .vscode/
-.env*.local
 .github/
+
+# Every env file, matching .gitignore. `.env*.local` alone left a plain `.env`
+# or a local `.env.production` — the files that hold STRIPE_SECRET_KEY and
+# STRIPE_WEBHOOK_SECRET — free to ride along in the upload a CLI
+# `vercel deploy` makes from this working tree. Env vars belong in the Vercel
+# project, never in the deployment payload.
+.env
+.env*
+!.env.example
 
 # Docs (not needed at runtime)
 *.md

@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 
-// rumi.build uses `output: "export"` (static HTML export). Metadata routes
-// like robots.ts need to be explicitly force-static, otherwise Next.js treats
-// them as dynamic at build time and the export step errors out.
+// Metadata routes are pinned force-static so they resolve at build time rather
+// than being treated as dynamic. (next.config.ts no longer sets
+// output: "export" — that was dropped for the Stripe/API routes — but a static
+// robots.txt is still what we want. Same rationale as src/app/sitemap.ts.)
 export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {

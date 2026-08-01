@@ -9,7 +9,7 @@ export function MissionVision() {
   return (
     <section
       aria-labelledby="mission-heading"
-      className="bg-surface py-20 px-6 md:px-12"
+      className="bg-white py-20 px-6 md:px-12"
     >
       <div className="mx-auto max-w-5xl">
         <p className="eyebrow mb-3">{t.mission.eyebrow}</p>

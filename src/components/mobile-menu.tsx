@@ -7,7 +7,9 @@ export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const { t } = useT();
 
+  // Mirror of nav.tsx's desktop link list — keep the two in sync.
   const links = [
+    { label: t.nav.aiEmployees, href: "/services" },
     { label: t.nav.industries, href: "/industries" },
     { label: t.nav.team, href: "/team" },
     { label: t.nav.faq, href: "/faq" },

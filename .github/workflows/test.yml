@@ -1,0 +1,72 @@
+name: test
+
+on:
+  # Scoped to the default branch on purpose: an unfiltered `push` paired with
+  # `pull_request` runs the whole matrix twice for every commit on a branch that
+  # has an open PR — two installs, two Chromium downloads, two `next build`s.
+  push:
+    branches: [main]
+  pull_request:
+
+# Least privilege: this workflow only ever reads the checkout and uploads an
+# artifact. The repo default for the GITHUB_TOKEN is write, which would let any
+# step (or a compromised dependency in `pnpm install`) push commits or move tags.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # Every action below is pinned to a full commit SHA, not a tag. A tag is a
+    # moving pointer the action's own maintainers can repoint at any time — and
+    # `@v4` in particular is repointed on every 4.x release — so a tag reference
+    # is "run whatever this third party publishes next, with our checkout and
+    # our GITHUB_TOKEN". That is the supply-chain path the tj-actions/changed-
+    # files compromise took: attacker pushes to the repo, moves the version
+    # tags, and every workflow referencing them runs the new code on its next
+    # build. A SHA cannot be moved, so an upgrade becomes a reviewable diff.
+    # Update by resolving the tag again:
+    #   gh api repos/<owner>/<repo>/git/ref/tags/v4 --jq .object.sha
+    # (pnpm/action-setup ships v4 as an ANNOTATED tag, so that returns the tag
+    # object — dereference it with git/tags/<sha> --jq .object.sha.)
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4 (v4.4.0)
+
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4 (v4.3.0)
+        with:
+          version: 10
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4 (v4.4.0)
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # tsconfig.json covers tests/ as well as src/, but nothing else here
+      # typechecks it: `next build` only checks what it compiles, and Vitest
+      # transpiles tests without checking types.
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+
+      - name: Unit + component tests
+        run: pnpm test
+
+      # chromium only — the suite pins content and routing, not cross-browser rendering.
+      - name: Install Playwright chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Playwright's webServer block runs `pnpm build && pnpm start --port 3311`.
+      - name: End-to-end tests
+        run: pnpm test:e2e
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 (v4.6.2)
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

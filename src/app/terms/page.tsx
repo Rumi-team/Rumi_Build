@@ -1,19 +1,38 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
 import { SmsConsentClause } from "@/components/sms-consent-clause";
 
+const TITLE = "Terms & Conditions — Rumi AI";
+const DESCRIPTION =
+  "The terms and conditions governing your use of Rumi's lead-generation and multilingual communications services, including our SMS / text-messaging program.";
+
 export const metadata: Metadata = {
-  title: "Terms & Conditions — Rumi AI",
-  description:
-    "The terms and conditions governing your use of Rumi's lead-generation and multilingual communications services, including our SMS / text-messaging program.",
+  title: TITLE,
+  description: DESCRIPTION,
+  // The root layout's canonical is "/" and is inherited wholesale, so a page
+  // without its own declares itself the homepage. Relative, so it resolves
+  // through metadataBase and follows the canonical host.
+  alternates: { canonical: "/terms" },
+  // `openGraph` is inherited wholesale for the same reason. Same note as
+  // /privacy: this URL is fetched by carriers during A2P/SMS campaign vetting,
+  // so the preview has to name the document rather than the offer.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/terms",
+    siteName: "Rumi AI",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 export default function TermsPage() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      <EnglishMain className="pt-16">
         {/* Header */}
         <section className="py-20 px-6">
           <div className="mx-auto max-w-3xl">
@@ -238,7 +257,7 @@ export default function TermsPage() {
             </div>
           </div>
         </section>
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

@@ -1,11 +1,35 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { EnglishMain } from "@/components/english-main";
+
+const TITLE = "FAQ — Rumi AI";
+const DESCRIPTION =
+  "Straight answers on the five AI employees you can hire from Rumi AI, what each costs, how the 90% saving works, white-labeling, what it means for your existing team, and the extra services we build and run.";
 
 export const metadata: Metadata = {
-  title: "FAQ — Rumi AI",
-  description:
-    "Straight answers about what Rumi AI does: websites, social media, AI visibility, and a multilingual AI front desk for local, trust-based businesses in Los Angeles.",
+  title: TITLE,
+  description: DESCRIPTION,
+  // The root layout's canonical is "/" and is inherited wholesale, so a page
+  // without its own declares itself the homepage. Relative, so it resolves
+  // through metadataBase and follows the canonical host.
+  alternates: { canonical: "/faq" },
+  // `openGraph` is inherited wholesale too — same rule as `title` and
+  // `alternates`, and the other half of the same defect. Without this block the
+  // built HTML carried `canonical: /faq` beside `og:url: /` and the homepage's
+  // og:title, so every share of this page resolved and attributed to "/".
+  // Restating openGraph replaces the layout's object rather than merging into
+  // it, so siteName/type/images have to be restated or the preview image is
+  // lost. `url` is relative on purpose: it follows metadataBase rather than
+  // pinning a host a sibling site also ships.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/faq",
+    siteName: "Rumi AI",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 // Static, visible Q&A (no accordion) — deliberate, so search engines and AI
@@ -14,7 +38,19 @@ export const metadata: Metadata = {
 const FAQS: { q: string; a: string }[] = [
   {
     q: "What does Rumi AI actually do?",
-    a: "We build your website, social media presence, and AI visibility, then turn that into a steady flow of qualified local customers. You get one team handling all of it, not separate vendors who don't talk to each other.",
+    a: "We recruit, train, and manage AI employees for your business. You hire a role — an AI Receptionist, an AI Executive Assistant, an AI Social Media Manager, or a bundle of them — and we get it live in one to three weeks, trained on your own calls, inbox, calendar, and tone of voice, then keep managing it. We also build and run the rest of the digital side if you need it: the website, the app, the content, and being found when someone searches or asks an AI who to hire.",
+  },
+  {
+    q: "What roles can I hire, and what do they cost?",
+    a: "Five. AI Receptionist from $300/mo, AI Social Media Manager from $400/mo, AI Executive Assistant from $500/mo, AI Office Manager (Receptionist plus Executive Assistant) from $800/mo, and AI Chief of Staff (all three core roles) from $900/mo. Each one is priced at roughly a tenth of what that volume of work costs a business today. The full detail on each role is on the AI Employees page.",
+  },
+  {
+    q: "How can it be 90% cheaper for the same work?",
+    a: "Because the roles handle the part of the job that repeats — the calls that go to voicemail, the inbox triage, the posting schedule — and that part scales cheaply once it has been trained on your business. The judgement calls still come to you. So you are paying for volume of work handled, not for someone's time, and the arithmetic ends up around a tenth.",
+  },
+  {
+    q: "Can a role run under my own brand?",
+    a: "Yes. Any of the five can run white-labeled — your name on it, your logo, a voice you choose. Your customers only ever see you, never Rumi. We go through how that works and what it costs on the call.",
   },
   {
     q: "Do you build a full website, or just improve how I show up in AI search?",
@@ -54,11 +90,18 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How much does this cost?",
-    a: "Pricing depends on your business and what you need built. Book a call and we'll walk you through it.",
+    a: "The AI employee roles have published starting prices, from $300/mo up to $900/mo depending on the role. They are starting points: we set the actual number once we have seen your call volume, your inbox, and the tools you use. Month to month, no setup fee. The extra services — a website, an app, content — are scoped on the call, because what they cost depends on what you need built.",
   },
   {
-    q: "Will this replace my staff?",
-    a: "No. This isn't about replacing people. If your AI front desk or automated follow-up saves time, that's time your team gets back for the work that actually grows the business — not a reason to cut anyone.",
+    // Bare dollar figures on purpose — no "/mo" on either. The call is a one-off
+    // and price-copy.test.ts reads every "$N/mo" in this file as a role price,
+    // so writing the call fee that way would read as a sixth role.
+    q: "What does the call cost, and why are there two?",
+    a: "The strategy call comes in two lengths and you pick one at checkout: 30 minutes for $75, or 60 minutes for $125. Thirty is enough for one question and a straight recommendation. Sixty is for when there are several roles in play, or tools and numbers to go through properly. Either way, if we can't help we refund you in full, and if you hire us the amount credits toward your project.",
+  },
+  {
+    q: "What does this mean for the people already on my team?",
+    a: "They get their week back. These roles are hired against the work that repeats — the calls nobody can get to, the inbox that never empties, the posting that keeps slipping — not against anyone's job. Nothing here is a reason to let a person go, and we will say so on the call if that is what you are asking us to help with. The point is that your team stops spending its day on the parts of the work that never needed a human, and stays on the parts that do.",
   },
   {
     q: "Every business is different. How do you know what will actually work for mine?",
@@ -86,10 +129,20 @@ export default function FaqPage() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      <EnglishMain className="pt-16">
+        {/* Every "<" is escaped to its JSON \u003c form before it reaches
+            dangerouslySetInnerHTML. Inside a script element the HTML parser is
+            still scanning for the closing tag, so an answer containing that
+            sequence would end the script early and spill the rest of the JSON
+            into the page as markup. The escape is transparent to every JSON
+            parser, so the FAQPage schema an engine reads is unchanged. FAQS is
+            authored in this file today, but this is an HTML sink either way and
+            getting it right costs one call. */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
+          }}
         />
         <section className="bg-white py-20 px-6 md:px-12">
           <div className="mx-auto max-w-3xl">
@@ -115,7 +168,7 @@ export default function FaqPage() {
             </dl>
           </div>
         </section>
-      </main>
+      </EnglishMain>
       <Footer />
     </>
   );

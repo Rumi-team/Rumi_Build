@@ -1,0 +1,50 @@
+# TODOS
+
+## Booking / Cal.com
+
+### Create the 60-minute Cal.com event type — the $125 option books by hand until then
+**Priority:** P1 (no longer a release blocker, but every 60-minute buyer is manual work)
+`/book` sells a 60-minute call at $125 and there is no 60-minute Cal.com event type to book it on. `CAL_LINK_60MIN` in `src/lib/data.ts` reads `NEXT_PUBLIC_CAL_LINK_60MIN` and is currently `""`, which is the 60-minute option's `calLink` in `CALL_OPTIONS`, so `/book/success` shows "we'll email you times" instead of a calendar — correct, but manual, and every 60-minute buyer lands on it. `/book` now says so *before* taking the money ("Any other length — we'll email you times"), so the two pages no longer contradict each other. Fix: create the event type in the Cal.com dashboard (outside this repo), then set `NEXT_PUBLIC_CAL_LINK_60MIN` in the Vercel project. No code change — the copy on both pages follows the variable. Until then, watch for those bookings by hand.
+
+### Split the free intro call from the paid strategy call
+**Priority:** P1
+`/schedule` and the post-payment `/book/success` (30-minute purchases) both book the same Cal.com event (`rumi-app/30-min-meeting`), so the calendar cannot tell a paid booking from a free one and `/schedule` remains a guessable no-payment path to the paid call. Fix: create a second Cal.com event type for the intro call (requires Cal.com dashboard access), add an `INTRO_CAL_LINK` constant, and point `/schedule` at it. Noted on branch `feat/ai-employees-lead`; copy already de-emphasizes "free".
+
+**Do both at once.** Three calls now need three event types — the invited intro call, the paid 30-minute call and the paid 60-minute call — off one existing event. Whoever opens the Cal.com dashboard should create both missing types in the same sitting.
+
+### Add the two call columns to the retention API
+**Priority:** P2 (was P1 — no longer able to break the money path)
+`src/app/api/stripe/webhook/route.ts` sends `call_duration` (`"30min"` / `"60min"`) and `call_minutes` (a number) on the `customers/by-session/{id}` upsert, so the CRM can tell a $75 booking from a $125 one. If that endpoint validates strictly it answers 4xx, and the handler now **retries once without those two keys** rather than throwing — the paid status lands either way, and the rejection is logged as "rejected the call fields". So this is no longer a release blocker; it is a data gap. Add the two columns (or confirm unknown fields are ignored) and the retry stops firing. Both keys are sent only when present, so replayed pre-1.1.0.0 sessions are unaffected. Covered by `tests/unit/stripe-webhook.test.ts`.
+
+## Deploy / Vercel
+
+### Set the new env vars, then clean up the dead ones
+**Priority:** P0 for the additions, P1 for the cleanup
+Add to the Vercel project before v1.1.0.0 goes live:
+- `STRIPE_PRICE_ID_60MIN` — the Stripe Price id for the $125 / 60-minute call (create the Price in Stripe first, in **both** test and live mode). Without it the 60-minute option is not offered on `/book` at all, and `/book/success` refuses to verify a 60-minute session.
+- `STRIPE_PRICE_ID_30MIN` — **reused, but repriced.** The 30-minute call was repriced to $75, so the existing Price object is now wrong. Create a new $75 Price in Stripe and repoint this variable; do not edit the old one. Because the *name* is reused, an un-repointed variable is still a valid id that keeps charging the old figure — `/book/success` now refuses such a session (reason `mismatch`) and the webhook logs it, so the symptom is a customer told "this payment doesn't match what we charge" and a log line naming this variable.
+- `NEXT_PUBLIC_CAL_LINK_60MIN` — the 60-minute Cal.com slug, once that event type exists (see above).
+
+Still to remove: `RESEND_API_KEY`, `EVALUATION_TO`, `EVALUATION_FROM` are dead since `/api/evaluate` was deleted (v1.0.0.0). Also confirm `NEXT_PUBLIC_SITE_URL` is set: `src/lib/stripe.ts` falls back to a hardcoded `https://rumi.build` for the Stripe `success_url`, and the domain split between this site and the sibling repo is still unresolved.
+
+### There is no tracked `.env.example`
+**Priority:** P2
+`git ls-files | grep env` returns nothing, despite CHANGELOG line 36 claiming ".env.example stays tracked". Nothing in the repo tells a deployer that `STRIPE_PRICE_ID_30MIN`, `STRIPE_PRICE_ID_60MIN` or `NEXT_PUBLIC_CAL_LINK_60MIN` exist — they are discoverable only by reading `src/lib/stripe.ts` and `src/lib/data.ts`. Add one (price ids and Cal slugs are not secrets; keys stay out of it).
+
+### Smoke-test the edge redirects after deploy
+**Priority:** P2
+The 26 `vercel.json` redirects run only at the Vercel edge — `next start`/Playwright never exercise them. After the next production deploy, run a `curl -sI` matrix over the legacy URLs (`/pricing`, `/sprint`, `/deposit`, `/automation`, `/evaluate`, `/audit`, `/chief-of-staff`, old `/services/*` slugs) and confirm one-hop 308s to live pages.
+
+## Design (awaiting Saba — DESIGN.md Decisions Log has details)
+
+### Rule on the open WCAG item and deferred visual calls
+**Priority:** P2
+Open set from the v1.0.0.0 review, all logged in DESIGN.md: `.eyebrow` accent-on-white contrast (3.77:1 at 11px, ~29 sites — globals.css is locked); hover-state contrast dip on navy links; FA badge letter-spacing on joined Persian script; emoji icons vs accent-colored icon set on the role cards; sign-off on the new homepage section order and background assignments.
+
+## i18n
+
+### Decide whether Farsi extends beyond the homepage
+**Priority:** P3
+The homepage is fully translated EN/FA; `/services` and the role pages are English pinned LTR (deliberate, documented in `services/page.tsx`). The real fix, if Farsi is a supported locale for the offer pages, is locale-routed pages (`/fa/...`) with per-locale dictionaries — also resolves the first-paint language flash (language restore is a post-hydration effect).
+
+## Completed
