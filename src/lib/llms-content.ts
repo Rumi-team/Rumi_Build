@@ -33,7 +33,7 @@ export const LLMS_TXT = `# Rumi AI
 - [Industries](https://rumi.build/industries): where we have proven experience today — real estate, home design and décor, beauty and salon, and home services.
 
 ## Get started
-- [Book a call](https://rumi.build/book): 30 minutes. We look at your call volume, your inbox, and where your week actually goes, then say plainly which role earns its cost first — and which ones you do not need yet. In English or Farsi.
+- [Book a call](https://rumi.build/book): a paid strategy call in two lengths — 30 minutes for $75, or 60 minutes for $125, picked at checkout. Refunded in full if we cannot help, credited toward the project if we can. We look at your call volume, your inbox, and where your week actually goes, then say plainly which role earns its cost first — and which ones you do not need yet. In English or Farsi.
 
 ## About
 - [Team](https://rumi.build/team): Founded and based in Los Angeles. A small, senior team; all three co-founders speak Farsi.
@@ -112,7 +112,7 @@ We publish the industries where we have real, proven experience: real estate, ho
 
 ## Get started
 
-Book a call: https://rumi.build/book — 30 minutes. We look at your call volume, your inbox, and where your week actually goes, then tell you plainly which role earns its cost first and which ones you do not need yet. In English or Farsi.
+Book a call: https://rumi.build/book — a paid strategy call in two lengths, chosen at checkout: 30 minutes for $75, or 60 minutes for $125. Refunded in full if we cannot help, credited toward the project if we can. We look at your call volume, your inbox, and where your week actually goes, then tell you plainly which role earns its cost first and which ones you do not need yet. In English or Farsi.
 
 ## About
 

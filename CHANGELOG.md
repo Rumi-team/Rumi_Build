@@ -4,6 +4,38 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.1.0.0] - 2026-08-01
+
+The strategy call is now sold in two lengths. A buyer picks 30 minutes at $75 or 60 minutes at $125 on `/book`, and the choice travels all the way through — the price Stripe charges, the metadata on the session, the length quoted back on the confirmation page, and the calendar they are handed.
+
+### Added
+
+- **A 60-minute strategy call at $125**, alongside the 30-minute call, which drops from $100 to **$75**. The 30-minute option stays pre-selected. Both keep the same promise: refunded in full if we can't help, credited toward the project if we can.
+- **A duration chooser on `/book`** — two selectable cards built as a real radio group, so the arrow keys move between them and a screen reader announces them as a choice. The submit button quotes the price of whatever is selected.
+- **`STRIPE_PRICE_ID_60MIN`**, a new environment variable holding the 60-minute Stripe Price id. Like its 30-minute sibling it is read from the environment only and defaults to empty, and an option with no price id is refused with a 503 rather than sent to Stripe.
+- **`NEXT_PUBLIC_CAL_LINK_60MIN`**, for the 60-minute Cal.com event type. Until it is set, a 60-minute buyer is shown their payment confirmation and told we will email them times — never the 30-minute calendar.
+- **Which call was bought is now recorded.** The Checkout Session carries `call_duration` and `call_minutes` in its metadata and the webhook passes them to the CRM, so a $75 booking and a $125 one can finally be told apart. Not inferred from the amount: promotion codes are enabled, so a discounted 60-minute call can total less than a 30-minute one.
+- **An FAQ answer** on what the call costs and why there are two lengths.
+
+### Changed
+
+- **One source of truth for the call price.** `CALL_OPTIONS` in `src/lib/stripe.ts` holds both options; the page title, the search snippet, the social card, the headline, the option cards and the submit button all read from it. The price used to be typed out in four places with a test on only one of them.
+- **`/book` presents a choice** rather than a single price: the headline is "Book a strategy call" and both lengths are stated in the copy and in the page's metadata. The refund/credit block and the consent wording are untouched.
+- **The AI-crawler files (`llms.txt`, `llms-full.txt`) state both options and both prices** — they previously said "30 minutes" with no price, which is now a wrong quote about the offer.
+- Duration claims on `/workplace` and the stale price in the `/schedule` and `/audit` comments follow the new offer.
+
+### Fixed
+
+- **Post-payment verification handles two products without a new way to fail.** `/book/success` accepts either configured price id and identifies which one was bought. If neither is configured it still fails closed with `unconfigured`. Crucially, if only *one* is configured and a session matches neither, it also answers `unconfigured` rather than `wrong_product` — the alternative tells a paying customer they bought the wrong thing when the fault is an environment variable we never set. The server log names the variable that is actually missing.
+- **The checkout API's "not configured" check is per-option.** A global check would have let a 60-minute purchase through to Stripe with an empty price, surfacing as a generic "Checkout creation failed" — the wrong error, aimed at the wrong party.
+- **The amount is verified, not just the price id.** This release reprices the 30-minute call while *reusing* `STRIPE_PRICE_ID_30MIN`, so the previous Price object remains a valid id that still charges the old figure — a rename would have failed closed, reusing the name cannot. `/book/success` now checks the session's `unit_amount` against the catalog and refuses if they disagree; the webhook checks `amount_subtotal` (pre-discount, so promotion codes don't trip it) and logs, because by then the money has moved.
+- **`/book` offers only what can be bought.** An option whose Stripe price id is unset is no longer advertised, priced in the intro copy, or given a card — a buyer used to reach the end of a filled-in form before finding out. When *nothing* is configured the full catalog still renders, since there is then no other length to steer anyone toward.
+- **Nothing on the checkout path is written for a developer any more.** `/api/checkout`'s 503 and 400 are rendered verbatim in the form's error box; they used to read "Stripe not configured" and "Unknown call option". They now name a length that *can* be booked and how to reach us, with the operator's reason in the server log instead. A stale browser bundle posting no `duration` is told to reload rather than shown "Invalid request".
+- **The calendar travels on the option** instead of being chosen by `optionId === "60min"`, where every other length fell through to the 30-minute event while the sentence above the embed read its length from the catalog — a third option would have booked 30 minutes under the words "Choose a 90-minute slot", and would have compiled and passed the suite.
+- **A CRM that rejects the new call fields can no longer cost a customer their paid flag.** `call_duration`/`call_minutes` are new keys on a schema in another repo; a 4xx on the by-session upsert now retries once without them instead of throwing, 500ing, and handing Stripe a retry that the event ledger may short-circuit.
+- **The no-calendar confirmation claims only what is true.** It said "You're booked in" and "your 60 minutes are held" when there is no event type of that length and therefore no booking and nothing held — a buyer who read that stopped watching for the email we owe them.
+- **The selected option card keeps its ring under the pointer.** `.card:hover` outranked the ring's `box-shadow`, so the card being pointed at was the one that lost its selected state.
+
 ## [1.0.0.0] - 2026-07-31
 
 The site now leads with the AI Employees offer. Visitors land on the five roles they can hire — three core roles and two combinations — with public "from" pricing, and everything the agency also builds moves below as "Extra services". This is the identity-settling release, so it goes to 1.0 (and adopts the 4-digit version scheme).

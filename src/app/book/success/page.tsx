@@ -5,9 +5,9 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { EnglishMain } from "@/components/english-main";
 import { CalEmbed } from "@/components/cal-embed";
-import { getStripe, STRIPE_PRICE_ID_30MIN } from "@/lib/stripe";
+import { getStripe, CALL_OPTIONS } from "@/lib/stripe";
 import { rateLimit, ipFromHeaders } from "@/lib/rate-limit";
-import { CAL_LINK, CALENDLY_URL } from "@/lib/data";
+import { SUPPORT_EMAIL } from "@/lib/data";
 
 // Post-payment page, behind a Stripe session id. It was self-canonical and
 // indexable, which meant a crawler arriving with no `session_id` — the only way
@@ -48,35 +48,93 @@ async function verifySession(sessionId: string) {
     if (session.payment_status !== "paid") {
       return { ok: false as const, reason: "not_paid" as const };
     }
-    // Confirm the session bought OUR product, not some unrelated price.
+    // Confirm the session bought one of OUR calls, and record WHICH — the
+    // matched price id is the only trustworthy signal of what was purchased
+    // (amount_total is not: `allow_promotion_codes` is on in /api/checkout, so
+    // a discounted 60-minute call can total less than a 30-minute one).
     //
-    // FAILS CLOSED when the price id is missing. src/lib/stripe.ts defaults
-    // STRIPE_PRICE_ID_30MIN to "" when the env var is unset, and this check
-    // used to be `if (!matches && STRIPE_PRICE_ID_30MIN)` — so an unset var
-    // turned the whole product check off and any paid Checkout Session on the
-    // account rendered the success page, echoing that customer's email address
-    // back to whoever pasted the id into the URL. A missing configuration value
-    // must never widen what a visitor is allowed to see: with nothing to
-    // compare against, the only safe answer is that we cannot verify this
-    // session. `unconfigured` is its own reason so the page does not tell a
-    // paying customer their session was for the wrong product when the real
-    // fault is ours; the server log is where the operator finds out.
-    if (!STRIPE_PRICE_ID_30MIN) {
+    // FAILS CLOSED on missing configuration. src/lib/stripe.ts defaults every
+    // priceId to "" when its env var is unset, and this check used to be
+    // `if (!matches && STRIPE_PRICE_ID_30MIN)` — so an unset var turned the
+    // whole product check off and any paid Checkout Session on the account
+    // rendered the success page, echoing that customer's email address back to
+    // whoever pasted the id into the URL. A missing configuration value must
+    // never widen what a visitor is allowed to see.
+    //
+    // With two options "configured" stopped being a boolean, and the dangerous
+    // case is PARTIAL configuration. Matching only against the ids we happen to
+    // have set would tell a customer who bought the 60-minute call that their
+    // session "isn't for our call" when the truth is we never set
+    // STRIPE_PRICE_ID_60MIN. So a miss is only ever `wrong_product` when every
+    // option is configured and could therefore have matched; otherwise the
+    // honest answer is that we cannot verify, and `unconfigured` owns the fault
+    // as ours. The server log names the variable actually missing.
+    const unset = CALL_OPTIONS.filter((o) => !o.priceId);
+    if (unset.length === CALL_OPTIONS.length) {
       console.error(
-        "STRIPE_PRICE_ID_30MIN is not set — cannot verify which product a checkout session bought; failing closed."
+        `${unset.map((o) => o.envVar).join(" and ")} are not set — cannot verify which product a checkout session bought; failing closed.`
       );
       return { ok: false as const, reason: "unconfigured" as const };
     }
     const lineItems = session.line_items?.data ?? [];
-    const matches = lineItems.some((li) => li.price?.id === STRIPE_PRICE_ID_30MIN);
-    if (!matches) {
+    const purchased = CALL_OPTIONS.find(
+      (o) => o.priceId && lineItems.some((li) => li.price?.id === o.priceId)
+    );
+    if (!purchased) {
+      if (unset.length > 0) {
+        console.error(
+          `${unset.map((o) => o.envVar).join(" and ")} is not set — a session that matches no configured price cannot be told apart from one we simply cannot check; failing closed.`
+        );
+        return { ok: false as const, reason: "unconfigured" as const };
+      }
       return { ok: false as const, reason: "wrong_product" as const };
     }
+
+    // The price id says WHICH product; it does not say what it cost, and
+    // nothing else in this codebase ever looks at the amount — /api/checkout
+    // sends `price: <id>` and lets Stripe decide the number. That gap became
+    // load-bearing when v1.1.0.0 repriced the 30-minute call downward while
+    // REUSING STRIPE_PRICE_ID_30MIN: renaming the variable would have failed
+    // closed on the 503 in /api/checkout, but reusing it means the old Price
+    // object is still a perfectly valid id that still charges the old amount,
+    // on a site that now advertises the new one everywhere. So the amount is
+    // checked against the catalog here, where line_items is already expanded
+    // and it costs no extra API call.
+    const expectedCents = purchased.amountUsd * 100;
+    const actualCents =
+      lineItems.find((li) => li.price?.id === purchased.priceId)?.price
+        ?.unit_amount ?? null;
+    if (actualCents !== expectedCents) {
+      console.error(
+        `${purchased.envVar} points at a Stripe Price of ${actualCents ?? "no unit_amount"} cents, but the site sells the ${purchased.label} call at ${expectedCents} cents. Repoint the variable at the right Price; failing closed until then.`
+      );
+      return { ok: false as const, reason: "mismatch" as const };
+    }
+
+    // What /api/checkout recorded the buyer as having picked, cross-checked
+    // against what the price id resolved to. They can only disagree if two
+    // options carry the SAME price id — one paste in the Vercel UI — in which
+    // case `find` returns the first match and a 60-minute buyer is quietly
+    // handed the 30-minute page, calendar included, while the CRM files them
+    // as 60. Skipped for sessions created before this metadata existed.
+    const declared = session.metadata?.call_duration;
+    if (declared && declared !== purchased.id) {
+      console.error(
+        `session ${session.id} was sold as ${declared} but its price id resolves to ${purchased.id} — two options are probably sharing one Stripe Price id; failing closed.`
+      );
+      return { ok: false as const, reason: "mismatch" as const };
+    }
+
     return {
       ok: true as const,
       email: session.customer_details?.email || null,
-      amount: session.amount_total ?? null,
-      currency: session.currency || "usd",
+      // What they bought, not what they paid — the render picks the calendar
+      // and the confirmation wording off these. The calendar travels ON the
+      // option (src/lib/stripe.ts) precisely so it cannot be chosen by a
+      // string comparison that a third length would fall through.
+      minutes: purchased.minutes,
+      calLink: purchased.calLink,
+      calUrl: purchased.calUrl,
     };
   } catch (err) {
     // Stripe's SDK types every failure. An id Stripe has never seen is a
@@ -121,6 +179,16 @@ export default async function BookSuccessPage({
 
   const result = await gatedVerify(session_id);
 
+  // The calendar that matches what they actually bought, read off the option
+  // itself. There is exactly one Cal.com event type today (30 minutes); the
+  // 60-minute option's calLink is "" until someone creates the second one —
+  // see the note in src/lib/data.ts. Empty shows the fallback below rather
+  // than a calendar of the wrong length, because a 60-minute buyer handed a
+  // 30-minute slot finds out on the call, and by then we have taken their
+  // money and wasted their time.
+  const calLink = result.ok ? result.calLink : "";
+  const calUrl = result.ok ? result.calUrl : "";
+
   return (
     <>
       <Nav />
@@ -132,32 +200,74 @@ export default async function BookSuccessPage({
                 Payment received
               </p>
               <h1 className="text-4xl md:text-5xl font-black tracking-h1 text-ink mb-3">
-                One last step — pick your time
+                {calLink
+                  ? "One last step — pick your time"
+                  : "Thanks — we'll send you times"}
               </h1>
               <p className="text-base sm:text-lg text-muted mb-6 sm:mb-8">
-                Choose a 30-minute slot on our calendar. We&rsquo;ll send a
-                confirmation{result.email ? ` to ${result.email}` : ""} with the
-                meeting link.
+                {calLink ? (
+                  <>
+                    Choose a {result.minutes}-minute slot on our calendar.
+                    We&rsquo;ll send a confirmation
+                    {result.email ? ` to ${result.email}` : ""} with the meeting
+                    link.
+                  </>
+                ) : (
+                  // Nothing is booked and nothing is held on this branch: there
+                  // is no event type of this length, so there is no calendar
+                  // entry to hold. Saying "you're booked in" would have someone
+                  // stop watching for our email and wait for an invite that
+                  // never comes. The payment is the only thing that has
+                  // actually happened, so it is the only thing claimed.
+                  <>
+                    Your payment went through. Our {result.minutes}-minute
+                    calendar isn&rsquo;t open for self-booking yet, so
+                    we&rsquo;ll email you times
+                    {result.email ? ` at ${result.email}` : ""} within one
+                    business day.
+                  </>
+                )}
               </p>
 
-              <CalEmbed calLink={CAL_LINK} email={result.email} />
+              {calLink ? (
+                <>
+                  <CalEmbed calLink={calLink} email={result.email} />
 
-              <p className="mt-4 text-xs text-muted">
-                Calendar not loading?{" "}
-                <a
-                  href={
-                    result.email
-                      ? `${CALENDLY_URL}?email=${encodeURIComponent(result.email)}`
-                      : CALENDLY_URL
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline text-accent hover:text-accent-hover"
-                >
-                  Open it in a new tab
-                </a>
-                .
-              </p>
+                  <p className="mt-4 text-xs text-muted">
+                    Calendar not loading?{" "}
+                    <a
+                      href={
+                        result.email
+                          ? `${calUrl}?email=${encodeURIComponent(result.email)}`
+                          : calUrl
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline text-accent hover:text-accent-hover"
+                    >
+                      Open it in a new tab
+                    </a>
+                    .
+                  </p>
+                </>
+              ) : (
+                <div className="rounded-xl border border-accent/30 bg-accent/5 p-6">
+                  <h2 className="text-base font-semibold text-ink mb-2">
+                    Want a time sooner?
+                  </h2>
+                  <p className="text-sm text-ink">
+                    Email{" "}
+                    <a
+                      href={`mailto:${SUPPORT_EMAIL}`}
+                      className="underline text-accent hover:text-accent-hover"
+                    >
+                      {SUPPORT_EMAIL}
+                    </a>{" "}
+                    with a couple of windows that suit you and we&rsquo;ll
+                    confirm one straight back.
+                  </p>
+                </div>
+              )}
 
               <div className="mt-8 rounded-xl border border-line bg-surface p-6">
                 <h2 className="text-base font-semibold text-ink mb-2">Your guarantee</h2>
@@ -179,7 +289,7 @@ export default async function BookSuccessPage({
                 {result.reason === "not_paid"
                   ? "This session isn't marked paid yet. If you just paid, refresh in a moment."
                   : result.reason === "wrong_product"
-                    ? "This session isn't for our 30-min call. Contact us if you think this is a mistake."
+                    ? "This session isn't for one of our strategy calls. Contact us if you think this is a mistake."
                     : result.reason === "missing"
                       ? "No session ID was provided."
                       : result.reason === "rate_limited"
@@ -188,9 +298,16 @@ export default async function BookSuccessPage({
                           // their payment was wrong when we simply cannot check.
                           result.reason === "unconfigured"
                           ? "We can't confirm this payment right now — that's on our side, not yours. Email support@rumi.build and we'll get your call booked."
-                          : result.reason === "unavailable"
-                            ? "Something went wrong on our side — your payment is safe. Refresh in a minute, or email support@rumi.build and we'll get your call booked."
-                            : "We couldn't find that checkout session."}
+                          : // Our catalog and our Stripe account disagree about
+                            // what this call costs, or about which one it is.
+                            // Either way the buyer did nothing wrong and their
+                            // money is safe, so the copy must not read as a
+                            // payment problem.
+                            result.reason === "mismatch"
+                            ? "This payment doesn't match what we charge for that call — a fault at our end, not yours. Your money is safe. Email support@rumi.build and we'll sort it out and get your call booked."
+                            : result.reason === "unavailable"
+                              ? "Something went wrong on our side — your payment is safe. Refresh in a minute, or email support@rumi.build and we'll get your call booked."
+                              : "We couldn't find that checkout session."}
               </p>
               <Link
                 href="/book"

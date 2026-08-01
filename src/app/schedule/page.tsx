@@ -7,7 +7,8 @@ import { CAL_LINK, CALENDLY_URL } from "@/lib/data";
 
 // Kept out of the sitemap AND out of the index. This is the intro call we send
 // to people we approached directly, kept alive for anyone holding an old link;
-// /book is the $100 strategy call every internal link and every CTA points at.
+// /book is the paid strategy call every internal link and every CTA points at
+// (30 minutes at $75, or 60 at $125 — prices live in src/lib/stripe.ts).
 // It used to headline itself as "a free 30-min intro call", which was the site
 // advertising a free version of the one thing it charges for — see the note by
 // the embed: both pages book the SAME Cal.com event. Left indexable, a
@@ -91,16 +92,18 @@ export default function SchedulePage() {
             تماس آشنایی ۳۰ دقیقه‌ای — به فارسی یا انگلیسی.
           </p>
 
-          {/* SAME Cal.com event as the paid path. CAL_LINK is one slug
-              (rumi-app/30-min-meeting) and there is exactly one event type in
-              this repo, so /book/success — reached only after the $100 Stripe
-              payment — books this very calendar. These are not two products;
-              they are two doors onto one 30-minute meeting, and this door is
-              the one we hand out by hand. Making them genuinely distinct
-              (different length, different price, a real free tier) means
-              creating a SECOND event type in Cal.com and giving it its own
-              slug here. Until then, do not write copy on either page that
-              implies the other call is a different thing. */}
+          {/* SAME Cal.com event as the paid 30-minute call. CAL_LINK is one
+              slug (rumi-app/30-min-meeting) and it is still the only event type
+              this repo has, so /book/success — reached only after the Stripe
+              payment — books this very calendar for a 30-minute purchase. These
+              are not two products; they are two doors onto one 30-minute
+              meeting, and this door is the one we hand out by hand. Do not
+              write copy on either page that implies the other call is a
+              different length.
+              The 60-minute option sold on /book has NO event type at all:
+              CAL_LINK_60MIN is "" and /book/success falls back to emailing the
+              buyer times. Three calls, one calendar — see TODOS.md, both
+              missing event types should be created in the same sitting. */}
           <CalEmbed calLink={CAL_LINK} />
 
           <p className="mt-4 text-xs text-muted">

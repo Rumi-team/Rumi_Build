@@ -18,7 +18,7 @@ here to settle it; the twin's `.vercel/project.json` owns the Vercel project nam
 `rumi-build`. Confirm before changing a canonical URL, and never link this checkout to
 that project.
 
-## The offer, as shipped (v1.0.0.0)
+## The offer, as shipped (v1.1.0.0)
 
 The homepage leads with five hireable AI-employee roles — AI Receptionist (from
 $300/mo), AI Executive Assistant (from $500/mo), AI Social Media Manager (from
@@ -32,6 +32,21 @@ visibility) sells below as "Extra services". Canonical role data lives in
 those back into `data.ts` (`footer.tsx` puts everything reachable from `data.ts`
 into every page's client bundle).
 
+The one paid call is sold on `/book` in two lengths — 30 minutes at $75 (the
+default) or 60 at $125 — chosen with a radio group on the form. `CALL_OPTIONS`
+in `src/lib/stripe.ts` is where both prices are **authored**, along with both
+Stripe price-id env vars (`STRIPE_PRICE_ID_30MIN`, `STRIPE_PRICE_ID_60MIN`),
+each option's `minutes`, and the Cal.com event it books. `/book` and its form
+contain no dollar literal at all and read the catalog live; `/faq` and
+`src/lib/llms-content.ts` do restate the figures for prose reasons, and are
+pinned to the catalog by the "states both lengths and both prices" test in
+`tests/unit/price-copy.test.ts` — so a reprice is `src/lib/stripe.ts` plus
+whatever that test then turns red. Price ids are read from the environment and
+must never be hardcoded. An option whose price id is unset is not offered on
+`/book` at all. There is still no 60-minute Cal.com event type, so that
+option's `calLink` is empty and `/book/success` falls back to emailing the
+buyer times — see TODOS.md.
+
 Languages are English + Farsi, translated client-side in `src/lib/i18n.tsx`
 (homepage only; every other page is English, pinned LTR via
 `src/components/english-main.tsx`). `/evaluate`, `/audit`, `/chief-of-staff` and
@@ -39,7 +54,7 @@ Languages are English + Farsi, translated client-side in `src/lib/i18n.tsx`
 gone entirely.
 
 Releases carry a 4-digit version: `VERSION`, `package.json` and the newest
-CHANGELOG.md heading must agree (currently 1.0.0.0). The other docs: DESIGN.md
+CHANGELOG.md heading must agree (currently 1.1.0.0). The other docs: DESIGN.md
 (locked brand system — Saba owns it), TESTING.md (the test contract), TODOS.md
 (deferred work), CHANGELOG.md (release history).
 

@@ -20,6 +20,11 @@ import {
 import { AI_EMPLOYEE_DETAILS } from "@/lib/ai-employee-details";
 import { VERTICAL_DETAILS } from "@/lib/vertical-details";
 import { LLMS_FULL_TXT, LLMS_TXT } from "@/lib/llms-content";
+// The paid call's two prices. llms-content quotes them alongside the role
+// prices, and the scan below refuses any figure the data does not hold — so the
+// catalog is imported rather than 75 and 125 being written in here, which is
+// what would let the file agree with a typo.
+import { CALL_OPTIONS } from "@/lib/stripe";
 import { loadDicts } from "./helpers/dicts";
 
 // ── Why this file exists ──────────────────────────────────────────────────────
@@ -415,16 +420,33 @@ describe("/llms.txt agrees with the role data", () => {
         .map((s) => dollars(getAIEmployeeBySlug(s)!.priceFrom))
         .reduce((a, c) => a + c, 0)
     );
-    const allowed = new Set([...prices, ...workloads, ...bundleSums]);
+    // Plus the one-off call, which is the only non-monthly figure these files
+    // quote. Read out of CALL_OPTIONS so a repriced call turns this red here
+    // rather than leaving llms.txt telling AI engines the old number.
+    const callPrices = CALL_OPTIONS.map((o) => o.amountUsd);
+    const allowed = new Set([
+      ...prices,
+      ...workloads,
+      ...bundleSums,
+      ...callPrices,
+    ]);
 
     const quoted = [...text.matchAll(/\$\s?([\d,]+)/g)].map((m) =>
       Number(m[1].replace(/,/g, ""))
     );
     expect(quoted.length).toBeGreaterThan(5);
+    // Both call prices must actually appear: the offer is two lengths, and a
+    // file that quotes only one of them misinforms every engine citing it.
+    for (const option of CALL_OPTIONS) {
+      expect(
+        quoted,
+        `${_f} never quotes the ${option.label} call at ${option.price}`
+      ).toContain(option.amountUsd);
+    }
     const unknown = [...new Set(quoted.filter((f) => !allowed.has(f)))];
     expect(
       unknown,
-      "figures quoted that are not a role price, a workload, or a bundle total"
+      "figures quoted that are not a role price, a workload, a bundle total, or a call price"
     ).toEqual([]);
   });
 });

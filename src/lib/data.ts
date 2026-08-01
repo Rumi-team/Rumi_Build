@@ -3,8 +3,21 @@
 export const CALENDLY_URL = "https://cal.com/rumi-app/30-min-meeting";
 
 // Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>).
-// 30-min meeting — matches the $100 strategy call booked on /book.
+// 30-min meeting — matches the 30-minute strategy call booked on /book.
 export const CAL_LINK = "rumi-app/30-min-meeting";
+
+// ── KNOWN SETUP GAP: there is no 60-minute Cal.com event type yet ────────────
+// /book now sells a 60-minute call as well, and Cal.com event types are created
+// in the Cal dashboard, not from this repo. Until someone creates one and sets
+// NEXT_PUBLIC_CAL_LINK_60MIN in the Vercel project, this is "" — and "" is the
+// signal /book/success uses to render "we'll email you a link" instead of
+// handing a 60-minute buyer the 30-minute calendar above. Never fall back to
+// CAL_LINK here: a wrong-length booking looks like it worked and is discovered
+// by the customer, on the call.
+export const CAL_LINK_60MIN = process.env.NEXT_PUBLIC_CAL_LINK_60MIN || "";
+export const CALENDLY_URL_60MIN = CAL_LINK_60MIN
+  ? `https://cal.com/${CAL_LINK_60MIN}`
+  : "";
 
 export const SUPPORT_EMAIL = "support@rumi.build";
 

@@ -62,11 +62,19 @@ tests/
     how-it-works-numerals.test.tsx  the four step numerals follow the language (Persian digits in FA)
     nav-footer.test.tsx        the chrome: nav links, footer columns, both languages
     service-card.test.tsx      the card's optional price/saving/workload branches and its href
-    price-copy.test.ts         every rendered price is a "from …", never a bare number
+    price-copy.test.ts         every rendered price is a "from …", never a bare number —
+                               plus the two one-off call prices, derived from CALL_OPTIONS
     role-routes.test.ts        the five role slugs, their params, and what 404s
     routing.test.ts            vercel.json redirects, canonical + og:url, sitemap coverage
     crawler-surfaces.test.ts   robots.txt, the llms.txt links, and the 404's recovery links
-    checkout-verification.test.tsx  /book/success refuses an unverified Stripe session
+    checkout-verification.test.tsx  /book/success refuses an unverified Stripe session, and
+                               tells the two call lengths apart without blaming the buyer
+                               for a price id we never set
+    checkout-route.test.ts     /api/checkout turns the chosen length into a Stripe price,
+                               and what a buyer reads when it cannot
+    stripe-webhook.test.ts     the call metadata round-trip, and that a CRM that rejects it
+                               still leaves the customer marked paid
+    book-form.test.tsx         the duration chooser, and that the choice reaches the POST body
     rate-limit.test.ts         the shared IP derivation and the per-IP window behind it
     english-pin.test.ts        every English page pins dir/lang/font against stored Farsi
     english-main.test.tsx      …and the wrapper they all delegate that pin to, rendered
@@ -76,7 +84,8 @@ tests/
   e2e/
     home.spec.ts               section order, hero, five priced role cards
     services.spec.ts           nav, the five role pages, bundle contents, 404
-    booking.spec.ts            the path into /book from every page that sells
+    booking.spec.ts            the path into /book from every page that sells, the call-length
+                               chooser (keyboard included), and the price on the submit button
     farsi.spec.ts              dir=rtl, translated hero, persisted language
 ```
 
@@ -168,6 +177,68 @@ the four `.ts` files that render.
    on an explicit exclusion list that also records the crawl stance the page has to declare —
    omission from a sitemap deindexes nothing.
 
+Beside those six, and newer than them: **the paid call**. Invariant 3 covers the *monthly* role
+prices; the strategy call is a one-off, carries no `/mo`, and therefore fell outside every scan
+in this suite — for a long time the only guard on it anywhere was one e2e assertion on the
+submit button, while the same figure was typed out in the page title, the `<h1>` and that
+button independently. Since v1.1.0.0 it is sold in two lengths and the contract is:
+
+- **One catalog.** `CALL_OPTIONS` in `src/lib/stripe.ts` is the only place either price is
+  *authored*. `price-copy.test.ts` requires `/book` and its form to contain no dollar
+  literal at all, checks every one-off figure on the booking, FAQ, workplace and crawler
+  surfaces against the catalog, and pins `price` to `amountUsd`, the labels to `minutes`, and
+  the longer call to cost more than the shorter one. `/faq` and `llms-content.ts` do restate
+  both figures — they are prose an AI engine lifts verbatim — and the "states both lengths and
+  both prices" case is what holds them to the catalog. No test may *assert* on a literal 75 or
+  125; a module stub may carry the catalog's own values, and the two that do build themselves
+  from the real `CALL_OPTIONS` rather than retyping it.
+- **Price ids come from the environment, never the source.** `STRIPE_PRICE_ID_30MIN` and
+  `STRIPE_PRICE_ID_60MIN`, each defaulting to `""`. The default is load-bearing twice over:
+  CI builds and runs the e2e suite with neither set, so a module-level throw would turn a
+  green pipeline red; and the empty string is what both consumers read as "not configured".
+  The test asserts the source contains no `price_…` literal and no `sk_…` key — and, because
+  a substring scan cannot see a *swapped* pair, one case sets both variables to sentinels,
+  reloads the real module and walks `priceId === process.env[envVar]`. That walk is the only
+  thing in the suite that can catch the 30-minute option charging the 60-minute price: every
+  other test replaces `@/lib/stripe` with a fixture, and CI sets neither variable.
+- **`30min` is the default**, and it must resolve — `/book` pre-selects it and `/api/checkout`
+  refuses anything the catalog does not hold. Refuses, never defaults: a missing `duration` is
+  a 400, because guessing a length charges someone for a call they did not pick.
+- **The seam between the form and the schema.** `Body` in `/api/checkout` is a plain
+  `z.object()`, which **strips** unknown keys rather than rejecting them. So a `duration` the
+  schema does not declare, or a form that stops sending one, charges every buyer the default
+  price with no error anywhere. Both halves are pinned: `checkout-route.test.ts` requires a
+  body with no duration to be refused, and `book-form.test.tsx` requires the browser to put
+  the selected id in the POST body.
+- **Configuration is per-option, on all three surfaces.** `/book` offers only the options whose
+  price id is set (all of them when none is, since there is then nothing to steer a buyer
+  toward and CI builds the page that way). `/api/checkout` 503s on the price id for the option
+  the buyer picked, not on a global switch. `/book/success` accepts either configured id,
+  records which one matched, and fails closed when neither is set — and when only *one* is set
+  and the session matches neither, it answers `unconfigured` rather than `wrong_product`,
+  because the alternative tells a paying customer they bought the wrong thing when the fault is
+  a variable we never set. The log names the missing variable.
+- **Nothing a buyer reads is written for a developer.** Every `error` string `/api/checkout`
+  returns is rendered verbatim into the danger box under the submit button, so the tests assert
+  the 503 and the 400 contain no "Stripe"/"not configured"/"unknown option" jargon, name a
+  length that *can* be booked, and put the operator's reason in `console.error` instead.
+- **The amount is checked, not just the price id.** A price id says which product, not what it
+  cost, and `STRIPE_PRICE_ID_30MIN` was reused across a reprice — so the old Price object is
+  still a valid id that still charges the old figure. `/book/success` compares
+  `line_items[].price.unit_amount` against `amountUsd` and fails closed as `mismatch`; the
+  webhook compares `amount_subtotal` (pre-discount, so promotion codes don't trip it) and only
+  logs, because by then the money has moved.
+- **A purchase is never handed a calendar of the wrong length.** The Cal.com event travels on
+  the option itself rather than being chosen by an `optionId === "60min"` comparison, which any
+  third length would have fallen through into the 30-minute event while the sentence above the
+  embed read its length off the catalog. It is `""` until that event type exists; the success
+  page must render its email-you-times fallback, claim nothing beyond the payment, and both
+  lengths' wording is pinned symmetrically.
+- **The CRM cannot cost a customer their paid flag.** `call_duration`/`call_minutes` are new
+  keys on a schema in another repo. A 4xx on the by-session upsert buys exactly one retry
+  without them; only a second failure throws. `stripe-webhook.test.ts` drives both, plus the
+  absent-metadata replay and a forged signature.
+
 Sitting on top of those: **copy consistency** (`copy-invariants.test.ts`). The go-live
 timeline, the white-label promise and the 10%/90% explanation are each written out
 independently in `data.ts` (what `/services` and the role pages render), the EN/FA
@@ -176,7 +247,11 @@ system ties them together, so the test parses the claim out of every source and 
 agree — `src/lib/i18n.tsx` even carries the comment *"Facts here must match ONBOARDING_NOTE
 in src/lib/data.ts"*, and this is what stands behind it. The same test forbids an empty string
 export in `data.ts` **and in the two detail modules**, which would render an empty `<p>`
-instead of failing the build.
+instead of failing the build. It carries exactly one exemption, and it is a category
+difference rather than an allowlist: `CAL_LINK_60MIN` and `CALENDLY_URL_60MIN` are read from
+`NEXT_PUBLIC_CAL_LINK_60MIN` and are legitimately empty until that Cal.com event type exists —
+nothing renders them as text, and the same test fails if either one stops existing, so the
+exemption cannot outlive what it exempts.
 
 **The two detail modules, and why the walkers count each one separately.**
 `src/components/footer.tsx` is a client component that imports `AI_EMPLOYEES` and `VERTICALS`

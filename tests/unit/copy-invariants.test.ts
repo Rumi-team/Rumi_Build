@@ -307,10 +307,33 @@ describe("data.ts prose the /services pages render", () => {
       ).toBeGreaterThan(floor);
     }
 
+    // CONFIG, NOT COPY — the only exemption, and it is a category difference
+    // rather than a "this one is fine" allowlist. These two are read from
+    // NEXT_PUBLIC_CAL_LINK_60MIN, and "" is their correct value until someone
+    // creates the 60-minute Cal.com event type: /book/success reads that empty
+    // string as "no calendar of the right length exists" and renders its
+    // email-you-times fallback instead of handing a 60-minute buyer the
+    // 30-minute calendar. Nothing renders them as text, so an empty one cannot
+    // produce the empty <p> this assertion exists to catch. Every exported
+    // COPY string is still required to be non-empty, including any new one.
+    const ENV_SOURCED = new Set([
+      "data.ts.CAL_LINK_60MIN",
+      "data.ts.CALENDLY_URL_60MIN",
+    ]);
     const empty = strings
-      .filter(([, value]) => value.trim() === "")
+      .filter(([path, value]) => value.trim() === "" && !ENV_SOURCED.has(path))
       .map(([path]) => path);
     expect(empty).toEqual([]);
+
+    // And the exemption cannot quietly outlive what it exempts: if one of these
+    // is deleted or renamed, the stale entry above must fail rather than sit
+    // there widening the rule for whatever takes the name next.
+    const paths = new Set(strings.map(([path]) => path));
+    for (const path of ENV_SOURCED) {
+      expect(paths.has(path), `${path} no longer exists — drop its exemption`).toBe(
+        true
+      );
+    }
   });
 
   it("never sells reception as an unpriced extra in llms-content", () => {

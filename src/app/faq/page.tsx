@@ -93,6 +93,13 @@ const FAQS: { q: string; a: string }[] = [
     a: "The AI employee roles have published starting prices, from $300/mo up to $900/mo depending on the role. They are starting points: we set the actual number once we have seen your call volume, your inbox, and the tools you use. Month to month, no setup fee. The extra services — a website, an app, content — are scoped on the call, because what they cost depends on what you need built.",
   },
   {
+    // Bare dollar figures on purpose — no "/mo" on either. The call is a one-off
+    // and price-copy.test.ts reads every "$N/mo" in this file as a role price,
+    // so writing the call fee that way would read as a sixth role.
+    q: "What does the call cost, and why are there two?",
+    a: "The strategy call comes in two lengths and you pick one at checkout: 30 minutes for $75, or 60 minutes for $125. Thirty is enough for one question and a straight recommendation. Sixty is for when there are several roles in play, or tools and numbers to go through properly. Either way, if we can't help we refund you in full, and if you hire us the amount credits toward your project.",
+  },
+  {
     q: "What does this mean for the people already on my team?",
     a: "They get their week back. These roles are hired against the work that repeats — the calls nobody can get to, the inbox that never empties, the posting that keeps slipping — not against anyone's job. Nothing here is a reason to let a person go, and we will say so on the call if that is what you are asking us to help with. The point is that your team stops spending its day on the parts of the work that never needed a human, and stays on the parts that do.",
   },

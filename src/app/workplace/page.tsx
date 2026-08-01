@@ -150,8 +150,15 @@ export default function WorkplacePage() {
             >
               Work with us →
             </a>
+            {/* HAND-WRITTEN durations, here and in the closing section below,
+                and deliberately so: this page is prose about how we work, not a
+                price list, and it quotes no figure. If a length is ever added
+                to or dropped from CALL_OPTIONS (src/lib/stripe.ts), both
+                sentences need a human edit — no test can spell them for you.
+                price-copy.test.ts scans this file for dollar figures only. */}
             <p className="mt-4 text-sm text-muted">
-              30-minute call. We learn the problem, you decide the fit.
+              A paid strategy call, 30 or 60 minutes. We learn the problem, you
+              decide the fit.
             </p>
           </div>
         </section>
@@ -303,8 +310,9 @@ export default function WorkplacePage() {
             </h2>
 
             <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl mx-auto">
-              30 minutes. We learn what you&rsquo;re building, you see how we
-              work. No commitment.
+              Thirty minutes, or sixty if there is a lot to cover. We learn what
+              you&rsquo;re building, you see how we work. Refunded if we
+              can&rsquo;t help.
             </p>
 
             <a

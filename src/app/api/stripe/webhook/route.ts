@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
-import { getStripe, STRIPE_WEBHOOK_SECRET } from "@/lib/stripe";
+import { getStripe, STRIPE_WEBHOOK_SECRET, getCallOption } from "@/lib/stripe";
 import { retentionPost } from "@/lib/retention/client";
 
 export const runtime = "nodejs";
@@ -98,6 +98,34 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 
   const checkoutAttemptId = full.metadata?.checkout_attempt_id || null;
 
+  // Which of the two calls was bought, straight off the metadata /api/checkout
+  // set at the point of sale. NOT derived from amount_total: the session allows
+  // promotion codes, so a discounted 60-minute call can total less than a
+  // 30-minute one and the CRM would file it as the wrong product.
+  const callDuration = full.metadata?.call_duration || null;
+  const callMinutesRaw = full.metadata?.call_minutes;
+  const callMinutes = callMinutesRaw ? Number(callMinutesRaw) : null;
+
+  // What Stripe actually charged, against what the site advertises for that
+  // call. /api/checkout only ever sends a price id, so nothing upstream of here
+  // compares the two — and v1.1.0.0 repriced the 30-minute call while reusing
+  // STRIPE_PRICE_ID_30MIN, so a variable still pointing at the old Price
+  // charges the old figure and looks entirely normal. Subtotal, not total:
+  // promotion codes are enabled, and a discount is the customer's doing, not a
+  // misconfiguration. Logged only — the money has already moved, and refusing
+  // to record a paid customer would help nobody.
+  const soldOption = callDuration ? getCallOption(callDuration) : undefined;
+  if (
+    soldOption &&
+    full.amount_subtotal !== null &&
+    full.amount_subtotal !== undefined &&
+    full.amount_subtotal !== soldOption.amountUsd * 100
+  ) {
+    console.error(
+      `[stripe webhook] session ${full.id} charged ${full.amount_subtotal} cents before discounts for the ${soldOption.label} call, which the site sells at ${soldOption.amountUsd * 100}. Check ${soldOption.envVar}.`,
+    );
+  }
+
   // Build payload only with non-null fields the API accepts
   const payload: Record<string, unknown> = {
     status: "paid",
@@ -113,6 +141,11 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   };
 
   if (checkoutAttemptId) payload.checkout_attempt_id = checkoutAttemptId;
+  // Only when present, same as checkout_attempt_id above: sessions created
+  // before the two-option checkout shipped carry no such metadata, and sending
+  // an explicit null would clobber a value the CRM may already hold.
+  if (callDuration) payload.call_duration = callDuration;
+  if (callMinutes && Number.isFinite(callMinutes)) payload.call_minutes = callMinutes;
   if (cd?.email) payload.email = cd.email;
   if (cd?.name) payload.name = cd.name;
   if (cd?.phone) payload.phone = cd.phone;
@@ -124,10 +157,28 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   // status must always be present
   payload.status = "paid";
 
-  const r = await retentionPost(
-    `/api/v1/rumi-build/customers/by-session/${full.id}`,
-    payload,
-  );
+  const path = `/api/v1/rumi-build/customers/by-session/${full.id}`;
+  let r = await retentionPost(path, payload);
+
+  // `call_duration` and `call_minutes` are new keys on a schema that lives in
+  // another repo. If that endpoint validates strictly, they turn a 200 into a
+  // 4xx — and the throw below turns that into a 500, which makes Stripe retry,
+  // which posts the same event back into the ledger gate above, which may well
+  // answer `already_processed` and short-circuit past this handler entirely.
+  // Net result: the CRM's opinion about an unknown column costs a paying
+  // customer their `paid` flag, permanently. The paid status is the
+  // load-bearing field here and the call length is a nice-to-have, so a 4xx
+  // buys exactly one retry without them.
+  const hasCallFields = "call_duration" in payload || "call_minutes" in payload;
+  if (!r.ok && hasCallFields && r.status >= 400 && r.status < 500) {
+    console.error(
+      `[stripe webhook] by-session upsert rejected the call fields (${r.status} ${r.error || ""}); retrying without them`,
+    );
+    delete payload.call_duration;
+    delete payload.call_minutes;
+    r = await retentionPost(path, payload);
+  }
+
   if (!r.ok) {
     throw new Error(`upsert by-session failed: ${r.status} ${r.error || ""}`);
   }
