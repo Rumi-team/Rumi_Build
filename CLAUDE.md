@@ -4,8 +4,11 @@
 
 Same design system — and since v1.0.0.0 this repo ALSO leads with AI Employees, so
 the offer no longer tells the two repos apart. Identical `"name": "rumi-build"` in package.json,
-byte-identical `tailwind.config.ts` and `pnpm-lock.yaml`, same route and component names
-(`services/[slug]`, `nav.tsx`, `hero.tsx`, `llms.txt`). Different GitHub org, too:
+same route and component names (`services/[slug]`, `nav.tsx`, `hero.tsx`, `llms.txt`).
+`tailwind.config.ts` was byte-identical until v1.2.0.0: brand v2 landed here only, so this
+repo's `navy` is `#0B1C36` and `surface` `#F9FAFB` while the twin still ships `#1E293B` /
+`#FEFCF7` (`pnpm-lock.yaml` has drifted apart too). Never "resync" either file against the
+twin — that reverts the brand. Different GitHub org, too:
 `Rumi-team/…` here, `rumiai-ai/…` there. **Never port a change between them** — matching
 filenames belong to separate sites.
 
@@ -18,7 +21,7 @@ here to settle it; the twin's `.vercel/project.json` owns the Vercel project nam
 `rumi-build`. Confirm before changing a canonical URL, and never link this checkout to
 that project.
 
-## The offer, as shipped (v1.1.0.0)
+## The offer, as shipped (v1.2.0.0)
 
 The homepage leads with five hireable AI-employee roles — AI Receptionist (from
 $300/mo), AI Executive Assistant (from $500/mo), AI Social Media Manager (from
@@ -54,7 +57,7 @@ Languages are English + Farsi, translated client-side in `src/lib/i18n.tsx`
 gone entirely.
 
 Releases carry a 4-digit version: `VERSION`, `package.json` and the newest
-CHANGELOG.md heading must agree (currently 1.1.0.0). The other docs: DESIGN.md
+CHANGELOG.md heading must agree (currently 1.2.0.0). The other docs: DESIGN.md
 (locked brand system — Saba owns it), TESTING.md (the test contract), TODOS.md
 (deferred work), CHANGELOG.md (release history).
 

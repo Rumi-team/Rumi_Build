@@ -110,7 +110,7 @@ of silently vanishing.
 **Test environment.** The default is `node`, not `jsdom` — most of this suite reads `data.ts`,
 walks `src/` off the filesystem, or parses `vercel.json`, and paying for a DOM per file was the
 largest single line in the timing breakdown. The files that need one declare it themselves with
-a `// @vitest-environment jsdom` docblock on line 1: the eight component tests, plus the four
+a `// @vitest-environment jsdom` docblock on line 1: the eleven component tests, plus the four
 `.ts` files that reach the dictionaries through `helpers/dicts.tsx` (which mounts `LanguageProvider`).
 `tests/setup.ts` no-ops when there is no `document`. It also installs the one browser API
 jsdom 29 does not ship at all: **`window.matchMedia` is absent**, not stubbed, so the moment
