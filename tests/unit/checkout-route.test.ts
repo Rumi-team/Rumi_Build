@@ -34,6 +34,16 @@ import { SUPPORT_EMAIL } from "@/lib/data";
 const PRICE_30 = "price_thirty_minute_call";
 const PRICE_60 = "price_sixty_minute_call";
 
+/**
+ * The origin the route is CONFIGURED with, deliberately not any host this
+ * project ships. The redirect assertions below compare `success_url`'s origin
+ * to this, so they fail for any baked-in host — which is the whole defect:
+ * `SITE_URL` used to fall back to a hardcoded `https://rumi.build`, and with
+ * NEXT_PUBLIC_SITE_URL set to the empty string that fallback sent every paying
+ * buyer to a site this repo does not deploy.
+ */
+const SITE_ORIGIN = "https://site.example";
+
 type Created = { params: Record<string, unknown>; options: unknown };
 
 let created: Created[] = [];
@@ -74,7 +84,14 @@ let ipCounter = 0;
  */
 async function post(
   body: unknown,
-  { priceId30 = PRICE_30, priceId60 = PRICE_60, resolves = true } = {}
+  {
+    priceId30 = PRICE_30,
+    priceId60 = PRICE_60,
+    resolves = true,
+    // `null` is "NEXT_PUBLIC_SITE_URL is unset or empty" — the real
+    // getSiteUrl() throws there rather than defaulting to a host.
+    siteUrl = SITE_ORIGIN as string | null,
+  } = {}
 ) {
   vi.resetModules();
   created = [];
@@ -83,7 +100,10 @@ async function post(
     const options = callOptions(priceId30, priceId60);
     return {
       CALL_OPTIONS: options,
-      SITE_URL: "https://rumi.build",
+      getSiteUrl: () => {
+        if (!siteUrl) throw new Error("NEXT_PUBLIC_SITE_URL is not set");
+        return siteUrl;
+      },
       // `resolves: false` is the divergence the handler's `if (!option)` branch
       // exists for: an id that is in CALL_OPTIONS — and therefore in the zod
       // enum derived from it — that the lookup does not resolve. It cannot
@@ -296,6 +316,74 @@ describe("/api/checkout turns the chosen length into a Stripe price", () => {
     expect(onlySession().line_items).toEqual([{ price: PRICE_30, quantity: 1 }]);
   });
 
+  it("returns the buyer to the origin it was configured with, never a baked-in one", async () => {
+    // THE STRANDED BUYER. `SITE_URL` was a const with `|| "https://rumi.build"`
+    // behind it, and nothing in this suite ever looked at success_url — so when
+    // NEXT_PUBLIC_SITE_URL was set to the empty string on the live project, the
+    // fallback pointed every paid booking at a site this repo does not deploy,
+    // holding another Stripe account's keys, whose only possible answer to the
+    // session id in that URL is "this session isn't marked paid yet". Green
+    // suite, working checkout, money taken, customer stranded.
+    //
+    // Comparing the ORIGIN (not a substring) is what makes this general: it
+    // fails for any host other than the configured one, not just the one that
+    // happened to be hardcoded.
+    const { status } = await post({ ...VALID_LEAD, duration: "30min" });
+    expect(status).toBe(200);
+
+    const params = onlySession() as { success_url: string; cancel_url: string };
+
+    expect(
+      params.success_url,
+      "/book/success cannot verify a payment it is handed no session id for"
+    ).toContain("{CHECKOUT_SESSION_ID}");
+
+    const success = new URL(
+      params.success_url.replace("{CHECKOUT_SESSION_ID}", "cs_test_placeholder")
+    );
+    const cancel = new URL(params.cancel_url);
+
+    expect(success.origin, "a paid buyer is sent to a host we do not serve").toBe(
+      SITE_ORIGIN
+    );
+    expect(cancel.origin, "an abandoned checkout lands on a host we do not serve").toBe(
+      SITE_ORIGIN
+    );
+    expect(success.pathname).toBe("/book/success");
+    expect(cancel.pathname).toBe("/book");
+  });
+
+  it("refuses rather than guessing a host when it does not know where to send the buyer", async () => {
+    // The other branch. Failing closed here costs a booking; guessing costs a
+    // customer their money AND their call, because the guess is only discovered
+    // after Stripe has charged the card.
+    const { status, json } = await post(
+      { ...VALID_LEAD, duration: "30min" },
+      { siteUrl: null }
+    );
+
+    expect(status, "a session was created with nowhere to return to").toBe(503);
+    expect(created, "Stripe was asked to charge a buyer we cannot return").toEqual(
+      []
+    );
+    expect(
+      leads,
+      "a lead was captured for a call that could never have completed"
+    ).toEqual([]);
+
+    expect(json.error, "the buyer is shown internal jargon").not.toMatch(
+      /NEXT_PUBLIC|env|variable|origin|redirect|url/i
+    );
+    expect(json.error).toContain(SUPPORT_EMAIL);
+    expect(json.error).toMatch(/on our side, not yours/i);
+
+    // …and the operator gets the name of the thing to go and set.
+    expect(
+      errors.join("\n"),
+      "nothing in the log names the variable that is missing"
+    ).toMatch(/NEXT_PUBLIC_SITE_URL/);
+  });
+
   it("still captures the lead and still refuses without consent", async () => {
     // Unchanged behaviour, asserted because the duration field was inserted
     // into the middle of this handler and both of these sit either side of it.
@@ -321,7 +409,7 @@ describe("/api/checkout turns the chosen length into a Stripe price", () => {
     vi.resetModules();
     vi.doMock("@/lib/stripe", () => ({
       CALL_OPTIONS: callOptions(PRICE_30, PRICE_60),
-      SITE_URL: "https://rumi.build",
+      getSiteUrl: () => SITE_ORIGIN,
       getCallOption: (id: string) =>
         callOptions(PRICE_30, PRICE_60).find((o) => o.id === id),
       getStripe: () => ({
