@@ -8,7 +8,7 @@ import { TEAM } from "@/lib/data";
 
 const TITLE = "Team — Rumi AI";
 const DESCRIPTION =
-  "Meet the team behind rumi.build. Product and AI builders who've shipped at Business Insider, Spotter, UCLA, and Imperial College — now building websites, apps, and AI-era visibility for small businesses everywhere.";
+  "Meet the team behind rumiai.ai. Product and AI builders who've shipped at Business Insider, Spotter, UCLA, and Imperial College — now building websites, apps, and AI-era visibility for small businesses everywhere.";
 
 export const metadata: Metadata = {
   title: TITLE,
