@@ -29,7 +29,25 @@ export function Footer() {
       <div className="mx-auto max-w-5xl">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
           <div>
-            <img src="/rumi-logo-on-navy.png" alt="Rumi" className="h-9 mb-3" />
+            {/* Intrinsic width/height are the file's real pixel dimensions, so
+                the column reserves the box before the image decodes. Lazy +
+                async here and NOT in nav.tsx: the footer is below the fold on
+                every page, the nav logo is the first thing on screen.
+                `w-auto` is REQUIRED beside `h-9` once those attributes exist:
+                a `width` attribute is a presentational hint that sets the used
+                width, and Tailwind's preflight only resets `height` — so `h-9`
+                alone left this wordmark pinned to the file's full pixel width
+                and stretched (measured 148x36 against an 81x36 natural, the
+                column's max-width being all that held it back). */}
+            <img
+              src="/rumi-logo-on-navy.png"
+              alt="Rumi"
+              width={244}
+              height={108}
+              loading="lazy"
+              decoding="async"
+              className="h-9 w-auto mb-3"
+            />
             <p className="text-sm text-white/50 mb-4">{t.footer.tagline}</p>
           </div>
 

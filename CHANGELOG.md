@@ -4,6 +4,35 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.0.0] - 2026-08-05
+
+The site now wears Saba's Brand Identity v2.0. The navy deepened to `#0B1C36`, the warm off-white surface became a cool `#F9FAFB`, and the nav flipped from dark to a white bar with the green wordmark — with the logos, favicon, and social-share card re-exported from the pixel-verified brand files, replacing the last of the amber-era assets.
+
+### Added
+
+- **A white navigation bar** per brand v2: white fill, hairline border, near-black links that darken to green on hover, and the green-on-white wordmark. The section you are in is now marked in the nav — darker green and semibold, announced to screen readers only on the exact page.
+- **A full-screen mobile menu** on brand navy, replacing the dropdown panel. It locks the page scroll behind it, closes on Escape, moves focus in and back out, traps Tab inside the menu, and closes itself if the viewport grows past the tablet breakpoint mid-use.
+- **A brand favicon** — the emerald sun mark on navy — replacing the amber sun on black, a palette v2 explicitly bans.
+
+### Changed
+
+- **The pricing badge now names its comparator.** Every role card reads **"90% less than hiring"** (Farsi: «۹۰٪ کمتر از استخدام») instead of the ambiguous "90% off", so the comparison to hiring a person is explicit rather than implied — the roles were never discounted from a former price; they are priced at about a tenth of what the work they cover costs today. The badge also renders only beside the workload figure it compares against.
+- **The company is named Rumi AI LLC** in the footer of every page, the Terms, and the Privacy Policy (previously "Rumi, Inc.").
+- **The social-share card** was rebuilt on brand — navy, Inter, the real wordmark, and the current "hire AI employees" offer — replacing a card that still carried the pre-brand amber design and old copy. Its URL is versioned so link previews on X, LinkedIn, Slack, and iMessage pick up the new card instead of their cached copy of the old one.
+- **Every page loads ~160 KB lighter, and the repo sheds ~600 KB.** The chrome logos are served at 3× their rendered size instead of full resolution (−146 KB per page), the favicon slimmed (−15 KB), the footer logo lazy-loads, both logos declare intrinsic dimensions (no layout shift), and an unreferenced 440 KB legacy logo was removed from the repo.
+
+### Fixed
+
+- **Readability, measured not assumed.** The hero's small green label had slipped under the 4.5:1 WCAG floor against the glow behind it and is back to soft white; the nav's hover/active green on white was also under the floor and now uses the darker brand green that passes. Both are pinned by tests that compute the ratios from the design tokens — including against the composited background, not just token-vs-token.
+- **The mobile bar fits at every width.** "Book a Call" no longer wraps to two lines, the wordmark no longer squashes on narrow phones (below 390px the bar yields its button to the menu's full-width one), and the Farsi nav no longer wraps into the logo at exactly the tablet breakpoint.
+- **Farsi polish:** the badge no longer letter-spaces Persian script (which visually breaks joined letters), and the language dropdown keeps its clearance in right-to-left layout.
+
+### Removed
+
+- The warm off-white (`#FEFCF7`) surface, the amber-era favicon and share card, and the unused legacy logo file — all superseded by brand v2.
+
+*Under the hood: the locked design tokens, both logo exports, the badge arithmetic in both languages, asset dimensions and baked background colors, and the new mobile-menu behaviors are all pinned by tests — 225 unit/component tests and 39 end-to-end tests, up from 202 and 27.*
+
 ## [1.1.0.0] - 2026-08-01
 
 The strategy call is now sold in two lengths. A buyer picks 30 minutes at $75 or 60 minutes at $125 on `/book`, and the choice travels all the way through — the price Stripe charges, the metadata on the session, the length quoted back on the confirmation page, and the calendar they are handed.

@@ -14,11 +14,11 @@ const config: Config = {
       colors: {
         // ── Saba locked brand system — exact hex, no approximation. ──
         // No #000000 anywhere: black is reserved for the separate Rumi App.
-        navy: "#1E293B", // secondary bg: nav, hero, CTA, footer (dark sections)
+        navy: "#0B1C36", // secondary bg: hero, CTA, footer, mobile menu (dark sections)
         accent: { DEFAULT: "#059669", hover: "#047857" }, // buttons, links, icons, headline accent, logo
         ink: "#111827", // primary heading + body text on white
         muted: "#6B7280", // secondary / supporting text on white
-        surface: "#FEFCF7", // card + secondary-section fill (website only)
+        surface: "#F9FAFB", // card + secondary-section fill (website only; = field by design)
         line: "#E5E7EB", // borders on cards, inputs, dividers
         danger: "#DC2626", // form validation errors only
         field: "#F9FAFB", // form input background

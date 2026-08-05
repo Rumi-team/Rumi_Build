@@ -46,7 +46,14 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Rumi AI",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    // `?v=2` is a cache bust, not a second file — the literal on disk is still
+    // public/og-image.png. Scrapers (Facebook, X, LinkedIn, Slack, iMessage)
+    // key their preview cache on the image URL and hold it for months, and
+    // brand v2 replaced this card IN PLACE: every link already shared would
+    // otherwise keep serving the old amber-on-black card forever. Every page
+    // that restates an openGraph/twitter images block carries the same suffix,
+    // or the busted URL only applies to the pages that inherit this one.
+    images: [{ url: "/og-image.png?v=2", width: 1200, height: 630 }],
   },
   // NO title or description here, ever. `twitter` inherits wholesale exactly
   // like `openGraph` — but unlike openGraph, no page except /workplace restates
@@ -58,7 +65,7 @@ export const metadata: Metadata = {
   // per-page. Pinned by tests/unit/routing.test.ts.
   twitter: {
     card: "summary_large_image",
-    images: ["/og-image.png"],
+    images: ["/og-image.png?v=2"],
   },
 };
 

@@ -57,7 +57,7 @@ export async function generateMetadata({
       url: `/services/${role.slug}`,
       siteName: "Rumi AI",
       type: "website",
-      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+      images: [{ url: "/og-image.png?v=2", width: 1200, height: 630 }],
     },
   };
 }
@@ -258,8 +258,9 @@ export default async function AIEmployeeDetailPage({
                     name: r.name,
                     tagline: r.tagline,
                     // `workload` travels with `savingLabel` everywhere on the
-                    // site: "90% off" is 90% off THIS much work. Drop the pill
-                    // and the badge reads as a discount off our own price.
+                    // site: SAVING_LABEL is 90% less than hiring for THIS much
+                    // work. Drop the pill and the badge reads as a discount off
+                    // our own price.
                     workload: r.workload,
                     price: `from ${r.priceFrom}`,
                     slug: r.slug,

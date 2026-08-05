@@ -53,6 +53,9 @@ tests/
   unit/
     helpers/dicts.tsx          reaches the EN/FA dictionaries the way the site does
     helpers/strings.ts         collects every string in a module, with its key path
+    helpers/source-files.ts    the recursive src/ walk design-tokens and brand-assets share
+    helpers/viewport.ts        the window.matchMedia jsdom does not ship, plus the resize
+                               that drives it — installed for every jsdom file by setup.ts
     i18n-parity.test.ts        EN/FA shape, array lengths, no untranslated English
     dictionary-fallback.test.tsx  a missing FA key falls back to EN, never to a blank
     ai-employees.test.ts       referential integrity, pricing arithmetic, /llms.txt drift,
@@ -61,6 +64,8 @@ tests/
     extras-section.test.tsx    the homepage "extra services" grid, and what is NOT in it
     how-it-works-numerals.test.tsx  the four step numerals follow the language (Persian digits in FA)
     nav-footer.test.tsx        the chrome: nav links, footer columns, both languages
+    nav-chrome.test.tsx        …and the STATE it puts them in: which link may say
+                               aria-current, and the overlay closing itself at `md`
     service-card.test.tsx      the card's optional price/saving/workload branches and its href
     price-copy.test.ts         every rendered price is a "from …", never a bare number —
                                plus the two one-off call prices, derived from CALL_OPTIONS
@@ -80,13 +85,20 @@ tests/
     english-main.test.tsx      …and the wrapper they all delegate that pin to, rendered
     copy-invariants.test.ts    the same claim in data.ts, both dictionaries and /llms.txt
     tone.test.ts               "price the work, never the person"
-    design-tokens.test.ts      no stock Tailwind scale, no off-palette hex or rgb()
+    design-tokens.test.ts      no stock Tailwind scale, no off-palette hex or rgb() —
+                               and the contrast of the pairings those tokens ship in
+    brand-assets.test.ts       every image path resolves in public/, each logo is the one
+                               drawn for the bar it sits on — and its corner pixel proves it
   e2e/
     home.spec.ts               section order, hero, five priced role cards
     services.spec.ts           nav, the five role pages, bundle contents, 404
     booking.spec.ts            the path into /book from every page that sells, the call-length
                                chooser (keyboard included), and the price on the submit button
     farsi.spec.ts              dir=rtl, translated hero, persisted language
+    mobile.spec.ts             the phone chrome: no sideways scroll, the overlay's geometry,
+                               one CTA at a time, an undistorted logo at 320px, the overlay
+                               releasing the page when the viewport crosses `md`, Tab trapped
+                               inside the nav, and the Farsi row fitting at exactly 768px
 ```
 
 Vitest collects `tests/**` and `src/**` (`*.test.ts(x)` and `*.spec.ts(x)`) and **excludes
@@ -98,9 +110,16 @@ of silently vanishing.
 **Test environment.** The default is `node`, not `jsdom` — most of this suite reads `data.ts`,
 walks `src/` off the filesystem, or parses `vercel.json`, and paying for a DOM per file was the
 largest single line in the timing breakdown. The files that need one declare it themselves with
-a `// @vitest-environment jsdom` docblock on line 1: the eight component tests, plus the four
+a `// @vitest-environment jsdom` docblock on line 1: the eleven component tests, plus the four
 `.ts` files that reach the dictionaries through `helpers/dicts.tsx` (which mounts `LanguageProvider`).
-`tests/setup.ts` no-ops when there is no `document`. A docblock rather than a config glob
+`tests/setup.ts` no-ops when there is no `document`. It also installs the one browser API
+jsdom 29 does not ship at all: **`window.matchMedia` is absent**, not stubbed, so the moment
+`mobile-menu.tsx` asks how wide the window is, every jsdom file that mounts `Nav` dies on
+"is not a function". The shim in `helpers/viewport.ts` answers off `window.innerWidth`,
+`setViewportWidth()` is how a test resizes, and it **throws on a query it does not
+understand** rather than answering `false` — a shim that quietly said "no" to
+`(min-width: 768px)` would make the auto-close case pass while testing nothing.
+A docblock rather than a config glob
 because `environmentMatchGlobs` was removed in Vitest 4, and because a `*.tsx` glob would miss
 the four `.ts` files that render.
 
@@ -118,15 +137,21 @@ the four `.ts` files that render.
    `getAIEmployeeBySlug` must return `undefined` for junk (that is what makes
    `/services/not-a-real-role` a 404 rather than a blank page).
 3. **Pricing arithmetic.** Every core role costs exactly 10% of the workload it covers
-   (300/3000, 500/5000, 400/4000) — that is the "90% off" claim. For the two bundles the
+   (300/3000, 500/5000, 400/4000) — that is the claim `SAVING_LABEL` makes ("90% less than
+   hiring"; the label names its comparator on purpose, because a bare "90% off" would read
+   as a discount off a former Rumi price). For the two bundles the
    rule is a **ceiling, not an equality**: a bundle's workload must be the sum of the
    workloads of the roles inside it, and its price may never exceed a tenth of that sum —
    the AI Office Manager sits exactly on the rule (800/8000), the AI Chief of Staff beats
-   it (900/12000 = 7.5%), and the "90% off" badge is therefore a floor no role may deliver
-   less than. The numbers are **parsed out of the strings**, never restated in the test, so
-   the suite cannot agree with a typo. The same figures are cross-checked against the
-   dictionary display strings (both languages) and against `/llms.txt`, which AI engines
-   cite verbatim.
+   it (900/12000 = 7.5%), and the `SAVING_LABEL` badge is therefore a floor no role may
+   deliver less than. The numbers are **parsed out of the strings**, never restated in the
+   test, so the suite cannot agree with a typo. The same figures are cross-checked against
+   the dictionary display strings (both languages) and against `/llms.txt`, which AI engines
+   cite verbatim. The badge itself is walked in **both languages**: the percentage is parsed
+   out of `EN.roles.savingLabel` and `FA.roles.savingLabel` beside the prose sources, with
+   Persian digits (U+06F0–U+06F9) and the Persian percent sign (U+066A) normalised first —
+   the Farsi badge `۹۰٪ کمتر از استخدام` was otherwise pinned by nothing at all, and a
+   mutation to ۵۰٪ passed the whole suite.
 4. **Tone rule.** No user-facing copy in `data.ts`, **`ai-employee-details.ts`,
    `vertical-details.ts`**, `i18n.tsx` or `llms-content.ts` may match `/replac/i` or
    `/cut your payroll/i`, or name a human job as the thing being removed. The test walks the
@@ -144,7 +169,48 @@ the four `.ts` files that render.
    the file text, so it tracks the locked system and a hex mentioned in a config *comment*
    cannot widen the allowlist. (`#059669` in the Cal.com embed is the accent token being
    handed to a third-party widget that only accepts a literal; `rgba(0,0,0,α)` is allowed as
-   a shadow tint, which is the only way `globals.css` uses black.)
+   a shadow tint, which is the only way `globals.css` uses black.) On top of *which* colours
+   may be used: whether the pairs they are used in are **readable**. A sanctioned relock
+   moves that answer without touching a component — brand v2 took `navy` to `#0B1C36` and
+   `surface` to `#F9FAFB` — and the hero eyebrow is the case with history. The spec's accent
+   green measured 3.88:1 on the old navy, under the 4.5:1 AA floor 11px text is held to, and
+   shipped overridden to `text-white/70` in `hero.tsx`; the darker navy takes the same pair
+   to **4.52:1**, and the override was briefly removed on that reading. **That reading was of
+   the wrong backdrop.** `.hero-glow` is an accent-tinted radial (`rgba(5,150,105,.14)`)
+   painted directly under the eyebrow — entirely under it on a phone — and compositing the
+   glow onto the navy lifts the backdrop toward the text colour, taking the same pairing to
+   **3.82:1** at the glow's peak. A hundredth of alpha already reads 4.47:1, so every point
+   inside the glow is under the floor and there is no "outside" for this element to sit in.
+   The override is therefore restored and the test now pins all three facts: the bare-token
+   ratio is still computed (as documentation of *why* the revert looked right), the
+   composited ratio is asserted to be the one under the floor, and a companion case asserts
+   `hero.tsx` still renders both `.hero-glow` and the `text-white/70` override — which
+   composites to 8.81:1 — because a ratio measured on a backdrop the page does not paint
+   certifies nothing. The eyebrow's colour is read out of the locked `.eyebrow` rule, the
+   glow's colour and alpha out of the locked `.hero-glow` rule, the override's alpha out of
+   the class the component actually renders, and the tokens out of the config, so a
+   repalette, a retuned glow or a changed override all recompute instead of agreeing with
+   themselves. Beside the palette, the **binaries**:
+   `brand-assets.test.ts` resolves every image path written in `src/` against `public/` —
+   nothing else does, since `nav-footer.test.ts` drops the logo anchor (an `<img>` carries no
+   text) and Playwright never waits on an image, so a mistyped logo is a broken image in the
+   fixed bar on every page with the whole suite green — and pins each logo to the fill it is
+   drawn for, because the two files differ by one word and a swap renders navy on navy. Since
+   the pre-landing pass those binaries are also **resampled**, downscaled to three times their
+   render size, which is how a logo goes wrong with no source edit at all: the test decodes
+   each PNG's top-left pixel (IHDR guards, concatenated IDAT, `inflateSync` — the first pixel
+   of the first scanline reconstructs from all-zero priors under every filter type, so no
+   decoder dependency is needed) and requires the on-navy surround to equal the `navy` token
+   and the on-white one to be pure white, so a resize that rings on the flat background fails
+   here rather than shipping an off-brand fringe. Two more binaries nothing else can see: the
+   OG card's real IHDR dimensions must equal the `width`/`height` the layout's own metadata
+   object declares (both read, neither restated — a card whose declared aspect ratio lies is
+   letterboxed by every platform that trusts it), and the file-convention icons
+   `src/app/icon.png` / `apple-icon.png`, which are picked up by *filename* and referenced
+   from nowhere in `src/`, must exist and be square. The path regex tolerates a `?query`
+   suffix and strips it before resolving, because the OG URL now carries a `?v=2` scraper
+   cache bust; a case guards that the query is read as a query rather than swallowed into
+   the filename.
 6. **Routing and canonicals.** `/services` and `/services/<slug>` used to be `redirect()`
    stubs that swallowed everything under them; they are real pages now, and
    `dynamicParams = false` means anything outside the five role slugs 404s at the routing
@@ -251,7 +317,14 @@ instead of failing the build. It carries exactly one exemption, and it is a cate
 difference rather than an allowlist: `CAL_LINK_60MIN` and `CALENDLY_URL_60MIN` are read from
 `NEXT_PUBLIC_CAL_LINK_60MIN` and are legitimately empty until that Cal.com event type exists —
 nothing renders them as text, and the same test fails if either one stops existing, so the
-exemption cannot outlive what it exempts.
+exemption cannot outlive what it exempts. The same file also pins **who the company is**:
+the registered entity is written out independently in the Terms, twice in the Privacy Policy
+(the prose and the metadata description), and in each dictionary's footer copyright line
+that renders on every page — four hand-edits with nothing checking all four happened, and a
+Terms page naming a different company than the footer beneath it is the contradiction a
+customer's lawyer reads first. The name is parsed off each surface and the surfaces are
+compared, so nothing here restates it; sentence-final punctuation is normalised away, because
+"LLC." and "LLC" are typography rather than two companies.
 
 **The two detail modules, and why the walkers count each one separately.**
 `src/components/footer.tsx` is a client component that imports `AI_EMPLOYEES` and `VERTICALS`

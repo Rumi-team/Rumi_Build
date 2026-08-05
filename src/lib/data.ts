@@ -33,8 +33,13 @@ export const SUPPORT_EMAIL = "support@rumi.build";
 //
 // Pricing is always "from"/"starting at" — never a bare fixed number.
 
-/** Short pill shown beside a price. The headline number of the whole offer. */
-export const SAVING_LABEL = "90% off";
+/**
+ * Short pill shown beside a price. The headline number of the whole offer.
+ * The label names its comparator — what that work costs to hire today — on
+ * purpose: a bare "90% off" reads as a discount off a former Rumi price, which
+ * is not the claim and would be misleading.
+ */
+export const SAVING_LABEL = "90% less than hiring";
 
 /** How pricing works. Shown on the /services pages, not the homepage cards. */
 export const PRICING_NOTE =

@@ -35,10 +35,15 @@ export function ServiceCard({
   /** Prefix on the workload pill, e.g. "Covers". Translatable. */
   workloadLabel?: string;
   /**
-   * e.g. "90% off" — only pass alongside BOTH a price and a workload. The
-   * saving is measured against the workload, so a badge without the "Covers …"
-   * pill on the same card has no referent and reads as a discount off Rumi's
-   * own list price.
+   * The saving badge — SAVING_LABEL in src/lib/data.ts on the English
+   * surfaces, `t.roles.savingLabel` on the translated homepage. It is measured
+   * against the workload, so a badge without the "Covers …" pill on the same
+   * card has no referent and reads as a discount off Rumi's own list price.
+   * That is now ENFORCED rather than documented: the badge renders only
+   * alongside both a price and a workload, whichever combination a caller
+   * passes. A `workload` of `""` is what makes this more than a comment —
+   * `??` does not fall back on an empty string, so a translation gap yields a
+   * card with a "90% LESS THAN HIRING" badge and no comparator anywhere on it.
    */
   savingLabel?: string;
 }) {
@@ -62,7 +67,9 @@ export function ServiceCard({
           <span className="text-xl font-bold tracking-h2 text-ink">
             {service.price}
           </span>
-          {savingLabel && <SavingBadge label={savingLabel} />}
+          {savingLabel && service.workload && (
+            <SavingBadge label={savingLabel} />
+          )}
         </p>
       )}
 
@@ -91,7 +98,7 @@ export function ServiceCard({
     const href = service.href ?? `/services/${service.slug}`;
     // No aria-label. An aria-label REPLACES the accessible name rather than
     // adding to it, so `"${name}: ${tagline}"` was hiding the price, the
-    // "90% off" badge and the "Covers …" pill from screen readers — the three
+    // SAVING_LABEL badge and the "Covers …" pill from screen readers — the three
     // things the card exists to say. Letting the name compute from the content
     // reads all of it; the icon is already aria-hidden.
     return (

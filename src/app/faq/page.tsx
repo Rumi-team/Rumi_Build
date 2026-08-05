@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "/faq",
     siteName: "Rumi AI",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image.png?v=2", width: 1200, height: 630 }],
   },
 };
 

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { AI_EMPLOYEES, BUNDLE_ROLES, CORE_ROLES } from "@/lib/data";
+import { AI_EMPLOYEES, BUNDLE_ROLES, CORE_ROLES, SAVING_LABEL } from "@/lib/data";
 
 // The homepage IS the offer: hero, then the five priced roles ("What we do"),
 // then everything else we build ("Extra services"). The prices on these cards
@@ -57,7 +57,7 @@ test.describe("homepage", () => {
         `from ${role.priceFrom}`
       );
       await expect(card).toContainText(`Covers ${role.workload}`);
-      await expect(card).toContainText("90% off");
+      await expect(card).toContainText(SAVING_LABEL);
     }
 
     // Five priced cards, no more and no fewer.

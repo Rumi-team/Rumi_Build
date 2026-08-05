@@ -4,6 +4,8 @@ import { LANGUAGES, useT, type Lang } from "@/lib/i18n";
 
 // Site language switcher. Changing it re-renders every section + the
 // evaluation form in the chosen language (and flips to RTL for Farsi).
+// Styled for the brand v2 white nav bar (it sits in the bar at both
+// breakpoints — the mobile navy overlay never contains it).
 export function LanguageDropdown({ className = "" }: { className?: string }) {
   const { lang, setLang, t } = useT();
   return (
@@ -11,7 +13,7 @@ export function LanguageDropdown({ className = "" }: { className?: string }) {
       <svg
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="pointer-events-none absolute left-2.5 h-4 w-4 text-white/50"
+        className="pointer-events-none absolute left-2.5 h-4 w-4 text-muted"
         aria-hidden="true"
       >
         <path
@@ -20,14 +22,21 @@ export function LanguageDropdown({ className = "" }: { className?: string }) {
           clipRule="evenodd"
         />
       </svg>
+      {/* Horizontal padding is SYMMETRIC on purpose. Both icons are positioned
+          physically (left-2.5 / right-2) and do not flip, but the option text
+          starts at the other end under dir="rtl" — so the old pl-7/pr-6 pair
+          left a Farsi visitor's label with zero clearance against the chevron.
+          Equal padding gives the value room on whichever side it starts.
+          focus-visible:ring-2 + ring-offset-2 is the convention every .btn-* in
+          globals.css uses; focus:ring-1 was this one control's own idea. */}
       <select
         value={lang}
         onChange={(e) => setLang(e.target.value as Lang)}
         aria-label={t.langLabel}
-        className="appearance-none rounded-md border border-white/20 bg-white/10 py-1.5 pl-8 pr-8 text-sm text-white transition hover:border-white/40 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent cursor-pointer"
+        className="appearance-none rounded-md border border-line bg-white py-1.5 px-7 md:px-8 text-sm text-ink transition hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 cursor-pointer"
       >
         {LANGUAGES.map((l) => (
-          <option key={l.code} value={l.code} className="bg-navy text-white">
+          <option key={l.code} value={l.code}>
             {l.label}
           </option>
         ))}
@@ -35,7 +44,7 @@ export function LanguageDropdown({ className = "" }: { className?: string }) {
       <svg
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="pointer-events-none absolute right-2 h-4 w-4 text-white/50"
+        className="pointer-events-none absolute right-2 h-4 w-4 text-muted"
         aria-hidden="true"
       >
         <path

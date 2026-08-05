@@ -75,6 +75,31 @@ describe("ServiceCard price, saving and workload", () => {
     ).toBeInTheDocument();
   });
 
+  it("suppresses the saving badge on a card whose workload came through empty", () => {
+    // The other half of the same rule, and the half a caller can actually hit:
+    // the badge and the pill used to render on INDEPENDENT conditions, so a
+    // workload of "" — which `??` does not fall back on, so a translation gap
+    // produces one — left "90% less than hiring" on a card with nothing to
+    // measure it against. That is the reading the label was renamed to prevent,
+    // shipped by the component itself.
+    render(
+      <ServiceCard
+        service={{ ...BASE, price: "from $300/mo", workload: "" }}
+        savingLabel="90% less than hiring"
+        linked={false}
+      />
+    );
+    expect(
+      screen.getByText("from $300/mo"),
+      "the price is what the badge hangs off — without it this case proves nothing"
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("90% less than hiring"),
+      "the saving badge rendered with no workload beside it — it has no comparator on the card at all"
+    ).toBeNull();
+    expect(screen.queryByText(/Covers/)).toBeNull();
+  });
+
   it("strips to name and tagline for the extras grid: no pills, no footer, no link", () => {
     // The other combination production actually renders — the four "extra
     // services" cards, which pass linked={false} and footer={null} and carry

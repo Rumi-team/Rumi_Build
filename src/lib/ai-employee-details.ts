@@ -127,7 +127,7 @@ export const AI_EMPLOYEE_DETAILS: Record<string, AIEmployeeDetail> = {
       // workloads sum to, so it lands at 7.5% — better than the rule, never
       // worse. That is stated in the description above, and the "at most 10%"
       // direction is what the bundle case in ai-employees.test.ts asserts. The
-      // "90% off" badge is a floor here, not the exact figure.
+      // SAVING_LABEL badge is a floor here, not the exact figure.
       "From $900/mo for all three — against $1,200/mo if you hire the three roles separately",
     ],
     useCases: [
