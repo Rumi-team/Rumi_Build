@@ -1,10 +1,22 @@
 // ── Single source of truth for all site content ──
 
-export const CALENDLY_URL = "https://cal.com/rumi-app/30-min-meeting";
-
 // Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>).
 // 30-min meeting — matches the 30-minute strategy call booked on /book.
-export const CAL_LINK = "rumi-app/30-min-meeting";
+//
+// THE USERNAME HALF OF THIS SLUG IS A CAL.COM ACCOUNT SETTING, NOT A CONSTANT.
+// It was `rumi-app` until 2026-08-05, when the Cal.com profile username was
+// renamed to `rumi-ai`. Cal.com does NOT redirect the old handle: the moment it
+// changed, https://cal.com/rumi-app/30-min-meeting began answering 404, and the
+// embed on /book/success — the page a customer reaches AFTER paying — had
+// nothing to render. Nothing in this repo could have noticed, because a slug is
+// a string until someone requests it. If a booking calendar ever comes up
+// empty, check this against the Cal.com dashboard before looking anywhere else.
+export const CAL_LINK = "rumi-ai/30-min-meeting";
+
+// Derived, not written out again: the two used to be independent literals, and
+// a rename that fixed one and missed the other would send the inline embed and
+// the "open in a new tab" link to different calendars.
+export const CALENDLY_URL = `https://cal.com/${CAL_LINK}`;
 
 // ── KNOWN SETUP GAP: there is no 60-minute Cal.com event type yet ────────────
 // /book now sells a 60-minute call as well, and Cal.com event types are created

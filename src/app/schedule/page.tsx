@@ -93,7 +93,7 @@ export default function SchedulePage() {
           </p>
 
           {/* SAME Cal.com event as the paid 30-minute call. CAL_LINK is one
-              slug (rumi-app/30-min-meeting) and it is still the only event type
+              slug (rumi-ai/30-min-meeting) and it is still the only event type
               this repo has, so /book/success — reached only after the Stripe
               payment — books this very calendar for a 30-minute purchase. These
               are not two products; they are two doors onto one 30-minute
