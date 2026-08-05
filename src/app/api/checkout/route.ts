@@ -5,7 +5,7 @@ import {
   getStripe,
   getCallOption,
   CALL_OPTIONS,
-  SITE_URL,
+  getSiteUrl,
   type CallOptionId,
 } from "@/lib/stripe";
 import { retentionPost } from "@/lib/retention/client";
@@ -108,6 +108,33 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Where Stripe returns the buyer once the card is charged. Resolved HERE —
+  // before the lead is captured and before the session is created — because an
+  // origin we cannot name is not a detail to discover after the money moves.
+  // This used to be a const with `|| "https://rumi.build"` behind it, so the
+  // failure was not merely unhandled, it was unobservable: an empty
+  // NEXT_PUBLIC_SITE_URL silently pointed success_url at a site we do not
+  // deploy, and every buyer paid and then landed somewhere that could only tell
+  // them their session was not paid. There is no default any more, so this is
+  // the check that catches it, and it fails closed rather than guessing a host.
+  let siteUrl: string;
+  try {
+    siteUrl = getSiteUrl();
+  } catch {
+    console.error(
+      "[checkout] NEXT_PUBLIC_SITE_URL is not set — a Checkout Session created now would send the buyer to an origin this deployment does not serve. Set it in the Vercel project and redeploy; NEXT_PUBLIC_* is inlined at build time, so an env edit alone changes nothing.",
+    );
+    // Same sentence as the nothing-configured branch above, for the same
+    // reason: it is our fault, the buyer cannot act on the cause, and every
+    // string returned from here is rendered verbatim under the submit button.
+    return NextResponse.json(
+      {
+        error: `Booking is temporarily unavailable — that's on our side, not yours. Email ${SUPPORT_EMAIL} and we'll get your call booked.`,
+      },
+      { status: 503 },
+    );
+  }
+
   const checkoutAttemptId = randomUUID();
 
   // Best-effort lead capture. We do NOT block on retention API failure —
@@ -149,8 +176,8 @@ export async function POST(req: NextRequest) {
           call_duration: option.id,
           call_minutes: String(option.minutes),
         },
-        success_url: `${SITE_URL}/book/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${SITE_URL}/book?canceled=1`,
+        success_url: `${siteUrl}/book/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${siteUrl}/book?canceled=1`,
       },
       { idempotencyKey: `rumi-build:${checkoutAttemptId}` },
     );
