@@ -325,10 +325,16 @@ agree — `src/lib/i18n.tsx` even carries the comment *"Facts here must match ON
 in src/lib/data.ts"*, and this is what stands behind it. The same test forbids an empty string
 export in `data.ts` **and in the two detail modules**, which would render an empty `<p>`
 instead of failing the build. It carries exactly one exemption, and it is a category
-difference rather than an allowlist: `CAL_LINK_60MIN` and `CALENDLY_URL_60MIN` are read from
-`NEXT_PUBLIC_CAL_LINK_60MIN` and are legitimately empty until that Cal.com event type exists —
-nothing renders them as text, and the same test fails if either one stops existing, so the
-exemption cannot outlive what it exempts. The same file also pins **who the company is**:
+difference rather than an allowlist: `CAL_LINK_60MIN` and `CALENDLY_URL_60MIN` are config, not
+copy — nothing renders them as text, and `""` is a value the code still supports (it is what
+drives `/book/success`'s email-you-times fallback for a length with no event type). Both are
+**hardcoded slugs since 2026-08-05** and no longer read `NEXT_PUBLIC_CAL_LINK_60MIN`, so
+neither is empty today; the exemption now guards a supported future state rather than the
+current one. The same test fails if either one stops existing, so the exemption cannot outlive
+what it exempts. The slugs themselves are pinned by `cal-link.test.ts` — shape, the
+derivation of each `CALENDLY_URL` from its slug, that the two lengths never share an event
+type, and that neither contains a handle Cal.com has already 404'd. What no offline test can
+catch is a *future* rename: the slug is a string until someone requests it. The same file also pins **who the company is**:
 the registered entity is written out independently in the Terms, twice in the Privacy Policy
 (the prose and the metadata description), and in each dictionary's footer copyright line
 that renders on every page — four hand-edits with nothing checking all four happened, and a

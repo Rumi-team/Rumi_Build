@@ -135,15 +135,15 @@ test.describe("booking path", () => {
     const response = await page.goto("/book/success");
     expect(response?.status(), "/book/success is down").toBeLessThan(400);
     expect(CAL_LINK, "CAL_LINK went empty — the embed has no calendar").not.toBe("");
-    // The 60-minute slug is the KNOWN GAP: no such Cal.com event type exists
-    // yet, so NEXT_PUBLIC_CAL_LINK_60MIN is unset here and everywhere else,
-    // including CI. Comparing it to CAL_LINK from this file was therefore
-    // `expect("").not.toBe("rumi-app/30-min-meeting")` on every run — an
-    // assertion that reads like a guard and can never fail. The real rule (no
-    // two lengths share one calendar) is checked against the catalog in
-    // tests/unit/price-copy.test.ts, which runs whatever the environment holds,
-    // and the fallback it produces is driven in
-    // tests/unit/checkout-verification.test.tsx.
+    // Only CAL_LINK is asserted here, and that is still deliberate. The
+    // 60-minute slug used to be env-sourced and unset in CI, so comparing the
+    // two from this file was `expect("").not.toBe(<literal>)` on every run — an
+    // assertion that reads like a guard and cannot fail. Both slugs are
+    // hardcoded since 2026-08-05, so that particular trap is gone, but the rule
+    // it was reaching for (no two lengths share one calendar) is owned by
+    // tests/unit/cal-link.test.ts and cross-checked against the catalog in
+    // tests/unit/price-copy.test.ts. This spec's job is narrower: the page the
+    // production build actually serves is up and its embed has a calendar.
   });
 
   test("the homepage's primary CTA reaches /book", async ({ page }) => {

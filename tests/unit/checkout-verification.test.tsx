@@ -45,8 +45,12 @@ import { CALL_OPTIONS } from "@/lib/stripe";
 const PAYER = "customer@example.com";
 const PRICE_30 = "price_thirty_minute_call";
 const PRICE_60 = "price_sixty_minute_call";
-/** The Cal.com event type that does not exist yet — see src/lib/data.ts. */
-const SIXTY_SLUG = "rumi-app/60-min-meeting";
+/**
+ * A stand-in 60-minute slug for the fixtures below. Deliberately NOT a real
+ * one: the real CAL_LINK_60MIN is hardcoded now, and a dead handle here would
+ * read like config. cal-link.test.ts owns the real slugs.
+ */
+const SIXTY_SLUG = "fixture/60-min-event";
 
 /**
  * The real catalog, used to BUILD the stub rather than to check it against
@@ -146,7 +150,7 @@ async function renderSuccess(
   searchParams: { session_id?: string }
 ) {
   vi.resetModules();
-  // The 60-minute Cal.com event type does not exist yet, so its calLink is ""
+  // A length whose event type does not exist has calLink "" — still supported,
   // in production; both sides of that gap are driven from the catalog stub.
   vi.doMock("@/lib/stripe", () => ({
     CALL_OPTIONS: callOptions(priceId30, priceId60, calLink60),

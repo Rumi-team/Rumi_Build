@@ -33,8 +33,10 @@ describe("the Cal.com slug has one source", () => {
   });
 
   it("derives the 60-minute URL the same way, or leaves both empty together", async () => {
-    // The 60-minute pair is env-sourced and legitimately "" until that event
-    // type exists. Half-empty is the state that would hurt: a link to
+    // Both branches are asserted even though only the non-empty one executes
+    // today: CAL_LINK_60MIN is a hardcoded slug now, not env-sourced, so ""
+    // is a state the code still supports but no configuration reaches. Kept
+    // because half-empty is what would actually hurt — a link to
     // "https://cal.com/" is a live URL pointing at nothing in particular.
     if (CAL_LINK_60MIN === "") {
       expect(CALENDLY_URL_60MIN).toBe("");
@@ -75,7 +77,15 @@ describe("the Cal.com slug is shaped like a slug", () => {
       "rumi-app", // the account handle, renamed to rumi-ai
       "30-min-meeting", // the event type, replaced by call-30min
     ];
-    for (const slug of [CAL_LINK, CAL_LINK_60MIN].filter(Boolean)) {
+    const slugs = [CAL_LINK, CAL_LINK_60MIN].filter(Boolean);
+    // Guard the walker (TESTING.md): this case filters before it asserts, so an
+    // edit that emptied both constants would leave the loop body unentered and
+    // this regression check passing on zero assertions.
+    expect(
+      slugs.length,
+      "both slugs are empty — the dead-handle check asserted nothing"
+    ).toBeGreaterThan(0);
+    for (const slug of slugs) {
       for (const dead of DEAD) {
         expect(
           slug.split("/"),
