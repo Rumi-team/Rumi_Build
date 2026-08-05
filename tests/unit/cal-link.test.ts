@@ -66,11 +66,33 @@ describe("the Cal.com slug is shaped like a slug", () => {
     expect(event).toMatch(/^[a-z0-9-]+$/);
   });
 
-  it("does not still point at the renamed rumi-app handle", async () => {
-    // The one case that names a literal, deliberately. `rumi-app` is not a
-    // stale value we might return to — it is a handle that no longer resolves,
-    // and re-introducing it takes the post-payment calendar down again.
-    expect(CAL_LINK.split("/")[0]).not.toBe("rumi-app");
-    expect(CALENDLY_URL).not.toContain("rumi-app");
+  it("does not point at anything Cal.com has already 404'd", async () => {
+    // The one place that names literals, deliberately. These are not stale
+    // values we might reasonably return to — they are URLs Cal.com now answers
+    // 404 for, and re-introducing either takes the post-payment calendar down.
+    // Both were verified dead by hand on 2026-08-05, the day each was replaced.
+    const DEAD = [
+      "rumi-app", // the account handle, renamed to rumi-ai
+      "30-min-meeting", // the event type, replaced by call-30min
+    ];
+    for (const slug of [CAL_LINK, CAL_LINK_60MIN].filter(Boolean)) {
+      for (const dead of DEAD) {
+        expect(
+          slug.split("/"),
+          `"${slug}" contains "${dead}", which Cal.com no longer resolves`
+        ).not.toContain(dead);
+      }
+    }
+  });
+
+  it("gives the two lengths different event types", async () => {
+    // A 30-minute slot booked against a 60-minute purchase looks like it
+    // worked and is discovered by the customer, on the call. price-copy.test.ts
+    // checks this off CALL_OPTIONS; this checks the constants those read from,
+    // so a copy-paste while wiring a new event type fails here first.
+    if (CAL_LINK_60MIN !== "") {
+      expect(CAL_LINK_60MIN).not.toBe(CAL_LINK);
+      expect(CALENDLY_URL_60MIN).not.toBe(CALENDLY_URL);
+    }
   });
 });
