@@ -46,26 +46,63 @@ describe("the Cal.com slug has one source", () => {
   });
 });
 
+/**
+ * Every booking slug that is actually configured, labelled so a failure names
+ * WHICH constant is malformed rather than just printing a bad string.
+ *
+ * EVERY case below walks this, not CAL_LINK alone. The shape checks used to
+ * inspect only the 30-minute slug while the dead-handle check walked both,
+ * which made the file read as though it covered the pair — so a malformed
+ * CAL_LINK_60MIN (a full URL, an extra path segment, an uppercase character)
+ * would have stayed green and reached CalEmbed after a $125 purchase. The
+ * more expensive of the two products had the weaker guard.
+ *
+ * Filtered because "" is a supported state for a length with no event type;
+ * every caller re-guards the filtered length, because a filter that empties
+ * silently turns its case into zero assertions (TESTING.md, "guard the walkers").
+ */
+function configuredSlugs(): Array<[string, string]> {
+  const all: Array<[string, string]> = [
+    ["CAL_LINK", CAL_LINK],
+    ["CAL_LINK_60MIN", CAL_LINK_60MIN],
+  ];
+  return all.filter(([, slug]) => slug !== "");
+}
+
+/** Fails loudly when the filter above leaves nothing to assert against. */
+function guardedSlugs(caseName: string): Array<[string, string]> {
+  const slugs = configuredSlugs();
+  expect(
+    slugs.length,
+    `every booking slug is empty — "${caseName}" asserted nothing`
+  ).toBeGreaterThan(0);
+  return slugs;
+}
+
 describe("the Cal.com slug is shaped like a slug", () => {
   it("is a bare username/event pair, not a URL", async () => {
-    // CalEmbed interpolates this into https://cal.com/<CAL_LINK>. A value that
+    // CalEmbed interpolates these into https://cal.com/<slug>. A value that
     // already carried the scheme would build "https://cal.com/https://cal.com/…"
-    // — which is a 404 that looks like a typo in the calendar, not in the code.
-    expect(CAL_LINK).not.toMatch(/^https?:\/\//);
-    expect(CAL_LINK.startsWith("/")).toBe(false);
-    expect(CAL_LINK.endsWith("/")).toBe(false);
+    // — a 404 that looks like a typo in the calendar, not in the code.
+    for (const [name, slug] of guardedSlugs("bare username/event pair")) {
+      expect(slug, `${name} carries a scheme`).not.toMatch(/^https?:\/\//);
+      expect(slug.startsWith("/"), `${name} has a leading slash`).toBe(false);
+      expect(slug.endsWith("/"), `${name} has a trailing slash`).toBe(false);
+    }
   });
 
   it("names exactly one username and one event type", async () => {
-    const parts = CAL_LINK.split("/");
-    expect(parts, `CAL_LINK is "${CAL_LINK}" — expected "<username>/<event>"`).toHaveLength(2);
-    const [username, event] = parts;
-    expect(username.length).toBeGreaterThan(0);
-    expect(event.length).toBeGreaterThan(0);
-    // Cal.com handles and event slugs are lowercase kebab. An uppercase or
-    // space-carrying value survives every check above and still 404s.
-    expect(username).toMatch(/^[a-z0-9-]+$/);
-    expect(event).toMatch(/^[a-z0-9-]+$/);
+    for (const [name, slug] of guardedSlugs("one username and one event type")) {
+      const parts = slug.split("/");
+      expect(parts, `${name} is "${slug}" — expected "<username>/<event>"`).toHaveLength(2);
+      const [username, event] = parts;
+      expect(username.length, `${name} has an empty username`).toBeGreaterThan(0);
+      expect(event.length, `${name} has an empty event slug`).toBeGreaterThan(0);
+      // Cal.com handles and event slugs are lowercase kebab. An uppercase or
+      // space-carrying value survives every check above and still 404s.
+      expect(username, `${name}'s username is not lowercase kebab`).toMatch(/^[a-z0-9-]+$/);
+      expect(event, `${name}'s event slug is not lowercase kebab`).toMatch(/^[a-z0-9-]+$/);
+    }
   });
 
   it("does not point at anything Cal.com has already 404'd", async () => {
@@ -77,19 +114,11 @@ describe("the Cal.com slug is shaped like a slug", () => {
       "rumi-app", // the account handle, renamed to rumi-ai
       "30-min-meeting", // the event type, replaced by call-30min
     ];
-    const slugs = [CAL_LINK, CAL_LINK_60MIN].filter(Boolean);
-    // Guard the walker (TESTING.md): this case filters before it asserts, so an
-    // edit that emptied both constants would leave the loop body unentered and
-    // this regression check passing on zero assertions.
-    expect(
-      slugs.length,
-      "both slugs are empty — the dead-handle check asserted nothing"
-    ).toBeGreaterThan(0);
-    for (const slug of slugs) {
+    for (const [name, slug] of guardedSlugs("dead-handle check")) {
       for (const dead of DEAD) {
         expect(
           slug.split("/"),
-          `"${slug}" contains "${dead}", which Cal.com no longer resolves`
+          `${name} is "${slug}", which contains "${dead}" — Cal.com no longer resolves it`
         ).not.toContain(dead);
       }
     }
