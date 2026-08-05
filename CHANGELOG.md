@@ -4,6 +4,12 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.0.1] - 2026-08-05
+
+### Fixed
+
+- **The team page named the wrong site.** `/team`'s search and social description read "Meet the team behind rumi.build" — the address of the sibling site, not this one. It now reads "rumiai.ai", so the description a visitor sees in Google results and in a shared link matches the site they actually land on. The page's own heading already said "The team behind Rumi AI"; the description now agrees with it.
+
 ## [1.2.0.0] - 2026-08-05
 
 The site now wears Saba's Brand Identity v2.0. The navy deepened to `#0B1C36`, the warm off-white surface became a cool `#F9FAFB`, and the nav flipped from dark to a white bar with the green wordmark — with the logos, favicon, and social-share card re-exported from the pixel-verified brand files, replacing the last of the amber-era assets.
