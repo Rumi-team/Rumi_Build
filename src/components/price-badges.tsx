@@ -14,9 +14,10 @@ const SAVING_SIZES = {
 } as const;
 
 /**
- * The "90% off" pill. Only ever render this next to a price AND a WorkloadPill —
- * on its own beside a price it reads as a discount off Rumi's own list price
- * ("was $5,000, now $500"), which is not the claim. The referent is the workload.
+ * The "90% less than hiring" pill. Only ever render this next to a price AND a
+ * WorkloadPill — on its own beside a price it reads as a discount off Rumi's
+ * own list price ("was $5,000, now $500"), which is not the claim. The referent
+ * is the workload.
  */
 export function SavingBadge({
   label,
@@ -26,8 +27,15 @@ export function SavingBadge({
   size?: keyof typeof SAVING_SIZES;
 }) {
   return (
+    // `[html[lang=fa]_&]:tracking-normal` — Persian script is JOINED, so the
+    // 0.2em eyebrow tracking prises the ligatures of `۹۰٪ کمتر از استخدام`
+    // apart into loose glyphs. The Latin badge keeps the brand's eyebrow
+    // treatment; the Farsi one drops the letter-spacing only. (`uppercase` is
+    // a no-op on Persian and is left alone rather than branched on.) The
+    // arbitrary variant is scoped to the <html lang> the LanguageProvider
+    // stamps, so no prop has to be threaded through every call site.
     <span
-      className={`rounded-md bg-accent-hover font-semibold uppercase tracking-eyebrow text-white ${SAVING_SIZES[size]}`}
+      className={`rounded-md bg-accent-hover font-semibold uppercase tracking-eyebrow [html[lang=fa]_&]:tracking-normal text-white ${SAVING_SIZES[size]}`}
     >
       {label}
     </span>

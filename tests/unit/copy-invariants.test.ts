@@ -222,6 +222,108 @@ describe("go-live timeline says the same thing on every surface", () => {
   });
 });
 
+// ── The legal entity ─────────────────────────────────────────────────────────
+// The company's registered name is written out independently on four surfaces
+// and derived by none of them: the footer's copyright line in each dictionary
+// (which renders on every page of the site), the opening sentence of the Terms
+// ("the Services provided by …"), and the same in the Privacy Policy, twice
+// over — once in the prose and once in the metadata description search results
+// show. Renaming the entity is therefore a four-file edit with nothing checking
+// that all four happened, and a Terms page that names a different company than
+// the footer of the page it is served on is the kind of contradiction a
+// customer's lawyer reads first. Nothing below restates the name: it is parsed
+// off each surface and the surfaces are compared against each other.
+const PRIVACY = join("src", "app", "privacy", "page.tsx");
+const TERMS = join("src", "app", "terms", "page.tsx");
+
+/**
+ * A legal page's metadata `DESCRIPTION` literal, and the same file with that
+ * literal cut out of it.
+ */
+function splitDescription(relative: string): { description: string; rest: string } {
+  const text = pageText(relative);
+  const declaration = text.match(/const DESCRIPTION\s*=\s*("(?:[^"\\]|\\.)*")/);
+  expect(
+    declaration,
+    `${relative} no longer declares a DESCRIPTION literal — re-anchor this test`
+  ).not.toBeNull();
+  return {
+    description: JSON.parse(declaration![1]) as string,
+    rest: text.replace(declaration![0], ""),
+  };
+}
+
+/**
+ * Every text a legal page states the entity in, labelled. The Privacy Policy is
+ * split in TWO on purpose: it names the company once in the prose a visitor
+ * reads and once in the metadata description that search results — and carrier
+ * A2P/SMS campaign vetting — show. Bucketing by FILE let either of those be
+ * deleted while the other kept the file's entry present, so the "every surface
+ * still names it" check passed on half the surface. (Mutation-proven: taking
+ * the entity out of DESCRIPTION alone was green.)
+ */
+function legalSurfaces(): [string, string][] {
+  const privacy = splitDescription(PRIVACY);
+  return [
+    [`${PRIVACY} (metadata description)`, privacy.description],
+    [`${PRIVACY} (prose)`, privacy.rest],
+    [TERMS, pageText(TERMS)],
+  ];
+}
+
+/** "Rumi AI LLC", "Rumi, Inc." — a company suffix, with what precedes it. */
+const ENTITY = /Rumi[A-Za-z ,]{0,24}?\b(?:LLC|L\.L\.C|Inc|Corp|Corporation|Ltd|LLP)\b\.?/g;
+
+/** Sentence-final punctuation is typography, not a different company. */
+const normalise = (name: string) => name.replace(/\.$/, "");
+
+function entities(text: string): string[] {
+  return [...text.matchAll(ENTITY)].map((m) => normalise(m[0]));
+}
+
+describe("the company is named the same on every surface that names it", () => {
+  it("parses a company name out of a sentence, and only a company name", () => {
+    // Guards the parser: every assertion below reads "no disagreement" when it
+    // silently stops matching. The last two are the shapes it must NOT treat as
+    // a legal name — "Inc" inside another word, and the brand on its own.
+    expect(entities("the Services provided by Rumi AI LLC (“Rumi,”")).toEqual([
+      "Rumi AI LLC",
+    ]);
+    expect(entities("Copyright ©2026, Rumi, Inc.")).toEqual(["Rumi, Inc"]);
+    expect(entities("Rumi may include third-party tools")).toEqual([]);
+    expect(entities("Rumi AI is founded and based in Los Angeles.")).toEqual([]);
+  });
+
+  it("states one and the same entity in the Terms, the Privacy Policy and both footers", () => {
+    const surfaces: [string, string][] = [
+      ...legalSurfaces(),
+      ["i18n EN.footer.rights", EN.footer.rights],
+      ["i18n FA.footer.rights", FA.footer.rights],
+    ];
+    const stated = surfaces.flatMap(([path, value]) =>
+      entities(value).map((name) => [path, name] as const)
+    );
+
+    // Each surface has to keep naming it — a silently deleted entity is the
+    // other half of this defect, and the two policy pages are the ones legally
+    // required to say who is providing the service. The list is derived from
+    // `surfaces` rather than restated beside it, so the two halves of the
+    // Privacy Policy are each required without a count being hardcoded here.
+    const paths = stated.map(([path]) => path);
+    for (const [surface] of surfaces) {
+      expect(paths, `${surface} no longer names the company`).toContain(surface);
+    }
+
+    const distinct = [...new Set(stated.map(([, name]) => name))];
+    expect(
+      distinct,
+      `the site names two different companies: ${stated
+        .map(([path, name]) => `${path}="${name}"`)
+        .join("; ")}`
+    ).toHaveLength(1);
+  });
+});
+
 describe("data.ts prose the /services pages render", () => {
   it("keeps the three claims ONBOARDING_NOTE is on the page to make", () => {
     // Timeline is cross-checked above; these are the rest of the promise.

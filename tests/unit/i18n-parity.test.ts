@@ -139,7 +139,7 @@ describe("EN/FA dictionary parity", () => {
     const ALLOWED_LATIN = [
       ...FA.roles.items.map((r) => r.slug),
       ...FA.roles.bundles.map((r) => r.slug),
-      "Rumi, Inc.",
+      "Rumi AI LLC",
       "App Store",
       "Google Play",
       "Perplexity",

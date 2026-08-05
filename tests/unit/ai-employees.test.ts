@@ -33,7 +33,8 @@ import { loadDicts } from "./helpers/dicts";
 //     a renamed role or vertical leaves a reference pointing at nothing — the
 //     bundle page silently drops a card instead of failing to build.
 //  2. Pricing drift. The three core roles are priced at exactly 10% of the
-//     workload they cover; that is the whole offer ("90% off"). A bundle covers
+//     workload they cover; that is the whole offer, and SAVING_LABEL is the
+//     sentence it is sold in ("90% less than hiring"). A bundle covers
 //     the SUM of its roles' workloads and may beat the rule but never fall
 //     short of it. The numbers below are parsed out of the strings rather than
 //     restated, so this test cannot agree with a typo just because someone
@@ -252,7 +253,8 @@ describe("pricing arithmetic — 10% is the rule, and a bundle may beat it", () 
       const price = dollars(role.priceFrom);
       const workload = dollars(role.workload);
       expect(price * 10).toBe(workload);
-      // 90% off is the claim the badge makes; keep the rounding honest.
+      // 90% less than hiring is the claim SAVING_LABEL makes; keep the
+      // rounding honest.
       expect(saving(role)).toBe(90);
     }
   );
@@ -266,7 +268,7 @@ describe("pricing arithmetic — 10% is the rule, and a bundle may beat it", () 
       // can only improve: the Chief of Staff is $900 against $12,000 = 7.5%.
       // What must never happen is the other direction — a bundle quietly
       // costing MORE than a tenth of the work it claims to cover, while the
-      // same "90% off" badge renders on its card.
+      // same SAVING_LABEL badge renders on its card.
       const price = dollars(role.priceFrom);
       const workload = dollars(role.workload);
       expect(price * 10, `${role.slug} costs more than a tenth of its workload`)
@@ -303,7 +305,8 @@ describe("pricing arithmetic — 10% is the rule, and a bundle may beat it", () 
   });
 
   it("labels the badge and the pricing note with the saving the data delivers", () => {
-    // The five badges say "90% off" and PRICING_NOTE is the one sentence that
+    // The five badges say SAVING_LABEL ("90% less than hiring" — the label
+    // names its comparator on purpose) and PRICING_NOTE is the one sentence that
     // explains them. Both numbers are derived from the role data here, so the
     // badge cannot outlive a price change and the note cannot quietly drop the
     // claim it exists to make.
@@ -460,7 +463,7 @@ describe("every percentage in the copy is one the pricing data delivers", () => 
   // over, and it lands in the file AI engines cite verbatim.
   //
   // Every quoted percentage has to be one of two things the data actually
-  // computes: the saving the core roles deliver (the "90% off" claim), or the
+  // computes: the saving the core roles deliver (the SAVING_LABEL claim), or the
   // rate some role charges against the work it covers (10% for the four roles
   // on the rule, 7.5% for the Chief of Staff). Both are derived below, so a
   // price change turns the stale strings red instead of leaving them quoted.
@@ -478,29 +481,68 @@ describe("every percentage in the copy is one the pricing data delivers", () => 
     ...AI_EMPLOYEES.map(rate),
   ]);
 
-  /** Every string a visitor or an AI engine reads, with where it came from. */
-  const SOURCES: [string, string][] = [
-    ["llms.txt", LLMS_TXT],
-    ["llms-full.txt", LLMS_FULL_TXT],
-    ...Object.entries(AI_EMPLOYEE_DETAILS).flatMap<[string, string]>(
-      ([slug, detail]) => [
-        [`${slug}.description`, detail.description],
-        ...detail.features.map(
-          (f, i): [string, string] => [`${slug}.features[${i}]`, f]
-        ),
-        ...detail.useCases.map(
-          (u, i): [string, string] => [`${slug}.useCases[${i}]`, u]
-        ),
-      ]
-    ),
-  ];
+  /**
+   * Persian numerals (U+06F0–U+06F9) and the Persian percent sign U+066A to
+   * their ASCII equivalents, so one matcher reads both scripts. Without this
+   * the FA badge — `۹۰٪ کمتر از استخدام`, the single most repeated claim on the
+   * Farsi homepage — matches nothing at all, and every scan in this describe
+   * walks straight past it.
+   */
+  const toAscii = (text: string) =>
+    text
+      .replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d)))
+      .replace(/٪/g, "%");
 
+  /** Every string a visitor or an AI engine reads, with where it came from. */
+  let SOURCES: [string, string][];
   /** "…which is 7.5%." -> ["ai-chief-of-staff.description", 7.5] */
-  const QUOTED: [string, number][] = SOURCES.flatMap(([where, text]) =>
-    [...text.matchAll(/(\d+(?:\.\d+)?)\s?%/g)].map(
-      (m): [string, number] => [where, Number(m[1])]
-    )
-  );
+  let QUOTED: [string, number][];
+
+  beforeAll(() => {
+    // The dictionaries are the surfaces this walk was MISSING. The badge on the
+    // five homepage cards is a dictionary string in each language, and neither
+    // was reachable from llms-content or the role details — so the Farsi badge
+    // was pinned by nothing anywhere in the suite and could be retyped to any
+    // percentage with the whole suite green. (Mutation-proven: ۵۰٪ passed.)
+    const dicts = loadDicts();
+    SOURCES = [
+      ["llms.txt", LLMS_TXT],
+      ["llms-full.txt", LLMS_FULL_TXT],
+      ...Object.entries(AI_EMPLOYEE_DETAILS).flatMap<[string, string]>(
+        ([slug, detail]) => [
+          [`${slug}.description`, detail.description],
+          ...detail.features.map(
+            (f, i): [string, string] => [`${slug}.features[${i}]`, f]
+          ),
+          ...detail.useCases.map(
+            (u, i): [string, string] => [`${slug}.useCases[${i}]`, u]
+          ),
+        ]
+      ),
+      ["i18n EN.roles.savingLabel", dicts.en.roles.savingLabel],
+      ["i18n FA.roles.savingLabel", dicts.fa.roles.savingLabel],
+    ];
+
+    QUOTED = SOURCES.flatMap(([where, text]) =>
+      [...toAscii(text).matchAll(/(\d+(?:\.\d+)?)\s?%/g)].map(
+        (m): [string, number] => [where, Number(m[1])]
+      )
+    );
+  });
+
+  it("reads a percentage in either script", () => {
+    // Guards the normaliser on its own, so a broken one fails here rather than
+    // quietly emptying the Farsi half of the walk below. The first assertion is
+    // the point of the whole thing: the raw Farsi badge matches NOTHING, which
+    // is why it went unpinned for as long as it did.
+    const PERCENTAGE = /(\d+(?:\.\d+)?)\s?%/;
+    expect(
+      "۹۰٪ کمتر از استخدام",
+      "Persian numerals now match the ASCII reader on their own — this normaliser is dead code"
+    ).not.toMatch(PERCENTAGE);
+    expect(toAscii("۹۰٪ کمتر از استخدام").match(PERCENTAGE)?.[1]).toBe("90");
+    expect(toAscii("90% less than hiring").match(PERCENTAGE)?.[1]).toBe("90");
+  });
 
   it("found the percentages, and more than one rate to check them against", () => {
     // Guards both halves. An empty QUOTED passes the assertion below vacuously,
@@ -519,6 +561,18 @@ describe("every percentage in the copy is one the pricing data delivers", () => 
       QUOTED.some(([where]) => where.startsWith("ai-chief-of-staff")),
       "the bundle prose quotes no percentage, so its rate is unpinned again"
     ).toBe(true);
+    // Each dictionary's badge separately: a single "some dictionary quoted a
+    // percentage" would keep passing on the English one alone, which is the
+    // exact half that was already covered elsewhere.
+    for (const dictionary of [
+      "i18n EN.roles.savingLabel",
+      "i18n FA.roles.savingLabel",
+    ]) {
+      expect(
+        QUOTED.some(([where]) => where === dictionary),
+        `${dictionary} quotes no percentage — in Farsi that means the numerals stopped being normalised`
+      ).toBe(true);
+    }
     expect(ALLOWED.size).toBeGreaterThan(1);
   });
 

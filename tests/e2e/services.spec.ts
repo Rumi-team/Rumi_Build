@@ -5,6 +5,7 @@ import {
   PRICING_NOTE,
   WHITE_LABEL_NOTE,
   getAIEmployeeBySlug,
+  SAVING_LABEL,
 } from "@/lib/data";
 // The role prose lives here now rather than on the AIEmployee entries — it was
 // shipping in the client bundle on every route through the footer.
@@ -46,7 +47,7 @@ test.describe("role detail pages", () => {
       await expect(
         page.getByText(`Covers ${role.workload}`).first()
       ).toBeVisible();
-      await expect(page.getByText("90% off").first()).toBeVisible();
+      await expect(page.getByText(SAVING_LABEL).first()).toBeVisible();
 
       // The job itself, straight out of the data.
       const detail = AI_EMPLOYEE_DETAILS[role.slug];

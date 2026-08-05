@@ -6,7 +6,7 @@ import { SmsConsentClause } from "@/components/sms-consent-clause";
 
 const TITLE = "Privacy Policy — Rumi AI";
 const DESCRIPTION =
-  "How Rumi, Inc. collects, uses, shares, and protects your information, including our SMS / text-messaging consent terms and our commitment not to sell or share mobile opt-in data.";
+  "How Rumi AI LLC collects, uses, shares, and protects your information, including our SMS / text-messaging consent terms and our commitment not to sell or share mobile opt-in data.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     url: "/privacy",
     siteName: "Rumi AI",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image.png?v=2", width: 1200, height: 630 }],
   },
 };
 
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
                 1. Introduction
               </h2>
               <p className="text-base text-muted leading-relaxed">
-                Rumi, Inc. (&ldquo;Rumi,&rdquo; &ldquo;we,&rdquo;
+                Rumi AI LLC (&ldquo;Rumi,&rdquo; &ldquo;we,&rdquo;
                 &ldquo;us,&rdquo; or &ldquo;our&rdquo;) provides done-for-you
                 digital presence and multilingual customer communications for
                 local businesses. Rumi AI is founded and based in Los Angeles.

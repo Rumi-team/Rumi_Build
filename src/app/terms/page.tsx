@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "/terms",
     siteName: "Rumi AI",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image.png?v=2", width: 1200, height: 630 }],
   },
 };
 
@@ -54,7 +54,7 @@ export default function TermsPage() {
               <p className="text-base text-muted leading-relaxed">
                 These Terms &amp; Conditions (&ldquo;Terms&rdquo;) govern your
                 access to and use of the websites, products, and services
-                (collectively, the &ldquo;Services&rdquo;) provided by Rumi, Inc.
+                (collectively, the &ldquo;Services&rdquo;) provided by Rumi AI LLC
                 (&ldquo;Rumi,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
                 &ldquo;our&rdquo;). By accessing or using the Services, or by
                 engaging Rumi to provide services to your business, you agree to

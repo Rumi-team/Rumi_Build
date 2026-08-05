@@ -24,7 +24,7 @@ The homepage leads with five hireable AI-employee roles — AI Receptionist (fro
 $300/mo), AI Executive Assistant (from $500/mo), AI Social Media Manager (from
 $400/mo), AI Office Manager (from $800/mo) and AI Chief of Staff (from $900/mo).
 Core roles are priced at exactly 10% of the monthly workload they cover (the
-"90% off" badge); for the two bundles that rule is a ceiling, and a bundle's
+"90% less than hiring" badge); for the two bundles that rule is a ceiling, and a bundle's
 workload must equal the sum of its parts. The agency work (website, app, content,
 visibility) sells below as "Extra services". Canonical role data lives in
 `src/lib/data.ts`; the long-form prose only the detail pages render lives in
