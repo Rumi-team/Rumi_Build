@@ -77,6 +77,8 @@ tests/
                                for a price id we never set
     checkout-route.test.ts     /api/checkout turns the chosen length into a Stripe price,
                                and what a buyer reads when it cannot
+    site-url.test.ts           getSiteUrl() refuses to guess where Stripe returns a buyer:
+                               no default host, no blank value, no scheme-less URL
     stripe-webhook.test.ts     the call metadata round-trip, and that a CRM that rejects it
                                still leaves the customer marked paid
     book-form.test.tsx         the duration chooser, and that the choice reaches the POST body
@@ -288,6 +290,15 @@ button independently. Since v1.1.0.0 it is sold in two lengths and the contract 
   returns is rendered verbatim into the danger box under the submit button, so the tests assert
   the 503 and the 400 contain no "Stripe"/"not configured"/"unknown option" jargon, name a
   length that *can* be booked, and put the operator's reason in `console.error` instead.
+- **The buyer returns to the origin we serve, never one we bake in.** `success_url` and
+  `cancel_url` come from `getSiteUrl()`, which has no default: `NEXT_PUBLIC_SITE_URL` unset,
+  blank or scheme-less throws, and `/api/checkout` answers the same buyer-facing 503 —
+  before any lead is captured or session created — while the log names the variable. The
+  fallback this replaces (`|| "https://rumi.build"`) actually shipped: with the variable
+  set to the empty string on the live project, every paid buyer was returned to the sibling
+  repo's site, which could only answer "this session isn't marked paid yet".
+  `site-url.test.ts` pins the refusals; `checkout-route.test.ts` compares the returned
+  origin to the configured one and asserts the refusal creates nothing.
 - **The amount is checked, not just the price id.** A price id says which product, not what it
   cost, and `STRIPE_PRICE_ID_30MIN` was reused across a reprice — so the old Price object is
   still a valid id that still charges the old figure. `/book/success` compares

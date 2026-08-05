@@ -19,7 +19,74 @@ export function getStripe(): Stripe {
 }
 
 export const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://rumi.build";
+
+/**
+ * The public origin this deployment serves, used to build the Stripe redirect
+ * URLs. There is deliberately NO DEFAULT: it throws instead.
+ *
+ * There used to be one — `process.env.NEXT_PUBLIC_SITE_URL || "https://rumi.build"`
+ * — and on 2026-08-04 the variable existed on the Vercel project holding the
+ * empty string. `""` is falsy, so `||` fired, and every buyer on rumiai.ai was
+ * handed a `success_url` on https://rumi.build: a different site, deployed from
+ * a different repo, holding a different Stripe account's keys, whose only
+ * possible answer to someone else's session id is "this session isn't marked
+ * paid yet". The money had already moved by then.
+ *
+ * A hardcoded origin cannot fail visibly — it fails by sending a paying
+ * customer somewhere plausible — so this refuses instead. A checkout that will
+ * not start is recoverable; a checkout that completes and strands the buyer is
+ * not.
+ *
+ * A FUNCTION, not a const, and it throws at CALL time rather than at module
+ * scope. CI builds the site and runs the e2e suite with no environment at all,
+ * so a module-level throw would turn a green pipeline red — the same reason the
+ * price ids below default to `""`. Same shape as `getStripe()` above.
+ *
+ * The trailing-slash strip is not cosmetic: this value is typed into a
+ * dashboard by hand, and "https://example.com/" would otherwise build
+ * "https://example.com//book/success".
+ */
+export function getSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!raw) {
+    // `!raw` and not `raw === undefined`: the live misconfiguration was the
+    // EMPTY STRING, not an absent variable. A guard that only checks for
+    // undefined reads as correct and passes this exact bug through.
+    throw new Error("NEXT_PUBLIC_SITE_URL is not set");
+  }
+  // A scheme-less "www.example.com" is the obvious way to get this wrong by
+  // hand, and it does not fail here — it builds "www.example.com/book/success",
+  // which Stripe rejects, which /api/checkout reports to the buyer as a generic
+  // "Checkout creation failed": the wrong error, blaming the wrong party.
+  let parsed: URL;
+  try {
+    parsed = new URL(raw);
+  } catch {
+    throw new Error(
+      `NEXT_PUBLIC_SITE_URL is not an absolute URL: ${raw} (it needs the https:// scheme)`,
+    );
+  }
+  if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+    throw new Error(
+      `NEXT_PUBLIC_SITE_URL must be an http(s) URL, got ${parsed.protocol}`,
+    );
+  }
+  if (parsed.search || parsed.hash) {
+    // "https://x.com?a=1" survives every check above, and appending
+    // "/book/success" to it does not build a path — it grows the query string.
+    // The buyer lands on the right site's homepage with their session id buried
+    // in a parameter nothing reads: paid, unconfirmed, the exact failure this
+    // function exists to prevent. Refused for the same reason the scheme-less
+    // form is, rather than normalized away — the value is typed by hand, and a
+    // query string in a site origin means the hand slipped.
+    throw new Error(
+      `NEXT_PUBLIC_SITE_URL must not carry a query or fragment: ${raw}`,
+    );
+  }
+  // Trailing slashes only. A sub-path is preserved, because the caller appends
+  // to this and a deployment served under one would need it.
+  return raw.replace(/\/+$/, "");
+}
 
 // ── The paid call, in two lengths ────────────────────────────────────────────
 //

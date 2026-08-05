@@ -25,7 +25,7 @@ Add to the Vercel project before v1.1.0.0 goes live:
 - `STRIPE_PRICE_ID_30MIN` — **reused, but repriced.** The 30-minute call was repriced to $75, so the existing Price object is now wrong. Create a new $75 Price in Stripe and repoint this variable; do not edit the old one. Because the *name* is reused, an un-repointed variable is still a valid id that keeps charging the old figure — `/book/success` now refuses such a session (reason `mismatch`) and the webhook logs it, so the symptom is a customer told "this payment doesn't match what we charge" and a log line naming this variable.
 - `NEXT_PUBLIC_CAL_LINK_60MIN` — the 60-minute Cal.com slug, once that event type exists (see above).
 
-Still to remove: `RESEND_API_KEY`, `EVALUATION_TO`, `EVALUATION_FROM` are dead since `/api/evaluate` was deleted (v1.0.0.0). Also confirm `NEXT_PUBLIC_SITE_URL` is set: `src/lib/stripe.ts` falls back to a hardcoded `https://rumi.build` for the Stripe `success_url`, and the domain split between this site and the sibling repo is still unresolved.
+Still to remove: `RESEND_API_KEY`, `EVALUATION_TO`, `EVALUATION_FROM` are dead since `/api/evaluate` was deleted (v1.0.0.0). `NEXT_PUBLIC_SITE_URL` is set on the Vercel project (`https://www.rumiai.ai`, 2026-08-05) and the code no longer falls back to a hardcoded host: `getSiteUrl()` in `src/lib/stripe.ts` fails closed — `/api/checkout` answers 503 and the log names the variable — instead of returning a paid buyer to the sibling site. Keep it set; `NEXT_PUBLIC_*` is inlined at build time, so changing it requires a redeploy, not just an env edit.
 
 ### There is no tracked `.env.example`
 **Priority:** P2
