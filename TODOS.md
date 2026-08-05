@@ -39,7 +39,7 @@ The 26 `vercel.json` redirects run only at the Vercel edge — `next start`/Play
 
 ### Rule on the open WCAG item and deferred visual calls
 **Priority:** P2
-Open set from the v1.0.0.0 review, all logged in DESIGN.md: `.eyebrow` accent-on-white contrast (3.77:1 at 11px, ~29 sites — globals.css is locked); hover-state contrast dip on navy links; FA badge letter-spacing on joined Persian script; emoji icons vs accent-colored icon set on the role cards; sign-off on the new homepage section order and background assignments.
+Open set from the v1.0.0.0 review, all logged in DESIGN.md: `.eyebrow` accent-on-white contrast (3.77:1 at 11px, ~29 sites — globals.css is locked); hover-state contrast dip on navy links (partly mooted in v1.2.0.0: the nav is white now and its hover/active states moved to accent-hover, which passes AA; footer hover-accent on the deeper v2 navy now measures 4.52:1 — passing, but with 0.02 margin); emoji icons vs accent-colored icon set on the role cards; sign-off on the new homepage section order and background assignments. (FA badge letter-spacing on joined Persian script was fixed in v1.2.0.0 — the badge drops tracking under html[lang=fa].)
 
 ## i18n
 
