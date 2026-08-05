@@ -19,7 +19,7 @@ The site now wears Saba's Brand Identity v2.0. The navy deepened to `#0B1C36`, t
 - **The pricing badge now names its comparator.** Every role card reads **"90% less than hiring"** (Farsi: «۹۰٪ کمتر از استخدام») instead of the ambiguous "90% off", so the comparison to hiring a person is explicit rather than implied — the roles were never discounted from a former price; they are priced at about a tenth of what the work they cover costs today. The badge also renders only beside the workload figure it compares against.
 - **The company is named Rumi AI LLC** in the footer of every page, the Terms, and the Privacy Policy (previously "Rumi, Inc.").
 - **The social-share card** was rebuilt on brand — navy, Inter, the real wordmark, and the current "hire AI employees" offer — replacing a card that still carried the pre-brand amber design and old copy. Its URL is versioned so link previews on X, LinkedIn, Slack, and iMessage pick up the new card instead of their cached copy of the old one.
-- **Page weight dropped ~600 KB.** The chrome logos are served at 3× their rendered size instead of full resolution, the footer logo lazy-loads, both logos declare intrinsic dimensions (no layout shift), and an unreferenced 440 KB legacy logo was removed.
+- **Every page loads ~160 KB lighter, and the repo sheds ~600 KB.** The chrome logos are served at 3× their rendered size instead of full resolution (−146 KB per page), the favicon slimmed (−15 KB), the footer logo lazy-loads, both logos declare intrinsic dimensions (no layout shift), and an unreferenced 440 KB legacy logo was removed from the repo.
 
 ### Fixed
 
