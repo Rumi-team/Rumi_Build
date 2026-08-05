@@ -57,7 +57,7 @@ Languages are English + Farsi, translated client-side in `src/lib/i18n.tsx`
 gone entirely.
 
 Releases carry a 4-digit version: `VERSION`, `package.json` and the newest
-CHANGELOG.md heading must agree (currently 1.2.0.0). The other docs: DESIGN.md
+CHANGELOG.md heading must agree (currently 1.2.0.1). The other docs: DESIGN.md
 (locked brand system — Saba owns it), TESTING.md (the test contract), TODOS.md
 (deferred work), CHANGELOG.md (release history).
 
