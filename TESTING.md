@@ -86,6 +86,8 @@ tests/
     english-pin.test.ts        every English page pins dir/lang/font against stored Farsi
     english-main.test.tsx      …and the wrapper they all delegate that pin to, rendered
     copy-invariants.test.ts    the same claim in data.ts, both dictionaries and /llms.txt
+    self-reference.test.ts     one canonical host across all of src/ — four aliases serve
+                               this deployment, so naming the wrong one never fails loudly
     tone.test.ts               "price the work, never the person"
     design-tokens.test.ts      no stock Tailwind scale, no off-palette hex or rgb() —
                                and the contrast of the pairings those tokens ship in
@@ -336,6 +338,32 @@ Terms page naming a different company than the footer beneath it is the contradi
 customer's lawyer reads first. The name is parsed off each surface and the surfaces are
 compared, so nothing here restates it; sentence-final punctuation is normalised away, because
 "LLC." and "LLC" are typography rather than two companies.
+
+Beside it, and for the same reason one directory over: **which host the site calls itself**
+(`self-reference.test.ts`). This deployment answers on four hosts — `rumiai.ai`,
+`www.rumiai.ai`, `rumi.build` and `www.rumi.build` are all aliases of one Vercel project — so
+naming the wrong one is invisible in a way a wrong company name is not. The page loads, the
+link resolves, the mail arrives, and the only symptom is the site telling Google its canonical
+copy lives somewhere the sitemap never advertises. `crawler-surfaces.test.ts` already requires
+the four *known* host literals to agree; this file walks all of `src/` so a host written into
+somewhere nobody thought of is caught too — a meta description is exactly how it got out last
+time. Each mention is classified by how it is written (behind a scheme it is a link, behind an
+`@` an address, bare it is prose or an identifier) and the canonical host is read off
+`metadataBase`, so moving the site stays one edit. Two things keep it from rotting: the
+sibling *products* `rumi.team` and `rumiagent.com` are listed rather than pattern-matched
+away, so a newly registered `rumi`-anything domain fails until somebody says which kind it
+is; and its one frozen exemption — the `source: "rumi.build"` analytics key, pinned to its
+file — fails if that string stops being written, so the exemption cannot outlive what it
+exempts. The support mailbox is the one declared divergence, and it is derived from
+`SUPPORT_EMAIL` rather than allowlisted, so changing that constant alone goes red listing
+every literal still on the old domain.
+
+Its own first case is the parser, and that is not ceremony: the walker originally stripped
+line comments with `/\/\/.*$/gm`, which matches the `//` inside `https://` and deleted the
+rest of the line. Every url-kind mention in `src/` vanished, including the `metadataBase` the
+file compares against, and the link assertions passed over an empty set. Only the parser case
+went red. This is the "guard the walkers" rule earning its place — a scan that quietly finds
+nothing agrees with everything.
 
 **The two detail modules, and why the walkers count each one separately.**
 `src/components/footer.tsx` is a client component that imports `AI_EMPLOYEES` and `VERTICALS`
