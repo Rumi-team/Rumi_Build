@@ -411,8 +411,8 @@ describe("data.ts prose the /services pages render", () => {
 
     // CONFIG, NOT COPY — the only exemption, and it is a category difference
     // rather than a "this one is fine" allowlist. These two are read from
-    // NEXT_PUBLIC_CAL_LINK_60MIN, and "" is their correct value until someone
-    // creates the 60-minute Cal.com event type: /book/success reads that empty
+    // hardcoded slugs since 2026-08-05 and are NOT empty today, but "" is
+    // still a value the code supports for a length with no event type: /book/success reads that empty
     // string as "no calendar of the right length exists" and renders its
     // email-you-times fallback instead of handing a 60-minute buyer the
     // 30-minute calendar. Nothing renders them as text, so an empty one cannot

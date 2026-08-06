@@ -170,8 +170,11 @@ export const CALL_OPTIONS: readonly CallOption[] = [
     blurb: "Room to walk through several roles, your tools, and the numbers.",
     priceId: process.env.STRIPE_PRICE_ID_60MIN || "",
     envVar: "STRIPE_PRICE_ID_60MIN",
-    // "" until someone creates the 60-minute event type in the Cal.com
-    // dashboard and sets NEXT_PUBLIC_CAL_LINK_60MIN — see TODOS.md.
+    // Its own event type since 2026-08-05 (rumi-ai/discovery-call-60min), so a
+    // $125 buyer now gets a 60-minute calendar instead of the email-you-times
+    // fallback. Still NOT allowed to fall back to CAL_LINK if it ever empties:
+    // a 30-minute slot booked against an hour-long purchase looks like it
+    // worked and is discovered by the customer, on the call.
     calLink: CAL_LINK_60MIN,
     calUrl: CALENDLY_URL_60MIN,
   },

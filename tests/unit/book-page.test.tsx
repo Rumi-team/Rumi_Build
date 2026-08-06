@@ -132,7 +132,7 @@ describe("/book only offers what can actually be bought", () => {
   });
 
   it("keeps the flat calendar promise when every length has a calendar", async () => {
-    const { container } = await renderBook({ calLink60: "rumi-app/60-min-meeting" });
+    const { container } = await renderBook({ calLink60: "fixture/60-min-event" });
 
     expect(container.textContent).toMatch(
       /get a link to pick your time on our calendar/i,

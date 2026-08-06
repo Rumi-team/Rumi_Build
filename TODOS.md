@@ -2,15 +2,18 @@
 
 ## Booking / Cal.com
 
-### Create the 60-minute Cal.com event type — the $125 option books by hand until then
-**Priority:** P1 (no longer a release blocker, but every 60-minute buyer is manual work)
-`/book` sells a 60-minute call at $125 and there is no 60-minute Cal.com event type to book it on. `CAL_LINK_60MIN` in `src/lib/data.ts` reads `NEXT_PUBLIC_CAL_LINK_60MIN` and is currently `""`, which is the 60-minute option's `calLink` in `CALL_OPTIONS`, so `/book/success` shows "we'll email you times" instead of a calendar — correct, but manual, and every 60-minute buyer lands on it. `/book` now says so *before* taking the money ("Any other length — we'll email you times"), so the two pages no longer contradict each other. Fix: create the event type in the Cal.com dashboard (outside this repo), then set `NEXT_PUBLIC_CAL_LINK_60MIN` in the Vercel project. No code change — the copy on both pages follows the variable. Until then, watch for those bookings by hand.
+### ~~Create the 60-minute Cal.com event type~~ — DONE 2026-08-05
+`rumi-ai/discovery-call-60min` exists, and `CAL_LINK_60MIN` in `src/lib/data.ts` names it, so a $125 buyer now gets a 60-minute calendar on `/book/success` instead of the email-you-times fallback. That fallback is still live code for the case where a length has no event type — it just has no configuration reaching it today.
+
+The slug is **hardcoded, not read from `NEXT_PUBLIC_CAL_LINK_60MIN` any more.** The env var existed because the event did not, so `""` was the honest value; it bought nothing else, because `NEXT_PUBLIC_*` is inlined at build time and changing it still required a redeploy. In the repo it is version-controlled and covered by `tests/unit/cal-link.test.ts`.
 
 ### Split the free intro call from the paid strategy call
-**Priority:** P1
-`/schedule` and the post-payment `/book/success` (30-minute purchases) both book the same Cal.com event (`rumi-app/30-min-meeting`), so the calendar cannot tell a paid booking from a free one and `/schedule` remains a guessable no-payment path to the paid call. Fix: create a second Cal.com event type for the intro call (requires Cal.com dashboard access), add an `INTRO_CAL_LINK` constant, and point `/schedule` at it. Noted on branch `feat/ai-employees-lead`; copy already de-emphasizes "free".
+**Priority:** P1 — the last half of this still open
+`/schedule` and the post-payment `/book/success` both book `rumi-ai/call-30min`, so the calendar cannot tell a paid booking from an invited one and `/schedule` remains a guessable no-payment path to the call `/book` charges $75 for. Fix: create a third event type for the invited intro call, add an `INTRO_CAL_LINK` constant, and point `/schedule` at it.
 
-**Do both at once.** Three calls now need three event types — the invited intro call, the paid 30-minute call and the paid 60-minute call — off one existing event. Whoever opens the Cal.com dashboard should create both missing types in the same sitting.
+The old free event (`rumi-ai/30-min-meeting`, described "Free 30-min call") was **replaced** on 2026-08-05 rather than kept, so there is no intro event to point at right now — it has to be created before this can be closed.
+
+**CAL.COM RENAMES ARE PRODUCTION INCIDENTS.** Twice on 2026-08-05 a dashboard rename 404'd a live slug with no redirect: the account handle (`rumi-app` → `rumi-ai`), then the event type (`30-min-meeting` → `call-30min`). Both times the page that broke was `/book/success`, reached only *after* a card is charged. Nothing offline can catch the next one. Change a slug and deploy the matching `src/lib/data.ts` edit in the same sitting.
 
 ### Add the two call columns to the retention API
 **Priority:** P2 (was P1 — no longer able to break the money path)
@@ -23,7 +26,7 @@
 Add to the Vercel project before v1.1.0.0 goes live:
 - `STRIPE_PRICE_ID_60MIN` — the Stripe Price id for the $125 / 60-minute call (create the Price in Stripe first, in **both** test and live mode). Without it the 60-minute option is not offered on `/book` at all, and `/book/success` refuses to verify a 60-minute session.
 - `STRIPE_PRICE_ID_30MIN` — **reused, but repriced.** The 30-minute call was repriced to $75, so the existing Price object is now wrong. Create a new $75 Price in Stripe and repoint this variable; do not edit the old one. Because the *name* is reused, an un-repointed variable is still a valid id that keeps charging the old figure — `/book/success` now refuses such a session (reason `mismatch`) and the webhook logs it, so the symptom is a customer told "this payment doesn't match what we charge" and a log line naming this variable.
-- `NEXT_PUBLIC_CAL_LINK_60MIN` — the 60-minute Cal.com slug, once that event type exists (see above).
+- ~~`NEXT_PUBLIC_CAL_LINK_60MIN`~~ — no longer read by anything. The 60-minute slug is hardcoded in `src/lib/data.ts` (see above). Safe to delete from the Vercel project if it was ever set; it is inert either way.
 
 Still to remove: `RESEND_API_KEY`, `EVALUATION_TO`, `EVALUATION_FROM` are dead since `/api/evaluate` was deleted (v1.0.0.0). `NEXT_PUBLIC_SITE_URL` is set on the Vercel project (`https://www.rumiai.ai`, 2026-08-05) and the code no longer falls back to a hardcoded host: `getSiteUrl()` in `src/lib/stripe.ts` fails closed — `/api/checkout` answers 503 and the log names the variable — instead of returning a paid buyer to an origin nobody configured. (Not "to the sibling site" — that was the original diagnosis and it was wrong: rumi.build is an alias of *this* deployment. Corrected in the `getSiteUrl` doc comment.) Keep it set; `NEXT_PUBLIC_*` is inlined at build time, so changing it requires a redeploy, not just an env edit.
 

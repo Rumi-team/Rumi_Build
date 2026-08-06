@@ -181,8 +181,9 @@ describe("the one-off strategy call price", () => {
     // page owes the buyer an email instead — but two options sharing one
     // non-empty slug hands one of them a booking of the wrong length that
     // looks like it worked, and is discovered by the customer on the call.
-    // (The e2e suite cannot see this: NEXT_PUBLIC_CAL_LINK_60MIN is unset
-    // there, so the comparison it used to make was "" against a literal.)
+    // (Both slugs are hardcoded since 2026-08-05, so this walks two real
+    // values in every environment. It used to compare "" against a literal,
+    // because the 60-minute slug was env-sourced and unset everywhere.)
     const links = CALL_OPTIONS.map((o) => o.calLink).filter(Boolean);
     expect(new Set(links).size, "two lengths book the same Cal.com event").toBe(
       links.length

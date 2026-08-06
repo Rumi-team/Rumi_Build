@@ -43,6 +43,22 @@ sharing a link now all see the address visitors actually land on.
   other than the canonical one — while correctly leaving alone the two sibling
   products (rumi.team, rumiagent.com) and the support mailbox.
 
+## [1.2.1.0] - 2026-08-05
+
+### Fixed
+
+- **Booking a call worked again after paying.** The calendar on the post-payment page had gone blank. Twice in one day a Cal.com rename left the site asking for an address that no longer existed — first when the account handle changed, then when the shared event type was replaced by two new ones. Cal.com issues no redirect for either, so the page a customer reaches straight after their card is charged had nothing to show. Both are repointed, and the site now checks out end to end.
+- **The 60-minute call books itself.** A $125 buyer used to land on "we'll email you times" and wait for a human to arrange the hour by hand. Each length now has its own calendar, so the hour books the same way the half-hour always did, immediately, on the confirmation page.
+
+### Changed
+
+- **Both calendar addresses live in the code now.** The 60-minute one used to be set separately per deployment, which meant it could be right in one place and missing in another with nothing to catch it. Both are written down in one file, checked by the test suite, and reviewed like any other change.
+
+### Added
+
+- Tests covering the booking addresses: their shape, that the two lengths never point at the same calendar, and that neither can drift back to an address already known to be dead.
+
+
 ## [1.2.0.1] - 2026-08-05
 
 ### Fixed

@@ -1,23 +1,44 @@
 // ── Single source of truth for all site content ──
 
-export const CALENDLY_URL = "https://cal.com/rumi-app/30-min-meeting";
+// ── Cal.com event types, one per call length ─────────────────────────────────
+//
+// EVERY PART OF THESE SLUGS IS A CAL.COM DASHBOARD SETTING, NOT A CONSTANT, AND
+// CAL.COM DOES NOT REDIRECT WHAT IT RENAMES. This bit twice on 2026-08-05:
+// first the account username went `rumi-app` -> `rumi-ai`, then the event type
+// `30-min-meeting` was replaced by the two below. Both times the old URL began
+// answering 404 the instant it was saved, and both times the page that broke
+// was /book/success — the one a customer reaches AFTER their card is charged.
+// They pay, land on "One last step — pick your time", and get an empty box.
+//
+// Nothing offline can catch the next one: a slug is just a string until someone
+// requests it, and only cal.com knows if it still resolves. So if a booking
+// calendar is ever empty, check these against the dashboard FIRST.
+// Annotated `string` rather than left to infer their literal types. "" is a
+// meaningful state these carry — it is what /book/success reads as "no calendar
+// of this length exists, email the buyer times instead" — and a literal type
+// makes that branch unreachable to TypeScript, so the tests that pin it stop
+// compiling. The values are config, not constants; the type should say so.
+export const CAL_LINK: string = "rumi-ai/call-30min";
+export const CAL_LINK_60MIN: string = "rumi-ai/discovery-call-60min";
 
-// Slug used by the inline Cal.com embed (https://cal.com/<CAL_LINK>).
-// 30-min meeting — matches the 30-minute strategy call booked on /book.
-export const CAL_LINK = "rumi-app/30-min-meeting";
-
-// ── KNOWN SETUP GAP: there is no 60-minute Cal.com event type yet ────────────
-// /book now sells a 60-minute call as well, and Cal.com event types are created
-// in the Cal dashboard, not from this repo. Until someone creates one and sets
-// NEXT_PUBLIC_CAL_LINK_60MIN in the Vercel project, this is "" — and "" is the
-// signal /book/success uses to render "we'll email you a link" instead of
-// handing a 60-minute buyer the 30-minute calendar above. Never fall back to
-// CAL_LINK here: a wrong-length booking looks like it worked and is discovered
-// by the customer, on the call.
-export const CAL_LINK_60MIN = process.env.NEXT_PUBLIC_CAL_LINK_60MIN || "";
-export const CALENDLY_URL_60MIN = CAL_LINK_60MIN
+// Derived, never written out twice. These used to be independent literals, and
+// a rename that fixed one and missed the other would send the inline embed and
+// the "open in a new tab" link to two different calendars.
+export const CALENDLY_URL: string = `https://cal.com/${CAL_LINK}`;
+export const CALENDLY_URL_60MIN: string = CAL_LINK_60MIN
   ? `https://cal.com/${CAL_LINK_60MIN}`
   : "";
+
+// WHY THE 60-MINUTE SLUG IS NO LONGER READ FROM NEXT_PUBLIC_CAL_LINK_60MIN.
+// It was env-sourced for one reason: the event type did not exist, so "" was
+// the honest value and the signal /book/success used to email times instead of
+// handing a 60-minute buyer a 30-minute calendar. The event exists now, so that
+// reason is gone — and the env var bought nothing anyway. `NEXT_PUBLIC_*` is
+// inlined at BUILD time, so changing it still required a redeploy; it was never
+// the faster fix it looked like. Here it is version-controlled, reviewable, and
+// covered by tests/unit/cal-link.test.ts. The "" branch that drove the
+// email-you-times fallback is still live code — see /book/success — it just has
+// no configuration that reaches it today.
 
 export const SUPPORT_EMAIL = "support@rumi.build";
 
