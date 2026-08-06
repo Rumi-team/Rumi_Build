@@ -1,8 +1,47 @@
 # Changelog
 
-All notable changes to rumi.build are documented here.
+All notable changes to the Rumi AI site (www.rumiai.ai) are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
+
+## [1.2.2.0] - 2026-08-05
+
+The site now tells search engines where it lives. Every page claimed `rumi.build`
+as its address — one of four addresses this same site answers on — while every
+link, share and booking pointed at rumiai.ai. Google, the AI engines and anyone
+sharing a link now all see the address visitors actually land on.
+
+### Changed
+
+- **Every page names www.rumiai.ai as its own address.** The canonical link and
+  social-preview URL on every page, the sitemap, robots.txt, and all fourteen
+  links inside /llms.txt and /llms-full.txt moved to the new host. The pages
+  themselves are untouched — only the address they claim.
+- **The support address stays support@rumi.build for now.** It is the address
+  shown to a buyer whose payment could not be verified, and mail there is known
+  to be read. It moves once an @rumiai.ai mailbox is confirmed; a bounced email
+  at that moment would cost more than the mismatched spelling does.
+
+### Fixed
+
+- **The record of the checkout-redirect bug was wrong, and is corrected.**
+  Earlier entries described `rumi.build` as "a different site, deployed from a
+  different repo, holding a different Stripe account's keys". It is not:
+  rumi.build, www.rumi.build, rumiai.ai and www.rumiai.ai are four addresses for
+  one deployment — verified by fetching two of them and getting byte-identical
+  pages. The empty-`NEXT_PUBLIC_SITE_URL` bug was real but smaller than
+  recorded: buyers reached the same build, the same Stripe key, and their
+  session resolved. Refusing to guess an address remains right for the original
+  reason — an origin nobody configured is one nobody controls.
+
+### Added
+
+- **A check that the site cannot quietly disagree with itself again.** Because
+  all four addresses serve identical pages, naming the wrong one breaks nothing
+  visible: no error, no failing test, just search engines told the wrong thing.
+  A new test reads every source file and fails when any of them names an address
+  other than the canonical one — while correctly leaving alone the two sibling
+  products (rumi.team, rumiagent.com) and the support mailbox.
 
 ## [1.2.0.1] - 2026-08-05
 
