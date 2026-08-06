@@ -7,7 +7,11 @@ import { AI_EMPLOYEES, VERTICALS } from "@/lib/data";
 // sitemap is still what we want.)
 export const dynamic = "force-static";
 
-const BASE = "https://rumi.build";
+// Must stay the host in layout.tsx's metadataBase: a sitemap that advertises a
+// different alias of this deployment than the canonical each page emits is
+// asking Google to index one copy and rank another.
+// tests/unit/self-reference.test.ts fails if the two drift apart.
+const BASE = "https://www.rumiai.ai";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

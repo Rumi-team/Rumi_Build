@@ -27,14 +27,24 @@ const vazirmatn = Vazirmatn({
 // images/type/siteName or it loses the social preview image.
 // `alternates.canonical` and `openGraph.url` are both relative on purpose: they
 // resolve against metadataBase, so they follow whatever host is configured
-// rather than pinning a domain here — a sibling site ships under the same
-// hardcoded host, so a literal URL here is a tag pointing at the other site the
-// day this one moves. Every page that sets its own `alternates` replaces this
-// one, the same way `title` works — a page without one inherits "/", which is
-// only correct for the homepage, so any new indexable route must declare its
-// own.
+// rather than pinning a domain here — the one literal below moves every
+// canonical and og:url on the site at once, and a literal URL anywhere else is
+// a tag that keeps naming the old host the day this one moves. Every page that
+// sets its own `alternates` replaces this one, the same way `title` works — a
+// page without one inherits "/", which is only correct for the homepage, so any
+// new indexable route must declare its own.
+//
+// This deployment answers on FOUR hosts — rumiai.ai, www.rumiai.ai, rumi.build
+// and www.rumi.build are all aliases of this one Vercel project (`rumi-ai`),
+// and both apexes 308 to their `www`. They are not separate sites: the twin
+// repo ../Frontend_Rumi_AIEmployees owns a Vercel project NAMED `rumi-build`
+// that does not serve rumi.build. So this line is not a bug fix, it is the
+// choice of which alias search engines should treat as the one true copy —
+// www.rumiai.ai, matching NEXT_PUBLIC_SITE_URL on the project. Everything else
+// self-referential in src/ has to agree with it; that is enforced by
+// tests/unit/self-reference.test.ts, which derives the host from right here.
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rumi.build"),
+  metadataBase: new URL("https://www.rumiai.ai"),
   alternates: { canonical: "/" },
   title: "Rumi AI — Hire AI employees that work 24/7, from $300/mo",
   description:
