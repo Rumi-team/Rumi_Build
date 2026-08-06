@@ -40,7 +40,11 @@ const PRICE_60 = "price_sixty_minute_call";
  * to this, so they fail for any baked-in host — which is the whole defect:
  * `SITE_URL` used to fall back to a hardcoded `https://rumi.build`, and with
  * NEXT_PUBLIC_SITE_URL set to the empty string that fallback sent every paying
- * buyer to a site this repo does not deploy.
+ * buyer to an origin nobody had configured. (rumi.build turned out to be an
+ * alias of THIS deployment, not another repo's site — so the observed blast
+ * radius was smaller than first written up. The assertion still has to reject
+ * any baked-in host: the point is that the route must use the origin it was
+ * given, not one the code picked.)
  */
 const SITE_ORIGIN = "https://site.example";
 
@@ -320,10 +324,16 @@ describe("/api/checkout turns the chosen length into a Stripe price", () => {
     // THE STRANDED BUYER. `SITE_URL` was a const with `|| "https://rumi.build"`
     // behind it, and nothing in this suite ever looked at success_url — so when
     // NEXT_PUBLIC_SITE_URL was set to the empty string on the live project, the
-    // fallback pointed every paid booking at a site this repo does not deploy,
-    // holding another Stripe account's keys, whose only possible answer to the
-    // session id in that URL is "this session isn't marked paid yet". Green
-    // suite, working checkout, money taken, customer stranded.
+    // fallback pointed every paid booking at an origin nobody had configured.
+    // Green suite, working checkout, money taken, redirect out of our hands.
+    //
+    // The first write-up said that origin was another repo's site holding
+    // another Stripe account's keys, and that buyers were therefore stranded on
+    // "this session isn't marked paid yet". That was wrong — rumi.build is an
+    // alias of this same deployment, so the session did resolve. What survives
+    // is the rule this case enforces: the route uses the origin it was handed,
+    // never one the code chose, because a plausible wrong origin never fails
+    // loudly enough to notice.
     //
     // Comparing the ORIGIN (not a substring) is what makes this general: it
     // fails for any host other than the configured one, not just the one that
