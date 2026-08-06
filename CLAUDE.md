@@ -46,9 +46,18 @@ pinned to the catalog by the "states both lengths and both prices" test in
 `tests/unit/price-copy.test.ts` — so a reprice is `src/lib/stripe.ts` plus
 whatever that test then turns red. Price ids are read from the environment and
 must never be hardcoded. An option whose price id is unset is not offered on
-`/book` at all. There is still no 60-minute Cal.com event type, so that
-option's `calLink` is empty and `/book/success` falls back to emailing the
-buyer times — see TODOS.md.
+`/book` at all — unless NO option has one, in which case `/book` shows the whole
+catalog and `/api/checkout` owns the refusal.
+
+Each length now books its own Cal.com event type, both hardcoded in
+`src/lib/data.ts` (`CAL_LINK` = `rumi-ai/call-30min`, `CAL_LINK_60MIN` =
+`rumi-ai/discovery-call-60min`) and pinned by `tests/unit/cal-link.test.ts`.
+`NEXT_PUBLIC_CAL_LINK_60MIN` is no longer read by anything. The
+email-you-times fallback on `/book/success` is still live code for a length
+whose `calLink` is `""`, but no configuration reaches it today. **A Cal.com
+rename is a production incident**: Cal.com issues no redirect, so renaming the
+handle or an event slug 404s the post-payment calendar until `data.ts` is
+edited and deployed. It has happened twice — see TODOS.md.
 
 Languages are English + Farsi, translated client-side in `src/lib/i18n.tsx`
 (homepage only; every other page is English, pinned LTR via

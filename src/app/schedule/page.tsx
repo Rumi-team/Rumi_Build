@@ -93,17 +93,18 @@ export default function SchedulePage() {
           </p>
 
           {/* SAME Cal.com event as the paid 30-minute call. CAL_LINK is one
-              slug (rumi-app/30-min-meeting) and it is still the only event type
-              this repo has, so /book/success — reached only after the Stripe
-              payment — books this very calendar for a 30-minute purchase. These
-              are not two products; they are two doors onto one 30-minute
-              meeting, and this door is the one we hand out by hand. Do not
-              write copy on either page that implies the other call is a
+              slug (rumi-ai/call-30min), so /book/success — reached only after
+              the Stripe payment — books this very calendar for a 30-minute
+              purchase. These are not two products; they are two doors onto one
+              30-minute meeting, and this door is the one we hand out by hand.
+              Do not write copy on either page that implies the other call is a
               different length.
-              The 60-minute option sold on /book has NO event type at all:
-              CAL_LINK_60MIN is "" and /book/success falls back to emailing the
-              buyer times. Three calls, one calendar — see TODOS.md, both
-              missing event types should be created in the same sitting. */}
+              STILL OPEN, and now the only half of TODOS.md's split left: this
+              free door and the paid one share an event, so the calendar cannot
+              tell a paid booking from an invited one and this page remains a
+              guessable no-payment path to the call /book charges for. The
+              60-minute half IS done — CAL_LINK_60MIN names a real event type
+              now, so a $125 buyer gets a calendar rather than an email. */}
           <CalEmbed calLink={CAL_LINK} />
 
           <p className="mt-4 text-xs text-muted">
