@@ -12,14 +12,31 @@ twin — that reverts the brand. Different GitHub org, too:
 `Rumi-team/…` here, `rumiai-ai/…` there. **Never port a change between them** — matching
 filenames belong to separate sites.
 
-## Nothing local says which domain this deploys to
+## The domain: one deployment, four hosts, one canonical
 
-Every canonical URL here hardcodes `https://rumi.build` (`layout.tsx` metadataBase,
-`sitemap.ts` BASE, `robots.ts`, `lib/llms-content.ts`) — but the twin's README claims
-`rumi.build` is *its* domain and that this repo serves `rumiai.ai`. There is no `.vercel/`
-here to settle it; the twin's `.vercel/project.json` owns the Vercel project named
-`rumi-build`. Confirm before changing a canonical URL, and never link this checkout to
-that project.
+Settled 2026-08-04, re-verified 2026-08-05. This checkout is linked to the Vercel
+project **`rumi-ai`** (`.vercel/project.json`), and that one deployment answers on
+**all four** of `rumiai.ai`, `www.rumiai.ai`, `rumi.build` and `www.rumi.build` —
+both apexes 308 to their `www`, and both `www` hosts return byte-identical HTML.
+The twin `../Frontend_Rumi_AIEmployees` is linked to a project *named* `rumi-build`
+which does **not** serve rumi.build. Never link this checkout to that project.
+
+Because every alias serves the same build, naming the wrong one is invisible —
+nothing 404s, no test goes red, and the only symptom is the site telling search
+engines its canonical copy lives somewhere the sitemap never advertises. So the
+canonical host is a single decision, made once: **`https://www.rumiai.ai`**,
+matching `NEXT_PUBLIC_SITE_URL` on the project. It is authored in exactly one
+place — `metadataBase` in `src/app/layout.tsx` — and every per-page canonical and
+`og:url` is relative so it resolves through that. `sitemap.ts` BASE, `robots.ts`
+and every URL in `lib/llms-content.ts` must agree, and
+`tests/unit/self-reference.test.ts` walks all of `src/` and fails if any of them
+drift (it derives the expected host from `metadataBase` rather than restating it,
+so moving the site stays one edit).
+
+Two deliberate exceptions, both pinned by that test: `SUPPORT_EMAIL` is still
+`support@rumi.build` pending confirmation that an `@rumiai.ai` mailbox exists
+(see TODOS.md), and `source: "rumi.build"` in `/api/checkout` is a frozen
+analytics key, not a host.
 
 ## The offer, as shipped (v1.2.0.0)
 
@@ -66,7 +83,7 @@ Languages are English + Farsi, translated client-side in `src/lib/i18n.tsx`
 gone entirely.
 
 Releases carry a 4-digit version: `VERSION`, `package.json` and the newest
-CHANGELOG.md heading must agree (currently 1.2.0.1). The other docs: DESIGN.md
+CHANGELOG.md heading must agree (currently 1.2.2.0). The other docs: DESIGN.md
 (locked brand system — Saba owns it), TESTING.md (the test contract), TODOS.md
 (deferred work), CHANGELOG.md (release history).
 

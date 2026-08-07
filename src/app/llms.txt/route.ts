@@ -1,6 +1,6 @@
 import { LLMS_TXT } from "@/lib/llms-content";
 
-// rumi.build ships as a fully static HTML export (next.config.ts:
+// This site ships as a fully static HTML export (next.config.ts:
 // `output: "export"`). There is no server runtime, so this route
 // handler runs ONCE at build time and its output is baked into a
 // static file that Vercel's CDN serves directly.

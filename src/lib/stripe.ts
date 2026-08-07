@@ -26,11 +26,19 @@ export const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
  *
  * There used to be one — `process.env.NEXT_PUBLIC_SITE_URL || "https://rumi.build"`
  * — and on 2026-08-04 the variable existed on the Vercel project holding the
- * empty string. `""` is falsy, so `||` fired, and every buyer on rumiai.ai was
- * handed a `success_url` on https://rumi.build: a different site, deployed from
- * a different repo, holding a different Stripe account's keys, whose only
- * possible answer to someone else's session id is "this session isn't marked
- * paid yet". The money had already moved by then.
+ * empty string. `""` is falsy, so `||` fired, and every buyer was handed a
+ * `success_url` on a host nobody had chosen.
+ *
+ * The original write-up of that incident said the fallback sent buyers to "a
+ * different site, deployed from a different repo, holding a different Stripe
+ * account's keys". That was WRONG, and it is corrected here because it is the
+ * mistaken belief that keeps getting acted on: rumi.build, www.rumi.build,
+ * rumiai.ai and www.rumiai.ai are all aliases of THIS deployment (verified
+ * 2026-08-05 — both `www` hosts return byte-identical HTML). The buyer landed
+ * on the same build, the same env and the same Stripe key, so the session id
+ * resolved fine. The real defect is narrower and still worth failing closed
+ * over: an origin nobody configured is one nobody controls, and the day the
+ * aliases diverge the same fallback strands a paying customer silently.
  *
  * A hardcoded origin cannot fail visibly — it fails by sending a paying
  * customer somewhere plausible — so this refuses instead. A checkout that will
