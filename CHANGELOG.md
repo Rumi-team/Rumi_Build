@@ -4,6 +4,16 @@ All notable changes to the Rumi AI site (www.rumiai.ai) are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.3.0] - 2026-08-24
+
+### Added
+
+- **The client lead console answers at rumiai.ai/agent.** A pilot client can sign in with a
+  magic link, add leads, and send the follow-ups their AI employee drafts — all under this
+  site's own domain. The console is its own Vercel project (`rumi-ai/lead-console`, from the
+  `Assitant_Rumi_Hermes` repo) and this site only proxies the `/agent` path to it, so console
+  releases never redeploy the marketing site and nothing here can read its data.
+
 ## [1.2.2.0] - 2026-08-05
 
 The site now tells search engines where it lives. Every page claimed `rumi.build`
@@ -42,7 +52,6 @@ sharing a link now all see the address visitors actually land on.
   A new test reads every source file and fails when any of them names an address
   other than the canonical one — while correctly leaving alone the two sibling
   products (rumi.team, rumiagent.com) and the support mailbox.
-
 ## [1.2.1.0] - 2026-08-05
 
 ### Fixed
