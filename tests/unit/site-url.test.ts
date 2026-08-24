@@ -8,12 +8,21 @@ import { getSiteUrl } from "@/lib/stripe";
 //     export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://rumi.build";
 //
 // On 2026-08-04 that variable existed on the live Vercel project holding the
-// EMPTY STRING. `""` is falsy, so `||` fired, and every buyer on rumiai.ai was
-// handed a success_url on https://rumi.build — a different site, deployed from
-// a different repo, holding a different Stripe account's keys. Its /book/success
-// looks that session id up, cannot find it, and says "this session isn't marked
-// paid yet" above a button inviting the buyer to pay again. The money had
-// already moved.
+// EMPTY STRING. `""` is falsy, so `||` fired, and every buyer was handed a
+// success_url on a host nobody had chosen.
+//
+// The original write-up said that host was "a different site, deployed from a
+// different repo, holding a different Stripe account's keys". That was WRONG —
+// rumi.build is an ALIAS of this deployment (verified 2026-08-05: both `www`
+// hosts return byte-identical HTML), so the buyer landed on the same build with
+// the same Stripe key and the session resolved fine. See the `getSiteUrl` doc
+// comment in src/lib/stripe.ts, which carries the corrected account.
+//
+// The defect is real but narrower, and still worth failing closed over: an
+// origin nobody configured is one nobody controls. The day the aliases diverge,
+// the same fallback strands a paying customer on a host that cannot answer for
+// their session — silently, because a plausible origin always looks like it
+// worked.
 //
 // Nothing failed. That is the point: a fallback naming a real, reachable,
 // plausible-looking origin cannot fail visibly. So there is no fallback, and

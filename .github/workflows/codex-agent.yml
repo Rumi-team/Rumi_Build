@@ -1,0 +1,271 @@
+name: Codex reviewer and maintainer
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  issue_comment:
+    types: [created]
+
+permissions: {}
+
+concurrency:
+  group: codex-${{ github.event.pull_request.number || github.event.issue.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate GPT-5.6 Sol access
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+
+      - name: Validate reviewer model
+        uses: openai/codex-action@52fe01ec70a42f454c9d2ebd47598f9fd6893d56 # v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: gpt-5.6-sol
+          effort: max
+          sandbox: read-only
+          safety-strategy: drop-sudo
+          codex-args: '["--ephemeral"]'
+          prompt: |
+            Verify that this workflow can use GPT-5.6 Sol. Do not modify files.
+            Reply exactly: GPT-5.6 Sol reviewer is ready.
+
+  review:
+    name: GPT-5.6 Sol review
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check out the pull request merge result
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Review with GPT-5.6 Sol
+        id: codex
+        uses: openai/codex-action@52fe01ec70a42f454c9d2ebd47598f9fd6893d56 # v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: gpt-5.6-sol
+          effort: max
+          sandbox: read-only
+          safety-strategy: drop-sudo
+          codex-args: '["--ephemeral"]'
+          output-file: codex-review.md
+          prompt: |
+            Review pull request #${{ github.event.pull_request.number }} as a final,
+            safety-focused reviewer. Follow every applicable AGENTS.md instruction.
+
+            Review only the changes between these commits:
+              base: ${{ github.event.pull_request.base.sha }}
+              head: ${{ github.event.pull_request.head.sha }}
+
+            Find concrete correctness, security, privacy, data-loss, reliability,
+            and deployment regressions. Focus on high-confidence P0/P1 issues; do
+            not nitpick style. For each finding, include the priority, file and
+            tight line range, impact, and a practical fix. If there are no blocking
+            findings, say so and briefly summarize what you checked.
+
+            Do not modify files, merge, deploy, or expose secrets.
+
+      - name: Post a GitHub review
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('codex-review.md', 'utf8').trim();
+            if (!body) {
+              core.warning('Codex returned an empty review; nothing was posted.');
+              return;
+            }
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              event: 'COMMENT',
+              body: body.slice(0, 65000),
+            });
+
+  fix:
+    name: Apply a trusted /codex fix request
+    if: >-
+      github.event_name == 'issue_comment' &&
+      github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, '/codex fix') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Authorize requester and resolve pull request
+        id: authorize
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const { data: access } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: context.actor,
+            });
+            if (!['admin', 'maintain', 'write'].includes(access.permission)) {
+              core.setFailed(`@${context.actor} does not have write access.`);
+              return;
+            }
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            if (pr.head.repo.full_name !== `${context.repo.owner}/${context.repo.repo}`) {
+              core.setFailed('Fixes are disabled for fork pull requests.');
+              return;
+            }
+            core.setOutput('head_ref', pr.head.ref);
+            core.setOutput('head_sha', pr.head.sha);
+
+      - name: Check out the pull request branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ steps.authorize.outputs.head_ref }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Apply the requested fix with GPT-5.6 Sol
+        id: codex
+        uses: openai/codex-action@52fe01ec70a42f454c9d2ebd47598f9fd6893d56 # v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: gpt-5.6-sol
+          effort: max
+          sandbox: workspace-write
+          safety-strategy: drop-sudo
+          codex-args: '["--ephemeral"]'
+          output-file: codex-fix.md
+          prompt: |
+            Work on pull request #${{ github.event.issue.number }} at commit
+            ${{ steps.authorize.outputs.head_sha }}. Follow every applicable
+            AGENTS.md instruction.
+
+            A trusted repository maintainer requested:
+            ${{ github.event.comment.body }}
+
+            Inspect the pull request and repository, make the smallest correct fix,
+            and run relevant tests or checks. Do not merge, deploy, change repository
+            settings, access cloud infrastructure, or expose secrets. Leave the
+            working tree with only the intended fix.
+
+      - name: Commit and push the fix
+        id: commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_REF: ${{ steps.authorize.outputs.head_ref }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "codex-reviewer[bot]"
+          git config user.email "codex-reviewer[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix: apply Codex request (#${PR_NUMBER})"
+          gh auth setup-git
+          git push origin "HEAD:${HEAD_REF}"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Report the fix
+        if: always() && steps.authorize.outcome == 'success'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          CHANGED: ${{ steps.commit.outputs.changed }}
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.existsSync('codex-fix.md')
+              ? fs.readFileSync('codex-fix.md', 'utf8').trim()
+              : 'The Codex run did not produce a final report.';
+            const status = process.env.CHANGED === 'true'
+              ? 'Codex pushed a fix to this pull request branch.'
+              : 'Codex did not push any file changes.';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `${status}\n\n${report}`.slice(0, 65000),
+            });
+
+  merge:
+    name: Merge after a trusted /codex merge request
+    if: >-
+      github.event_name == 'issue_comment' &&
+      github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, '/codex merge') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Authorize requester and resolve pull request
+        id: authorize
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const { data: access } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: context.actor,
+            });
+            if (!['admin', 'maintain', 'write'].includes(access.permission)) {
+              core.setFailed(`@${context.actor} does not have write access.`);
+              return;
+            }
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            if (pr.draft) {
+              core.setFailed('Draft pull requests cannot be merged.');
+              return;
+            }
+            core.setOutput('head_sha', pr.head.sha);
+
+      - name: Require successful checks and merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          HEAD_SHA: ${{ steps.authorize.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          checks_ok=$(gh pr checks "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
+            --json state --jq 'all(.[]; .state == "SUCCESS" or .state == "SKIPPED" or .state == "NEUTRAL")')
+          if [[ "$checks_ok" != "true" ]]; then
+            echo "All pull request checks must succeed before merge." >&2
+            exit 1
+          fi
+          gh pr merge "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
+            --squash --match-head-commit "$HEAD_SHA"
