@@ -4,6 +4,16 @@ All notable changes to rumi.build are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.2.0] - 2026-08-24
+
+### Added
+
+- **The client lead console answers at rumiai.ai/agent.** A pilot client can sign in with a
+  magic link, add leads, and send the follow-ups their AI employee drafts — all under this
+  site's own domain. The console is its own Vercel project (`rumi-ai/lead-console`, from the
+  `Assitant_Rumi_Hermes` repo) and this site only proxies the `/agent` path to it, so console
+  releases never redeploy the marketing site and nothing here can read its data.
+
 ## [1.2.1.0] - 2026-08-05
 
 ### Fixed
